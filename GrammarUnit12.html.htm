@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugee Boy: Drama Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. LAYOUT & NAVIGATION */
+* { box-sizing: border-box; }
+
+body {
+  background-color: #f0f9ff;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+  overflow: hidden;
+}
+
+.nav-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 100;
+}
+
+.nav-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-family: 'Comic Neue', cursive;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: transform 0.1s, background-color 0.2s;
+}
+
+.nav-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+.nav-btn:active { transform: translateY(0); }
+
+.slide-counter {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    font-family: 'Comic Neue', cursive;
+    font-size: 24px;
+    color: #64748b;
+}
+
+/* Slide Container */
+.slide-container {
+  display: none;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+  flex-direction: column;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 50px;
+  position: relative;
+  width: 1280px;
+  border: 4px solid #fff;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.slide-container.active-slide { display: flex; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Decorative Background */
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 300px;
+  height: 300px;
+  background: #bae6fd;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.slide-container::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 250px;
+  height: 250px;
+  background: #fde047;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+/* 2. TYPOGRAPHY */
+h1, h2, h3 { color: #0f172a; font-family: 'Comic Neue', cursive; font-weight: 700; margin: 0; }
+h1 { font-size: 80px; color: #2563eb; text-shadow: 2px 2px 0px #bae6fd; }
+.slide-title { color: #ec4899; font-size: 52px; margin-bottom: 25px; text-align: left; width: 100%; }
+h3 { font-size: 28px; margin-bottom: 12px; color: #0ea5e9; }
+p, li { color: #334155; font-size: 24px; line-height: 1.4; font-family: 'Nunito', sans-serif; }
+.subtitle { color: #64748b; font-size: 32px; font-weight: 600; }
+
+/* 3. COMPONENTS */
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; align-items: center; }
+
+.icon-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 380px;
+    background: #f8fafc;
+    border-radius: 20px;
+    border: 4px dashed #cbd5e1;
+}
+.icon-display i { font-size: 160px; color: #3b82f6; }
+
+.highlight-box {
+    background-color: #e0f2fe;
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 5px solid #0ea5e9;
+    margin-top: 15px;
+}
+
+/* Tiled Content */
+.tiled-content { display: flex; gap: 20px; width: 100%; }
+.tile {
+  background-color: #fff;
+  border: 3px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 25px;
+  flex: 1;
+  text-align: center;
+}
+
+/* Script Writing Guide (SCAFFOLDING) */
+.script-template {
+    background: #fff;
+    border: 4px solid #3b82f6;
+    padding: 25px;
+    border-radius: 20px;
+    font-family: 'Comic Neue', cursive;
+    font-size: 19px;
+    line-height: 1.6;
+    box-shadow: 8px 8px 0px #bfdbfe;
+    text-align: left;
+}
+.scene-heading {
+    font-weight: bold;
+    color: #64748b;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 5px;
+}
+.blank-space {
+    border-bottom: 2px solid #f43f5e;
+    min-width: 100px;
+    display: inline-block;
+    color: #f43f5e;
+    text-align: center;
+    font-weight: bold;
+    margin: 0 5px;
+    font-style: italic;
+}
+.word-bank {
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border: 2px dashed #94a3b8;
+}
+.word-sticker {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+/* Bleed Image Styles */
+.slide-container.bleed-layout { padding: 0; display: none; }
+.slide-container.bleed-layout.active-slide { display: flex; flex-direction: row; }
+.bleed-content { flex: 1; padding: 60px; }
+.bleed-visual { flex: 1; height: 100%; background: #1e293b; display: flex; align-items: center; justify-content: center; }
+
+/* Speech Bubble Decor */
+.speech-bubble {
+    background: white;
+    border: 3px solid #334155;
+    padding: 15px;
+    border-radius: 20px;
+    position: relative;
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+    margin: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="slide-counter">Slide <span id="cur">1</span> / 12</div>
+
+<div class="nav-controls">
+    <button class="nav-btn" onclick="moveSlide(-1)">Back</button>
+    <button class="nav-btn" onclick="moveSlide(1)">Next</button>
+</div>
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide-container active-slide" id="s1">
+    <h1>Refugee Boy</h1>
+    <p class="subtitle">A Journey through Drama & Language</p>
+    <div style="margin-top: 40px; font-size: 140px; color: #3b82f6;">
+        <i class="fa-solid fa-masks-theatre"></i>
+    </div>
+</div>
+
+<!-- SLIDE 2: CHARACTERS -->
+<div class="slide-container" id="s2">
+    <h2 class="slide-title">Who is Talking?</h2>
+    <div class="two-column">
+        <div>
+            <h3>Character 1 <i class="fa-solid fa-child"></i></h3>
+            <p>He is young, excited, and asks many questions. He thinks he is on a holiday!</p>
+            <br>
+            <h3>Character 2 <i class="fa-solid fa-user-tie"></i></h3>
+            <p>The father. He is kind but sad. He uses short sentences to stay strong.</p>
+        </div>
+        <div class="icon-display">
+            <i class="fa-solid fa-people-group"></i>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: SETTING -->
+<div class="slide-container bleed-layout" id="s3">
+    <div class="bleed-content">
+        <h2 class="slide-title">The Setting</h2>
+        <h3>London at Night</h3>
+        <p>A big city with many lights. It is cold and very different from Ethiopia.</p>
+        <div class="highlight-box">
+            <strong>Key Note:</strong> Character 1 sees magic, but his father sees danger.
+        </div>
+    </div>
+    <div class="bleed-visual">
+        <i class="fa-solid fa-city" style="font-size: 200px; color: #475569;"></i>
+    </div>
+</div>
+
+<!-- SLIDE 4: LIGHT POLLUTION -->
+<div class="slide-container" id="s4">
+    <h2 class="slide-title">Where are the Stars?</h2>
+    <div class="two-column">
+        <div class="icon-display" style="background: #0f172a;">
+            <i class="fa-solid fa-star-and-crescent" style="color: #fde047;"></i>
+        </div>
+        <div>
+            <p>The character asks: <strong>"Where are the stars?"</strong></p>
+            <p>In the city, the lights are so bright that the stars disappear. This is <strong>Light Pollution</strong>.</p>
+            <p style="font-style: italic; color: #0ea5e9; margin-top: 20px;">"You need the dark to see the light."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: DRAMATIC IRONY -->
+<div class="slide-container" id="s5">
+    <h2 class="slide-title">A Big Secret!</h2>
+    <div class="two-column">
+        <div>
+            <h3>Dramatic Irony</h3>
+            <p>This is when <strong>WE</strong> know something that the character <strong>DOES NOT</strong> know.</p>
+            <div class="highlight-box">
+                Character 1: "I love this holiday!" <br>
+                (He doesn't know his dad is leaving him).
+            </div>
+        </div>
+        <div class="icon-display">
+            <i class="fa-solid fa-user-secret" style="color: #f59e0b;"></i>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6: QUESTION TYPES -->
+<div class="slide-container" id="s6">
+    <h2 class="slide-title">Asking Questions</h2>
+    <div class="tiled-content">
+        <div class="tile" style="border-top: 6px solid #f472b6;">
+            <i class="fa-solid fa-question" style="font-size: 40px; color: #f472b6;"></i>
+            <h3>Open</h3>
+            <p>"Why is it dark?"</p>
+        </div>
+        <div class="tile" style="border-top: 6px solid #fbbf24;">
+            <i class="fa-solid fa-hand" style="font-size: 40px; color: #fbbf24;"></i>
+            <h3>Permission</h3>
+            <p>"Can I go outside?"</p>
+        </div>
+        <div class="tile" style="border-top: 6px solid #34d399;">
+            <i class="fa-solid fa-user" style="font-size: 40px; color: #34d399;"></i>
+            <h3>Subject</h3>
+            <p>"Who is there?"</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: DELEXICAL VERBS -->
+<div class="slide-container" id="s7">
+    <h2 class="slide-title">Delexical Verbs</h2>
+    <div class="two-column">
+        <div>
+            <h3>"Lazy" Verbs</h3>
+            <p>Verbs like <strong>TAKE</strong> or <strong>GET</strong> that need a noun to help them.</p>
+            <p>Example: "They <strong>take it in turns</strong>."</p>
+            <p>Instead of saying "They alternate," we use everyday words.</p>
+        </div>
+        <div class="icon-display" style="background: #fdf2f8;">
+            <div style="text-align: center;">
+                <p style="font-weight: bold; font-size: 40px; color: #db2777;">TAKE</p>
+                <i class="fa-solid fa-plus" style="font-size: 30px; color: #cbd5e1;"></i>
+                <p style="font-weight: bold; font-size: 40px; color: #db2777;">NOUN</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8: SOUND EFFECTS -->
+<div class="slide-container" id="s8">
+    <h2 class="slide-title">Make it Sound Real</h2>
+    <div class="two-column">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="speech-bubble" style="transform: rotate(-5deg);">Hmmmm...</div>
+            <div class="speech-bubble" style="transform: rotate(3deg); color: #ec4899;">WOW!</div>
+            <div class="speech-bubble" style="transform: rotate(-2deg); color: #3b82f6;">Aww...</div>
+        </div>
+        <div>
+            <h3>Speech Sounds</h3>
+            <p>In drama, we write down the noises people make to show feelings.</p>
+            <ul style="list-style: none; padding: 0;">
+                <li>✅ <strong>"Hmm"</strong> = Thinking</li>
+                <li>✅ <strong>"Oh!"</strong> = Surprise</li>
+                <li>✅ <strong>"Ah..."</strong> = Understanding</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9: ACTIVITY (EXPANDED) -->
+<div class="slide-container" id="s9">
+    <h2 class="slide-title">Independent Writing Guide</h2>
+    <div class="two-column">
+        <div>
+            <h3>Your Script Structure</h3>
+            <p>Now it's your turn to create. Follow these steps to write a professional drama scene:</p>
+            <ul style="font-size: 18px; color: #475569;">
+                <li><strong>Step 1:</strong> Start with a <em>Scene Heading</em> (Where are they?).</li>
+                <li><strong>Step 2:</strong> Use <em>Stage Directions</em> in brackets (Actions).</li>
+                <li><strong>Step 3:</strong> Mix <em>Open Questions</em> to keep the conversation going.</li>
+                <li><strong>Step 4:</strong> Add <em>Sound Effects</em> to show emotion.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Example Idea:</strong> Character 1 is looking for a hidden star. Character 2 is worried about the time.
+            </div>
+        </div>
+        <div style="background: #f8fafc; padding: 20px; border-radius: 20px; border: 2px solid #e2e8f0;">
+            <h3>Success Criteria 🏆</h3>
+            <p style="font-size: 16px;">✅ <strong>Open Question:</strong> "What is that light?"</p>
+            <p style="font-size: 16px;">✅ <strong>Delexical Verb:</strong> "Let's <strong>take</strong> a look."</p>
+            <p style="font-size: 16px;">✅ <strong>Sound Effect:</strong> "Ooh!" (Surprise) or "Uh-oh" (Worry).</p>
+            <p style="font-size: 16px;">✅ <strong>Setting:</strong> "EXT. PARK - NIGHT"</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: SCRIPT MAKER GUIDE -->
+<div class="slide-container" id="s10">
+    <h2 class="slide-title">Script Maker Guide 🛠️</h2>
+    <div class="two-column" style="grid-template-columns: 1.6fr 1fr;">
+        <div>
+            <div class="script-template">
+                <div class="scene-heading">Scene: Two friends sitting in a park at night.</div>
+                <strong>Character 1:</strong> (pointing at the <span class="blank-space">_________</span>) "Wow! Look!"<br>
+                <strong>Character 2:</strong> "Yes! It is <span class="blank-space">_________</span> tonight."<br>
+                <strong>Character 1:</strong> "Hmmmm... <span class="blank-space">_________</span> can I stay longer?"<br>
+                <strong>Character 2:</strong> "Maybe. <span class="blank-space">_________</span> is your father?"<br>
+                <strong>Character 1:</strong> "He is over there. He says we must <span class="blank-space">_________</span> turns watching."<br>
+                <strong>Character 2:</strong> "Aww... I want to stay too!"<br>
+                <strong>Character 1:</strong> "Let's ask! <span class="blank-space">_________</span>, can we stay?"
+            </div>
+            
+            <div class="word-bank">
+                <div style="width:100%; font-size: 14px; color: #64748b; font-weight: bold; margin-bottom: 5px;">CHOICE BANK:</div>
+                <div class="word-sticker">Moon 🌙</div>
+                <div class="word-sticker">Beautiful ✨</div>
+                <div class="word-sticker">Please 🙏</div>
+                <div class="word-sticker">Where 📍</div>
+                <div class="word-sticker">Take 🔄</div>
+                <div class="word-sticker">Bright 💡</div>
+                <div class="word-sticker">Dad 👨</div>
+            </div>
+        </div>
+        <div>
+            <div class="highlight-box" style="background: #f0fdf4; border-color: #22c55e; margin-top: 0;">
+                <h3 style="color: #166534; font-size: 22px;">Drama Checklist:</h3>
+                <p style="font-size: 18px;">📍 <strong>Set the Scene:</strong> Where are they?</p>
+                <p style="font-size: 18px;">🗯️ <strong>Sounds:</strong> Use 'Hmm' or 'Aww'.</p>
+                <p style="font-size: 18px;">❓ <strong>Questions:</strong> Use 'Where' or 'Please'.</p>
+                <p style="font-size: 18px;">🔄 <strong>Action:</strong> Use 'Take turns'.</p>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 50px; color: #22c55e; opacity: 0.6;"></i>
+                <p style="font-size: 16px; color: #64748b; margin-top: 10px;">Fill the blanks to finish the story!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 11: SUMMARY -->
+<div class="slide-container" id="s11">
+    <h2 class="slide-title">Summary</h2>
+    <div class="tiled-content">
+        <div class="tile"><h3>Voices</h3><p>Make them unique!</p></div>
+        <div class="tile"><h3>Verbs</h3><p>Use simple combinations.</p></div>
+        <div class="tile"><h3>Drama</h3><p>Hide secrets from characters.</p></div>
+    </div>
+</div>
+
+<!-- SLIDE 12: Q&A -->
+<div class="slide-container" id="s12">
+    <h2 style="font-size: 60px;">Questions? <i class="fa-solid fa-comments"></i></h2>
+    <p class="subtitle">Well done today!</p>
+</div>
+
+<script>
+    let current = 1;
+    const total = 12;
+
+    function moveSlide(dir) {
+        // Hide current
+        document.getElementById('s' + current).classList.remove('active-slide');
+        
+        // Calculate next
+        current += dir;
+        if (current > total) current = 1;
+        if (current < 1) current = total;
+        
+        // Show next
+        document.getElementById('s' + current).classList.add('active-slide');
+        document.getElementById('cur').innerText = current;
+    }
+
+    // Keyboard support
+    document.onkeydown = (e) => {
+        if (e.key === "ArrowRight") moveSlide(1);
+        if (e.key === "ArrowLeft") moveSlide(-1);
+    }
+</script>
+
+</body>
+</html>
