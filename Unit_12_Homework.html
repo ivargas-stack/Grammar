@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G7 English Practice: Unit 12</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #f5f7fa;
+            --success: #27ae60;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 20px;
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Header & Timer */
+        header {
+            background: var(--secondary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .timer-badge {
+            background: var(--accent);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Form Sections */
+        .section {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ddd;
+            transition: border-color 0.3s;
+        }
+
+        .question:focus-within {
+            border-left-color: var(--primary);
+            background: #f8faff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        /* Inputs */
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            margin-bottom: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #357abd;
+        }
+
+        .btn-email {
+            background: var(--success);
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            box-sizing: border-box;
+        }
+        
+        .btn-copy {
+            background: var(--secondary);
+            margin-top: 10px;
+        }
+        
+        .btn-reset {
+            background: #e74c3c;
+            margin-top: 10px;
+        }
+
+        /* Results Modal */
+        #results-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .results-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: monospace;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Unit 12: Dramatic Relationships</h1>
+        <p>G7 English Practice Test</p>
+        <div id="timer" class="timer-badge">Time Remaining: 20:00</div>
+    </header>
+
+    <form id="quizForm">
+        
+        <!-- Student Info -->
+        <div class="section">
+            <div class="question" style="border-left-color: var(--accent);">
+                <label>Student Name:</label>
+                <input type="text" id="studentName" placeholder="Enter your full name" required>
+            </div>
+            <div class="question" style="border-left-color: var(--accent);">
+                <label>Class / Section:</label>
+                <input type="text" id="studentClass" placeholder="e.g., 7A" required>
+            </div>
+        </div>
+
+        <!-- Part 1: Grammar -->
+        <div class="section">
+            <h2>📝 Part 1: Question Types</h2>
+            <p>Identify the type of question used in the sentences below.</p>
+
+            <div class="question">
+                <label>1. "You didn't eat my sandwich, did you?"</label>
+                <select id="q1">
+                    <option value="">-- Select Answer --</option>
+                    <option value="Tag Question">Tag Question</option>
+                    <option value="Echo Question">Echo Question</option>
+                    <option value="Rhetorical Question">Rhetorical Question</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label>2. "Who knows what will happen tomorrow?" (Implies: Nobody knows)</label>
+                <select id="q2">
+                    <option value="">-- Select Answer --</option>
+                    <option value="Permission">Permission</option>
+                    <option value="Rhetorical Question">Rhetorical Question</option>
+                    <option value="Declarative">Declarative Question</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label>3. Speaker A: "I'm moving to Mars." <br> Speaker B: "You're moving WHERE?"</label>
+                <select id="q3">
+                    <option value="">-- Select Answer --</option>
+                    <option value="Echo Question">Echo Question</option>
+                    <option value="Tag Question">Tag Question</option>
+                    <option value="Subject Question">Subject Question</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Part 2: Vocabulary -->
+        <div class="section">
+            <h2>💬 Part 2: Delexical Verbs</h2>
+            <p>Choose the correct verb: <em>have, take, make, give, get</em></p>
+
+            <div class="question">
+                <label>4. "I need to _______ a shower before we go out."</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="q4" value="make"> make</label>
+                    <label><input type="radio" name="q4" value="have"> have</label>
+                    <label><input type="radio" name="q4" value="give"> give</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>5. "Can you _______ me a hand with this heavy box?"</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="q5" value="take"> take</label>
+                    <label><input type="radio" name="q5" value="give"> give</label>
+                    <label><input type="radio" name="q5" value="get"> get</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>6. "She didn't want to _______ the blame for the mistake."</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="q6" value="take"> take</label>
+                    <label><input type="radio" name="q6" value="make"> make</label>
+                    <label><input type="radio" name="q6" value="have"> have</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 3: Drama Sounds -->
+        <div class="section">
+            <h2>🎭 Part 3: Speech Sounds</h2>
+            <p>Match the sound to the emotion.</p>
+
+            <div class="question">
+                <label>7. "Phew!"</label>
+                <select id="q7">
+                    <option value="">-- Select Emotion --</option>
+                    <option value="Disgust">Disgust</option>
+                    <option value="Relief">Relief</option>
+                    <option value="Pain">Pain</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label>8. "Ouch!"</label>
+                <select id="q8">
+                    <option value="">-- Select Emotion --</option>
+                    <option value="Surprise">Surprise</option>
+                    <option value="Pain">Pain</option>
+                    <option value="Hesitation">Hesitation</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <button type="button" class="btn" onclick="finishTest()">Finish & Review</button>
+            <button type="button" class="btn btn-reset" onclick="resetQuiz()">Reset Test</button>
+        </div>
+
+    </form>
+</div>
+
+<!-- Results Overlay -->
+<div id="results-overlay">
+    <div class="results-box">
+        <h2 style="color: var(--success);">Test Complete!</h2>
+        <p>Your answers are ready. Please send them to Mr. Vargas.</p>
+        
+        <textarea id="finalOutput" readonly></textarea>
+        
+        <a id="emailLink" href="#" class="btn btn-email">📧 Send to Teacher (Email App)</a>
+        <button onclick="copyText()" class="btn btn-copy">📋 Copy to Clipboard (Manual)</button>
+        <button onclick="closeModal()" style="background:none; border:none; color: #666; margin-top:15px; cursor:pointer; text-decoration:underline;">Close / Edit Answers</button>
+    </div>
+</div>
+
+<script>
+    // Configuration
+    const TEACHER_EMAIL = "i.vargas@bbs.ac.th";
+    const TEST_DURATION_MINUTES = 20;
+    let timerInterval;
+
+    // Timer Logic
+    function startTimer() {
+        let timeRemaining = TEST_DURATION_MINUTES * 60;
+        const timerDisplay = document.getElementById('timer');
+        
+        clearInterval(timerInterval); // Clear any existing timer
+
+        timerInterval = setInterval(() => {
+            const minutes = Math.floor(timeRemaining / 60);
+            let seconds = timeRemaining % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            timerDisplay.textContent = `Time Remaining: ${minutes}:${seconds}`;
+            
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.style.background = "#e74c3c";
+                timerDisplay.textContent = "Time's Up!";
+                alert("Time is up! Please submit your answers.");
+                finishTest();
+            }
+            timeRemaining--;
+        }, 1000);
+    }
+
+    // Initialize Timer on Load
+    window.onload = startTimer;
+
+    // Finish Test Logic
+    function finishTest() {
+        const name = document.getElementById('studentName').value;
+        const sClass = document.getElementById('studentClass').value;
+
+        if(!name) {
+            alert("Please enter your name at the top before finishing.");
+            return;
+        }
+
+        // Gather Answers
+        const q1 = document.getElementById('q1').value || "No Answer";
+        const q2 = document.getElementById('q2').value || "No Answer";
+        const q3 = document.getElementById('q3').value || "No Answer";
+        const q4 = document.querySelector('input[name="q4"]:checked')?.value || "No Answer";
+        const q5 = document.querySelector('input[name="q5"]:checked')?.value || "No Answer";
+        const q6 = document.querySelector('input[name="q6"]:checked')?.value || "No Answer";
+        const q7 = document.getElementById('q7').value || "No Answer";
+        const q8 = document.getElementById('q8').value || "No Answer";
+
+        // Generate Text Report
+        const report = 
+`STUDENT: ${name}
+CLASS: ${sClass}
+DATE: ${new Date().toLocaleDateString()}
+--------------------------------
+UNIT 12 PRACTICE TEST ANSWERS
+--------------------------------
+Part 1: Grammar
+1. Tag/Echo: ${q1}
+2. Rhetorical: ${q2}
+3. Moving where: ${q3}
+
+Part 2: Delexical Verbs
+4. Shower: ${q4}
+5. Hand: ${q5}
+6. Blame: ${q6}
+
+Part 3: Speech Sounds
+7. Phew: ${q7}
+8. Ouch: ${q8}
+--------------------------------`;
+
+        // Populate Text Area
+        const textArea = document.getElementById('finalOutput');
+        textArea.value = report;
+
+        // Create Mailto Link
+        const subject = encodeURIComponent(`Unit 12 Test - ${name} (${sClass})`);
+        const body = encodeURIComponent(report);
+        document.getElementById('emailLink').href = `mailto:${TEACHER_EMAIL}?subject=${subject}&body=${body}`;
+
+        // Show Modal
+        document.getElementById('results-overlay').style.display = 'flex';
+    }
+
+    function copyText() {
+        const copyText = document.getElementById("finalOutput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+        navigator.clipboard.writeText(copyText.value);
+        alert("Copied! You can now paste this into your email.");
+    }
+
+    function closeModal() {
+        document.getElementById('results-overlay').style.display = 'none';
+    }
+    
+    function resetQuiz() {
+        if(confirm("Are you sure you want to reset all answers and the timer?")) {
+            document.getElementById('quizForm').reset();
+            startTimer();
+        }
+    }
+</script>
+
+</body>
+</html>
