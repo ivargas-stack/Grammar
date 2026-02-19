@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Final Exam Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #ff7675;
+            --accent: #00d2d3;
+            --bg-light: #f8faff;
+            --glass: rgba(255, 255, 255, 0.92);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #fab1a0 100%);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #2d3436;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            height: 85vh;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 8px solid white;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header Section */
+        .app-header {
+            padding: 30px 25px 15px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .game-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #2d3436;
+            margin: 0;
+            background: linear-gradient(to right, #6c5ce7, #ff7675);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .stat-pill {
+            background: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Content Sections */
+        .content-body {
+            flex: 1;
+            padding: 20px 25px;
+            overflow-y: auto;
+        }
+
+        .tab-view { display: none; }
+        .tab-view.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Progress Bar */
+        .progress-bar-bg {
+            width: 100%; height: 10px; background: #e2e8f0; border-radius: 20px; margin: 10px 0 25px; overflow: hidden;
+        }
+        #progress-fill {
+            height: 100%; width: 0%; background: linear-gradient(90deg, #6c5ce7, #a29bfe); transition: width 0.4s;
+        }
+
+        /* Question Bubble */
+        .question-card {
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border: 1px solid #f1f5f9;
+        }
+
+        /* Options */
+        .btn-option {
+            background: white;
+            border: 2px solid #f1f5f9;
+            padding: 16px;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            width: 100%;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-option:hover { border-color: var(--primary); background: #fdfdff; transform: translateY(-2px); }
+        .btn-option.correct { background: #00b894; color: white; border-color: #00b894; }
+        .btn-option.wrong { background: #ff7675; color: white; border-color: #ff7675; animation: shake 0.3s; }
+
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        /* Navigation Tabs */
+        .bottom-nav {
+            height: 85px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .nav-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: #a0aec0;
+            transition: 0.3s;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+
+        .nav-tab.active { color: var(--primary); }
+        .nav-tab i { font-size: 1.4rem; margin-bottom: 4px; }
+
+        /* Review List */
+        .review-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="app-header">
+        <span class="main-title">Grammar Final Exam Review</span>
+        <h1 class="game-title">GRAMMAR GUARDIANS</h1>
+        
+        <div class="stats-row">
+            <div class="stat-pill">✨ <span id="xp-val">0</span> XP</div>
+            <div class="stat-pill">🔥 <span id="streak-val">0</span> Streak</div>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div id="tab-play" class="tab-view active">
+            <div class="progress-bar-bg"><div id="progress-fill"></div></div>
+            <div class="question-card" id="q-text">Loading Quest...</div>
+            <div id="options-container"></div>
+        </div>
+
+        <div id="tab-review" class="tab-view">
+            <h3 style="margin-top:0">📖 Knowledge Base</h3>
+            <div class="review-item"><b>Future:</b> Use <i>will</i> + base verb for predictions.</div>
+            <div class="review-item"><b>Hyphens:</b> Adjectives with numbers are singular (<i>two-hour</i>).</div>
+            <div class="review-item"><b>Passive:</b> Formula is <i>been + V3</i> (Past Participle).</div>
+            <div class="review-item"><b>QUASM:</b> Q-word, Aux, Subject, Main Verb.</div>
+            <div class="review-item"><b>Delexical:</b> <i>Take</i> a seat, <i>Have</i> a drink, <i>Make</i> an effort.</div>
+        </div>
+
+        <div id="tab-stats" class="tab-view">
+            <h3>📊 Player Progress</h3>
+            <div class="question-card" style="text-align: center;">
+                <p>Guardian Rank</p>
+                <h2 style="color: var(--primary); margin: 5px 0;" id="rank-text">Novice</h2>
+                <p style="font-size: 0.8rem;">Master all 50 items to reach "Legend" status!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-tab active" onclick="showTab('tab-play', this)">
+            <span>⚔️</span><span>QUEST</span>
+        </div>
+        <div class="nav-tab" onclick="showTab('tab-review', this)">
+            <span>📖</span><span>REVIEW</span>
+        </div>
+        <div class="nav-tab" onclick="showTab('tab-stats', this)">
+            <span>📊</span><span>STATS</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "The treasure ___ by the hunters before noon.", a: "had been found", o: ["had been found", "has found", "was find", "had found"] },
+        { q: "I'll give you a ___ discount if you buy now.", a: "ten-percent", o: ["ten-percent", "ten-percents", "tens-percent", "ten percent"] },
+        { q: "Where ___ you going when I saw you?", a: "were", o: ["were", "did", "do", "are"] },
+        { q: "He hit the water with a loud ___!", a: "Splash", o: ["Splash", "Clatter", "Splat", "Hiss"] },
+        { q: "Don't forget to ___ your time during the test.", a: "save", o: ["save", "make", "keep", "take"] },
+        { q: "I ___ probably see you tomorrow.", a: "will", o: ["will", "am", "going", "do"] },
+        { q: "She bought a ___ laptop yesterday.", a: "brand-new", o: ["brand-new", "brand new", "brand-news", "brand newly"] },
+        { q: "A seat ___ by the boy for his mother.", a: "was taken", o: ["was taken", "was took", "is take", "has took"] },
+        { q: "How ___ she solve that puzzle so fast?", a: "did", o: ["did", "does", "done", "is"] },
+        { q: "I need to ___ a phone call.", a: "make", o: ["make", "do", "take", "have"] }
+    ];
+
+    // Build the 50-item list
+    while(questions.length < 50) {
+        let copy = {...questions[Math.floor(Math.random()*questions.length)]};
+        copy.q = "(Mastery) " + copy.q;
+        questions.push(copy);
+    }
+
+    let idx = 0; let xp = 0; let streak = 0;
+
+    function showTab(id, el) {
+        document.querySelectorAll('.tab-view').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(n => n.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        el.classList.add('active');
+    }
+
+    function loadQuestion() {
+        const item = questions[idx];
+        document.getElementById('q-text').innerText = item.q;
+        document.getElementById('progress-fill').style.width = (idx / 50 * 100) + "%";
+        
+        const container = document.getElementById('options-container');
+        container.innerHTML = '';
+        
+        [...item.o].sort(() => Math.random() - 0.5).forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-option';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(btn, opt, item.a);
+            container.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(btn, choice, correct) {
+        if(choice === correct) {
+            btn.classList.add('correct');
+            xp += 100; streak++;
+            updateStats();
+            setTimeout(() => {
+                idx++;
+                if(idx < 50) loadQuestion();
+                else alert("🏆 MISSION COMPLETE! You are ready for the Exam!");
+            }, 600);
+        } else {
+            btn.classList.add('wrong');
+            streak = 0;
+            updateStats();
+            setTimeout(() => btn.classList.remove('wrong'), 800);
+        }
+    }
+
+    function updateStats() {
+        document.getElementById('xp-val').innerText = xp;
+        document.getElementById('streak-val').innerText = streak;
+        const rank = xp > 4000 ? "Legend" : xp > 2000 ? "Elite" : "Novice";
+        document.getElementById('rank-text').innerText = rank;
+    }
+
+    loadQuestion();
+</script>
+</body>
+</html>
