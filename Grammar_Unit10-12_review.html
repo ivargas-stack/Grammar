@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Grammar Masterclass: Units 10-12</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+        :root {
+            --primary: #0984e3;
+            --secondary: #00cec9;
+            --accent: #d63031;
+            --correct: #00b894;
+            --wrong: #d63031;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-glass: rgba(255, 255, 255, 0.98);
+        }
+
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+
+        body {
+            background: linear-gradient(-45deg, #74ebd5, #9face6, #a18cd1, #fbc2eb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-tabs {
+            display: flex; gap: 15px; margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.4); padding: 10px;
+            border-radius: 50px; backdrop-filter: blur(10px); z-index: 10;
+        }
+
+        .main-tab-btn {
+            background: transparent; border: none; color: #333;
+            font-size: 1.1rem; font-weight: 600; padding: 12px 30px;
+            border-radius: 30px; cursor: pointer; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .main-tab-btn:hover { background: rgba(255, 255, 255, 0.6); }
+        .main-tab-btn.active { background: white; color: var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+        #app-container {
+            width: 100%; max-width: 1000px; background: var(--bg-glass);
+            border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            overflow: hidden; position: relative; min-height: 600px;
+        }
+
+        .view-section { display: none; padding: 40px; animation: fadeIn 0.4s ease; }
+        .view-section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TOPIC DISCUSSION STYLES --- */
+        .header-title { text-align: center; font-size: 2.8rem; font-weight: 800; margin-bottom: 10px; }
+        .header-title span { background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header-subtitle { text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 1.1rem; }
+
+        .topics-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        .topic-card {
+            background: #f8f9fa; border-left: 6px solid var(--secondary);
+            padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .topic-card:nth-child(1) { border-left-color: #6C5CE7; }
+        .topic-card:nth-child(2) { border-left-color: #0984e3; }
+        .topic-card:nth-child(3) { border-left-color: #d63031; }
+
+        .topic-card h3 { font-size: 1.6rem; margin-bottom: 10px; color: var(--text-dark); }
+        .topic-card h4 { font-size: 1.1rem; color: var(--primary); margin-top: 15px; margin-bottom: 5px; }
+        .topic-card ul { margin-left: 20px; color: var(--text-dark); line-height: 1.6; }
+        .topic-card li { margin-bottom: 8px; }
+        .cite { font-size: 0.8rem; color: #a4b0be; font-style: italic; }
+        
+        .grammar-box { background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 1rem; border: 1px dashed #ccc; }
+
+        /* --- PRACTICE TEST STYLES --- */
+        .progress-bar { position: absolute; top: 0; left: 0; height: 6px; background: var(--primary); width: 0%; transition: width 0.4s ease; }
+        .unit-badge { display: inline-block; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .question-text { font-size: 1.3rem; font-weight: 600; text-align: center; margin-bottom: 30px; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .options-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .option-btn { background-color: white; color: var(--text-dark); border: 2px solid #dfe6e9; padding: 15px; font-size: 1.05rem; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; text-align: left; }
+        .option-btn:hover:not(:disabled) { border-color: var(--secondary); transform: translateY(-2px); }
+        .option-btn.correct { background-color: #e8f8f5; border-color: var(--correct); color: var(--correct); font-weight: 600; }
+        .option-btn.wrong { background-color: #fdedec; border-color: var(--wrong); color: var(--wrong); opacity: 0.7; }
+
+        .analysis-box { display: none; margin-top: 25px; background-color: #f8f9fa; padding: 20px; border-radius: 10px; border-left: 5px solid var(--primary); font-size: 1.05rem; color: var(--text-dark); animation: fadeIn 0.4s ease forwards; }
+
+        .nav-controls { margin-top: 40px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #f1f2f6; padding-top: 20px; }
+        .nav-btn { background-color: white; color: var(--text-dark); border: 2px solid #dfe6e9; padding: 10px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; border-radius: 25px; transition: all 0.3s ease; }
+        .nav-btn:hover:not(:disabled) { background: #f1f2f6; }
+        .nav-btn.primary { background-color: var(--primary); color: white; border: none; box-shadow: 0 4px 15px rgba(9, 132, 227, 0.4); }
+        .nav-btn.primary:hover:not(:disabled) { background-color: #076aba; transform: translateY(-2px); }
+        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+        .slide-counter { font-weight: 600; color: var(--text-light); }
+        
+        .score-circle { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--primary) 0%, #f1f2f6 0%); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 2.5rem; font-weight: 800; color: var(--text-dark); position: relative; }
+        .score-circle::before { content: ""; position: absolute; inset: 15px; background: var(--bg-glass); border-radius: 50%; }
+        .score-text { position: relative; z-index: 1; }
+
+        @media (max-width: 768px) { .options-container { grid-template-columns: 1fr; } .header-title { font-size: 2.2rem; } .main-tabs { flex-direction: column; width: 100%; max-width: 300px; } }
+    </style>
+</head>
+<body>
+
+    <div class="main-tabs">
+        <button class="main-tab-btn active" id="btn-topic" onclick="switchMainTab('topic')">📖 Grammar Guide</button>
+        <button class="main-tab-btn" id="btn-practice" onclick="switchMainTab('practice')">📝 60-Question Test</button>
+    </div>
+
+    <div id="app-container">
+        <div id="view-topic" class="view-section active">
+            <h1 class="header-title">Grammar <span>Mechanics</span></h1>
+            <p class="header-subtitle">Master the specific grammatical rules for Units 10, 11, and 12.</p>
+            
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <h3>Unit 10: Precious Verse</h3>
+                    <h4>1. Future Forms (Simple Future)</h4>
+                    <p>The future simple tense is versatile. In poetry, the future simple is often used to show a speaker's determination to continue an action in the future <span class="cite"></span>.</p>
+                    <div class="grammar-box">
+                        <ul>
+                            <li><strong>Refusal:</strong> Indicates a strict refusal to do something (e.g., <em>"I will not stop my hunt for treasure."</em>) <span class="cite"></span>.</li>
+                            <li><strong>Willingness:</strong> Showing readiness to help (e.g., <em>"Jack will carry your bag for you."</em>) <span class="cite"></span>.</li>
+                            <li><strong>Order:</strong> Giving a command (e.g., <em>"You will clean your shoes."</em>) <span class="cite"></span>.</li>
+                            <li><strong>Prediction:</strong> Stating a future fact (e.g., <em>"These bottles will be recycled."</em>) <span class="cite"></span>.</li>
+                        </ul>
+                    </div>
+                    
+
+                    <h4>2. Vocabulary: Collocations</h4>
+                    <p>Journalistic language in news reports contains a lot of typical collocations (words that naturally go together) <span class="cite"></span>. Paying attention to these can help you write more realistic news reports <span class="cite"></span>.</p>
+                    <div class="grammar-box">
+                        <strong>Examples:</strong> a <em>stunning</em> turnaround, <em>daring</em> missions, <em>underscoring</em> the danger <span class="cite"></span>. <br><br>
+                        <em>Tip:</em> Reading news articles about events can help you to collect these types of collocation <span class="cite"></span>.
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Unit 11: Reporting Danger</h3>
+                    <h4>1. Passive Voice Tenses</h4>
+                    <p>When reporting events, it is often more important to explain what happens to people or places (rather than saying what they did); for this, we use the passive voice <span class="cite"></span>.</p>
+                    <div class="grammar-box">
+                        <ul>
+                            <li><strong>Present Simple Passive:</strong> "The boys' health <em>is monitored</em> regularly." <span class="cite"></span></li>
+                            <li><strong>Past Continuous Passive:</strong> "The boys <em>were being given</em> special training." <span class="cite"></span></li>
+                            <li><strong>Future Simple Passive:</strong> "All the boys <em>will be discharged</em>." <span class="cite"></span></li>
+                        </ul>
+                    </div>
+                    
+
+                    <h4>2. Vocabulary: Delexical Verbs</h4>
+                    <p>In English, there is a group of very common verbs whose meaning depends almost entirely on what follows them. These verbs are called delexical verbs and are more common in spoken and less formal written English <span class="cite"></span>.</p>
+                    <div class="grammar-box">
+                        <strong>Examples:</strong> using verbs like <em>take</em> and <em>get</em>. (e.g., "take it in turns", "get tired") <span class="cite"></span>.
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Unit 12: Dramatic Relationships</h3>
+                    <h4>1. Question Types</h4>
+                    <p>In drama, just like in normal conversation, questions are used for different purposes, depending on the type: for permission, to find something out, as a rhetorical device, etc. <span class="cite"></span></p>
+                    
+                    <div class="grammar-box">
+                        <ul>
+                            <li><strong>Subject question:</strong> where the answer is the subject of the sentence (e.g., <em>Who loves you?</em>) <span class="cite"></span>.</li>
+                            <li><strong>Open question:</strong> beginning with a Wh- word <span class="cite"></span>.</li>
+                            <li><strong>Echo question:</strong> where the speaker repeats what he/she has heard (e.g., <em>Light Po-llu-tion?</em>) <span class="cite"></span>.</li>
+                            <li><strong>Permission question:</strong> yes/no question often beginning with a modal verb for permission (e.g., <em>Can I come?</em>) <span class="cite"></span>.</li>
+                            <li><strong>Tag questions:</strong> are formed with a positive (or negative) sentence and a short negative (or positive) question at the end <span class="cite"></span>.</li>
+                            <li><strong>Rhetorical questions:</strong> are used when we don't want or expect an answer (e.g., <em>How should I know?</em>) <span class="cite"></span>.</li>
+                            <li><strong>Declarative questions:</strong> do not use interrogative word order but are in the form of a sentence (e.g., <em>You're taking the bus home?</em>) <span class="cite"></span>.</li>
+                        </ul>
+                    </div>
+                    <h4>2. Writing Drama: Speech Sounds</h4>
+                    <p>When writing drama—that is, spoken words—it is important to match the patterns of spoken language, including sounds (interjections and exclamations) we make to express different ideas without words <span class="cite"></span>.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="nav-btn primary" style="font-size: 1.2rem; padding: 15px 40px;" onclick="switchMainTab('practice')">Start the 60-Question Marathon</button>
+            </div>
+        </div>
+
+        <div id="view-practice" class="view-section" style="position:relative;">
+            <div class="progress-bar" id="progress-bar"></div>
+            
+            <div style="text-align:center;">
+                <div id="unit-badge" class="unit-badge">Unit 10: Precious Verse</div>
+            </div>
+
+            <div id="slide-display">
+                </div>
+
+            <div class="nav-controls" id="nav-controls">
+                <button id="prev-btn" class="nav-btn" onclick="prevSlide()">Previous</button>
+                <div id="counter" class="slide-counter"></div>
+                <button id="next-btn" class="nav-btn primary" onclick="nextSlide()">Next Question</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchMainTab(tabId) {
+            document.getElementById('btn-topic').classList.remove('active');
+            document.getElementById('btn-practice').classList.remove('active');
+            document.getElementById('view-topic').classList.remove('active');
+            document.getElementById('view-practice').classList.remove('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+            document.getElementById('view-' + tabId).classList.add('active');
+
+            if(tabId === 'practice' && currentSlideIndex === 0 && !testStarted) {
+                renderSlide(); testStarted = true;
+            }
+        }
+
+        // 60 Questions: 20 per unit focused on specific rules
+        const qData = [
+            // UNIT 10: FUTURE FORMS & COLLOCATIONS (1-20)
+            { u: "Unit 10: Precious Verse", q: "Identify the meaning of the future form: 'I will not stop my hunt for treasure.'", o: ["Prediction", "Refusal", "Willingness", "Order"], a: 1, an: "It shows determination and a refusal to stop doing something." },
+            { u: "Unit 10: Precious Verse", q: "Identify the meaning: 'These bottles will be recycled to make new glass items.'", o: ["Refusal", "Order", "Prediction", "Willingness"], a: 2, an: "This states a future fact or prediction." },
+            { u: "Unit 10: Precious Verse", q: "Identify the meaning: 'Jack will carry your bag for you.'", o: ["Order", "Refusal", "Prediction", "Willingness"], a: 3, an: "This shows Jack's readiness or willingness to help." },
+            { u: "Unit 10: Precious Verse", q: "Identify the meaning: 'You will clean your shoes before you come in.'", o: ["Order", "Refusal", "Prediction", "Willingness"], a: 0, an: "This future form is acting as a strict command or order." },
+            { u: "Unit 10: Precious Verse", q: "In poetry, the simple future is often used to show a speaker's ______ to continue an action.", o: ["Inability", "Determination", "Hesitation", "Confusion"], a: 1, an: "It emphasizes the speaker's firm resolve or determination." },
+            { u: "Unit 10: Precious Verse", q: "Which sentence uses the future simple to show REFUSAL?", o: ["It will rain tomorrow.", "I will wash the dishes.", "I won't eat that vegetable.", "You will do your homework."], a: 2, an: "Won't (will not) shows a direct refusal." },
+            { u: "Unit 10: Precious Verse", q: "Which sentence uses the future simple to show an ORDER?", o: ["You will sit down immediately.", "I will carry that for you.", "The sun will rise at 6 AM.", "I will never give up."], a: 0, an: "It is a command disguised as a future statement." },
+            { u: "Unit 10: Precious Verse", q: "Which of the following is NOT a common use of the future simple as taught in this unit?", o: ["Refusal", "Prediction", "Past habit", "Willingness"], a: 2, an: "Past habit is described by 'used to' or 'would', not future simple." },
+            { u: "Unit 10: Precious Verse", q: "True or False: The future simple can only be used to make predictions.", o: ["True", "False"], a: 1, an: "False. It can also be used for orders, willingness, and refusal." },
+            { u: "Unit 10: Precious Verse", q: "Complete the journalistic collocation: a _______ turnaround.", o: ["stunning", "boring", "red", "loud"], a: 0, an: "'Stunning turnaround' is a typical journalistic collocation." },
+            { u: "Unit 10: Precious Verse", q: "Complete the journalistic collocation: ______ missions.", o: ["Sleepy", "Daring", "Square", "Basic"], a: 1, an: "'Daring missions' is a common newspaper pairing." },
+            { u: "Unit 10: Precious Verse", q: "Complete the journalistic collocation: ________ the danger.", o: ["Ignoring", "Underscoring", "Forgetting", "Painting"], a: 1, an: "To 'underscore' means to emphasize the danger." },
+            { u: "Unit 10: Precious Verse", q: "Why do we pay attention to typical collocations in journalistic writing?", o: ["To make sentences shorter.", "To confuse the reader.", "To write more realistic news reports.", "To avoid using verbs."], a: 2, an: "Using natural pairings makes the report sound authentic and professional." },
+            { u: "Unit 10: Precious Verse", q: "What is a 'collocation'?", o: ["A type of punctuation.", "Words that naturally go together.", "A future tense verb.", "A poetic rhyme."], a: 1, an: "Collocations are expected word pairings (like 'heavy rain' instead of 'thick rain')." },
+            { u: "Unit 10: Precious Verse", q: "Complete the journalistic phrase: 'Several rivers have _____ their banks.'", o: ["broken", "burst", "jumped", "left"], a: 1, an: "'Burst their banks' is the standard collocation for flooding rivers." },
+            { u: "Unit 10: Precious Verse", q: "Complete the journalistic phrase: 'Coastal areas have been flooded by _____ surges.'", o: ["storm", "water", "ocean", "wind"], a: 0, an: "'Storm surges' is the correct meteorological collocation." },
+            { u: "Unit 10: Precious Verse", q: "Complete the phrase: 'Residents sought _____ in their attics.'", o: ["food", "refuge", "water", "light"], a: 1, an: "'Sought refuge' (looked for safety) is a common reporting phrase." },
+            { u: "Unit 10: Precious Verse", q: "What is a good tip for collecting these types of collocations?", o: ["Guessing them.", "Reading news articles.", "Watching cartoons.", "Using a calculator."], a: 1, an: "Reading actual news reports is the best way to absorb journalistic collocations." },
+            { u: "Unit 10: Precious Verse", q: "Which word best pairs with '100-mile-an-hour' in a news report?", o: ["breezes", "winds", "drafts", "airs"], a: 1, an: "We refer to extreme weather events with 'winds'." },
+            { u: "Unit 10: Precious Verse", q: "Which word completes the collocation: 'Residents were ordered to _____ the zone.'", o: ["clean", "abandon", "paint", "visit"], a: 1, an: "'Abandon the zone' (leave immediately) is the correct reporting phrase." },
+
+            // UNIT 11: PASSIVE VOICE & DELEXICAL VERBS (21-40)
+            { u: "Unit 11: Reporting Danger", q: "Why is the passive voice used in news reports?", o: ["To show emotion.", "To focus on what happens to people/places rather than what they did.", "To focus on the person doing the action.", "To make the text longer."], a: 1, an: "It emphasizes the victim or the outcome, not the agent." },
+            { u: "Unit 11: Reporting Danger", q: "Identify the tense: 'The boys' health is monitored regularly.'", o: ["Past Simple Passive", "Present Continuous Passive", "Future Simple Passive", "Present Simple Passive"], a: 3, an: "It uses 'is' + past participle, indicating a regular present routine." },
+            { u: "Unit 11: Reporting Danger", q: "Identify the tense: 'The boys were being given special training.'", o: ["Past Continuous Passive", "Past Simple Passive", "Present Continuous Passive", "Future Passive"], a: 0, an: "'Were being' + past participle shows an ongoing action in the past." },
+            { u: "Unit 11: Reporting Danger", q: "Identify the tense: 'All the boys will be discharged.'", o: ["Present Simple Passive", "Future Simple Passive", "Past Perfect Passive", "Present Perfect Passive"], a: 1, an: "'Will be' + past participle places the passive action in the future." },
+            { u: "Unit 11: Reporting Danger", q: "Choose the correct Present Simple Passive: 'The data _____ every day.'", o: ["is collected", "was collected", "will be collected", "is collecting"], a: 0, an: "'Is collected' shows a present, routine passive action." },
+            { u: "Unit 11: Reporting Danger", q: "Choose the correct Past Continuous Passive: 'The bridge _____ when it collapsed.'", o: ["was repaired", "is being repaired", "was being repaired", "repairs"], a: 2, an: "An ongoing passive action in the past requires 'was/were being'." },
+            { u: "Unit 11: Reporting Danger", q: "Choose the correct Future Simple Passive: 'The new rules _____ next week.'", o: ["are announced", "were announced", "will be announced", "announce"], a: 2, an: "Future passive requires 'will be' + past participle." },
+            { u: "Unit 11: Reporting Danger", q: "In the passive sentence 'The cave had to be continuously replenished', what is the focus?", o: ["The people replenishing it.", "The cave.", "The time of day.", "The weather."], a: 1, an: "The subject receiving the action (the cave) is the focus." },
+            { u: "Unit 11: Reporting Danger", q: "Which of these is NOT a passive structure?", o: ["was written", "are being helped", "will be built", "is running"], a: 3, an: "'Is running' is Present Continuous Active." },
+            { u: "Unit 11: Reporting Danger", q: "If it hadn't been for the rain, the cave ______ (not flood). Complete with passive.", o: ["would not have been flooded", "will not be flooded", "is not flooded", "was not flooding"], a: 0, an: "Third conditional passive requires 'would have been' + past participle." },
+            { u: "Unit 11: Reporting Danger", q: "What is a 'delexical verb'?", o: ["A verb that always takes an object.", "A verb whose meaning depends almost entirely on what follows it.", "A verb used only in formal writing.", "A verb that describes a sound."], a: 1, an: "These are 'empty' verbs like 'take', 'have', 'get' or 'make'." },
+            { u: "Unit 11: Reporting Danger", q: "Which of these is a common delexical verb?", o: ["Obliterate", "Trudge", "Take", "Whisper"], a: 2, an: "'Take' relies on the noun after it (take a shower, take a break)." },
+            { u: "Unit 11: Reporting Danger", q: "Are delexical verbs more common in spoken or formal written English?", o: ["Formal written English", "Spoken and less formal English", "They are never used", "Only in poetry"], a: 1, an: "They are very common in natural, everyday speech." },
+            { u: "Unit 11: Reporting Danger", q: "What does 'take it in turns' mean?", o: ["To spin around.", "To alternate doing something one after the other.", "To turn left.", "To refuse to do something."], a: 1, an: "It means to share a task by alternating." },
+            { u: "Unit 11: Reporting Danger", q: "Which delexical verb completes this phrase: 'if they shine for too long they _____ tired.'", o: ["take", "make", "get", "do"], a: 2, an: "'Get' pairs with adjectives to show a change in state." },
+            { u: "Unit 11: Reporting Danger", q: "Which is a delexical use of 'take'?", o: ["I will take the book from the shelf.", "Let's take a look at the map.", "The thief will take the money.", "Please take my hand."], a: 1, an: "'Take a look' just means 'look'." },
+            { u: "Unit 11: Reporting Danger", q: "Which is a delexical use of 'have'?", o: ["I have a new car.", "She has three brothers.", "Let's have a chat.", "They have a big house."], a: 2, an: "'Have a chat' just means 'chat'." },
+            { u: "Unit 11: Reporting Danger", q: "What is the recommended tip for learning delexical verbs?", o: ["Memorize the dictionary.", "Keep a separate section in your notebook for them.", "Never use them.", "Only write them in passive voice."], a: 1, an: "Because they have many combinations, organizing them in a notebook helps." },
+            { u: "Unit 11: Reporting Danger", q: "Which delexical verb completes this phrase: '_____ a break'?", o: ["Get", "Do", "Make", "Take"], a: 3, an: "'Take a break' is the standard delexical combination." },
+            { u: "Unit 11: Reporting Danger", q: "Which delexical verb completes this phrase: '_____ ready'?", o: ["Take", "Get", "Do", "Have"], a: 1, an: "'Get ready' implies preparing oneself." },
+
+            // UNIT 12: QUESTION TYPES & SPEECH SOUNDS (41-60)
+            { u: "Unit 12: Dramatic Relationships", q: "Which type of question begins with a Wh- word?", o: ["Tag question", "Echo question", "Open question", "Subject question"], a: 2, an: "Open questions begin with Who, What, Where, When, Why." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'Who loves you?'", o: ["Tag question", "Permission question", "Subject question", "Declarative question"], a: 2, an: "The answer to the question is the subject of the sentence." },
+            { u: "Unit 12: Dramatic Relationships", q: "Which question type repeats what the speaker has just heard?", o: ["Rhetorical question", "Echo question", "Tag question", "Open question"], a: 1, an: "Echo questions confirm or express surprise at what was just said." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'Can I come?'", o: ["Permission question", "Subject question", "Rhetorical question", "Echo question"], a: 0, an: "It uses a modal verb to ask if an action is allowed." },
+            { u: "Unit 12: Dramatic Relationships", q: "How are Tag questions formed?", o: ["With a Wh- word at the start.", "With a positive/negative sentence and a short question of the opposite polarity at the end.", "By repeating the last word.", "By using no verbs."], a: 1, an: "Example: 'It's hot, isn't it?'" },
+            { u: "Unit 12: Dramatic Relationships", q: "When are Rhetorical questions used?", o: ["When we want a detailed answer.", "When asking for permission.", "When we don't want or expect an answer.", "To test a microphone."], a: 2, an: "They are used for dramatic effect or to make a point." },
+            { u: "Unit 12: Dramatic Relationships", q: "What characterizes a Declarative question?", o: ["It starts with a modal verb.", "It does not use interrogative word order but is in the form of a statement.", "It ends with a tag.", "It has no subject."], a: 1, an: "It's a normal sentence spoken with a rising, questioning tone." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'You're taking the bus home?'", o: ["Declarative question", "Open question", "Subject question", "Permission question"], a: 0, an: "It has the structure of a statement but functions as a question." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'How should I know?'", o: ["Echo question", "Tag question", "Rhetorical question", "Permission question"], a: 2, an: "The speaker is expressing frustration, not literally asking for instructions." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'Light Po-llu-tion?'", o: ["Echo question", "Tag question", "Declarative question", "Subject question"], a: 0, an: "The speaker is repeating an unfamiliar term they just heard." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'It's cold outside, isn't it?'", o: ["Rhetorical", "Tag", "Echo", "Open"], a: 1, an: "Positive statement followed by a negative tag." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'What do you want to tell me?'", o: ["Open question", "Subject question", "Tag question", "Declarative question"], a: 0, an: "It begins with 'What' (Wh- word)." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'Do I mind if you open the window?'", o: ["Permission question", "Subject question", "Declarative question", "Tag question"], a: 0, an: "It is asking for clearance to perform an action." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'You didn't do your homework, did you?'", o: ["Echo", "Tag", "Open", "Rhetorical"], a: 1, an: "Negative statement followed by a positive tag." },
+            { u: "Unit 12: Dramatic Relationships", q: "Identify the question type: 'Is this the computer room?'", o: ["Yes/No question", "Subject question", "Echo question", "Tag question"], a: 0, an: "A standard interrogative that requires a yes or no." },
+            { u: "Unit 12: Dramatic Relationships", q: "Why is it important to include speech sounds when writing drama?", o: ["To make the script longer.", "To match the patterns of natural spoken language.", "Because actors can't read.", "To replace punctuation."], a: 1, an: "Interjections and exclamations make the dialogue realistic." },
+            { u: "Unit 12: Dramatic Relationships", q: "What do speech sounds (interjections) allow characters to do?", o: ["Speak entirely in verbs.", "Avoid answering questions.", "Express different ideas without using formal words.", "Sing their lines."], a: 2, an: "A sigh, a grunt, or an 'ugh' conveys meaning without dialogue." },
+            { u: "Unit 12: Dramatic Relationships", q: "Which of the following is an example of a speech sound/interjection?", o: ["Consequently", "Ugh", "Therefore", "However"], a: 1, an: "'Ugh' expresses disgust or frustration." },
+            { u: "Unit 12: Dramatic Relationships", q: "If a character says 'Hmm...', what idea are they likely expressing without words?", o: ["Extreme joy", "Physical pain", "Thinking or hesitation", "Total agreement"], a: 2, an: "'Hmm' is a universally recognized sound of pondering." },
+            { u: "Unit 12: Dramatic Relationships", q: "Which speech sound usually expresses sudden pain?", o: ["Wow", "Ouch", "Phew", "Aha"], a: 1, an: "'Ouch' is an exclamation used to signify pain." }
+        ];
+
+        let currentSlideIndex = 0;
+        let answeredCurrent = false;
+        let testStarted = false;
+        let score = 0;
+
+        const slideDisplay = document.getElementById('slide-display');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const counter = document.getElementById('counter');
+        const progressBar = document.getElementById('progress-bar');
+        const unitBadge = document.getElementById('unit-badge');
+        const navControls = document.getElementById('nav-controls');
+
+        function renderSlide() {
+            if (currentSlideIndex >= qData.length) {
+                // Final Score Screen
+                let percentage = Math.round((score / qData.length) * 100);
+                let message = percentage >= 80 ? "Masterful!" : percentage >= 60 ? "Great job!" : "Keep practicing!";
+                
+                slideDisplay.innerHTML = `
+                    <div style="text-align:center; padding: 20px 0;">
+                        <h1 class="header-title">Marathon <span>Complete!</span></h1>
+                        <p class="header-subtitle">${message} Here is your final score.</p>
+                        
+                        <div class="score-circle" style="background: conic-gradient(var(--primary) ${percentage}%, #f1f2f6 0%);">
+                            <div class="score-text">${percentage}%</div>
+                        </div>
+                        <h3 style="font-size: 1.5rem; color: var(--text-dark); margin-bottom: 20px;">${score} / ${qData.length} Correct</h3>
+                    </div>`;
+                
+                counter.innerText = ""; 
+                prevBtn.style.display = "none"; 
+                nextBtn.innerText = "Restart Test";
+                nextBtn.onclick = function() { location.reload(); };
+                progressBar.style.width = "100%"; 
+                unitBadge.style.display = "none"; 
+                return;
+            }
+
+            const slide = qData[currentSlideIndex];
+            answeredCurrent = false;
+
+            progressBar.style.width = `${(currentSlideIndex / qData.length) * 100}%`;
+            counter.innerText = `Question ${currentSlideIndex + 1} of ${qData.length}`;
+            unitBadge.style.display = "inline-block";
+            unitBadge.innerText = slide.u;
+
+            prevBtn.style.display = "block";
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.innerText = "Next Question";
+            nextBtn.onclick = nextSlide;
+
+            let optionsHtml = '';
+            slide.o.forEach((opt, index) => {
+                optionsHtml += `<button class="option-btn" onclick="checkAnswer(${index})"><strong>${String.fromCharCode(65 + index)}.</strong> ${opt}</button>`;
+            });
+
+            slideDisplay.innerHTML = `
+                <div class="question-text">${slide.q}</div>
+                <div class="options-container">${optionsHtml}</div>
+                <div id="analysis-box" class="analysis-box">${slide.an}</div>
+            `;
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            if (answeredCurrent) return; 
+            const slide = qData[currentSlideIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            if (selectedIndex === slide.a) {
+                score++;
+            }
+
+            buttons.forEach((btn, index) => {
+                btn.disabled = true; 
+                if (index === slide.a) btn.classList.add('correct');
+                else if (index === selectedIndex) btn.classList.add('wrong');
+            });
+
+            document.getElementById('analysis-box').style.display = 'block';
+            answeredCurrent = true;
+        };
+
+        window.nextSlide = function() {
+            if (!answeredCurrent && currentSlideIndex < qData.length) {
+                // Prevent skipping without answering if you want strict scoring.
+                // For a more relaxed experience, you can comment the next line out.
+                alert("Please select an answer before moving on!"); return;
+            }
+            currentSlideIndex++;
+            renderSlide();
+        };
+
+        window.prevSlide = function() {
+            if (currentSlideIndex > 0) { 
+                // Note: Going back doesn't undo the score in this simple logic.
+                // Usually, tests don't allow going back once answered, but we keep it for review.
+                currentSlideIndex--; renderSlide(); 
+            }
+        };
+
+    </script>
+</body>
+</html>
