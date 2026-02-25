@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Coder: 15-Level Challenge!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            /* Lively, animated vibrant gradient background */
+            background: linear-gradient(-45deg, #FF007F, #7928CA, #00D4FF, #00FFCC);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3em;
+            color: #FFFFFF;
+            text-shadow: 3px 4px 0px #FF007F, 6px 8px 0px #7928CA;
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+
+        .mission-briefing {
+            background: rgba(0, 0, 0, 0.5); /* Darker for contrast */
+            border: 3px solid #00FFCC;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 700px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .mission-briefing h2 {
+            margin: 0 0 5px 0;
+            color: #FFD700;
+            text-shadow: 1px 2px 2px #000;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.5); /* Darker for contrast */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1000px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Responsive Game Grid */
+        .grid-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 400px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 2px;
+            background: #222;
+            padding: 8px;
+            border-radius: 10px;
+            border: 4px solid #00FFCC;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0 0 20px #000;
+        }
+
+        .cell {
+            background: #2A2A40;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(16px, 3.5vw, 32px); /* Base size for walls/lava */
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        /* Styling for bigger Robot and Gems */
+        .big-entity {
+            font-size: 1.6em; /* Makes them much bigger than walls/lava */
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); /* Glowing effect */
+            z-index: 10;
+        }
+
+        .cell.wall {
+            background: #555;
+            box-shadow: inset 0 0 8px #111;
+        }
+
+        .cell.lava {
+            background: #FF4500;
+            box-shadow: inset 0 0 10px #8B0000;
+            animation: pulseLava 1s infinite alternate;
+        }
+
+        @keyframes pulseLava {
+            0% { filter: brightness(0.9); }
+            100% { filter: brightness(1.2); }
+        }
+
+        /* Controls Area */
+        .controls-area {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 320px;
+        }
+
+        .panel {
+            background: #f8f9fa;
+            color: #333;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .panel h3 {
+            margin-top: 0;
+            font-family: 'Fredoka One', cursive;
+            color: #7928CA;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 5px;
+        }
+
+        .toolbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        button.block-btn {
+            background: #4338CA;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.1em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #312E81;
+        }
+
+        button.block-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #312E81;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button.run-btn {
+            flex: 2;
+            background: #10B981;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.2em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #047857;
+        }
+
+        button.clear-btn {
+            flex: 1;
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #B91C1C;
+        }
+
+        button.next-level-btn {
+            display: none;
+            width: 100%;
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.2em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #B45309;
+            margin-top: 10px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        /* Scrollable Workspace for complex levels */
+        .workspace-area {
+            height: 180px; 
+            overflow-y: auto;
+            background: #e9ecef;
+            border-radius: 6px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-content: flex-start;
+            border: inset 2px #ccc;
+        }
+
+        .command-block {
+            background: #4338CA;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1em;
+            animation: popIn 0.2s ease-out;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        #message {
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+            min-height: 30px;
+            color: #FFD700;
+            text-shadow: 1px 1px 3px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Space Coder Adventure</h1>
+    
+    <div class="mission-briefing">
+        <h2 id="level-title">Loading Level...</h2>
+        <p id="level-desc">Prepare for launch.</p>
+    </div>
+
+    <div class="game-container">
+        <div class="grid-wrapper">
+            <div class="grid" id="grid"></div>
+            <div id="message"></div>
+            <button id="next-btn" class="next-level-btn" onclick="nextLevel()">🌟 PROCEED TO NEXT LEVEL 🌟</button>
+        </div>
+
+        <div class="controls-area">
+            
+            <div class="panel">
+                <h3>1. Command Toolbox</h3>
+                <div class="toolbox-grid">
+                    <button class="block-btn" onclick="addCommand('UP', '⬆️')">⬆️ Up</button>
+                    <button class="block-btn" onclick="addCommand('DOWN', '⬇️')">⬇️ Down</button>
+                    <button class="block-btn" onclick="addCommand('LEFT', '⬅️')">⬅️ Left</button>
+                    <button class="block-btn" onclick="addCommand('RIGHT', '➡️')">➡️ Right</button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>2. Active Algorithm</h3>
+                <div class="workspace-area" id="workspace"></div>
+                <div class="action-btns">
+                    <button class="run-btn" id="run-btn" onclick="runCode()">▶️ EXECUTE</button>
+                    <button class="clear-btn" onclick="clearCode()">🔄 CLEAR</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- 15 LEVELS OF INCREASING DIFFICULTY ---
+        const levels = [
+            { // 1
+                title: "Level 1: System Check", desc: "Move Right to grab the crystal.",
+                size: 4, start: {x:0, y:1}, goal: {x:3, y:1}, walls: [], lava: []
+            },
+            { // 2
+                title: "Level 2: The Corner", desc: "Navigate the simple turn.",
+                size: 4, start: {x:0, y:0}, goal: {x:3, y:3}, walls: [{x:1,y:1}, {x:2,y:2}], lava: []
+            },
+            { // 3
+                title: "Level 3: First Asteroid", desc: "Walls (🧱) block your path. Go around.",
+                size: 5, start: {x:0, y:0}, goal: {x:4, y:0}, 
+                walls: [{x:2,y:0}, {x:2,y:1}, {x:2,y:2}, {x:2,y:3}], lava: []
+            },
+            { // 4
+                title: "Level 4: Lava Warning", desc: "Lava (🌋) destroys the rover! Do not step on it.",
+                size: 5, start: {x:0, y:4}, goal: {x:4, y:0}, walls: [], 
+                lava: [{x:2,y:1}, {x:2,y:2}, {x:2,y:3}, {x:2,y:4}]
+            },
+            { // 5
+                title: "Level 5: Zig-Zag", desc: "Weave through the asteroid field.",
+                size: 5, start: {x:0, y:0}, goal: {x:4, y:4}, 
+                walls: [{x:1,y:0}, {x:1,y:1}, {x:1,y:2}, {x:3,y:4}, {x:3,y:3}, {x:3,y:2}], lava: []
+            },
+            { // 6
+                title: "Level 6: The Pit", desc: "Don't fall in the lava pit!",
+                size: 6, start: {x:0, y:0}, goal: {x:5, y:5}, 
+                walls: [], lava: [{x:2,y:2}, {x:2,y:3}, {x:3,y:2}, {x:3,y:3}]
+            },
+            { // 7
+                title: "Level 7: The Bridge", desc: "Find the safe path across the lava river.",
+                size: 6, start: {x:0, y:2}, goal: {x:5, y:2}, 
+                walls: [{x:4,y:1}, {x:4,y:3}], 
+                lava: [{x:2,y:0}, {x:2,y:1}, {x:2,y:3}, {x:2,y:4}, {x:2,y:5}]
+            },
+            { // 8
+                title: "Level 8: The Spiral", desc: "Take the long way around.",
+                size: 6, start: {x:0, y:0}, goal: {x:3, y:3}, 
+                walls: [{x:0,y:1}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}, {x:4,y:1}, {x:5,y:1}, 
+                        {x:5,y:2}, {x:5,y:3}, {x:5,y:4}, {x:5,y:5}, {x:4,y:5}, {x:3,y:5}, 
+                        {x:2,y:5}, {x:1,y:5}, {x:1,y:4}, {x:1,y:3}, {x:2,y:3}], lava: []
+            },
+            { // 9
+                title: "Level 9: Tight Squeeze", desc: "A maze of lava and rocks.",
+                size: 7, start: {x:0, y:6}, goal: {x:6, y:0}, 
+                walls: [{x:1,y:6}, {x:1,y:5}, {x:3,y:5}, {x:3,y:6}, {x:5,y:1}, {x:5,y:0}], 
+                lava: [{x:2,y:4}, {x:4,y:4}, {x:6,y:6}, {x:1,y:1}, {x:2,y:1}, {x:3,y:1}]
+            },
+            { // 10
+                title: "Level 10: Checkerboard of Doom", desc: "Diagonal movement is impossible. Plan carefully.",
+                size: 7, start: {x:0, y:0}, goal: {x:6, y:6}, 
+                walls: [], 
+                lava: [{x:1,y:0}, {x:3,y:0}, {x:5,y:0}, {x:0,y:2}, {x:2,y:2}, {x:4,y:2}, {x:6,y:2},
+                       {x:1,y:4}, {x:3,y:4}, {x:5,y:4}, {x:0,y:6}, {x:2,y:6}, {x:4,y:6}]
+            },
+            { // 11
+                title: "Level 11: The Double Wall", desc: "You must go all the way up, then all the way down.",
+                size: 7, start: {x:0, y:3}, goal: {x:6, y:3}, 
+                walls: [{x:2,y:1}, {x:2,y:2}, {x:2,y:3}, {x:2,y:4}, {x:2,y:5}, {x:2,y:6},
+                        {x:4,y:0}, {x:4,y:1}, {x:4,y:2}, {x:4,y:3}, {x:4,y:4}, {x:4,y:5}], lava: []
+            },
+            { // 12
+                title: "Level 12: Lava Islands", desc: "Don't get stranded.",
+                size: 8, start: {x:0, y:7}, goal: {x:7, y:0}, 
+                walls: [{x:3,y:3}, {x:4,y:4}], 
+                lava: [{x:1,y:6}, {x:1,y:5}, {x:2,y:5}, {x:5,y:2}, {x:6,y:2}, {x:6,y:1}, {x:2,y:2}, {x:5,y:5}]
+            },
+            { // 13
+                title: "Level 13: The Hook", desc: "Sometimes you have to go backwards to go forwards.",
+                size: 8, start: {x:4, y:4}, goal: {x:3, y:4}, 
+                walls: [{x:3,y:3}, {x:4,y:3}, {x:5,y:3}, {x:5,y:4}, {x:5,y:5}, {x:4,y:5}, {x:3,y:5}], 
+                lava: [{x:0,y:0}, {x:7,y:7}]
+            },
+            { // 14
+                title: "Level 14: The Great Wall", desc: "A massive grid. Your algorithm will be long!",
+                size: 9, start: {x:0, y:8}, goal: {x:8, y:0}, 
+                walls: [{x:1,y:8},{x:1,y:7},{x:1,y:6},{x:1,y:5},{x:1,y:4},{x:1,y:3},{x:1,y:2},
+                        {x:3,y:0},{x:3,y:1},{x:3,y:2},{x:3,y:3},{x:3,y:4},{x:3,y:5},{x:3,y:6},
+                        {x:5,y:8},{x:5,y:7},{x:5,y:6},{x:5,y:5},{x:5,y:4},{x:5,y:3},{x:5,y:2},
+                        {x:7,y:0},{x:7,y:1},{x:7,y:2},{x:7,y:3},{x:7,y:4},{x:7,y:5},{x:7,y:6}], 
+                lava: []
+            },
+            { // 15
+                title: "Level 15: The Ultimate Gauntlet", desc: "The final test of your coding logic!",
+                size: 10, start: {x:0, y:9}, goal: {x:9, y:0}, 
+                walls: [{x:2,y:8},{x:2,y:7},{x:3,y:7},{x:4,y:7},{x:6,y:5},{x:7,y:5},{x:8,y:5}], 
+                lava: [{x:0,y:8},{x:1,y:8},{x:1,y:5},{x:2,y:5},{x:3,y:5},{x:5,y:3},{x:5,y:2},
+                       {x:5,y:1},{x:7,y:2},{x:8,y:2},{x:8,y:1},{x:8,y:8},{x:9,y:8}]
+            }
+        ];
+
+        let currentLevelIndex = 0;
+        let currentPos = {x: 0, y: 0};
+        let commands = [];
+        let isRunning = false;
+
+        // --- GAME INITIALIZATION ---
+        function loadLevel(index) {
+            if (index >= levels.length) {
+                document.getElementById('level-title').innerText = "🏆 GAME COMPLETED! 🏆";
+                document.getElementById('level-desc').innerText = "You have mastered sequencing and algorithms!";
+                document.getElementById('grid').innerHTML = '<h2 style="text-align:center; color:#00FFCC; margin-top:50%;">You Win!</h2>';
+                return;
+            }
+
+            const level = levels[index];
+            document.getElementById('level-title').innerText = level.title;
+            document.getElementById('level-desc').innerText = level.desc;
+            
+            currentPos = { ...level.start };
+            commands = [];
+            document.getElementById('workspace').innerHTML = '';
+            document.getElementById('message').innerText = '';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('run-btn').style.display = 'block';
+
+            createGrid(level);
+        }
+
+        function createGrid(level) {
+            const gridEl = document.getElementById('grid');
+            gridEl.innerHTML = '';
+            
+            // Set dynamic grid layout based on level size
+            gridEl.style.gridTemplateColumns = `repeat(${level.size}, 1fr)`;
+            gridEl.style.gridTemplateRows = `repeat(${level.size}, 1fr)`;
+            
+            for (let y = 0; y < level.size; y++) {
+                for (let x = 0; x < level.size; x++) {
+                    let cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.id = `cell-${x}-${y}`;
+                    
+                    if (level.walls.some(w => w.x === x && w.y === y)) {
+                        cell.classList.add('wall');
+                        cell.innerHTML = '🧱';
+                    } else if (level.lava.some(l => l.x === x && l.y === y)) {
+                        cell.classList.add('lava');
+                        cell.innerHTML = '🌋';
+                    }
+                    
+                    gridEl.appendChild(cell);
+                }
+            }
+            drawEntities();
+        }
+
+        function drawEntities() {
+            const level = levels[currentLevelIndex];
+            
+            // Clear cells (except obstacles)
+            for (let y = 0; y < level.size; y++) {
+                for (let x = 0; x < level.size; x++) {
+                    let cell = document.getElementById(`cell-${x}-${y}`);
+                    if (!cell.classList.contains('wall') && !cell.classList.contains('lava')) {
+                        cell.innerHTML = '';
+                    }
+                }
+            }
+            
+            // Draw Goal with Big Class
+            document.getElementById(`cell-${level.goal.x}-${level.goal.y}`).innerHTML = '<span class="big-entity">💎</span>';
+            
+            // Draw Robot with Big Class (overwrites goal if on same tile)
+            document.getElementById(`cell-${currentPos.x}-${currentPos.y}`).innerHTML = '<span class="big-entity">🤖</span>';
+        }
+
+        // --- CODING MECHANICS ---
+        function addCommand(action, emoji) {
+            if (isRunning) return;
+            commands.push(action);
+            
+            const workspace = document.getElementById('workspace');
+            const block = document.createElement('div');
+            block.classList.add('command-block');
+            block.innerText = emoji;
+            workspace.appendChild(block);
+
+            // Auto-scroll to bottom of workspace
+            workspace.scrollTop = workspace.scrollHeight;
+        }
+
+        function clearCode() {
+            if (isRunning) return;
+            commands = [];
+            document.getElementById('workspace').innerHTML = '';
+            currentPos = { ...levels[currentLevelIndex].start };
+            drawEntities();
+            showMessage('');
+        }
+
+        // --- EXECUTION ENGINE ---
+        function runCode() {
+            if (isRunning || commands.length === 0) return;
+            
+            const level = levels[currentLevelIndex];
+            isRunning = true;
+            currentPos = { ...level.start }; // Reset to start position
+            drawEntities();
+            showMessage('Executing algorithm...', '#00FFCC');
+            
+            let stepCounter = 0;
+
+            function executeStep() {
+                if (stepCounter >= commands.length) {
+                    checkWinCondition();
+                    isRunning = false;
+                    return;
+                }
+
+                let action = commands[stepCounter];
+                let newX = currentPos.x;
+                let newY = currentPos.y;
+
+                if (action === 'UP') newY--;
+                if (action === 'DOWN') newY++;
+                if (action === 'LEFT') newX--;
+                if (action === 'RIGHT') newX++;
+
+                highlightCommand(stepCounter);
+
+                // 1. Boundary Check
+                if (newX < 0 || newX >= level.size || newY < 0 || newY >= level.size) {
+                    showMessage('💥 Alert! Rover flew off into deep space!', '#FF3366');
+                    document.getElementById(`cell-${currentPos.x}-${currentPos.y}`).innerHTML = '<span class="big-entity">💥</span>';
+                    isRunning = false;
+                    return;
+                }
+                
+                // 2. Wall Check
+                if (level.walls.some(w => w.x === newX && w.y === newY)) {
+                    showMessage('💥 Crash! Rover hit an asteroid!', '#FF3366');
+                    isRunning = false;
+                    return;
+                }
+
+                // Move rover logically
+                currentPos.x = newX;
+                currentPos.y = newY;
+                drawEntities();
+
+                // 3. Lava Check
+                if (level.lava.some(l => l.x === newX && l.y === newY)) {
+                    showMessage('🔥 Oh no! Rover melted in the lava!', '#FF9933');
+                    document.getElementById(`cell-${currentPos.x}-${currentPos.y}`).innerHTML = '<span class="big-entity">🔥</span>';
+                    isRunning = false;
+                    return;
+                }
+
+                stepCounter++;
+                setTimeout(executeStep, 350); // Faster execution for long levels
+            }
+
+            executeStep();
+        }
+
+        function highlightCommand(index) {
+            let blocks = document.querySelectorAll('.command-block');
+            blocks.forEach(b => {
+                b.style.backgroundColor = '#4338CA';
+                b.style.color = 'white';
+            });
+            if(blocks[index]) {
+                blocks[index].style.backgroundColor = '#FCD34D'; // Yellow highlight
+                blocks[index].style.color = '#111';
+                
+                // Keep highlighted block in view
+                blocks[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function checkWinCondition() {
+            const level = levels[currentLevelIndex];
+            
+            if (currentPos.x === level.goal.x && currentPos.y === level.goal.y) {
+                showMessage('🎉 SUCCESS! Crystal Acquired!', '#10B981');
+                document.getElementById(`cell-${currentPos.x}-${currentPos.y}`).querySelector('span').style.transform = 'scale(1.4)';
+                
+                // Show Next Level Button
+                document.getElementById('run-btn').style.display = 'none';
+                document.getElementById('next-btn').style.display = 'block';
+            } else {
+                showMessage('🤔 Code finished, but you missed the crystal. Clear and try again!', '#FFD700');
+            }
+            
+            setTimeout(() => {
+                let blocks = document.querySelectorAll('.command-block');
+                blocks.forEach(b => {
+                    b.style.backgroundColor = '#4338CA';
+                    b.style.color = 'white';
+                });
+            }, 500);
+        }
+
+        function showMessage(text, color) {
+            const msgEl = document.getElementById('message');
+            msgEl.innerText = text;
+            if(color) msgEl.style.color = color;
+        }
+
+        function nextLevel() {
+            currentLevelIndex++;
+            loadLevel(currentLevelIndex);
+        }
+
+        // Start game
+        loadLevel(currentLevelIndex);
+    </script>
+</body>
+</html>
