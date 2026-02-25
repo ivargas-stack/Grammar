@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 3 Science: 4-Team Battler</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@700;900&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #1e272e;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: none;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5em;
+            color: #00d8d6;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Arena & Monster */
+        .arena {
+            width: 100%;
+            max-width: 900px;
+            background: linear-gradient(to bottom, #4bcffa, #0fb9b1);
+            border: 6px solid #808e9b;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .monster-sprite {
+            font-size: 6em;
+            margin: 10px 0;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));
+            transition: transform 0.2s;
+        }
+
+        .monster-hp-bar {
+            width: 80%;
+            height: 25px;
+            background: #1e272e;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .monster-hp-fill {
+            height: 100%;
+            background: #ff3f34;
+            width: 100%;
+            transition: width 0.3s;
+        }
+
+        .monster-hp-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8em;
+            color: white;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        /* Question Board */
+        .question-board {
+            width: 100%;
+            max-width: 900px;
+            background: #d2dae2;
+            color: #1e272e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            border: 4px solid #808e9b;
+        }
+
+        .q-text {
+            font-size: 1.4em;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .opt {
+            background: #3c40c6;
+            color: white;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 8px;
+            text-align: center;
+            border: 3px solid #575fcf;
+            transition: background 0.3s;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            font-size: 1.1em;
+            font-family: 'Press Start 2P', cursive;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.3);
+        }
+
+        .btn:active { transform: translateY(5px); box-shadow: none; }
+        .btn-draw { background: #ff9f43; }
+        .btn-reveal { background: #0fb9b1; }
+
+        /* Teams */
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .team-card {
+            background: #485460;
+            border: 4px solid #808e9b;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .team-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            color: white;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .hearts { font-size: 1.5em; margin-bottom: 5px; min-height: 35px; }
+        .xp { font-size: 1.2em; font-weight: bold; color: #ffd32a; margin-bottom: 15px; }
+
+        .team-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .t-btn {
+            border: none;
+            padding: 10px 5px;
+            font-weight: bold;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+        .t-btn.correct { background: #0be881; }
+        .t-btn.wrong { background: #ff3f34; }
+        .t-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🧪 SCIENCE TOURNAMENT 🧪</h1>
+
+    <div class="arena" id="arena">
+        <h2 style="font-family: 'Press Start 2P', cursive; margin:0; font-size:1em; color:#1e272e;">STAGE <span id="stage-num">1</span>: <span id="monster-name">Slime Minion</span></h2>
+        <div class="monster-sprite" id="monster-sprite">🦠</div>
+        <div class="monster-hp-bar">
+            <div class="monster-hp-fill" id="monster-hp-fill"></div>
+            <div class="monster-hp-text"><span id="m-hp-current">100</span> / <span id="m-hp-max">100</span> HP</div>
+        </div>
+    </div>
+
+    <div class="question-board">
+        <div class="q-text" id="q-text">Click 'Draw Question' to begin the battle!</div>
+        <div class="options-grid">
+            <div class="opt" id="opt-0">A) -</div>
+            <div class="opt" id="opt-1">B) -</div>
+            <div class="opt" id="opt-2">C) -</div>
+            <div class="opt" id="opt-3">D) -</div>
+        </div>
+        <div class="controls">
+            <button class="btn btn-draw" onclick="drawQuestion()">Draw Question</button>
+            <button class="btn btn-reveal" onclick="revealAnswer()" id="btn-reveal" disabled>Reveal Answer</button>
+        </div>
+    </div>
+
+    <div class="teams-container" id="teams-container">
+        </div>
+
+    <script>
+        // --- CAMBRIDGE GRADE 3 SCIENCE BANK ---
+        const scienceBank = [
+            // Plants
+            { q: "What part of a plant absorbs water from the soil?", opts: ["Roots", "Leaves", "Flowers", "Stem"], ans: 0 },
+            { q: "Which part of a plant makes the seeds?", opts: ["Roots", "Stem", "Flower", "Leaves"], ans: 2 },
+            { q: "What carries water from the roots to the leaves?", opts: ["Flower", "Stem", "Petal", "Soil"], ans: 1 },
+            { q: "What do plants need to grow well?", opts: ["Darkness", "Light & Water", "Soda", "Cold air"], ans: 1 },
+            // Materials
+            { q: "Which material is best for making a window?", opts: ["Wood", "Metal", "Glass", "Paper"], ans: 2 },
+            { q: "A material that lets all light pass through is...", opts: ["Opaque", "Transparent", "Heavy", "Dark"], ans: 1 },
+            { q: "Which material is attracted to a magnet?", opts: ["Wood", "Plastic", "Iron", "Glass"], ans: 2 },
+            { q: "Which material is waterproof?", opts: ["Cotton shirt", "Paper towel", "Plastic raincoat", "Wool sweater"], ans: 2 },
+            // Forces
+            { q: "A push or a pull is called a...", opts: ["Speed", "Force", "Weight", "Jump"], ans: 1 },
+            { q: "What force slows a moving ball down on grass?", opts: ["Gravity", "Friction", "Magnetism", "Wind"], ans: 1 },
+            { q: "Which force pulls objects toward the ground?", opts: ["Gravity", "Friction", "Pushing", "Light"], ans: 0 },
+            // Human Body & Senses
+            { q: "Which organ pumps blood around your body?", opts: ["Lungs", "Brain", "Stomach", "Heart"], ans: 3 },
+            { q: "Which organ do you use for breathing?", opts: ["Heart", "Lungs", "Kidneys", "Liver"], ans: 1 },
+            { q: "Which sense do we use our tongue for?", opts: ["Sight", "Hearing", "Smell", "Taste"], ans: 3 },
+            { q: "What covers and protects our whole body?", opts: ["Hair", "Skin", "Bones", "Muscles"], ans: 1 },
+            // Light & Shadow
+            { q: "A shadow is formed when light is...", opts: ["Blocked", "Bent", "Colored", "Speeding up"], ans: 0 },
+            { q: "Why do we wear sunglasses?", opts: ["To see in dark", "To protect eyes", "To look closer", "To hear better"], ans: 1 },
+            // Living Things & Matter
+            { q: "When solid ice melts, it turns into a...", opts: ["Gas", "Liquid", "Plasma", "Cloud"], ans: 1 },
+            { q: "What do we call water when it is a gas?", opts: ["Ice", "Water vapor", "Rain", "Snow"], ans: 1 }
+        ];
+
+        const monsters = [
+            { name: "Slime Minion", sp: "🦠", hp: 100 },
+            { name: "Forest Goblin", sp: "👺", hp: 150 },
+            { name: "Rock Golem", sp: "🪨", hp: 200 },
+            { name: "Ghost King", sp: "👻", hp: 250 },
+            { name: "ANCIENT DRAGON", sp: "🐉", hp: 400 } // Boss
+        ];
+
+        // Game State
+        let teams = [
+            { id: 0, name: "Team 1", color: "#ff3f34", hp: 5, xp: 0 },
+            { id: 1, name: "Team 2", color: "#3c40c6", hp: 5, xp: 0 },
+            { id: 2, name: "Team 3", color: "#0be881", hp: 5, xp: 0 },
+            { id: 3, name: "Team 4", color: "#ffa801", hp: 5, xp: 0 }
+        ];
+        
+        let currentStage = 0;
+        let monsterHp = monsters[0].hp;
+        let currentQuestion = null;
+        let questionActive = false;
+
+        function initTeams() {
+            const container = document.getElementById('teams-container');
+            container.innerHTML = '';
+            teams.forEach(t => {
+                let heartsHtml = '❤️'.repeat(t.hp) + '🖤'.repeat(5 - t.hp);
+                if(t.hp <= 0) heartsHtml = "💀 RESPAWNING";
+
+                container.innerHTML += `
+                    <div class="team-card">
+                        <div class="team-name" style="background:${t.color}">${t.name}</div>
+                        <div class="hearts" id="hearts-${t.id}">${heartsHtml}</div>
+                        <div class="xp">XP: <span id="xp-${t.id}">${t.xp}</span></div>
+                        <div class="team-actions">
+                            <button class="t-btn correct" id="btn-c-${t.id}" onclick="scoreTeam(${t.id}, true)" disabled>✔️ Hit</button>
+                            <button class="t-btn wrong" id="btn-w-${t.id}" onclick="scoreTeam(${t.id}, false)" disabled>❌ Miss</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateMonsterUI() {
+            let m = monsters[currentStage % monsters.length];
+            document.getElementById('stage-num').innerText = currentStage + 1;
+            document.getElementById('monster-name').innerText = m.name;
+            document.getElementById('monster-sprite').innerText = m.sp;
+            
+            let maxHp = m.hp + (Math.floor(currentStage/5) * 100); // gets harder
+            document.getElementById('m-hp-max').innerText = maxHp;
+            document.getElementById('m-hp-current').innerText = monsterHp;
+            document.getElementById('monster-hp-fill').style.width = `${(monsterHp / maxHp) * 100}%`;
+        }
+
+        function drawQuestion() {
+            // Reset options UI
+            for(let i=0; i<4; i++) {
+                document.getElementById(`opt-${i}`).style.background = '#3c40c6';
+            }
+
+            // Pick & Shuffle
+            let baseQ = scienceBank[Math.floor(Math.random() * scienceBank.length)];
+            let originalOpts = [...baseQ.opts];
+            let correctText = originalOpts[baseQ.ans];
+            
+            let shuffledOpts = [...originalOpts].sort(() => Math.random() - 0.5);
+            let newAnsIndex = shuffledOpts.indexOf(correctText);
+            
+            currentQuestion = { q: baseQ.q, opts: shuffledOpts, ans: newAnsIndex };
+
+            // Display
+            document.getElementById('q-text').innerText = currentQuestion.q;
+            let letters = ['A', 'B', 'C', 'D'];
+            for(let i=0; i<4; i++) {
+                document.getElementById(`opt-${i}`).innerText = `${letters[i]}) ${currentQuestion.opts[i]}`;
+            }
+
+            document.getElementById('btn-reveal').disabled = false;
+            questionActive = true;
+            
+            // Disable scoring buttons until reveal
+            teams.forEach(t => {
+                document.getElementById(`btn-c-${t.id}`).disabled = true;
+                document.getElementById(`btn-w-${t.id}`).disabled = true;
+            });
+        }
+
+        function revealAnswer() {
+            if(!currentQuestion) return;
+            document.getElementById(`opt-${currentQuestion.ans}`).style.background = '#0be881'; // Green for correct
+            document.getElementById('btn-reveal').disabled = true;
+
+            // Enable scoring buttons
+            teams.forEach(t => {
+                if(t.hp > 0) {
+                    document.getElementById(`btn-c-${t.id}`).disabled = false;
+                    document.getElementById(`btn-w-${t.id}`).disabled = false;
+                }
+            });
+        }
+
+        function scoreTeam(teamId, isCorrect) {
+            // Disable buttons for this team for this round
+            document.getElementById(`btn-c-${teamId}`).disabled = true;
+            document.getElementById(`btn-w-${teamId}`).disabled = true;
+
+            let t = teams.find(x => x.id === teamId);
+
+            if (isCorrect) {
+                t.xp += 10;
+                monsterHp -= 20; // Each correct team does 20 dmg
+                if(monsterHp < 0) monsterHp = 0;
+                
+                // Shake monster
+                let spr = document.getElementById('monster-sprite');
+                spr.style.animation = 'none'; void spr.offsetWidth;
+                spr.style.animation = 'shake 0.4s';
+
+            } else {
+                t.hp -= 1;
+                if(t.hp <= 0) {
+                    // Respawn penalty
+                    setTimeout(() => {
+                        alert(`${t.name} ran out of hearts! They lose 10 XP but get their hearts back!`);
+                        t.hp = 5;
+                        t.xp = Math.max(0, t.xp - 10);
+                        initTeams();
+                    }, 500);
+                }
+            }
+
+            initTeams(); // re-render teams
+            updateMonsterUI();
+
+            if (monsterHp <= 0) {
+                setTimeout(defeatMonster, 1000);
+            }
+        }
+
+        function defeatMonster() {
+            alert("Monster Defeated! ALL TEAMS GET +20 BONUS XP!");
+            teams.forEach(t => t.xp += 20);
+            
+            currentStage++;
+            let m = monsters[currentStage % monsters.length];
+            monsterHp = m.hp + (Math.floor(currentStage/5) * 100);
+            
+            initTeams();
+            updateMonsterUI();
+            
+            document.getElementById('q-text').innerText = "Monster defeated! Draw next question to continue.";
+            for(let i=0; i<4; i++) {
+                document.getElementById(`opt-${i}`).innerText = "-";
+                document.getElementById(`opt-${i}`).style.background = '#3c40c6';
+            }
+        }
+
+        // Boot up
+        initTeams();
+        updateMonsterUI();
+
+    </script>
+</body>
+</html>
