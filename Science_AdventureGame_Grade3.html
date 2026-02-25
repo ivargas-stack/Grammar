@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Battler RPG: Cambridge Grade 3</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@700;900&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            user-select: none;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.3em;
+            color: #4ECDC4;
+            text-shadow: 2px 2px #2C3E50;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 650px;
+            background: #2c3e50;
+            border: 6px solid #34495e;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            position: relative;
+        }
+
+        /* Top HUD */
+        .top-hud {
+            display: flex;
+            justify-content: space-between;
+            background: #1a252f;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.65em;
+            color: #FFD700;
+            border-bottom: 4px solid #34495e;
+        }
+
+        .zone-banner {
+            background: #c0392b;
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7em;
+            letter-spacing: 2px;
+            transition: background 0.5s ease;
+        }
+
+        /* Battle Arena */
+        .arena {
+            height: 260px;
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 60%, #7CFC00 60%, #228B22 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 40px 20px 40px;
+            position: relative;
+            transition: background 1s ease;
+            overflow: hidden;
+        }
+
+        .character-box {
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .sprite {
+            font-size: 5em;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.6));
+            transition: transform 0.2s, font-size 0.3s;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .boss-sprite {
+            font-size: 8em;
+            animation: floatBoss 2s infinite alternate;
+        }
+
+        /* Animations */
+        @keyframes floatBoss {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        @keyframes attackRight {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(60px) scale(1.2); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes attackLeft {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-60px) scale(1.2); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes takeDamage {
+            0% { filter: hue-rotate(0deg) brightness(1); transform: translateX(0); }
+            20% { filter: hue-rotate(300deg) brightness(0.5) scale(0.9); transform: translateX(-15px); }
+            40% { transform: translateX(15px); }
+            60% { transform: translateX(-15px); }
+            80% { transform: translateX(15px); }
+            100% { filter: hue-rotate(0deg) brightness(1); transform: translateX(0); }
+        }
+
+        /* Health Bars */
+        .stats {
+            background: rgba(0,0,0,0.8);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 2px solid #FFF;
+            margin-bottom: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6em;
+            color: white;
+            text-align: center;
+            width: 130px;
+            z-index: 5;
+        }
+
+        .boss-stats {
+            border: 2px solid #e74c3c;
+            color: #ff7675;
+            box-shadow: 0 0 10px #e74c3c;
+        }
+
+        .hp-bar-bg {
+            background: #333;
+            height: 12px;
+            width: 100%;
+            border-radius: 6px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            overflow: hidden;
+            border: 1px solid #111;
+        }
+
+        .hp-bar-fill {
+            background: #ff4757;
+            height: 100%;
+            width: 100%;
+            transition: width 0.3s ease-out;
+        }
+
+        #player-hp-fill { background: #2ed573; }
+
+        /* Question Area */
+        .question-panel {
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #bdc3c7;
+        }
+
+        .question-text {
+            font-size: 1.25em;
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #2980b9;
+            transition: all 0.1s;
+        }
+
+        .option-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 0 0 #2980b9;
+        }
+
+        /* Skills Area */
+        .skills-panel {
+            background: #1a252f;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .skill-btn {
+            flex: 1;
+            color: white;
+            border: none;
+            padding: 12px 5px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .skill-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 transparent !important;
+        }
+        
+        .skill-btn:disabled {
+            background: #7f8c8d !important;
+            box-shadow: 0 4px 0 #555 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+            color: #ccc;
+        }
+
+        .skill-badge {
+            position: absolute;
+            top: -10px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 0.7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Press Start 2P', cursive;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Floating Text & Boss Warning */
+        .floating-text {
+            position: absolute;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5em;
+            font-weight: bold;
+            pointer-events: none;
+            animation: floatUp 1s ease-out forwards;
+            z-index: 20;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .boss-warning {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5em;
+            color: #ff4757;
+            text-shadow: 0 0 10px #000, 3px 3px 0 #000;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            text-align: center;
+        }
+
+        @keyframes bossAlert {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-60px) scale(1.5); }
+        }
+
+        /* Overlays */
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .overlay h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.6em;
+            color: #4ECDC4;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .start-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-family: 'Press Start 2P', cursive;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #27ae60;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🧪 Science Battler RPG <br><span style="font-size: 0.6em; color:#FFF;">Cambridge Grade 3</span></h1>
+
+    <div class="game-container">
+        
+        <div class="top-hud">
+            <div>LVL: <span id="player-level">1</span></div>
+            <div>Stage: <span id="stage-num">1</span></div>
+            <div>XP: <span id="player-xp">0</span>/<span id="xp-needed">100</span></div>
+        </div>
+        
+        <div class="zone-banner" id="zone-banner">ZONE 1: MYSTIC FOREST</div>
+
+        <div class="arena" id="arena">
+            <div class="boss-warning" id="boss-warning">🚨 BOSS 🚨<br>APPROACHING!</div>
+            
+            <div class="character-box" id="player-box">
+                <div class="stats">
+                    Scientist
+                    <div class="hp-bar-bg"><div class="hp-bar-fill" id="player-hp-fill"></div></div>
+                    <span id="player-hp-text">60/60</span> HP
+                </div>
+                <div class="sprite" id="player-sprite">🧑‍🔬</div>
+            </div>
+
+            <div class="character-box" id="enemy-box">
+                <div class="stats" id="enemy-stats-box">
+                    <span id="enemy-name">Slime</span>
+                    <div class="hp-bar-bg"><div class="hp-bar-fill" id="enemy-hp-fill"></div></div>
+                    <span id="enemy-hp-text">20/20</span> HP
+                </div>
+                <div class="sprite" id="enemy-sprite">🦠</div>
+            </div>
+        </div>
+
+        <div class="question-panel">
+            <div class="question-text" id="question-text">Loading question...</div>
+            <div class="options-grid">
+                <button class="option-btn" onclick="submitAnswer(0)" id="btn-0">A</button>
+                <button class="option-btn" onclick="submitAnswer(1)" id="btn-1">B</button>
+                <button class="option-btn" onclick="submitAnswer(2)" id="btn-2">C</button>
+                <button class="option-btn" onclick="submitAnswer(3)" id="btn-3">D</button>
+            </div>
+        </div>
+
+        <div class="skills-panel">
+            <button class="skill-btn" id="skill-heal" onclick="useSkill('heal')" disabled style="background:#2ecc71; box-shadow: 0 4px 0 #27ae60;">
+                💚 Heal 
+                <span class="skill-badge" id="cd-heal">Lv2</span>
+            </button>
+            <button class="skill-btn" id="skill-fire" onclick="useSkill('fire')" disabled style="background:#e67e22; box-shadow: 0 4px 0 #d35400;">
+                ⚡ 2x DMG
+                <span class="skill-badge" id="cd-fire">Lv3</span>
+            </button>
+            <button class="skill-btn" id="skill-shield" onclick="useSkill('shield')" disabled style="background:#9b59b6; box-shadow: 0 4px 0 #8e44ad;">
+                🛡️ Block
+                <span class="skill-badge" id="cd-shield">Lv5</span>
+            </button>
+        </div>
+
+        <div class="overlay" id="system-screen">
+            <h2 id="sys-title">Ready for the Lab?</h2>
+            <p id="sys-desc" style="font-size: 1.1em; line-height: 1.6; margin-bottom: 10px;">
+                Answer Grade 3 Science questions to fight!<br>
+                Every 5th stage is a <b>BOSS FIGHT</b>.<br>
+                Level up to unlock powerful skills!
+            </p>
+            <button class="start-btn" id="sys-btn" onclick="startGame()">ENTER THE DUNGEON</button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- GAME DATA: ZONES & BOSSES ---
+        const zones = [
+            { // Zone 1
+                name: "MYSTIC FOREST", color: "#27ae60",
+                bg: "linear-gradient(to bottom, #87CEEB 0%, #87CEEB 50%, #7CFC00 50%, #228B22 100%)",
+                enemies: [ {name: "Slime", sp: "🦠"}, {name: "Bat", sp: "🦇"}, {name: "Wolf", sp: "🐺"} ],
+                boss: {name: "KING SLIME", sp: "🤢", hpMulti: 4, dmgMulti: 2.5}
+            },
+            { // Zone 2
+                name: "GOBLIN CAVES", color: "#8e44ad",
+                bg: "linear-gradient(to bottom, #4a235a 0%, #4a235a 50%, #17202a 50%, #111 100%)",
+                enemies: [ {name: "Goblin", sp: "👺"}, {name: "Spider", sp: "🕷️"}, {name: "Rock Golem", sp: "🪨"} ],
+                boss: {name: "ORC WARLORD", sp: "👹", hpMulti: 5, dmgMulti: 3.5}
+            },
+            { // Zone 3
+                name: "HAUNTED CRYPT", color: "#34495e",
+                bg: "linear-gradient(to bottom, #2c3e50 0%, #2c3e50 50%, #7f8c8d 50%, #bdc3c7 100%)",
+                enemies: [ {name: "Skeleton", sp: "💀"}, {name: "Ghost", sp: "👻"}, {name: "Zombie", sp: "🧟"} ],
+                boss: {name: "VAMPIRE LORD", sp: "🧛", hpMulti: 6.5, dmgMulti: 4.5}
+            },
+            { // Zone 4
+                name: "DRAGON VOLCANO", color: "#c0392b",
+                bg: "linear-gradient(to bottom, #c0392b 0%, #c0392b 50%, #e67e22 50%, #d35400 100%)",
+                enemies: [ {name: "Fire Spirit", sp: "🔥"}, {name: "Scorpion", sp: "🦂"}, {name: "Snake", sp: "🐍"} ],
+                boss: {name: "ANCIENT DRAGON", sp: "🐉", hpMulti: 8, dmgMulti: 6}
+            }
+        ];
+
+        // --- GAME STATE ---
+        let player = { level: 1, xp: 0, xpNeeded: 100, hp: 60, maxHp: 60, baseDamage: 15, activeBuff: null };
+        let enemy = { name: "", sprite: "", hp: 0, maxHp: 0, damage: 0, isBoss: false };
+        let stage = 1;
+        let currentQuestion = null;
+        let isProcessingTurn = false;
+
+        let skills = {
+            heal: { unlocksAt: 2, currentCd: 0, maxCd: 4 },
+            fire: { unlocksAt: 3, currentCd: 0, maxCd: 4 },
+            shield: { unlocksAt: 5, currentCd: 0, maxCd: 5 }
+        };
+
+        // --- CAMBRIDGE GRADE 3 SCIENCE QUESTION BANK ---
+        const scienceBank = [
+            // Plants
+            { q: "What part of a plant absorbs water from the soil?", opts: ["Roots", "Leaves", "Flowers", "Stem"], ans: 0 },
+            { q: "Which part of a plant makes the seeds?", opts: ["Roots", "Stem", "Flower", "Leaves"], ans: 2 },
+            { q: "What carries water from the roots to the leaves?", opts: ["Flower", "Stem", "Petal", "Soil"], ans: 1 },
+            { q: "What do plants need to grow well?", opts: ["Darkness", "Light and Water", "Soda", "Cold air"], ans: 1 },
+            // Materials
+            { q: "Which material is best for making a window?", opts: ["Wood", "Metal", "Glass", "Paper"], ans: 2 },
+            { q: "A material that lets all light pass through is...", opts: ["Opaque", "Transparent", "Heavy", "Dark"], ans: 1 },
+            { q: "Which material is attracted to a magnet?", opts: ["Wood", "Plastic", "Iron", "Glass"], ans: 2 },
+            { q: "Which material is waterproof?", opts: ["Cotton shirt", "Paper towel", "Plastic raincoat", "Wool sweater"], ans: 2 },
+            { q: "A material that does not let ANY light through is...", opts: ["Opaque", "Transparent", "Clear", "Shiny"], ans: 0 },
+            // Forces
+            { q: "A push or a pull is called a...", opts: ["Speed", "Force", "Weight", "Jump"], ans: 1 },
+            { q: "What force slows a moving ball down on grass?", opts: ["Gravity", "Friction", "Magnetism", "Wind"], ans: 1 },
+            { q: "Which force pulls objects toward the ground?", opts: ["Gravity", "Friction", "Pushing", "Light"], ans: 0 },
+            // Human Body & Senses
+            { q: "Which organ pumps blood around your body?", opts: ["Lungs", "Brain", "Stomach", "Heart"], ans: 3 },
+            { q: "Which organ do you use for breathing?", opts: ["Heart", "Lungs", "Kidneys", "Liver"], ans: 1 },
+            { q: "Which sense do we use our tongue for?", opts: ["Sight", "Hearing", "Smell", "Taste"], ans: 3 },
+            { q: "What covers and protects our whole body?", opts: ["Hair", "Skin", "Bones", "Muscles"], ans: 1 },
+            // Light & Shadow
+            { q: "A shadow is formed when light is...", opts: ["Blocked", "Bent", "Colored", "Speeding up"], ans: 0 },
+            { q: "Why do we wear sunglasses?", opts: ["To see in the dark", "To protect eyes from bright light", "To look closer", "To hear better"], ans: 1 },
+            // Living Things & Matter
+            { q: "Which of these is a non-living thing?", opts: ["Tree", "Dog", "Rock", "Mushroom"], ans: 2 },
+            { q: "When solid ice melts, it turns into a...", opts: ["Gas", "Liquid", "Plasma", "Cloud"], ans: 1 },
+            { q: "What do we call water when it is a gas?", opts: ["Ice", "Water vapor", "Rain", "Snow"], ans: 1 },
+            { q: "Living things need water, air, and...", opts: ["Food", "Toys", "Clothes", "Fire"], ans: 0 }
+        ];
+
+        function generateQuestion() {
+            // Pick a random question
+            let baseQ = scienceBank[Math.floor(Math.random() * scienceBank.length)];
+            
+            // Create a copy of the options to shuffle them
+            let originalOpts = [...baseQ.opts];
+            let correctText = originalOpts[baseQ.ans];
+            
+            let shuffledOpts = [...originalOpts].sort(() => Math.random() - 0.5);
+            let newAnsIndex = shuffledOpts.indexOf(correctText);
+            
+            return {
+                q: baseQ.q,
+                opts: shuffledOpts,
+                ans: newAnsIndex
+            };
+        }
+
+        function startGame() {
+            document.getElementById('system-screen').style.display = 'none';
+            player = { level: 1, xp: 0, xpNeeded: 100, hp: 60, maxHp: 60, baseDamage: 15, activeBuff: null };
+            stage = 1;
+            skills.heal.currentCd = 0; skills.fire.currentCd = 0; skills.shield.currentCd = 0;
+            spawnEnemy();
+            updateUI();
+            nextTurn();
+        }
+
+        function spawnEnemy() {
+            let zoneIdx = Math.floor((stage - 1) / 5);
+            let safeZoneIdx = Math.min(zoneIdx, zones.length - 1);
+            let currentZone = zones[safeZoneIdx];
+            
+            let isBoss = (stage % 5 === 0);
+
+            document.getElementById('arena').style.background = currentZone.bg;
+            document.getElementById('zone-banner').innerText = `ZONE ${safeZoneIdx + 1}: ${currentZone.name}`;
+            document.getElementById('zone-banner').style.backgroundColor = currentZone.color;
+
+            let spriteEl = document.getElementById('enemy-sprite');
+            let statsBox = document.getElementById('enemy-stats-box');
+
+            if (isBoss) {
+                let loopMultiplier = zoneIdx >= zones.length ? (zoneIdx - zones.length + 2) : 1;
+                enemy = {
+                    name: currentZone.boss.name,
+                    sprite: currentZone.boss.sp,
+                    maxHp: Math.floor(50 * currentZone.boss.hpMulti * loopMultiplier),
+                    damage: Math.floor(8 * currentZone.boss.dmgMulti * loopMultiplier),
+                    isBoss: true
+                };
+                spriteEl.className = "sprite boss-sprite";
+                statsBox.className = "stats boss-stats";
+                
+                let warning = document.getElementById('boss-warning');
+                warning.style.animation = "none"; void warning.offsetWidth;
+                warning.style.animation = "bossAlert 2s forwards";
+                
+            } else {
+                let randE = currentZone.enemies[Math.floor(Math.random() * currentZone.enemies.length)];
+                enemy = {
+                    name: randE.name,
+                    sprite: randE.sp,
+                    maxHp: Math.floor(20 + (stage * 8)),
+                    damage: Math.floor(5 + (stage * 2)),
+                    isBoss: false
+                };
+                spriteEl.className = "sprite";
+                statsBox.className = "stats";
+            }
+            
+            enemy.hp = enemy.maxHp;
+            document.getElementById('enemy-name').innerText = enemy.name;
+            spriteEl.innerText = enemy.sprite;
+            spriteEl.style.animation = "popIn 0.5s";
+        }
+
+        function nextTurn() {
+            isProcessingTurn = false;
+            currentQuestion = generateQuestion();
+            document.getElementById('question-text').innerText = currentQuestion.q;
+            for(let i=0; i<4; i++) {
+                let btn = document.getElementById(`btn-${i}`);
+                btn.innerText = currentQuestion.opts[i];
+                btn.style.background = '#3498db'; 
+            }
+            updateUI();
+        }
+
+        function submitAnswer(index) {
+            if (isProcessingTurn) return;
+            isProcessingTurn = true;
+
+            let btn = document.getElementById(`btn-${index}`);
+            if (index === currentQuestion.ans) {
+                btn.style.background = '#2ecc71';
+                setTimeout(playerAttack, 400);
+            } else {
+                btn.style.background = '#e74c3c';
+                document.getElementById(`btn-${currentQuestion.ans}`).style.background = '#2ecc71';
+                setTimeout(enemyAttack, 1000);
+            }
+        }
+
+        function playerAttack() {
+            let pSprite = document.getElementById('player-sprite');
+            pSprite.style.animation = "none"; void pSprite.offsetWidth;
+            pSprite.style.animation = "attackRight 0.3s forwards";
+
+            let damageDealt = player.baseDamage + (player.level * 3);
+            if (player.activeBuff === 'fire') {
+                damageDealt *= 2;
+                player.activeBuff = null; 
+                showFloatingText('player-box', "⚡ CRITICAL!", '#e67e22');
+            }
+
+            setTimeout(() => {
+                enemy.hp -= damageDealt;
+                if(enemy.hp < 0) enemy.hp = 0;
+                
+                playHurtAnim('enemy-sprite');
+                showFloatingText('enemy-box', `-${damageDealt}`, '#e74c3c');
+                updateUI();
+
+                if (enemy.hp <= 0) setTimeout(defeatEnemy, 800);
+                else { decrementCooldowns(); setTimeout(nextTurn, 1000); }
+            }, 150);
+        }
+
+        function enemyAttack() {
+            let eSprite = document.getElementById('enemy-sprite');
+            eSprite.style.animation = "none"; void eSprite.offsetWidth;
+            eSprite.style.animation = "attackLeft 0.3s forwards";
+
+            setTimeout(() => {
+                if (player.activeBuff === 'shield') {
+                    showFloatingText('player-box', "🛡️ BLOCKED!", '#9b59b6');
+                    player.activeBuff = null; 
+                } else {
+                    player.hp -= enemy.damage;
+                    if(player.hp < 0) player.hp = 0;
+                    playHurtAnim('player-sprite');
+                    showFloatingText('player-box', `-${enemy.damage}`, '#e74c3c');
+                }
+                updateUI();
+
+                if (player.hp <= 0) setTimeout(gameOver, 800);
+                else { decrementCooldowns(); setTimeout(nextTurn, 1000); }
+            }, 150);
+        }
+
+        function defeatEnemy() {
+            let xpGained = enemy.isBoss ? 200 + (stage * 30) : 50 + (stage * 15);
+            showFloatingText('player-box', `+${xpGained} XP`, '#f1c40f');
+            
+            player.xp += xpGained;
+            stage++;
+            
+            if (enemy.isBoss) {
+                player.hp = player.maxHp;
+                setTimeout(() => showFloatingText('player-box', "💖 FULL HEAL!", '#2ecc71'), 500);
+            }
+            
+            if (player.xp >= player.xpNeeded) setTimeout(levelUp, 1000);
+            else {
+                setTimeout(() => { spawnEnemy(); updateUI(); decrementCooldowns(); nextTurn(); }, 1500);
+            }
+        }
+
+        function levelUp() {
+            player.level++;
+            player.xp = player.xp - player.xpNeeded;
+            player.xpNeeded = Math.floor(player.xpNeeded * 1.6);
+            player.maxHp += 20;
+            player.hp = player.maxHp; 
+            player.baseDamage += 6;
+
+            showFloatingText('player-box', "⭐ LEVEL UP! ⭐", '#00FFCC');
+            
+            setTimeout(() => { spawnEnemy(); updateUI(); decrementCooldowns(); nextTurn(); }, 1500);
+        }
+
+        function useSkill(skillId) {
+            if (isProcessingTurn || skills[skillId].currentCd > 0 || player.level < skills[skillId].unlocksAt) return;
+
+            if (skillId === 'heal') {
+                let healAmt = 40 + (player.level * 10);
+                player.hp = Math.min(player.maxHp, player.hp + healAmt);
+                showFloatingText('player-box', `+${healAmt} HP`, '#2ecc71');
+            } else if (skillId === 'fire') {
+                player.activeBuff = 'fire';
+                showFloatingText('player-box', "⚡ 2x DMG READY!", '#e67e22');
+            } else if (skillId === 'shield') {
+                player.activeBuff = 'shield';
+                showFloatingText('player-box', "🛡️ SHIELD UP!", '#9b59b6');
+            }
+
+            skills[skillId].currentCd = skills[skillId].maxCd + 1; 
+            updateUI();
+        }
+
+        function decrementCooldowns() {
+            for(let key in skills) {
+                if(skills[key].currentCd > 0) skills[key].currentCd--;
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('player-level').innerText = player.level;
+            document.getElementById('stage-num').innerText = stage;
+            document.getElementById('player-xp').innerText = player.xp;
+            document.getElementById('xp-needed').innerText = player.xpNeeded;
+
+            document.getElementById('player-hp-fill').style.width = `${(player.hp / player.maxHp) * 100}%`;
+            document.getElementById('player-hp-text').innerText = `${player.hp}/${player.maxHp}`;
+
+            document.getElementById('enemy-hp-fill').style.width = `${(enemy.hp / enemy.maxHp) * 100}%`;
+            document.getElementById('enemy-hp-text').innerText = `${enemy.hp}/${enemy.maxHp}`;
+
+            updateSkillBtn('heal'); updateSkillBtn('fire'); updateSkillBtn('shield');
+        }
+
+        function updateSkillBtn(id) {
+            let btn = document.getElementById(`skill-${id}`);
+            let badge = document.getElementById(`cd-${id}`);
+            let data = skills[id];
+
+            if (player.level < data.unlocksAt) {
+                btn.disabled = true; badge.innerText = `Lv${data.unlocksAt}`; badge.style.background = '#e74c3c';
+            } else if (data.currentCd > 0) {
+                btn.disabled = true; badge.innerText = data.currentCd; badge.style.background = '#e74c3c';
+            } else {
+                btn.disabled = false; badge.innerText = "RDY"; badge.style.background = '#2ecc71';
+            }
+        }
+
+        function playHurtAnim(elementId) {
+            let el = document.getElementById(elementId);
+            el.style.animation = "none"; void el.offsetWidth;
+            el.style.animation = "takeDamage 0.4s forwards";
+        }
+
+        function showFloatingText(parentId, text, color) {
+            let parent = document.getElementById(parentId);
+            let fl = document.createElement('div');
+            fl.className = 'floating-text'; fl.innerText = text; fl.style.color = color;
+            fl.style.top = '-20px'; fl.style.left = '50%'; fl.style.transform = 'translateX(-50%)';
+            parent.appendChild(fl);
+            setTimeout(() => fl.remove(), 1000);
+        }
+
+        function gameOver() {
+            let screen = document.getElementById('system-screen');
+            screen.style.display = 'flex';
+            document.getElementById('sys-title').innerText = "💀 DEFEATED";
+            document.getElementById('sys-title').style.color = "#e74c3c";
+            document.getElementById('sys-desc').innerHTML = `You made it to <b>Stage ${stage}</b> and reached <b>Level ${player.level}</b>!<br><br>Keep studying and try again!`;
+            document.getElementById('sys-btn').innerText = "PLAY AGAIN";
+        }
+    </script>
+</body>
+</html>
