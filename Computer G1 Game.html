@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 1 Computer Class Game!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+        /* 1. Applying a vibrant, playful gradient background */
+        body {
+            font-family: 'Comic Neue', cursive, sans-serif;
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 2. Enhanced container with translucent border */
+        #game-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            border: 10px solid rgba(255, 154, 158, 0.8);
+            position: relative;
+        }
+
+        #score-display {
+            font-size: 1.5em;
+            color: #FF6B6B;
+            background: #FFF0F0;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid #FF9A9E;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #FF6B6B;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #4ECDC4;
+            font-size: 1.6em;
+            margin: 10px 0;
+            min-height: 60px; /* Keeps layout stable */
+        }
+
+        #question-image {
+            max-width: 100%;
+            height: 220px; 
+            object-fit: cover;
+            margin: 15px 0;
+            animation: fadeIn 0.5s ease-in;
+            border-radius: 15px;
+            border: 4px solid #A8E6CF;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+
+        .btn {
+            font-family: 'Comic Neue', cursive, sans-serif;
+            font-size: 1.3em;
+            padding: 12px 25px;
+            margin: 8px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-start { background-color: #A8E6CF; color: #333; font-size: 1.8em;}
+        .btn-restart { background-color: #FFD3B6; color: #333; font-size: 1.8em;}
+
+        .choice-btn:nth-child(1) { background-color: #FF9A9E; }
+        .choice-btn:nth-child(2) { background-color: #A8E6CF; color: #333;}
+        .choice-btn:nth-child(3) { background-color: #9DB4FF; }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #feedback {
+            font-size: 1.5em;
+            margin-top: 15px;
+            min-height: 35px;
+            font-weight: bold;
+        }
+
+        .correct { color: #2ecc71; animation: bounce 0.5s; }
+        .wrong { color: #e74c3c; animation: shake 0.5s; }
+
+        .emoji-art {
+            font-size: 3em;
+            margin: 5px 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        
+        <div id="score-container" class="hidden">
+            <div id="score-display">⭐ Score: 0</div>
+        </div>
+
+        <div id="start-screen">
+            <h1>💻 Welcome to Computer Class! 💻</h1>
+            <div class="emoji-art">🏫✨</div>
+            <p style="font-size: 1.3em; color: #666;">Let's learn about computer parts and earn points!</p>
+            <button class="btn btn-start" onclick="startGame()">Play Game! ▶️</button>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <h2 id="question-text">Question goes here?</h2>
+            
+            <img id="question-image" src="" alt="Computer Part">
+
+            <div id="choices">
+                </div>
+            <div id="feedback"></div>
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <h1>🌟 Amazing Job! 🌟</h1>
+            <div class="emoji-art">🎉🏆🎈</div>
+            <h2 id="final-score" style="font-size: 2em; color: #FF6B6B;">You scored: 0 points!</h2>
+            <p style="font-size: 1.5em; color: #4ECDC4;">You are a computer expert!</p>
+            <button class="btn btn-restart" onclick="resetGame()">Play Again 🔄</button>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What do you use to point and click on the screen?",
+                image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400&q=80", 
+                choices: ["🖱️ The Mouse", "🐱 A Real Cat", "🍌 A Banana"],
+                correctAnswer: 0
+            },
+            {
+                question: "What looks like a TV and shows you pictures?",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/LCD_monitor.svg/400px-LCD_monitor.svg.png", 
+                choices: ["🍕 A Pizza", "📺 The Monitor", "🛏️ A Bed"],
+                correctAnswer: 1
+            },
+            {
+                question: "What has lots of letters and numbers to type your name?",
+                image: "https://images.unsplash.com/photo-1595225476474-87563907a212?w=400&q=80", 
+                choices: ["🍎 An Apple", "🎸 A Guitar", "⌨️ The Keyboard"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the big box that is the 'brain' of the computer?",
+                image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400&q=80", 
+                choices: ["🧠 The Computer Case / CPU", "👟 A Shoe", "⚽ A Soccer Ball"],
+                correctAnswer: 0
+            },
+            {
+                question: "What do you wear on your ears to listen to music quietly?",
+                image: "https://placehold.co/400x220/A8E6CF/333333?text=🎧+Headphones", 
+                choices: ["🎧 Headphones", "👓 Glasses", "🧢 A Hat"],
+                correctAnswer: 0
+            },
+            {
+                question: "What puts your pictures and homework onto real paper?",
+                image: "https://placehold.co/400x220/FFD3B6/333333?text=🖨️+Printer", 
+                choices: ["🍞 A Toaster", "🖨️ A Printer", "🖍️ A Crayon"],
+                correctAnswer: 1
+            },
+            {
+                question: "What takes your video so you can wave to your teacher online?",
+                image: "https://placehold.co/400x220/9DB4FF/333333?text=📷+Webcam", 
+                choices: ["📷 A Webcam", "🔦 A Flashlight", "🔍 A Magnifying Glass"],
+                correctAnswer: 0
+            },
+            {
+                question: "What is small, fits in your pocket, and saves your files?",
+                image: "https://placehold.co/400x220/FF9A9E/333333?text=💾+USB+Drive", 
+                choices: ["🔑 A Key", "🍬 Candy", "💾 A USB Flash Drive"],
+                correctAnswer: 2
+            },
+            {
+                question: "What do you speak into so others can hear your voice online?",
+                image: "https://placehold.co/400x220/A8E6CF/333333?text=🎤+Microphone", 
+                choices: ["🍦 An Ice Cream", "🎤 A Microphone", "🥕 A Carrot"],
+                correctAnswer: 1
+            },
+            {
+                question: "What plays the computer sound out loud for everyone in the room?",
+                image: "https://placehold.co/400x220/FFD3B6/333333?text=🔊+Speakers", 
+                choices: ["🔊 Speakers", "🐚 Seashells", "🔔 A Doorbell"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which computer folds in half so you can carry it in your backpack?",
+                image: "https://placehold.co/400x220/9DB4FF/333333?text=💻+Laptop", 
+                choices: ["📚 A Book", "🥪 A Sandwich", "💻 A Laptop"],
+                correctAnswer: 2
+            },
+            {
+                question: "Which flat computer has no keyboard and you only use your fingers?",
+                image: "https://placehold.co/400x220/FF9A9E/333333?text=📱+Tablet", 
+                choices: ["📱 A Tablet", "🛹 A Skateboard", "🖼️ A Picture Frame"],
+                correctAnswer: 0
+            },
+            {
+                question: "What box gives your house invisible Wi-Fi internet?",
+                image: "https://placehold.co/400x220/A8E6CF/333333?text=📶+Wi-Fi+Router", 
+                choices: ["📦 A Cardboard Box", "📶 A Wi-Fi Router", "📻 A Radio"],
+                correctAnswer: 1
+            },
+            {
+                question: "What takes a picture of your paper drawing and puts it INSIDE the computer?",
+                image: "https://placehold.co/400x220/FFD3B6/333333?text=📠+Scanner", 
+                choices: ["📠 A Scanner", "🪞 A Mirror", "🕰️ A Clock"],
+                correctAnswer: 0
+            },
+            {
+                question: "What soft flat mat does your computer mouse like to slide around on?",
+                image: "https://placehold.co/400x220/9DB4FF/333333?text=🔲+Mousepad", 
+                choices: ["🛏️ A Blanket", "🔲 A Mousepad", "🍽️ A Plate"],
+                correctAnswer: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const endScreen = document.getElementById('end-screen');
+        const scoreContainer = document.getElementById('score-container');
+        
+        const questionText = document.getElementById('question-text');
+        const questionImage = document.getElementById('question-image');
+        const choicesContainer = document.getElementById('choices');
+        const feedbackText = document.getElementById('feedback');
+        const scoreDisplay = document.getElementById('score-display');
+        const finalScoreDisplay = document.getElementById('final-score');
+
+        function startGame() {
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            scoreContainer.classList.remove('hidden');
+            currentQuestionIndex = 0;
+            score = 0;
+            updateScoreDisplay();
+            loadQuestion();
+        }
+
+        function updateScoreDisplay() {
+            scoreDisplay.textContent = `⭐ Score: ${score}`;
+        }
+
+        function loadQuestion() {
+            feedbackText.textContent = "";
+            feedbackText.className = "";
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.textContent = currentQuestion.question;
+            questionImage.src = currentQuestion.image;
+            choicesContainer.innerHTML = "";
+            
+            currentQuestion.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.textContent = choice;
+                button.className = 'btn choice-btn';
+                
+                // Pass the button element itself so we can modify it if they get it wrong
+                button.onclick = () => {
+                    checkAnswer(index, button);
+                };
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        function disableAllButtons() {
+            const buttons = choicesContainer.querySelectorAll('button');
+            buttons.forEach(btn => btn.style.pointerEvents = 'none');
+        }
+
+        function checkAnswer(selectedIndex, clickedButton) {
+            const currentQuestion = questions[currentQuestionIndex];
+            
+            if (selectedIndex === currentQuestion.correctAnswer) {
+                disableAllButtons(); // Disable all buttons once the correct answer is found
+                score += 10;
+                updateScoreDisplay();
+                feedbackText.textContent = "🌟 Correct! +10 Points! 🌟";
+                feedbackText.className = "correct";
+                
+                // Only move to the next question when the answer is correct
+                setTimeout(() => {
+                    nextQuestion();
+                }, 1800);
+            } else {
+                feedbackText.textContent = "Oops! Try again! 🤔";
+                feedbackText.className = "wrong";
+                
+                // Gray out the wrong answer and prevent them from clicking it again
+                clickedButton.style.opacity = '0.5';
+                clickedButton.style.pointerEvents = 'none';
+                
+                // We do NOT call nextQuestion() here, forcing them to try again.
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showEndScreen();
+            }
+        }
+
+        function showEndScreen() {
+            quizScreen.classList.add('hidden');
+            scoreContainer.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            finalScoreDisplay.textContent = `You scored: ${score} points!`;
+        }
+
+        function resetGame() {
+            endScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
