@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summon Night: Trial of Olympus</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap');
+
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background-color: #060814;
+            color: #ffffff;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            user-select: none;
+        }
+
+        /* GBA Handheld Console Border Styling */
+        #gba-wrapper {
+            background-color: #eab308;
+            border: 12px solid #a16207;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 0 50px rgba(234, 179, 8, 0.3);
+            max-width: 855px;
+            width: 100%;
+        }
+
+        #game-screen {
+            background-color: #020617;
+            border: 6px solid #000000;
+            border-radius: 4px;
+            padding: 15px;
+            position: relative;
+        }
+
+        /* Top Status HUD */
+        .hud-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            color: #fef08a;
+            border-bottom: 4px double #475569;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        /* Battle Arena Ground */
+        .battle-arena {
+            height: 240px;
+            background: linear-gradient(to bottom, #0f172a 50%, #1e293b 100%);
+            border: 3px solid #eab308;
+            border-radius: 4px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 40px 25px 40px;
+            margin-bottom: 15px;
+            transition: background 0.5s ease;
+        }
+
+        /* Screen Attack Flash Effects */
+        .hit-flash { animation: screenFlash 0.3s ease-out; }
+        @keyframes screenFlash {
+            0%, 100% { background: linear-gradient(to bottom, #0f172a 50%, #1e293b 100%); }
+            50% { background: #991b1b; }
+        }
+
+        /* Character/Summon Nodes */
+        .sprite-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 160px;
+        }
+
+        .character-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 90px;
+        }
+
+        .pixel-sprite {
+            font-size: 4.5rem;
+            filter: drop-shadow(0 8px 0px rgba(0,0,0,0.6));
+            transition: transform 0.1s linear, opacity 0.4s ease;
+            white-space: nowrap;
+        }
+
+        .weapon-sprite {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 4px 0px rgba(0,0,0,0.5));
+            transition: transform 0.1s linear;
+        }
+
+        /* HP Bar System */
+        .hp-box {
+            width: 100%;
+            background-color: #000;
+            border: 2px solid #cbd5e1;
+            height: 10px;
+            margin-top: 10px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .hp-fill {
+            height: 100%;
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+        .hero-hp { background-color: #22c55e; }
+        .enemy-hp { background-color: #ef4444; }
+
+        .tag-name {
+            font-size: 0.5rem;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            text-align: center;
+            line-height: 1.3;
+            color: #f87171;
+        }
+
+        /* NEW: Lore Description Tag for Accuracy */
+        .lore-tag {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            color: #cbd5e1;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 4px 6px;
+            border-radius: 4px;
+            margin-top: 6px;
+            text-align: center;
+            line-height: 1.3;
+            max-width: 150px;
+            border: 1px solid #334155;
+        }
+
+        /* Floating Text Effects */
+        .popup-tag {
+            position: absolute;
+            top: -45px;
+            font-size: 0.6rem;
+            font-weight: bold;
+            animation: bounceUp 0.8s forwards ease-out;
+            white-space: nowrap;
+            z-index: 30;
+        }
+        @keyframes bounceUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            30% { opacity: 1; transform: translateY(-15px); }
+            100% { opacity: 0; transform: translateY(-45px); }
+        }
+
+        /* Retro JRPG Menu Text Boxes */
+        .dialogue-menu {
+            background-color: #090d16;
+            border: 4px solid #eab308;
+            box-shadow: inset 0 0 0 2px #000;
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 0.55rem;
+            line-height: 1.8;
+        }
+
+        /* Highlighted Question Container */
+        .prompt-text {
+            color: #ffffff;
+            background-color: #161e2e;
+            border-left: 6px solid #eab308;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 0 4px 4px 0;
+            line-height: 1.6;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .choice-btn {
+            background-color: #111827;
+            color: #e2e8f0;
+            border: 2px solid #475569;
+            padding: 14px;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.5rem;
+            border-radius: 4px;
+            width: 100%;
+            line-height: 1.6;
+            transition: all 0.2s ease;
+        }
+
+        .choice-btn:hover:not([disabled]) {
+            background-color: #a16207;
+            border-color: #ffffff;
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+
+        /* Dynamic Rule Feedback Box */
+        #log-panel {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.5rem;
+            line-height: 1.7;
+        }
+        .success-box { background-color: #064e3b; border: 2px solid #10b981; color: #a7f3d0; }
+        .failure-box { background-color: #7f1d1d; border: 2px solid #ef4444; color: #fca5a5; }
+
+        .gba-nav-btn {
+            background-color: #eab308;
+            color: #000;
+            font-weight: bold;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.55rem;
+            cursor: pointer;
+            margin-top: 14px;
+            display: none;
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        /* --- GBA MYTHIC ANIMATIONS --- */
+        .hero-attack-dash { animation: solarStrike 0.5s ease-in-out; }
+        @keyframes solarStrike {
+            0% { transform: translateX(0) scale(1); }
+            20% { transform: translateX(-30px) scale(0.9); }
+            50% { transform: translateX(430px) scale(1.2); filter: brightness(1.3); }
+            100% { transform: translateX(0) scale(1); }
+        }
+
+        .monster-attack-dash { animation: primalStrike 0.5s ease-in-out; }
+        @keyframes primalStrike {
+            0% { transform: translateX(0) scale(1); }
+            20% { transform: translateX(30px) scale(0.9); }
+            50% { transform: translateX(-430px) scale(1.2); filter: invert(0.2) sepia(1) hue-rotate(120deg); }
+            100% { transform: translateX(0) scale(1); }
+        }
+
+        .hurt-shake { animation: ancientShake 0.4s ease-in-out; }
+        @keyframes ancientShake {
+            0%, 100% { transform: translateX(0) rotate(0deg); filter: none; }
+            25%, 75% { transform: translateX(-15px) rotate(-4deg); filter: brightness(3) sepia(1) hue-rotate(340deg); }
+            50%, 100% { transform: translateX(15px) rotate(4deg); filter: brightness(3) sepia(1) hue-rotate(340deg); }
+        }
+
+        .dissolve-fade { animation: celestialVaporize 0.7s forwards linear; }
+        @keyframes celestialVaporize {
+            0% { transform: scale(1); opacity: 1; filter: none; }
+            40% { transform: scale(1.3) translateY(-20px); filter: brightness(4) saturate(0); }
+            100% { transform: scale(0); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="gba-wrapper">
+    <div id="game-screen">
+        
+        <div class="hud-row">
+            <div>HERO: HUMAN MORTAL</div>
+            <div id="hud-stage">TRIAL: 1 / 12</div>
+            <div>HONOR: <span id="hud-kp">0000</span></div>
+        </div>
+
+        <div id="arena-field" class="battle-arena">
+            <div class="sprite-container" id="hero-block">
+                <div id="hero-pop-anchor"></div>
+                <div class="character-row">
+                    <div id="hero-sprite" class="pixel-sprite">🧑‍🦱</div>
+                    <div id="weapon-sprite" class="weapon-sprite">🗡️</div>
+                </div>
+                <div class="hp-box"><div id="hero-hp-bar" class="hp-fill hero-hp"></div></div>
+                <div class="tag-name" style="color: #60a5fa;">LEO (APPRENTICE)</div>
+            </div>
+
+            <div class="sprite-container" id="enemy-block">
+                <div id="enemy-pop-anchor"></div>
+                <div class="character-row">
+                    <div id="enemy-sprite" class="pixel-sprite">🦬</div>
+                </div>
+                <div class="hp-box"><div id="enemy-hp-bar" class="hp-fill enemy-hp"></div></div>
+                <div class="tag-name" id="enemy-label">MINOTAUR</div>
+                <div id="enemy-lore" class="lore-tag">Half-man, half-bull.</div>
+            </div>
+        </div>
+
+        <div class="dialogue-menu">
+            <div id="prompt-label" class="prompt-text">Awakening Oracle Parchment...</div>
+            <div id="choices-grid" class="options-list"></div>
+            
+            <div id="log-panel"></div>
+            <button id="next-level-btn" class="gba-nav-btn" onclick="goToNextStage()">ASCEND THE PATH ➔</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let currentStage = 0;
+    let playerHealth = 100;
+    let totalForgePoints = 0;
+
+    const summonNightDatabase = [
+        {
+            spiritName: "Minotaur",
+            spiritEmoji: "🦬",
+            loreDesc: "A towering brute; half-man, half-bull.",
+            bgGradient: "linear-gradient(to bottom, #1c1917 50%, #44403c 100%)",
+            question: "📜 [TIME PHRASE: 'Yesterday'] Choose the past layout that properly completes the historical event within the stone maze:",
+            answers: [
+                "Yesterday, Leo navigated the dark maze and escaped the beast.",
+                "Yesterday, Leo navigates the dark maze and escaped the beast.",
+                "Yesterday, Leo navigating the dark maze and escaped the beast."
+            ],
+            correct: 0,
+            explanation: "<strong>📜 GRAMMAR LAWS: Past Simple Rule</strong><br>The adverb <em>'Yesterday'</em> positions this completely in past history. For regular actions, match the root form with the suffix <strong>-ed</strong> (<em>navigated</em>). Option B mixes past and present forms incorrectly."
+        },
+        {
+            spiritName: "Lernaean Hydra",
+            spiritEmoji: "🐉",
+            loreDesc: "A venomous water serpent with regenerating heads.",
+            bgGradient: "linear-gradient(to bottom, #022c22 50%, #065f46 100%)",
+            question: "📜 Select the sentence format that establishes a universal, permanent fact of nature about this monster's biology:",
+            answers: [
+                "The Hydra grew two new heads whenever a hero cut one off.",
+                "The Hydra grows two new heads whenever a hero cuts one off.",
+                "The Hydra was growing two new heads whenever a hero cuts one off."
+            ],
+            correct: 1,
+            explanation: "<strong>📜 GRAMMAR LAWS: Present Simple for Universal Truths</strong><br>To state a timeless mythological fact, rule of nature, or recurring habit, use the Present Simple (<strong>grows</strong> / <strong>cuts</strong>). Option A treats it as a single past narrative incident."
+        },
+        {
+            spiritName: "Cerberus",
+            spiritEmoji: "🐺",
+            loreDesc: "The massive three-headed hellhound of Hades.",
+            bgGradient: "linear-gradient(to bottom, #450a0a 50%, #7f1d1d 100%)",
+            question: "📜 Identify the exact negative layout needed to state a past action that DID NOT interrupt the hero's advance:",
+            answers: [
+                "The three-headed hound did not barked when Leo ran past the gates.",
+                "The three-headed hound did not bark when Leo ran past the gates.",
+                "The three-headed hound no barked when Leo ran past the gates."
+            ],
+            correct: 1,
+            explanation: "<strong>📜 GRAMMAR LAWS: Past Simple Negative Syntax</strong><br>To express a past negative truth, couple the auxiliary marker <em>'did not'</em> alongside the base infinitive verb (<strong>bark</strong>). Never double-mark tense by choosing 'did not barked'!"
+        },
+        {
+            spiritName: "Medusa",
+            spiritEmoji: "🐍",
+            loreDesc: "A cursed gorgon with living venomous snakes for hair.",
+            bgGradient: "linear-gradient(to bottom, #2e1065 50%, #4c1d95 100%)",
+            question: "📜 Select the phrase sequence showing multiple finished narrative actions linked back-to-back in the Past Simple:",
+            answers: [
+                "Leo raised his shiny bronze shield, turned his face away, and struck.",
+                "Leo raises his shiny bronze shield, turns his face away, and struck.",
+                "Leo was raising his shiny bronze shield, turning away, and striking."
+            ],
+            correct: 0,
+            explanation: "<strong>📜 GRAMMAR LAWS: Narrative Action Sequencing</strong><br>When arranging a consecutive chain of completed historical events that happened one right after another, use uniform Past Simple forms (<strong>raised, turned, struck</strong>)."
+        },
+        {
+            spiritName: "Enceladus",
+            spiritEmoji: "🌋",
+            loreDesc: "A colossal buried giant who breathes volcanic fire.",
+            bgGradient: "linear-gradient(to bottom, #7c2d12 50%, #9a3412 100%)",
+            question: "📜 [TIME PHRASE: 'Last summer'] Identify the irregular past verb to describe a finished historical action beneath the volcano:",
+            answers: [
+                "Last summer, the trapped Titan shakes the ground beneath Sicily.",
+                "Last summer, the trapped Titan shook the ground beneath Sicily.",
+                "Last summer, the trapped Titan shaked the ground beneath Sicily."
+            ],
+            correct: 1,
+            explanation: "<strong>📜 GRAMMAR LAWS: Irregular Past Simple Verbs</strong><br>The time frame <em>'Last summer'</em> dictates Past Simple. 'Shake' is an irregular verb and alters its vowel structure entirely to become <strong>shook</strong>, never 'shaked'."
+        },
+        {
+            spiritName: "Scylla",
+            spiritEmoji: "🦑",
+            loreDesc: "A horrific sea anomaly with gnashing monstrous heads.",
+            bgGradient: "linear-gradient(to bottom, #0c4a6e 50%, #075985 100%)",
+            question: "📜 Choose the proper Present Simple form to match a singular mythic subject expressing a permanent characteristic:",
+            answers: [
+                "Scylla snatches sailors from passing boats with her long tentacles.",
+                "Scylla snatch sailors from passing boats with her long tentacles.",
+                "Scylla snatching sailors from passing boats with her long tentacles."
+            ],
+            correct: 0,
+            explanation: "<strong>📜 GRAMMAR LAWS: Subject-Verb Agreement</strong><br>For singular third-person subjects (he/she/it/Scylla) in the Present Simple, verbs expressing habits or facts must take an <strong>-s</strong> or <strong>-es</strong> suffix (<strong>snatches</strong>)."
+        },
+        {
+            spiritName: "Nemean Lion",
+            spiritEmoji: "🦁",
+            loreDesc: "A savage predator with golden, impenetrable fur.",
+            bgGradient: "linear-gradient(to bottom, #713f12 50%, #854d0e 100%)",
+            question: "📜 Which pattern correctly utilizes the auxiliary helper verb to create an interrogative question about a past event?",
+            answers: [
+                "Did Leo found the weakness in the beast's golden, impenetrable skin?",
+                "Did Leo find the weakness in the beast's golden, impenetrable skin?",
+                "Does Leo found the weakness in the beast's golden, impenetrable skin?"
+            ],
+            correct: 1,
+            explanation: "<strong>📜 GRAMMAR LAWS: Past Simple Question Syntax</strong><br>Past queries require the helper auxiliary <strong>'Did'</strong> combined with the base, unmodified form of the primary verb (<strong>find</strong>). The helper 'Did' already fulfills the past role."
+        },
+        {
+            spiritName: "Charybdis",
+            spiritEmoji: "🌀",
+            loreDesc: "A gargantuan whirlpool that swallows the entire sea.",
+            bgGradient: "linear-gradient(to bottom, #172554 50%, #1e3a8a 100%)",
+            question: "📜 Select the sentence that properly details a timeless fact about Charybdis using the negative Present Simple construct:",
+            answers: [
+                "Charybdis do not allow wooden merchant vessels to cross safely.",
+                "Charybdis did not allowed wooden merchant vessels to cross safely.",
+                "Charybdis does not allow wooden merchant vessels to cross safely."
+            ],
+            correct: 2,
+            explanation: "<strong>📜 GRAMMAR LAWS: Present Simple Negatives</strong><br>For singular third-person cosmic subjects, negative habits or rules require the auxiliary compound <strong>'does not'</strong> matched with the root verb form (<strong>allow</strong>)."
+        },
+        {
+            spiritName: "The Sphinx",
+            spiritEmoji: "🦅",
+            loreDesc: "A winged lioness with the riddling mind of a human.",
+            bgGradient: "linear-gradient(to bottom, #3f2c11 50%, #5c4017 100%)",
+            question: "📜 [TIME PHRASE: 'In ancient times'] Select the sentence that uses a proper irregular past form to depict a finished challenge:",
+            answers: [
+                "In ancient times, the Sphinx gave riddles to all traveling strangers.",
+                "In ancient times, the Sphinx gived riddles to all traveling strangers.",
+                "In ancient times, the Sphinx gives riddles to all traveling strangers."
+            ],
+            correct: 0,
+            explanation: "<strong>📜 GRAMMAR LAWS: Past Narrative Forms</strong><br>The timeline anchor <em>'In ancient times'</em> shifts this text to the past. The irregular past tense structure for 'give' is always <strong>gave</strong>."
+        },
+        {
+            spiritName: "Typhon",
+            spiritEmoji: "🌪️",
+            loreDesc: "The father of monsters; a hurricane of dragon heads.",
+            bgGradient: "linear-gradient(to bottom, #0f172a 50%, #020617 100%)",
+            question: "📜 Which sentence utilizes the Present Simple correctly to show a permanent state of existence?",
+            answers: [
+                "Typhon breathes searing ash and storms because he embodies natural chaos.",
+                "Typhon breathed searing ash and storms because he embodies natural chaos.",
+                "Typhon breathing searing ash and storms because he embodies natural chaos."
+            ],
+            correct: 0,
+            explanation: "<strong>📜 GRAMMAR LAWS: Permanent Existential States</strong><br>We deploy Present Simple (<strong>breathes / embodies</strong>) here because the text details an enduring state of being and universal trait of the character's identity."
+        },
+        {
+            spiritName: "Cronus",
+            spiritEmoji: "⏳",
+            loreDesc: "The ancient King of the Titans who controls time.",
+            bgGradient: "linear-gradient(to bottom, #3f3f46 50%, #52525b 100%)",
+            question: "📜 Choose the proper structure to indicate that an action was completely finished before this moment in history:",
+            answers: [
+                "The Titan of Time loses his absolute rule during the golden rebellion.",
+                "The Titan of Time lost his absolute rule during the golden rebellion.",
+                "The Titan of Time was losing his absolute rule during the golden rebellion."
+            ],
+            correct: 1,
+            explanation: "<strong>📜 GRAMMAR LAWS: Past Simple Definite Events</strong><br>The historical rebellion represents a completed window in cosmic time. Therefore, we require the irregular Past Simple form <strong>lost</strong>."
+        },
+        {
+            spiritName: "Zeus",
+            spiritEmoji: "⚡",
+            loreDesc: "The King of Olympus, wielding raw thunderbolts.",
+            bgGradient: "linear-gradient(to bottom, #1e3a8a 50%, #3b82f6 100%)",
+            question: "🏛️ Final Trial! Choose the phrase that properly matches Present Simple for an eternal truth, alongside Past Simple for an old event:",
+            answers: [
+                "Zeus rules Olympus eternally, but he fought a massive war to secure it long ago.",
+                "Zeus ruled Olympus eternally, but he fights a massive war to secure it long ago.",
+                "Zeus rules Olympus eternally, but he fights a massive war to secure it long ago."
+            ],
+            correct: 0,
+            explanation: "<strong>📜 GRAMMAR LAWS: Tense Integration Rule</strong><br>The continuous status of his lordship requires Present Simple (<strong>rules</strong>), while the historical conflict demands the irregular past marker (<strong>fought</strong>)."
+        }
+    ];
+
+    function initializeStage() {
+        document.getElementById("log-panel").style.display = "none";
+        document.getElementById("next-level-btn").style.display = "none";
+        
+        if (currentStage >= summonNightDatabase.length) {
+            triggerGameWinScreen();
+            return;
+        }
+
+        const data = summonNightDatabase[currentStage];
+        
+        document.getElementById("hud-stage").innerText = `TRIAL: ${currentStage + 1} / ${summonNightDatabase.length}`;
+        document.getElementById("arena-field").style.background = data.bgGradient;
+        
+        const heroBlock = document.getElementById("hero-block");
+        const enemyBlock = document.getElementById("enemy-block");
+        const enemySprite = document.getElementById("enemy-sprite");
+        
+        heroBlock.className = "sprite-container";
+        enemyBlock.className = "sprite-container";
+        enemySprite.className = "pixel-sprite";
+        
+        enemySprite.innerText = data.spiritEmoji;
+        document.getElementById("enemy-label").innerText = data.spiritName;
+        document.getElementById("enemy-lore").innerText = data.loreDesc;
+        document.getElementById("enemy-hp-bar").style.width = "100%";
+
+        document.getElementById("prompt-label").innerText = data.question;
+
+        const buttonBox = document.getElementById("choices-grid");
+        buttonBox.innerHTML = "";
+        
+        data.answers.forEach((phraseText, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "choice-btn";
+            btn.innerHTML = `[OPTION ${String.fromCharCode(65 + idx)}] ${phraseText}`;
+            btn.onclick = () => runCombatRound(idx);
+            buttonBox.appendChild(btn);
+        });
+    }
+
+    function runCombatRound(selectedIndex) {
+        const data = summonNightDatabase[currentStage];
+        const feedbackLog = document.getElementById("log-panel");
+        const nextButton = document.getElementById("next-level-btn");
+        const buttons = document.getElementsByClassName("choice-btn");
+
+        const heroBlock = document.getElementById("hero-block");
+        const enemyBlock = document.getElementById("enemy-block");
+        const enemySprite = document.getElementById("enemy-sprite");
+        const arenaBackground = document.getElementById("arena-field");
+
+        heroBlock.className = "sprite-container";
+        enemyBlock.className = "sprite-container";
+        enemySprite.className = "pixel-sprite";
+        
+        const originalBg = arenaBackground.style.background;
+
+        if (selectedIndex === data.correct) {
+            for(let btn of buttons) btn.disabled = true;
+            heroBlock.classList.add("hero-attack-dash");
+            
+            setTimeout(() => {
+                enemySprite.classList.add("hurt-shake");
+                enemySprite.classList.add("dissolve-fade");
+                document.getElementById("enemy-hp-bar").style.width = "0%";
+                
+                createFloatingPopup(document.getElementById("enemy-pop-anchor"), "MORTAL SLASH!", "#22c55e");
+                createFloatingPopup(document.getElementById("hero-pop-anchor"), "SWORD STRIKE! ⚔️", "#fef08a");
+                
+                totalForgePoints += 250;
+                document.getElementById("hud-kp").innerText = String(totalForgePoints).padStart(4, '0');
+            }, 300);
+
+            feedbackLog.className = "success-box";
+            feedbackLog.innerHTML = `🎯> <strong>SUCCESS! The mortal outsmarts the ancient myth!</strong><br><br>${data.explanation}`;
+            feedbackLog.style.display = "block";
+            nextButton.style.display = "block";
+        } else {
+            enemyBlock.classList.add("monster-attack-dash");
+            arenaBackground.classList.add("hit-flash");
+            
+            setTimeout(() => {
+                heroBlock.classList.add("hurt-shake");
+                arenaBackground.className = "battle-arena";
+                arenaBackground.style.background = originalBg;
+                
+                playerHealth = Math.max(playerHealth - 20, 20);
+                document.getElementById("hero-hp-bar").style.width = playerHealth + "%";
+                
+                createFloatingPopup(document.getElementById("hero-pop-anchor"), "-20 HP", "#ef4444");
+            }, 300);
+
+            feedbackLog.className = "failure-box";
+            feedbackLog.innerHTML = `💥> <strong>MORTAL ERROR! The beast overwhelms your physical shields!</strong> Review the grammar breakdowns, adjust your stance, and try again!`;
+            feedbackLog.style.display = "block";
+        }
+    }
+
+    function createFloatingPopup(targetElement, messageText, hexColor) {
+        const popup = document.createElement("div");
+        popup.className = "popup-tag";
+        popup.innerText = messageText;
+        popup.style.color = hexColor;
+        targetElement.appendChild(popup);
+        
+        setTimeout(() => { popup.remove(); }, 800);
+    }
+
+    function goToNextStage() {
+        currentStage++;
+        initializeStage();
+    }
+
+    function triggerGameWinScreen() {
+        document.getElementById("game-screen").innerHTML = `
+            <div style="text-align:center; padding: 30px 10px; line-height:2;">
+                <h2 style="color: #22c55e; font-size: 0.8rem; margin-bottom:25px; letter-spacing:1px;">🏛️ MORTAL ASCENSION COMPLETE 🏛️</h2>
+                <div style="font-size: 5rem; margin: 20px 0; filter: drop-shadow(0 0 15px gold);">🧑‍🦱👑</div>
+                <p style="font-size: 0.5rem; color: #cbd5e1; max-width:650px; margin: 0 auto 25px auto; line-height:1.9;">
+                    Phenomenal triumph! Armed with nothing but mortal determination, proper **Present Simple universal truth structures**, and flawless **Past Simple narrative timeline layouts**, Leo has successfully completed the 12 trials and secured his legendary forge!
+                </p>
+                <div style="color: #fef08a; font-size:0.75rem; margin-bottom:25px;">TOTAL MORTAL HONOR: ${totalForgePoints} PTS</div>
+                <button class="choice-btn" style="text-align:center; width:auto; padding:15px 40px; margin:0 auto; display:block; background-color:#eab308; color:black; font-weight:bold;" onclick="location.reload()">CHALLENGE AGAIN</button>
+            </div>
+        `;
+    }
+
+    window.onload = initializeStage;
+</script>
+
+</body>
+</html>
