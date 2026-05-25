@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Grammar Hangman</title>
+    <style>
+        :root {
+            --primary: #5f27cd;
+            --team-a: #1dd1a1;
+            --team-b: #feca57;
+            --danger: #ff6b6b;
+            --success: #1dd1a1;
+            --dark: #222f3e;
+            --light: #f5f6fa;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--dark);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .game-card {
+            width: 100%;
+            max-width: 900px;
+            background: #2f3542;
+            border: 3px solid #57606f;
+            border-radius: 8px;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        h1 { font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        
+        .btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn:hover { background-color: white; color: var(--dark); }
+
+        /* Scoreboard & Turns */
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #57606f;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .score { font-size: 1.2rem; font-weight: bold; }
+        .score.a { color: var(--team-a); }
+        .score.b { color: var(--team-b); }
+
+        .turn-box {
+            font-size: 1.1rem;
+            padding: 6px 15px;
+            font-weight: bold;
+            border: 2px solid #fff;
+            text-transform: uppercase;
+        }
+
+        /* Split Layout: Gallows Left, Sentence/Keyboard Right */
+        .game-layout {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            background: #1e272e;
+            border: 2px solid #57606f;
+        }
+
+        .game-controls {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .clue-box {
+            font-size: 0.9rem;
+            color: #a4b0be;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .sentence-area {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .word-box {
+            display: inline-flex;
+            gap: 5px;
+            margin: 0 10px;
+        }
+        .letter-dash {
+            border-bottom: 3px solid #fff;
+            width: 22px;
+            height: 28px;
+            display: inline-block;
+            text-align: center;
+            font-weight: bold;
+            color: #feca57;
+            font-size: 1.3rem;
+        }
+
+        /* Keyboard Grid */
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+        .key {
+            background: #57606f;
+            border: none;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .key:hover { background: #747d8c; }
+        .key.hit { background-color: var(--success); color: #000; pointer-events: none; }
+        .key.miss { background-color: var(--danger); opacity: 0.3; pointer-events: none; }
+
+        /* Discussion Section */
+        .discussion-pane {
+            background: #1e272e;
+            border: 2px solid var(--team-b);
+            padding: 15px;
+            text-align: left;
+            margin-top: 20px;
+            display: none;
+        }
+        .discussion-pane h3 { margin: 0 0 5px 0; color: var(--team-b); font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+<div class="game-card">
+
+    <div id="start-screen" class="screen active">
+        <h1>CLASSIC GRAMMAR HANGMAN</h1>
+        <p style="color: #a4b0be; margin-bottom: 30px;">Simple Tenses Challenge: Team A vs Team B</p>
+        <button class="btn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="score a">TEAM A: <span id="score-a">0</span></div>
+            <div id="turn-box" class="turn-box">TEAM A TURN</div>
+            <div class="score b">TEAM B: <span id="score-b">0</span></div>
+        </div>
+
+        <div class="game-layout">
+            <canvas id="hangmanCanvas" width="200" height="250"></canvas>
+
+            <div class="game-controls">
+                <div id="clue-box" class="clue-box">Clue</div>
+                <div class="sentence-area" id="sentence-area">Loading...</div>
+                <div class="keyboard" id="keyboard"></div>
+            </div>
+        </div>
+
+        <div class="discussion-pane" id="discussion-pane">
+            <h3>📝 RULE DISCUSSION</h3>
+            <p><strong>Tense Structure:</strong> <span id="target-tense" style="color:var(--team-a)"></span></p>
+            <p id="explanation-text" style="margin: 5px 0 0 0; color: #ced6e0; font-size: 0.9rem;"></p>
+        </div>
+
+        <button id="next-btn" class="btn" style="display:none; margin-top: 20px;" onclick="nextQuestion()">Next Word ➡️</button>
+    </div>
+
+    <div id="end-screen" class="screen">
+        <h1>GAME OVER</h1>
+        <h2 id="winner-text" style="margin: 30px 0;"></h2>
+        <button class="btn" onclick="switchScreen('start-screen')">Restart</button>
+    </div>
+
+</div>
+
+<script>
+    const questions = [
+        {
+            before: "She always ",
+            after: " her bike to school. (ride)",
+            answer: "RIDES",
+            tense: "Simple Present",
+            clue: "Present Habit / Third-person singular ('She')",
+            explanation: "Routine behavior calls for Simple Present. Combine third-person singular (She) with verb base modification (+s)."
+        },
+        {
+            before: "They ",
+            after: " a loud noise last night. (hear)",
+            answer: "HEARD",
+            tense: "Simple Past",
+            clue: "Completed action linked to time marker ('last night')",
+            explanation: "'Last night' isolates the activity to history, requiring the irregular Simple Past inflection."
+        },
+        {
+            before: "We ",
+            after: " our project tomorrow morning. (finish)",
+            answer: "WILLFINISH",
+            tense: "Simple Future",
+            clue: "Action targeted for a future window ('tomorrow')",
+            explanation: "Prospective tasks scheduled down the timeline rely on future modal auxiliary rules: 'will' + core root."
+        },
+        {
+            before: "The sun ",
+            after: " in the east every day. (rise)",
+            answer: "RISES",
+            tense: "Simple Present",
+            clue: "Universal constant / Scientific consensus fact",
+            explanation: "Natural fixed truths, steady facts, and systemic loops consistently deploy Simple Present grammar parameters."
+        }
+    ];
+
+    let currentIdx = 0;
+    let scoreA = 0;
+    let scoreB = 0;
+    let activeTeam = "A";
+    let guessed = [];
+    let mistakes = 0;
+    const maxMistakes = 6;
+
+    let canvas, ctx;
+
+    function switchScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function startGame() {
+        questions.sort(() => Math.random() - 0.5);
+        currentIdx = 0;
+        scoreA = 0;
+        scoreB = 0;
+        activeTeam = "A";
+        
+        document.getElementById('score-a').innerText = scoreA;
+        document.getElementById('score-b').innerText = scoreB;
+        
+        switchScreen('game-screen');
+        
+        canvas = document.getElementById('hangmanCanvas');
+        ctx = canvas.getContext('2d');
+        
+        initRound();
+    }
+
+    function initRound() {
+        guessed = [];
+        mistakes = 0;
+        
+        document.getElementById('discussion-pane').style.display = "none";
+        document.getElementById('next-btn').style.display = "none";
+        document.getElementById('keyboard').style.pointerEvents = "auto";
+        
+        drawHangman(0);
+        updateTurnDisplay();
+        renderSentence();
+        buildKeyboard();
+    }
+
+    function updateTurnDisplay() {
+        const box = document.getElementById('turn-box');
+        box.innerText = `TEAM ${activeTeam} TURN`;
+        box.style.borderColor = activeTeam === "A" ? "var(--team-a)" : "var(--team-b)";
+        box.style.color = activeTeam === "A" ? "var(--team-a)" : "var(--team-b)";
+    }
+
+    function renderSentence() {
+        const item = questions[currentIdx];
+        document.getElementById('clue-box').innerText = `CONTEXT CLUE: ${item.clue}`;
+        
+        const area = document.getElementById('sentence-area');
+        area.innerHTML = "";
+        area.appendChild(document.createTextNode(item.before));
+        
+        const wordBox = document.createElement('span');
+        wordBox.className = "word-box";
+        
+        for (let char of item.answer) {
+            const dash = document.createElement('span');
+            dash.className = "letter-dash";
+            dash.innerText = guessed.includes(char) ? char : "";
+            wordBox.appendChild(dash);
+        }
+        
+        area.appendChild(wordBox);
+        area.appendChild(document.createTextNode(item.after));
+    }
+
+    function buildKeyboard() {
+        const kb = document.getElementById('keyboard');
+        kb.innerHTML = "";
+        const alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        
+        for (let char of alpha) {
+            const k = document.createElement('button');
+            k.className = "key";
+            k.innerText = char;
+            k.onclick = () => handleInput(char, k);
+            kb.appendChild(k);
+        }
+    }
+
+    function handleInput(char, element) {
+        const item = questions[currentIdx];
+        guessed.push(char);
+        
+        if (item.answer.includes(char)) {
+            element.classList.add('hit');
+            renderSentence();
+            if ([...item.answer].every(c => guessed.includes(c))) {
+                endRound(true);
+            }
+        } else {
+            element.classList.add('miss');
+            mistakes++;
+            drawHangman(mistakes);
+            
+            if (mistakes >= maxMistakes) {
+                endRound(false);
+            } else {
+                activeTeam = activeTeam === "A" ? "B" : "A";
+                updateTurnDisplay();
+            }
+        }
+    }
+
+    function drawHangman(step) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 3;
+
+        // Base Gallows (Always drawn)
+        ctx.beginPath();
+        ctx.moveTo(20, 230); ctx.lineTo(180, 230); // Base
+        ctx.moveTo(50, 230); ctx.lineTo(50, 20);   // Pole
+        ctx.moveTo(50, 20);  ctx.lineTo(130, 20);  // Beam
+        ctx.moveTo(130, 20); ctx.lineTo(130, 50);  // Rope
+        ctx.stroke();
+
+        if (step >= 1) { // Head
+            ctx.beginPath();
+            ctx.arc(130, 70, 20, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+        if (step >= 2) { // Spine/Body
+            ctx.beginPath();
+            ctx.moveTo(130, 90); ctx.lineTo(130, 150);
+            ctx.stroke();
+        }
+        if (step >= 3) { // Left Arm
+            ctx.beginPath();
+            ctx.moveTo(130, 110); ctx.lineTo(100, 130);
+            ctx.stroke();
+        }
+        if (step >= 4) { // Right Arm
+            ctx.beginPath();
+            ctx.moveTo(130, 110); ctx.lineTo(160, 130);
+            ctx.stroke();
+        }
+        if (step >= 5) { // Left Leg
+            ctx.beginPath();
+            ctx.moveTo(130, 150); ctx.lineTo(100, 190);
+            ctx.stroke();
+        }
+        if (step >= 6) { // Right Leg
+            ctx.beginPath();
+            ctx.moveTo(130, 150); ctx.lineTo(160, 190);
+            ctx.stroke();
+        }
+    }
+
+    function endRound(isWin) {
+        document.getElementById('keyboard').style.pointerEvents = "none";
+        const item = questions[currentIdx];
+        
+        if (!isWin) {
+            guessed = [...item.answer];
+            renderSentence();
+        } else {
+            if (activeTeam === "A") { scoreA += 20; document.getElementById('score-a').innerText = scoreA; }
+            else { scoreB += 20; document.getElementById('score-b').innerText = scoreB; }
+        }
+
+        document.getElementById('target-tense').innerText = item.tense;
+        document.getElementById('explanation-text').innerText = item.explanation;
+        document.getElementById('discussion-pane').style.display = "block";
+        
+        document.getElementById('next-btn').style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if (currentIdx < questions.length) {
+            initRound();
+        } else {
+            switchScreen('end-screen');
+            const win = document.getElementById('winner-text');
+            if (scoreA > scoreB) win.innerText = "🏆 TEAM A WINS!";
+            else if (scoreB > scoreA) win.innerText = "🏆 TEAM B WINS!";
+            else win.innerText = "🤝 TIE GAME!";
+        }
+    }
+</script>
+
+</body>
+</html>
