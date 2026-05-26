@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 7 English Homework Portal | Portal</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --background-color: #f7fafc;
+            --card-background: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --success-color: #38a169;
+            --error-color: #e53e3e;
+            --classroom-color: #1a73e8;
+        }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: var(--text-color); background-color: var(--background-color); padding: 20px; }
+        .container { max-width: 700px; margin: 0 auto; background: var(--card-background); padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header { border-bottom: 3px solid var(--primary-color); padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
+        h1 { color: var(--primary-color); margin: 5px 0; font-size: 1.8rem; }
+        .instructions-box { background-color: #ebf8ff; border-left: 4px solid var(--secondary-color); padding: 15px; margin-bottom: 25px; border-radius: 4px; }
+        .section-title { color: var(--primary-color); border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-top: 30px; margin-bottom: 15px; font-weight: bold; }
+        .question-group { margin-bottom: 20px; padding: 10px; }
+        .question-text { font-weight: bold; margin-bottom: 8px; }
+        .options-list { list-style-type: none; padding: 0; margin: 0; }
+        .options-list li { margin-bottom: 6px; }
+        label { display: flex; align-items: center; cursor: pointer; }
+        input[type="radio"] { margin-right: 10px; width: 16px; height: 16px; }
+        .text-passage { background-color: #fcf8f2; border: 1px dashed #d69e2e; padding: 20px; border-radius: 6px; line-height: 2.2; margin-bottom: 20px; text-align: justify; }
+        .inline-input { width: 110px; padding: 4px; border: 1px solid #cbd5e0; border-radius: 4px; text-align: center; font-weight: bold; color: var(--secondary-color); }
+        .textarea-input { width: 100%; height: 70px; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; resize: none; box-sizing: border-box; }
+        .student-details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .student-details input { padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; }
+        .submit-btn { display: block; width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 14px; font-size: 1.1rem; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 30px; }
+        .submit-btn:hover { background-color: var(--secondary-color); }
+        #scorecard { display: none; margin-top: 25px; padding: 25px; background-color: #fff; border: 4px double var(--primary-color); border-radius: 8px; }
+        .scorecard-header { text-align: center; border-bottom: 2px dashed var(--border-color); padding-bottom: 10px; margin-bottom: 15px; }
+        .score-circle { background: #f0fff4; border: 3px solid var(--success-color); color: var(--success-color); width: 100px; height: 100px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: bold; margin: 15px auto; }
+        .score-num { font-size: 1.8rem; }
+        .screenshot-alert { background-color: #feebc8; border-left: 5px solid #dd6b20; color: #744210; padding: 12px; border-radius: 6px; font-weight: bold; text-align: center; margin-top: 20px; }
+        .review-box { background-color: #fffaf0; border: 1px solid #feebc8; padding: 10px; border-radius: 6px; margin-top: 15px; }
+        .error-banner { display: none; background-color: #fff5f5; border: 1px solid var(--error-color); color: var(--error-color); padding: 15px; border-radius: 6px; margin-bottom: 20px; font-weight: bold; text-align: center; }
+        .classroom-btn { display: block; width: 100%; background-color: var(--classroom-color); color: white; text-align: center; padding: 14px 0; margin-top: 15px; font-weight: bold; border-radius: 6px; text-decoration: none; font-size: 1.05rem; }
+        .classroom-btn:hover { background-color: #174ea6; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Grade 7 English Homework Portal</h1>
+        <p style="color:#718096; margin:0;">Unit 1: Making Myths — Simple Tenses Quiz</p>
+    </header>
+
+    <div id="errorBanner" class="error-banner">
+        ⚠️ ACCESS DENIED: This student name and section combination has already logged a submission. Multiple attempts are disabled.
+    </div>
+
+    <form id="homeworkForm" onsubmit="return gradeAndSubmit(event)">
+        <div class="student-details">
+            <input type="text" id="studentName" placeholder="Enter Full Name" required>
+            <input type="text" id="studentClass" placeholder="Enter Class Section (e.g., Grade 7A)" required>
+        </div>
+
+        <div class="instructions-box">
+            <p style="margin:0; font-weight:bold;">📝 Fill out all answers below, then click "Check my work" to lock options and generate your submission ticket.</p>
+        </div>
+
+        <div class="section-title">🏛️ PART A: Tense Identification</div>
+        <div class="question-group">
+            <div class="question-text">1. "A giant volcano dominates the center of the beautiful island."</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q1" value="Past Simple" required> Past Simple</label></li>
+                <li><label><input type="radio" name="q1" value="Present Simple"> Present Simple</label></li>
+                <li><label><input type="radio" name="q1" value="Future Simple"> Future Simple</label></li>
+            </ul>
+        </div>
+
+        <div class="question-group">
+            <div class="question-text">2. "Kalea grabbed her surfboard and ran toward the surging emerald waves."</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q2" value="Past Simple" required> Past Simple</label></li>
+                <li><label><input type="radio" name="q2" value="Present Simple"> Present Simple</label></li>
+                <li><label><input type="radio" name="q2" value="Future Simple"> Future Simple</label></li>
+            </ul>
+        </div>
+
+        <div class="question-group">
+            <div class="question-text">3. "The ancient elders believe that the gods live among the clouds."</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q3" value="Past Simple" required> Past Simple</label></li>
+                <li><label><input type="radio" name="q3" value="Present Simple"> Present Simple</label></li>
+                <li><label><input type="radio" name="q3" value="Future Simple"> Future Simple</label></li>
+            </ul>
+        </div>
+
+        <div class="question-group">
+            <div class="question-text">4. "The oracle looked into the fire and declared: 'A great hero will save us tomorrow.'"</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q4" value="Past Simple" required> Past Simple</label></li>
+                <li><label><input type="radio" name="q4" value="Present Simple"> Present Simple</label></li>
+                <li><label><input type="radio" name="q4" value="Future Simple"> Future Simple</label></li>
+            </ul>
+        </div>
+
+        <div class="section-title">🐉 PART B: Myths in Context</div>
+        <div class="text-passage">
+            Long ago, a fearless warrior named Kaelen 
+            <input type="text" id="q5" class="inline-input" placeholder="5. live" required> near the base of Mount Haleakala. Every morning, the sun 
+            <input type="text" id="q6" class="inline-input" placeholder="6. rise" required> over the golden sands, lighting up the entire island. Today, the village elders still 
+            <input type="text" id="q7" class="inline-input" placeholder="7. tell" required> stories about his bravery. According to the ancient prophecy, Kaelen's descendants 
+            <input type="text" id="q8" class="inline-input" placeholder="8. return" required> to the mountain one day when the volcano wakes up again. During his greatest adventure, Kaelen 
+            <input type="text" id="q9" class="inline-input" placeholder="9. climb" required> to the top of the peak and 
+            <input type="text" id="q10" class="inline-input" placeholder="10. throw" required> a magic stone into the crater to calm the spirits.
+        </div>
+
+        <div class="section-title">🔮 PART C: Writing Challenge</div>
+        <div class="question-group">
+            <div class="question-text">11. Write ONE sentence predicting what the main character will do next using Future Simple Tense.</div>
+            <textarea id="q11" class="textarea-input" placeholder="Type your sentence here..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Check my work</button>
+    </form>
+
+    <div id="scorecard">
+        <div class="scorecard-header">
+            <div style="font-size: 1.3rem; font-weight: bold; color: var(--primary-color);">🛡️ Homework Verification Ticket</div>
+        </div>
+        <div style="background: #f7fafc; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+            <div>Student Name: <strong id="resName"></strong></div>
+            <div>Class Section: <strong id="resClass"></strong></div>
+            <div>Timestamp: <strong id="resTime"></strong></div>
+        </div>
+        <div class="score-circle">
+            <span class="score-num" id="resPoints">0/10</span>
+            <span style="font-size:0.7rem;">AUTO SCORE</span>
+        </div>
+        <div style="background: #f7fafc; padding: 12px; border-radius: 6px;">
+            <div>Part A (Multiple Choice): <strong id="partAScore">0/4</strong></div>
+            <div>Part B (Fill-in-Blanks): <strong id="partBScore">0/6</strong></div>
+        </div>
+        <div class="review-box">
+            <span style="font-weight: bold; color: #dd6b20;">🔮 Part C Writing Task Response:</span>
+            <p id="resSentence" style="margin: 5px 0; font-style: italic; color: #4a5568;"></p>
+        </div>
+        
+        <div class="screenshot-alert">
+            📸 STEP 1: Take a screenshot of this whole verification ticket box right now!
+        </div>
+
+        <a href="https://classroom.google.com" target="_blank" class="classroom-btn">📤 STEP 2: Go to Google Classroom to Upload Screenshot</a>
+        
+    </div>
+</div>
+
+<script>
+    var historicalSubmissions = [];
+
+    function getRadioValue(name) {
+        var elements = document.getElementsByName(name);
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].checked) { return elements[i].value; }
+        }
+        return "";
+    }
+
+    function gradeAndSubmit(event) {
+        if (event && event.preventDefault) { event.preventDefault(); }
+
+        var origName = document.getElementById('studentName').value;
+        var origClass = document.getElementById('studentClass').value;
+        
+        var normalizedIdentity = origName.replace(/^\s+|\s+$/g, '').toLowerCase() + "_" + origClass.replace(/^\s+|\s+$/g, '').toLowerCase();
+
+        if (historicalSubmissions.indexOf(normalizedIdentity) !== -1) {
+            document.getElementById('errorBanner').style.display = 'block';
+            window.scrollTo(0,0);
+            return false;
+        }
+
+        var a1 = getRadioValue('q1');
+        var a2 = getRadioValue('q2');
+        var a3 = getRadioValue('q3');
+        var a4 = getRadioValue('q4');
+
+        var b5 = document.getElementById('q5').value.replace(/^\s+|\s+$/g, '').toLowerCase();
+        var b6 = document.getElementById('q6').value.replace(/^\s+|\s+$/g, '').toLowerCase();
+        var b7 = document.getElementById('q7').value.replace(/^\s+|\s+$/g, '').toLowerCase();
+        var b8 = document.getElementById('q8').value.replace(/^\s+|\s+$/g, '').toLowerCase();
+        var b9 = document.getElementById('q9').value.replace(/^\s+|\s+$/g, '').toLowerCase();
+        var b10 = document.getElementById('q10').value.replace(/^\s+|\s+$/g, '').toLowerCase();
+
+        var c11 = document.getElementById('q11').value;
+
+        var partA = 0;
+        if (a1 === "Present Simple") partA++;
+        if (a2 === "Past Simple") partA++;
+        if (a3 === "Present Simple") partA++;
+        if (a4 === "Future Simple") partA++;
+
+        var partB = 0;
+        if (b5 === "lived") partB++;
+        if (b6 === "rose") partB++;
+        if (b7 === "tell") partB++;
+        if (b8 === "will return") partB++;
+        if (b9 === "climbed") partB++;
+        if (b10 === "threw") partB++;
+
+        var total = partA + partB;
+        historicalSubmissions.push(normalizedIdentity);
+
+        document.getElementById('resName').innerHTML = origName;
+        document.getElementById('resClass').innerHTML = origClass;
+        var timeString = new Date().toLocaleString();
+        document.getElementById('resTime').innerHTML = timeString;
+        document.getElementById('resPoints').innerHTML = total + "/10";
+        document.getElementById('partAScore').innerHTML = partA + "/4";
+        document.getElementById('partBScore').innerHTML = partB + "/6";
+        document.getElementById('resSentence').innerHTML = '"' + c11 + '"';
+
+        document.getElementById('homeworkForm').style.display = 'none';
+        document.getElementById('errorBanner').style.display = 'none';
+        document.getElementById('scorecard').style.display = 'block';
+
+        return false;
+    }
+</script>
+</body>
+</html>
