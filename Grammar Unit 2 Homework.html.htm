@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blooket Style: Grammar Quest - 15 Questions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
+
+        :root {
+            --primary: #8e44ad; 
+            --secondary: #2980b9; 
+            --accent: #f1c40f; 
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --text-dark: #333;
+            --card-bg: #ffffff;
+            --btn-gray: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            /* Calm and cool gaming-style dot grid background */
+            background-color: #e0f2fe;
+            background-image: 
+                radial-gradient(#cbd5e1 2px, transparent 2px), 
+                linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
+            background-size: 32px 32px, 100% 100%;
+            background-attachment: fixed;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 { margin-top: 0; }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+            padding: 30px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: none; 
+        }
+
+        #lobbyContainer { display: block; text-align: center; }
+        
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { font-size: 1.2rem; color: var(--primary); display: block; margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 15px; font-size: 1.2rem; font-family: 'Nunito', sans-serif; border: 3px solid #ddd; border-radius: 12px; box-sizing: border-box; outline: none; transition: 0.2s; }
+        .input-group input:focus { border-color: var(--primary); }
+
+        /* Button Grid Layout */
+        .nav-buttons-container {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn {
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.4rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.1s;
+            box-sizing: border-box;
+        }
+        .btn:active { transform: translateY(6px); }
+        
+        .btn-start { background-color: var(--primary); box-shadow: 0 6px #5e3370; width: 100%; }
+        .btn-start:active { box-shadow: 0 0 #5e3370; }
+
+        .btn-back { background-color: var(--btn-gray); box-shadow: 0 6px #5d6d7e; flex: 1; }
+        .btn-back:active { box-shadow: 0 0 #5d6d7e; }
+
+        .btn-next { background-color: var(--secondary); box-shadow: 0 6px #1a5276; flex: 2; }
+        .btn-next:active { box-shadow: 0 0 #1a5276; }
+
+        .btn-submit { background-color: var(--accent); color: #333; box-shadow: 0 6px #b8960b; flex: 2; }
+        .btn-submit:active { box-shadow: 0 0 #b8960b; }
+
+        /* Pagination Styles */
+        .question-slide { display: none; }
+        .question-slide.active { display: block; animation: slideIn 0.35s ease-out; }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .question-box {
+            background-color: var(--secondary);
+            color: white;
+            padding: 22px;
+            border-radius: 14px;
+            font-size: 1.35rem;
+            margin-bottom: 25px;
+            box-shadow: 0 6px #1a5276;
+            text-align: center;
+        }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px; }
+        .option-label {
+            display: block; background: var(--card-bg); border: 4px solid #e2e8f0; border-radius: 12px; padding: 20px; font-size: 1.1rem; font-weight: 800; text-align: center; cursor: pointer; transition: 0.15s; box-shadow: 0 4px rgba(0,0,0,0.03);
+        }
+        .option-label:hover { transform: scale(1.015); border-color: #cbd5e1; }
+        input[type="radio"] { display: none; }
+        input[type="radio"]:checked + .option-label { border-color: var(--primary); background-color: #f4ecf7; box-shadow: 0 0 12px rgba(142, 68, 173, 0.35); }
+
+        .receipt-container {
+            font-family: 'Courier New', Courier, monospace;
+            background: #fff;
+            color: #000;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            border: 2px dashed #999;
+            box-shadow: 3px 3px 15px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .receipt-header { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 15px; margin-bottom: 15px; }
+        .receipt-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; font-size: 0.9rem; border-bottom: 1px dotted #ccc; padding-bottom: 5px;}
+        .receipt-total { border-top: 2px dashed #000; padding-top: 15px; margin-top: 15px; font-size: 1.3rem; text-align: center; }
+        .correct-text { color: var(--success); }
+        .wrong-text { color: var(--danger); }
+
+        .instruction-box {
+            background-color: var(--success);
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 6px #27ae60;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="lobbyContainer">
+        <h1 style="color: var(--primary); font-size: 2.5rem;">🎮 Grammar Game</h1>
+        <h3 style="color: #666;">Unit 2: Prepositional Phrases (15 Questions)</h3>
+        
+        <div class="input-group">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" placeholder="e.g., Jane Doe" required>
+        </div>
+        <div class="input-group">
+            <label for="studentClass">Class / Section:</label>
+            <input type="text" id="studentClass" placeholder="e.g., 7A" required>
+        </div>
+        
+        <button class="btn btn-start" onclick="startGame()">Start Game! 🚀</button>
+        <p id="lobbyError" style="color: var(--danger); display: none; margin-top: 10px;">Please enter your Name and Class.</p>
+    </div>
+
+    <div class="container" id="gameContainer">
+        <h2 id="progressTracker" style="text-align: center; color: var(--primary); margin-bottom: 20px;">Question 1 of 15</h2>
+        <form id="quizForm">
+            
+            <div class="question-slide active" id="slide-1">
+                <div class="question-box">Identify the prepositional phrase:<br><br><em>"The ancient manuscript under the glass case is highly valuable."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q1" value="wrong1"><span class="option-label">The ancient manuscript</span></label>
+                    <label><input type="radio" name="q1" value="correct"><span class="option-label">under the glass case</span></label>
+                    <label><input type="radio" name="q1" value="wrong2"><span class="option-label">is highly valuable</span></label>
+                    <label><input type="radio" name="q1" value="wrong3"><span class="option-label">highly valuable manuscript</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-2">
+                <div class="question-box">Which sentence contains an adjectival prepositional phrase describing a noun?</div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q2" value="wrong1"><span class="option-label">They walked toward the library.</span></label>
+                    <label><input type="radio" name="q2" value="correct"><span class="option-label">The girl with the bright blue backpack is new.</span></label>
+                    <label><input type="radio" name="q2" value="wrong2"><span class="option-label">He quickly finished before dinner.</span></label>
+                    <label><input type="radio" name="q2" value="wrong3"><span class="option-label">She sang very loudly today.</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-3">
+                <div class="question-box">Identify the adverbial prepositional phrase modifying the verb:<br><br><em>"The brave explorer crawled carefully through the narrow tunnel."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q3" value="wrong1"><span class="option-label">crawled carefully</span></label>
+                    <label><input type="radio" name="q3" value="wrong2"><span class="option-label">The brave explorer</span></label>
+                    <label><input type="radio" name="q3" value="correct"><span class="option-label">through the narrow tunnel</span></label>
+                    <label><input type="radio" name="q3" value="wrong3"><span class="option-label">brave explorer crawled</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-4">
+                <div class="question-box">Complete the sentence using a descriptive prepositional phrase:<br><br><em>"The mysterious howling sound seemed to echo __________."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q4" value="correct"><span class="option-label">across the misty, moonlit valley</span></label>
+                    <label><input type="radio" name="q4" value="wrong1"><span class="option-label">very loudly and scary</span></label>
+                    <label><input type="radio" name="q4" value="wrong2"><span class="option-label">because it was night</span></label>
+                    <label><input type="radio" name="q4" value="wrong3"><span class="option-label">and scared everyone</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-5">
+                <div class="question-box">Identify the preposition in the phrase:<br><br><em>"beneath the old wooden bridge"</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q5" value="wrong1"><span class="option-label">bridge</span></label>
+                    <label><input type="radio" name="q5" value="wrong2"><span class="option-label">old</span></label>
+                    <label><input type="radio" name="q5" value="correct"><span class="option-label">beneath</span></label>
+                    <label><input type="radio" name="q5" value="wrong3"><span class="option-label">wooden</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-6">
+                <div class="question-box">Which sentence does NOT contain a prepositional phrase?</div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q6" value="wrong1"><span class="option-label">The book on the table is mine.</span></label>
+                    <label><input type="radio" name="q6" value="correct"><span class="option-label">She smiled very happily today.</span></label>
+                    <label><input type="radio" name="q6" value="wrong2"><span class="option-label">He hid behind the large door.</span></label>
+                    <label><input type="radio" name="q6" value="wrong3"><span class="option-label">We left after the movie.</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-7">
+                <div class="question-box">Identify the object of the preposition in the phrase:<br><br><em>"on the kitchen counter"</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q7" value="correct"><span class="option-label">counter</span></label>
+                    <label><input type="radio" name="q7" value="wrong1"><span class="option-label">on</span></label>
+                    <label><input type="radio" name="q7" value="wrong2"><span class="option-label">the</span></label>
+                    <label><input type="radio" name="q7" value="wrong3"><span class="option-label">kitchen</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-8">
+                <div class="question-box">Choose the best preposition to complete the sentence:<br><br><em>"The agile cat jumped ___ the tall wooden fence."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q8" value="wrong1"><span class="option-label">until</span></label>
+                    <label><input type="radio" name="q8" value="wrong2"><span class="option-label">with</span></label>
+                    <label><input type="radio" name="q8" value="correct"><span class="option-label">over</span></label>
+                    <label><input type="radio" name="q8" value="wrong3"><span class="option-label">of</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-9">
+                <div class="question-box">Adjectival or Adverbial? <br><br><em>"The shop <strong>on the corner</strong> sells vintage comic books."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q9" value="correct"><span class="option-label">Adjectival (modifies 'shop')</span></label>
+                    <label><input type="radio" name="q9" value="wrong1"><span class="option-label">Adverbial (modifies 'sells')</span></label>
+                    <label><input type="radio" name="q9" value="wrong2"><span class="option-label">Neither</span></label>
+                    <label><input type="radio" name="q9" value="wrong3"><span class="option-label">Both</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-10">
+                <div class="question-box">Adjectival or Adverbial? <br><br><em>"We waited for our friends <strong>outside the cinema</strong>."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q10" value="wrong1"><span class="option-label">Adjectival (modifies 'friends')</span></label>
+                    <label><input type="radio" name="q10" value="correct"><span class="option-label">Adverbial (modifies 'waited')</span></label>
+                    <label><input type="radio" name="q10" value="wrong2"><span class="option-label">Neither</span></label>
+                    <label><input type="radio" name="q10" value="wrong3"><span class="option-label">Both</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-11">
+                <div class="question-box">Which option contains a prepositional phrase showing <strong>time</strong>?</div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q11" value="wrong1"><span class="option-label">under the heavy box</span></label>
+                    <label><input type="radio" name="q11" value="correct"><span class="option-label">after the long movie</span></label>
+                    <label><input type="radio" name="q11" value="wrong2"><span class="option-label">beside the glowing fire</span></label>
+                    <label><input type="radio" name="q11" value="wrong3"><span class="option-label">with a red pen</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-12">
+                <div class="question-box">Which option contains a prepositional phrase showing <strong>location</strong>?</div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q12" value="wrong1"><span class="option-label">during the summer holidays</span></label>
+                    <label><input type="radio" name="q12" value="wrong2"><span class="option-label">before breakfast</span></label>
+                    <label><input type="radio" name="q12" value="correct"><span class="option-label">beside the glowing fireplace</span></label>
+                    <label><input type="radio" name="q12" value="wrong3"><span class="option-label">for three hours</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-13">
+                <div class="question-box">Complete the sentence to show <strong>direction</strong>: <br><br><em>"The weary hikers walked..."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q13" value="wrong1"><span class="option-label">at noon.</span></label>
+                    <label><input type="radio" name="q13" value="correct"><span class="option-label">towards the snowy mountain peak.</span></label>
+                    <label><input type="radio" name="q13" value="wrong2"><span class="option-label">with heavy backpacks.</span></label>
+                    <label><input type="radio" name="q13" value="wrong3"><span class="option-label">because they were tired.</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-14">
+                <div class="question-box">How many prepositional phrases are in this sentence? <br><br><em>"In the morning, we walked to the park by the river."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q14" value="wrong1"><span class="option-label">One</span></label>
+                    <label><input type="radio" name="q14" value="wrong2"><span class="option-label">Two</span></label>
+                    <label><input type="radio" name="q14" value="correct"><span class="option-label">Three</span></label>
+                    <label><input type="radio" name="q14" value="wrong3"><span class="option-label">Zero</span></label>
+                </div>
+            </div>
+
+            <div class="question-slide" id="slide-15">
+                <div class="question-box">What is the role of the prepositional phrase in this sentence? <br><br><em>"The recipe <strong>for chocolate cake</strong> is a secret."</em></div>
+                <div class="options-grid">
+                    <label><input type="radio" name="q15" value="correct"><span class="option-label">It acts as an adjective describing 'recipe'.</span></label>
+                    <label><input type="radio" name="q15" value="wrong1"><span class="option-label">It acts as an adverb describing 'is'.</span></label>
+                    <label><input type="radio" name="q15" value="wrong2"><span class="option-label">It is the main subject of the sentence.</span></label>
+                    <label><input type="radio" name="q15" value="wrong3"><span class="option-label">It is the verb.</span></label>
+                </div>
+            </div>
+
+            <div class="nav-buttons-container">
+                <button type="button" class="btn btn-back" id="backBtn" onclick="prevQuestion()" style="display: none;">⬅️ Go Back</button>
+                <button type="button" class="btn btn-next" id="nextBtn" onclick="nextQuestion()">Next Question ➡️</button>
+                <button type="button" class="btn btn-submit" id="checkBtn" onclick="checkAnswers()" style="display: none;">Check my answer ✔️</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container" id="receiptContainer" style="background: transparent; box-shadow: none;">
+        <div class="receipt-container" id="receiptContent">
+            <div class="receipt-header">
+                <h2>STORE RECEIPT</h2>
+                <p>Grammar Quest: Unit 2</p>
+                <p id="receiptDate"></p>
+            </div>
+            
+            <p><strong>Customer:</strong> <span id="recName"></span></p>
+            <p><strong>Class:</strong> <span id="recClass"></span></p>
+            <hr style="border: 1px dashed #000; margin: 15px 0;">
+            
+            <div id="receiptItems"></div>
+            
+            <div class="receipt-total">
+                <strong>TOTAL SCORE:</strong> <br>
+                <span id="recTotal" style="font-size: 2rem;"></span>
+            </div>
+        </div>
+        
+        <div class="instruction-box">
+            📸 Manually Take a Screenshot and Upload it to Google Classroom
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 15;
+
+        window.onload = function() {
+            if (localStorage.getItem("blooketQuestCompleted_v4") === "true") {
+                document.getElementById("lobbyContainer").style.display = "none";
+                document.getElementById("receiptContainer").style.display = "block";
+                
+                document.getElementById("receiptDate").innerText = localStorage.getItem("bDate");
+                document.getElementById("recName").innerText = localStorage.getItem("bName");
+                document.getElementById("recClass").innerText = localStorage.getItem("bClass");
+                document.getElementById("recTotal").innerText = localStorage.getItem("bScore") + " / 15";
+                document.getElementById("receiptItems").innerHTML = localStorage.getItem("bReceiptItems");
+            }
+        };
+
+        function startGame() {
+            const name = document.getElementById("studentName").value.trim();
+            const sClass = document.getElementById("studentClass").value.trim();
+            
+            if (name === "" || sClass === "") {
+                document.getElementById("lobbyError").style.display = "block";
+                return;
+            }
+            
+            document.getElementById("lobbyContainer").style.display = "none";
+            document.getElementById("gameContainer").style.display = "block";
+        }
+
+        function nextQuestion() {
+            // Force selection before proceeding
+            let selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+            if (!selected) {
+                alert("Please select an answer before moving to the next question!");
+                return;
+            }
+
+            // Slide Out Current
+            document.getElementById(`slide-${currentQuestion}`).classList.remove("active");
+            
+            currentQuestion++;
+
+            // Update Progress Tracker Header
+            document.getElementById("progressTracker").innerText = `Question ${currentQuestion} of ${totalQuestions}`;
+
+            // Slide In Next
+            document.getElementById(`slide-${currentQuestion}`).classList.add("active");
+
+            // Handle Navigation Tab Controls
+            document.getElementById("backBtn").style.display = "block"; // Safe to go back now
+
+            if (currentQuestion === totalQuestions) {
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("checkBtn").style.display = "block";
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion <= 1) return;
+
+            // Slide Out Current
+            document.getElementById(`slide-${currentQuestion}`).classList.remove("active");
+            
+            currentQuestion--;
+
+            // Update Tracker
+            document.getElementById("progressTracker").innerText = `Question ${currentQuestion} of ${totalQuestions}`;
+
+            // Slide In Previous
+            document.getElementById(`slide-${currentQuestion}`).classList.add("active");
+
+            // If we go back to question 1, hide back tab
+            if (currentQuestion === 1) {
+                document.getElementById("backBtn").style.display = "none";
+            }
+
+            // Always bring back Next button and hide Submit button if navigating backwards from Q15
+            document.getElementById("nextBtn").style.display = "block";
+            document.getElementById("checkBtn").style.display = "none";
+        }
+
+        function checkAnswers() {
+            // Validate last question choice
+            let lastSelected = document.querySelector(`input[name="q${totalQuestions}"]:checked`);
+            if (!lastSelected) {
+                alert("Please select an answer before checking!");
+                return;
+            }
+
+            let score = 0;
+            let receiptHTML = "";
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                let qName = "q" + i;
+                let selected = document.querySelector(`input[name="${qName}"]:checked`);
+                
+                if (selected && selected.value === "correct") {
+                    score++;
+                    receiptHTML += `<div class="receipt-item"><span>Q${i}</span> <span class="correct-text">✔️ CORRECT</span></div>`;
+                } else {
+                    receiptHTML += `<div class="receipt-item"><span>Q${i}</span> <span class="wrong-text">✖️ WRONG</span></div>`;
+                }
+            }
+
+            const sName = document.getElementById("studentName").value;
+            const sClass = document.getElementById("studentClass").value;
+            const d = new Date();
+            const dateStr = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+
+            document.getElementById("gameContainer").style.display = "none";
+            document.getElementById("receiptContainer").style.display = "block";
+
+            document.getElementById("receiptDate").innerText = dateStr;
+            document.getElementById("recName").innerText = sName;
+            document.getElementById("recClass").innerText = sClass;
+            document.getElementById("recTotal").innerText = score + " / " + totalQuestions;
+            document.getElementById("receiptItems").innerHTML = receiptHTML;
+
+            // Save to local storage to block double attempts
+            localStorage.setItem("blooketQuestCompleted_v4", "true");
+            localStorage.setItem("bName", sName);
+            localStorage.setItem("bClass", sClass);
+            localStorage.setItem("bScore", score);
+            localStorage.setItem("bDate", dateStr);
+            localStorage.setItem("bReceiptItems", receiptHTML);
+        }
+    </script>
+</body>
+</html>
+
