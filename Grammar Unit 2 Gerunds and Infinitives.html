@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 4 Presentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #eef2f7; /* Calm pale slate-blue background */
+            margin: 0;
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #2d3748;
+            font-size: 21px;
+        }
+        
+        .presentation-container {
+            width: 92%;
+            max-width: 1100px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(160, 174, 192, 0.25);
+            display: flex;
+            flex-direction: column;
+            min-height: 750px;
+            overflow: hidden;
+        }
+
+        /* PAGE VISIBILITY */
+        .page {
+            display: none;
+            padding: 45px 50px;
+            flex-grow: 1;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .active-page {
+            display: block;
+        }
+
+        h1 {
+            color: #2b4c6f; /* Deep slate blue */
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .page-indicator {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            font-weight: 500;
+        }
+
+        /* PAGE 1 WORKSPACE */
+        .story-paragraph {
+            line-height: 2.2;
+            color: #334155;
+            text-align: justify;
+            margin-bottom: 30px;
+            background-color: #fafbfc;
+            padding: 25px 30px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* INTERACTIVE BLANK TABS */
+        .blank-tab {
+            display: inline-block;
+            background-color: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            color: #64748b;
+            padding: 0px 14px;
+            margin: 0 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            user-select: none;
+            font-size: 0.95em;
+        }
+
+        .blank-tab:hover {
+            background-color: #e2e8f0;
+            border-color: #94a3b8;
+            color: #334155;
+        }
+
+        .blank-tab.revealed {
+            background-color: #e1ebf5; /* Soft light-blue highlight */
+            border: 1px solid #93c5fd;
+            color: #1e3a8a;
+            font-weight: 600;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            animation: softPop 0.2s ease-out;
+        }
+
+        /* PAGE 2 GENERALIZED EXPLANATION PANELS */
+        .discussion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .guide-card {
+            background-color: #f8fafc;
+            border-left: 5px solid #a3b18a; /* Soft sage focus line */
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            border-radius: 0 8px 8px 0;
+            padding: 20px 24px;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .guide-card h2 {
+            color: #2b4c6f;
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .guide-card ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #475569;
+        }
+
+        .guide-card li {
+            margin-bottom: 8px;
+        }
+
+        .guide-card li:last-child {
+            margin-bottom: 0;
+        }
+
+        .badge-inf {
+            background-color: #e1ebf5;
+            color: #2b4c6f;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .badge-ger {
+            background-color: #ebdcb9;
+            color: #7c5e1b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        /* NAVIGATION CONTROLS BAR */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #fafafa;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .nav-btn {
+            padding: 10px 24px;
+            font-size: 0.95em;
+            cursor: pointer;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #475569;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            border-color: #94a3b8;
+        }
+
+        .nav-btn:disabled {
+            color: #cbd5e1;
+            border-color: #e2e8f0;
+            cursor: not-allowed;
+        }
+
+        .utility-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .utility-btn {
+            padding: 8px 16px;
+            font-size: 0.85em;
+            cursor: pointer;
+            background: none;
+            border: 1px dashed #cbd5e1;
+            border-radius: 6px;
+            color: #64748b;
+            transition: all 0.2s ease;
+        }
+
+        .utility-btn:hover {
+            background-color: #f1f5f9;
+            color: #334155;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes softPop {
+            0% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .discussion-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+    
+    <div class="page active-page" id="page1">
+        <h1>Exercise 4: Interactive Worksheet</h1>
+        <div class="page-indicator">Presentation Page 1 of 2 — The Story Anecdote</div>
+
+        <div class="story-paragraph">
+            Years ago, my dad decided 
+            <span class="blank-tab" data-base="have" data-answer="to have" onclick="toggleBlank(this)">(a) [have]</span> 
+            a family photo taken 
+            <span class="blank-tab" data-base="hang" data-answer="to hang" onclick="toggleBlank(this)">(b) [hang]</span> 
+            up in our house. It wasn't difficult 
+            <span class="blank-tab" data-base="find" data-answer="to find" onclick="toggleBlank(this)">(c) [find]</span> 
+            a photographer, but I think my dad was shocked 
+            <span class="blank-tab" data-base="discover" data-answer="to discover" onclick="toggleBlank(this)">(d) [discover]</span> 
+            how much it cost! Anyway, he asked the photographer 
+            <span class="blank-tab" data-base="come" data-answer="to come" onclick="toggleBlank(this)">(e) [come]</span> 
+            on Saturday afternoon and told my sister and me 
+            <span class="blank-tab" data-base="be" data-answer="to be" onclick="toggleBlank(this)">(f) [be]</span> 
+            at home at 4pm sharp.
+        </div>
+
+        <div class="story-paragraph">
+            That morning I had a rugby match and I was really careful 
+            <span class="blank-tab" data-base="avoid" data-answer="to avoid" onclick="toggleBlank(this)">(g) [avoid]</span> 
+            <span class="blank-tab" data-base="get" data-answer="getting" onclick="toggleBlank(this)">(h) [get]</span> 
+            too dirty and sweaty-looking. After 
+            <span class="blank-tab" data-base="lose" data-answer="losing" onclick="toggleBlank(this)">(i) [lose]</span> 
+            the match, we all went to the changing rooms 
+            <span class="blank-tab" data-base="have" data-answer="to have" onclick="toggleBlank(this)">(j) [have]</span> 
+            a shower and get changed. A few teammates made fun of me for 
+            <span class="blank-tab" data-base="brush" data-answer="brushing" onclick="toggleBlank(this)">(k) [brush]</span> 
+            my hair extra carefully in the mirror. On my way out, I bumped into the biggest guy on the team. 
+            My face, on 
+            <span class="blank-tab" data-base="hit" data-answer="hitting" onclick="toggleBlank(this)">(l) [hit]</span> 
+            his elbow (yes, he's that tall!) began 
+            <span class="blank-tab" data-base="change" data-answer="to change / changing" onclick="toggleBlank(this)">(m) [change]</span> 
+            colour, and that's why I ended up looking so strange in the picture!
+        </div>
+    </div>
+
+    <div class="page" id="page2">
+        <h1>Grammar Core Rules & Formulas</h1>
+        <div class="page-indicator">Presentation Page 2 of 2 — Structural Patterns Summary</div>
+
+        <div class="discussion-grid">
+            <div class="guide-card">
+                <h2>1. After Adjectives <span class="badge-inf">Infinitive</span></h2>
+                <ul>
+                    <li><strong>Rule:</strong> When a verb immediately follows an adjective, we use the infinitive form.</li>
+                    <li><strong>Examples:</strong> 
+                        <ul>
+                            <li><em>difficult <span style="color:#2b4c6f; font-weight:600">to find</span></em> (c)</li>
+                            <li><em>shocked <span style="color:#2b4c6f; font-weight:600">to discover</span></em> (d)</li>
+                            <li><em>careful <span style="color:#2b4c6f; font-weight:600">to avoid</span></em> (g)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h2>2. To Express Purpose <span class="badge-inf">Infinitive</span></h2>
+                <ul>
+                    <li><strong>Rule:</strong> Use the infinitive when answering the question <em>"Why?"</em> to explain the objective behind an action.</li>
+                    <li><strong>Examples:</strong> 
+                        <ul>
+                            <li>Taken... <span style="color:#2b4c6f; font-weight:600">to hang</span> up (b)</li>
+                            <li>Went to rooms... <span style="color:#2b4c6f; font-weight:600">to have</span> a shower (j)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h2>3. After Prepositions <span class="badge-ger">Gerund</span></h2>
+                <ul>
+                    <li><strong>Rule:</strong> All prepositions (including words describing time context) structurally require an <em>-ing</em> verb form.</li>
+                    <li><strong>Examples:</strong> 
+                        <ul>
+                            <li><strong>After</strong> <span style="color:#7c5e1b; font-weight:600">losing</span> (i)</li>
+                            <li><strong>for</strong> <span style="color:#7c5e1b; font-weight:600">brushing</span> (k)</li>
+                            <li><strong>on</strong> <span style="color:#7c5e1b; font-weight:600">hitting</span> (l)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h2>4. After Specific Verbs <span class="badge-inf">Mixed Types</span></h2>
+                <ul>
+                    <li><strong>Verbs of Choice/Orders:</strong> Take the infinitive (<em>decided <span style="color:#2b4c6f; font-weight:600">to have</span></em> [a], <em>asked <span style="color:#2b4c6f; font-weight:600">to come</span></em> [e], <em>told <span style="color:#2b4c6f; font-weight:600">to be</span></em> [f]).</li>
+                    <li><strong>Verbs of Avoidance:</strong> Take the gerund (<em>avoid <span style="color:#7c5e1b; font-weight:600">getting</span></em> [h]).</li>
+                    <li><strong>Aspectual Verbs (Start/Begin):</strong> Can accept <strong>either</strong> structure cleanly without modifying the base meaning (<em>began <span style="color:#2b4c6f; font-weight:600">to change / changing</span></em> [m]).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-bar">
+        <button class="nav-btn" id="prevBtn" onclick="navigatePage(-1)" disabled>❮ Page 1: Exercise</button>
+        
+        <div class="utility-group" id="utilityWrapper">
+            <button class="utility-btn" onclick="resetBlanks()">Hide All Blanks</button>
+            <button class="utility-btn" onclick="revealBlanks()">Reveal All Answers</button>
+        </div>
+
+        <button class="nav-btn" id="nextBtn" onclick="navigatePage(1)">Page 2: Explanation ❯</button>
+    </div>
+</div>
+
+<script>
+    let activePageNum = 1;
+    const totalPages = 2;
+
+    function navigatePage(direction) {
+        document.getElementById(`page${activePageNum}`).classList.remove('active-page');
+        activePageNum += direction;
+        document.getElementById(`page${activePageNum}`).classList.add('active-page');
+        
+        // Disable page toggle buttons contextually at endpoints
+        document.getElementById('prevBtn').disabled = (activePageNum === 1);
+        document.getElementById('nextBtn').disabled = (activePageNum === totalPages);
+
+        // Hide toggle visibility utility layout when on the explanations page
+        const utilityWrapper = document.getElementById('utilityWrapper');
+        if (activePageNum === 2) {
+            utilityWrapper.style.visibility = 'hidden';
+        } else {
+            utilityWrapper.style.visibility = 'visible';
+        }
+    }
+
+    function toggleBlank(element) {
+        const isRevealed = element.classList.contains('revealed');
+        const blockLetter = element.innerText.match(/^\([a-m]\)/)[0];
+        
+        if (isRevealed) {
+            element.classList.remove('revealed');
+            element.innerText = `${blockLetter} [${element.getAttribute('data-base')}]`;
+        } else {
+            element.classList.add('revealed');
+            element.innerText = `${blockLetter} ${element.getAttribute('data-answer')}`;
+        }
+    }
+
+    function revealBlanks() {
+        document.querySelectorAll('.blank-tab').forEach(element => {
+            if (!element.classList.contains('revealed')) {
+                toggleBlank(element);
+            }
+        });
+    }
+
+    function resetBlanks() {
+        document.querySelectorAll('.blank-tab').forEach(element => {
+            if (element.classList.contains('revealed')) {
+                toggleBlank(element);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
