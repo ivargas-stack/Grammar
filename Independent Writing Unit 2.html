@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Task Unit 2</title>
+    <style>
+        /* Base styles scaled up for classroom projection */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            font-size: 24px; /* Increased text size for classroom visibility */
+            line-height: 1.5;
+        }
+
+        /* Presentation Container */
+        .presentation-container {
+            max-width: 1200px;
+            margin: 10px auto;
+        }
+
+        /* Page Styles */
+        .page {
+            display: none; /* Hidden by default */
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            padding: 40px 50px;
+            min-height: 65vh;
+            animation: fadeIn 0.4s;
+        }
+        .active-page {
+            display: block; /* Shows the active page */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #2980b9;
+            border-bottom: 3px solid #ecf0f1;
+            padding-bottom: 10px;
+            font-size: 1.6em;
+            margin-top: 0;
+        }
+        h3 {
+            color: #16a085;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        ul {
+            margin-top: 15px;
+            padding-left: 40px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Visual Elements */
+        .visual-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .visual-container img {
+            border-radius: 12px;
+            max-width: 100%;
+            height: auto;
+            max-height: 300px; /* Prevents images from pushing text off screen */
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.85em; 
+        }
+        th, td {
+            border: 2px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #2980b9;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        td ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        /* Navigation Buttons */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        button {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px 40px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .btn-back {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn-back:hover:not(:disabled) {
+            background-color: #7f8c8d;
+        }
+        .btn-next {
+            background-color: #27ae60;
+            color: white;
+        }
+        .btn-next:hover:not(:disabled) {
+            background-color: #2ecc71;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+
+    <!-- Page 1: Title & Objectives -->
+    <div id="page1" class="page active-page">
+        <h1>Writing Task Unit 2</h1>
+        
+        <div class="visual-container">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80" alt="Students focused on writing">
+        </div>
+
+        <h2>Today's Learning Objectives</h2>
+        <ul>
+            <li><strong>Plan:</strong> Structure a piece of writing effectively.</li>
+            <li><strong>Draft:</strong> Use specific grammar techniques from Unit 2.</li>
+            <li><strong>Refine:</strong> Evaluate and edit our independent writing.</li>
+        </ul>
+    </div>
+
+    <!-- Page 2: Unpack the Prompt -->
+    <div id="page2" class="page">
+        <h2>Step 1: Unpack the Prompt</h2>
+        <p>Before you write a single word, read the prompt carefully. Let's identify our <strong>P.A.F.</strong>:</p>
+        
+        <div class="visual-container">
+            <img src="https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=1000&q=80" alt="A notebook and pen on a desk for unpacking a prompt">
+        </div>
+
+        <ul>
+            <li><strong>Purpose:</strong> Why are you writing? <em>(To entertain? Inform? Describe?)</em></li>
+            <li><strong>Audience:</strong> Who will read this? <em>(Teacher, peers, general audience?)</em></li>
+            <li><strong>Format:</strong> What type of text is it? <em>(Story, recount, article?)</em></li>
+        </ul>
+    </div>
+
+    <!-- Page 3: Planning -->
+    <div id="page3" class="page">
+        <h2>Step 2: Map It Out (Planning)</h2>
+        <p>Don't just start writing! Use this basic structure to guide your thoughts:</p>
+        
+        <div class="visual-container">
+            <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1000&q=80" alt="Sticky notes used for planning ideas">
+        </div>
+
+        <ul>
+            <li><strong>Paragraph 1: The Hook.</strong> Set the scene and introduce the main subject. Grab the reader's attention!</li>
+            <li><strong>Paragraphs 2 & 3: The Details.</strong> Build the core of your writing. Use sensory language (sight, sound, touch).</li>
+            <li><strong>Paragraph 4: The Conclusion.</strong> Wrap up your thoughts. How does it end? What is the final reflection?</li>
+        </ul>
+    </div>
+
+    <!-- Page 4: Drafting & Phrase Starters -->
+    <div id="page4" class="page">
+        <h2>Step 3: Beating Writer's Block</h2>
+        <p>Stuck on how to begin? Use these phrase starters to build your sentences.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Focus Area</th>
+                    <th>Support (Core Scaffolding)</th>
+                    <th>Core (Grade 7 Standard)</th>
+                    <th>Extension (Challenge)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>The Opening</strong></td>
+                    <td>
+                        <ul>
+                            <li>It all started when...</li>
+                            <li>One morning...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Looking back at the situation...</li>
+                            <li>Without a doubt, it was...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Reflecting upon the events...</li>
+                            <li>Little did I know that...</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Describing Setting</strong></td>
+                    <td>
+                        <ul>
+                            <li>The place looked like...</li>
+                            <li>I could hear...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>The atmosphere was filled with...</li>
+                            <li>Vibrant colors surrounded...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>A palpable sense of anticipation...</li>
+                            <li>Immersed in a symphony of...</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Expressing Emotion</strong></td>
+                    <td>
+                        <ul>
+                            <li>I felt very...</li>
+                            <li>My heart was beating fast...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>A wave of nervousness washed over me...</li>
+                            <li>I couldn't help but feel...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Overwhelmed by a torrent of emotion...</li>
+                            <li>A knot of anxiety tightened...</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Action & Transitions</strong></td>
+                    <td>
+                        <ul>
+                            <li>Suddenly...</li>
+                            <li>Next...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Without any warning...</li>
+                            <li>In the blink of an eye...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Scarcely had a moment passed before...</li>
+                            <li>Shattering the sudden tranquility...</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>The Conclusion</strong></td>
+                    <td>
+                        <ul>
+                            <li>In the end...</li>
+                            <li>Finally...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Ultimately, the experience taught me...</li>
+                            <li>As things came to a close...</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>In retrospect, the resolution proved...</li>
+                            <li>Ultimately, this left an indelible mark...</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Page 5: Checklist & Review -->
+    <div id="page5" class="page">
+        <h2>Steps 4 & 5: Review and Refine</h2>
+        
+        <p><strong>The Grammar Checklist:</strong></p>
+        <ul style="list-style-type: '✅ ';">
+            <li>Did I use a variety of sentence lengths?</li>
+            <li>Are my verbs strong and precise?</li>
+            <li>Did I use correctly punctuated descriptive clauses?</li>
+        </ul>
+
+        <div class="visual-container">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" alt="Students reviewing work together">
+        </div>
+
+        <div style="padding: 15px; background-color: #e8f8f5; border-left: 5px solid #1abc9c; border-radius: 4px;">
+            <p style="margin: 0;">📝 <strong>Peer Review: "Two Stars and a Wish"</strong><br>Swap with a partner. Give two compliments (stars) and one area for improvement (wish). Then, polish your final draft!</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Navigation Controls -->
+<div class="nav-container">
+    <button id="btnBack" class="btn-back" onclick="changePage(-1)" disabled>Back</button>
+    <button id="btnNext" class="btn-next" onclick="changePage(1)">Next</button>
+</div>
+
+<script>
+    let currentPage = 1;
+    const totalPages = 5;
+
+    function changePage(direction) {
+        // Hide current page
+        document.getElementById('page' + currentPage).classList.remove('active-page');
+        
+        // Update page number
+        currentPage += direction;
+        
+        // Show new page
+        document.getElementById('page' + currentPage).classList.add('active-page');
+        
+        // Update button states
+        document.getElementById('btnBack').disabled = (currentPage === 1);
+        document.getElementById('btnNext').disabled = (currentPage === totalPages);
+        
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
