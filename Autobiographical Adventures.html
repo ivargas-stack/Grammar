@@ -12,13 +12,18 @@
             background-color: #5C94FC; /* Mario Sky Blue */
             color: #FFFFFF;
             margin: 0;
-            padding: 0;
-            overflow: hidden;
+            padding: 20px 0; /* Added padding to prevent bottom clipping */
+            
+            /* FIXED: Changed from hidden to auto so you can scroll if needed */
+            overflow-y: auto; 
+            overflow-x: hidden;
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Changed from fixed height to min-height */
+            
             background-image: 
                 linear-gradient(to bottom, transparent 80%, #00A800 80%, #00A800 100%), /* Ground */
                 radial-gradient(circle at 20% 30%, #FFFFFF 10%, transparent 11%), /* Cloud 1 */
@@ -32,10 +37,11 @@
             box-shadow: 0px 0px 20px #000000, inset 0px 0px 15px #000000;
             width: 85%;
             max-width: 1000px;
-            height: 75vh; /* Increased height to fit larger text and images */
+            height: 65vh; /* FIXED: Reduced slightly so buttons fit perfectly */
             padding: 40px;
             position: relative;
             text-shadow: 2px 2px #000000;
+            margin-top: 20px;
         }
 
         .slide {
@@ -53,22 +59,22 @@
         h1 {
             color: #F8D820; /* Coin Gold */
             text-align: center;
-            font-size: 36px; /* Increased from 28px */
+            font-size: 36px; 
             line-height: 1.5;
             margin-bottom: 20px;
         }
 
         h2 {
             color: #0078F8; /* Sonic Blue */
-            font-size: 26px; /* Increased from 20px */
+            font-size: 26px; 
             border-bottom: 4px dashed #FFFFFF;
             padding-bottom: 10px;
             margin-top: 0;
         }
 
         p, li {
-            font-size: 18px; /* Increased from 14px */
-            line-height: 2.0; /* Increased line height for readability */
+            font-size: 18px; 
+            line-height: 2.0; 
             margin-bottom: 20px;
         }
 
@@ -110,6 +116,7 @@
         /* Controls */
         #controls {
             margin-top: 25px;
+            margin-bottom: 25px; /* Added breathing room at the bottom */
             display: flex;
             gap: 25px;
             z-index: 10;
@@ -265,6 +272,7 @@
         const slides = document.querySelectorAll('.slide');
 
         function updateButtons() {
+            // Hide the 'Back' button if on the first slide, hide 'Next' if on the last slide
             document.getElementById('prevBtn').style.visibility = (currentSlide === 0) ? 'hidden' : 'visible';
             document.getElementById('nextBtn').style.visibility = (currentSlide === slides.length - 1) ? 'hidden' : 'visible';
             
