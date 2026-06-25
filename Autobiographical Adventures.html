@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3: Autobiographical Adventures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Retro Game CSS Styling */
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #5C94FC; /* Mario Sky Blue */
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: 
+                linear-gradient(to bottom, transparent 80%, #00A800 80%, #00A800 100%), /* Ground */
+                radial-gradient(circle at 20% 30%, #FFFFFF 10%, transparent 11%), /* Cloud 1 */
+                radial-gradient(circle at 25% 32%, #FFFFFF 15%, transparent 16%); /* Cloud 2 */
+        }
+
+        #game-screen {
+            background-color: rgba(0, 0, 0, 0.85); /* Dark screen for readability */
+            border: 8px solid #F83800; /* Mario Red */
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px #000000, inset 0px 0px 15px #000000;
+            width: 85%;
+            max-width: 1000px;
+            height: 75vh; /* Increased height to fit larger text and images */
+            padding: 40px;
+            position: relative;
+            text-shadow: 2px 2px #000000;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .active-slide {
+            display: block;
+        }
+
+        /* TEXT SIZES INCREASED FOR CLASSROOM VISIBILITY */
+        h1 {
+            color: #F8D820; /* Coin Gold */
+            text-align: center;
+            font-size: 36px; /* Increased from 28px */
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #0078F8; /* Sonic Blue */
+            font-size: 26px; /* Increased from 20px */
+            border-bottom: 4px dashed #FFFFFF;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        p, li {
+            font-size: 18px; /* Increased from 14px */
+            line-height: 2.0; /* Increased line height for readability */
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 30px;
+        }
+
+        .highlight {
+            color: #F83800;
+        }
+
+        /* Image Styling for Visual Learners */
+        .slide-img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border: 4px solid #FFFFFF;
+            image-rendering: pixelated; /* Gives crisp edges to images */
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        /* Scanline effect */
+        #game-screen::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* Controls */
+        #controls {
+            margin-top: 25px;
+            display: flex;
+            gap: 25px;
+            z-index: 10;
+        }
+
+        button {
+            font-family: inherit;
+            background-color: #E4000F; /* Classic Red Button */
+            color: #FFFFFF;
+            border: 4px solid #FFFFFF;
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #000000;
+            text-shadow: 2px 2px #000000;
+            transition: all 0.1s;
+        }
+
+        button:hover {
+            background-color: #0078F8; /* Blue on hover */
+        }
+
+        button:active {
+            box-shadow: 0px 0px 0px #000000;
+            transform: translate(4px, 4px);
+        }
+
+        /* Specific Slide Styling */
+        .boss-text {
+            color: #E4000F;
+            text-align: center;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Hide scrollbar for clean retro look */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F8D820; 
+            border: 3px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-screen">
+        
+        <div class="slide active-slide" id="slide-0">
+            <br><br>
+            <h1>PRESS START TO PLAY</h1>
+            <img src="https://placehold.co/400x150/000000/F83800?text=INSERT+COIN" alt="Insert Coin Retro Graphic" class="slide-img">
+            <h2 style="text-align: center; border: none; color: #FFFFFF; font-size: 28px;">UNIT 3:<br><br>AUTOBIOGRAPHICAL ADVENTURES</h2>
+            <p style="text-align: center; color: #a9a9a9;">Player 1: Grade 7 English</p>
+        </div>
+
+        <div class="slide" id="slide-1">
+            <h2>LEVEL 1: THE BASICS</h2>
+            <img src="https://placehold.co/350x150/000000/0078F8?text=AUTO+|+BIO+|+GRAPHY" alt="Autobiography Breakdown" class="slide-img">
+            <p>Welcome to Level 1! Today, we are unlocking the secrets of the <span class="highlight">Autobiography</span>.</p>
+            <ul>
+                <li><strong>Auto:</strong> Self</li>
+                <li><strong>Bio:</strong> Life</li>
+                <li><strong>Graphy:</strong> Writing</li>
+            </ul>
+            <p>An autobiographical adventure is a true story about your own life. It focuses on a specific, exciting, or meaningful event.</p>
+            <p><strong>Rule #1:</strong> You are the main character! (First-Person Perspective).</p>
+        </div>
+
+        <div class="slide" id="slide-2">
+            <h2>LEVEL 2: PLAYER STATS</h2>
+            <img src="https://placehold.co/450x120/000000/00A800?text=HP:+[|||||||]+TENSE:+PAST" alt="Player Stats Bar" class="slide-img">
+            <p>To survive this level, you need the right grammar mechanics!</p>
+            <ul>
+                <li><span class="highlight">Narrative Voice:</span> First-Person. Use pronouns like <em>I, me, my, we, our</em>.</li>
+                <li><span class="highlight">Tense:</span> Mostly Past Tense. Because the adventure already happened!</li>
+                <li><em>Example:</em> "I sprinted as fast as I could, but the dog was catching up to me."</li>
+            </ul>
+            <p><strong>Pro-Tip:</strong> Share your internal thoughts. How did you feel when you lost the boss battle or won the race?</p>
+        </div>
+
+        <div class="slide" id="slide-3">
+            <h2>LEVEL 3: RENDERING THE WORLD</h2>
+            <img src="https://placehold.co/400x150/000000/F8D820?text=SIGHT+|+SOUND+|+FEEL" alt="Sensory Organs Graphic" class="slide-img">
+            <p>Don't leave your reader in a blank, unrendered world. Use <span class="highlight">Sensory Imagery</span> to build the map!</p>
+            <p>Describe your adventure using the 5 Senses:</p>
+            <ul>
+                <li><strong>See:</strong> "The blinding neon lights of the arcade..."</li>
+                <li><strong>Hear:</strong> "The deafening crunch of the snow..."</li>
+                <li><strong>Feel:</strong> "The rough, freezing bark of the tree..."</li>
+                <li><strong>Smell:</strong> "The sharp scent of pine needles..."</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-4">
+            <h2>LEVEL 4: TIME TRAVEL</h2>
+            <img src="https://placehold.co/350x150/000000/FFFFFF?text=START+->+MIDDLE+->+END" alt="Timeline Flowchart" class="slide-img">
+            <p>Autobiographies usually follow a <span class="highlight">chronological sequence</span> (the order in which events happened).</p>
+            <p>To guide your reader through the timeline, equip these <strong>Time Connectives</strong>:</p>
+            <ul>
+                <li><strong>Start:</strong> Initially, At first, To begin with...</li>
+                <li><strong>Middle:</strong> Suddenly, Meanwhile, Shortly after, As soon as...</li>
+                <li><strong>End:</strong> Eventually, Finally, Looking back...</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-5">
+            <h2 class="boss-text">BOSS STAGE: YOUR TURN!</h2>
+            <img src="https://placehold.co/350x150/E4000F/FFFFFF?text=WARNING:+WRITING+TASK" alt="Boss Warning Sign" class="slide-img">
+            <p><strong>MISSION:</strong> Write an autobiographical account of a time you tried something completely new (e.g., a new sport, moving to a new school, trying a strange food).</p>
+            <p><strong>SUCCESS CRITERIA:</strong></p>
+            <ul>
+                <li>Use First-Person pronouns (I, my).</li>
+                <li>Maintain consistent Past Tense.</li>
+                <li>Use at least 3 varied Time Connectives.</li>
+                <li>Include 2 pieces of Sensory Imagery.</li>
+                <li>End with a reflection: What did you learn?</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-6">
+            <br><br>
+            <h1>LEVEL CLEARED!</h1>
+            <img src="https://placehold.co/300x200/000000/F8D820?text=VICTORY+TROPHY" alt="Victory Trophy" class="slide-img">
+            <h2 style="text-align: center; border: none; color: #FFFFFF;">High Score: 999,999</h2>
+            <p style="text-align: center;">You have mastered the Autobiographical Adventure.</p>
+            <p style="text-align: center; color: #a9a9a9;">Save your game and prepare for the next writing challenge!</p>
+        </div>
+
+    </div>
+
+    <div id="controls">
+        <button id="prevBtn" onclick="changeSlide(-1)">◄ A (BACK)</button>
+        <button id="nextBtn" onclick="changeSlide(1)">B (NEXT) ►</button>
+    </div>
+
+    <script>
+        // Simple JavaScript to handle slide navigation
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function updateButtons() {
+            document.getElementById('prevBtn').style.visibility = (currentSlide === 0) ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').style.visibility = (currentSlide === slides.length - 1) ? 'hidden' : 'visible';
+            
+            // Scroll back to top when changing slides
+            slides[currentSlide].scrollTop = 0; 
+        }
+
+        function changeSlide(direction) {
+            slides[currentSlide].classList.remove('active-slide');
+            currentSlide += direction;
+            
+            // Boundary checks
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= slides.length) currentSlide = slides.length - 1;
+            
+            slides[currentSlide].classList.add('active-slide');
+            updateButtons();
+        }
+
+        // Initialize buttons
+        updateButtons();
+    </script>
+</body>
+</html>
