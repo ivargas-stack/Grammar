@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3 Homework: Presentation Prep Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Ghibli Sky & Meadow Canvas Styling */
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(180deg, #b3e5fc 0%, #e1f5fe 30%, #f1f8e9 65%, #dcedc8 100%);
+            background-attachment: fixed;
+            color: #2e4033;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Fluffy Background Clouds */
+        .cloud-bg {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 100px;
+            filter: blur(3px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .cloud1 { width: 320px; height: 95px; top: 8%; left: -60px; animation: floatCloud 60s infinite linear; }
+        .cloud2 { width: 220px; height: 65px; top: 28%; right: -60px; animation: floatCloudReverse 50s infinite linear; }
+        .cloud3 { width: 380px; height: 110px; top: 55%; left: -110px; animation: floatCloud 75s infinite linear; }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+        @keyframes floatCloudReverse {
+            0% { transform: translateX(100px); }
+            100% { transform: translateX(calc(-100vw - 100px)); }
+        }
+
+        /* Main Assignment Card Layout */
+        .homework-container {
+            background-color: rgba(255, 255, 253, 0.94); /* Soft cream white */
+            border: 3px solid #c5e1a5;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(46, 64, 51, 0.1);
+            width: 90%;
+            max-width: 900px;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+
+        /* Large Projector-Ready Typography */
+        h1 {
+            font-family: 'Comfortaa', cursive;
+            color: #2e6930;
+            text-align: center;
+            font-size: 38px;
+            margin-top: 0;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 0px #fff;
+        }
+
+        .section-banner {
+            background: linear-gradient(90deg, #e8f5e9 0%, rgba(232,245,233,0) 100%);
+            border-left: 8px solid #66bb6a;
+            padding: 14px 22px;
+            font-family: 'Comfortaa', cursive;
+            font-size: 25px;
+            color: #1b5e20;
+            margin-top: 45px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        p, li {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Story Sample Container */
+        .narrative-box {
+            background-color: #faf9f5;
+            border: 2px dashed #a1c1a8;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: inset 0 0 12px rgba(102, 187, 106, 0.04);
+            position: relative;
+        }
+
+        .narrative-box::before {
+            content: "📖 Autobiographical Anchor Text";
+            position: absolute;
+            top: -16px;
+            left: 30px;
+            background-color: #66bb6a;
+            color: white;
+            padding: 5px 20px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 20px;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .narrative-text p {
+            color: #3e5245;
+            font-size: 20px;
+        }
+
+        /* Question Wrapper Layout */
+        .question-block {
+            margin-bottom: 40px;
+        }
+
+        .question-label {
+            display: block;
+            font-size: 21px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* Beautiful Custom Multiple Choice Layout */
+        .options-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 2px solid #e0ebd2;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            border-color: #9ccc65;
+            background-color: #f9fbf7;
+            transform: scale(1.005);
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            width: 22px;
+            height: 22px;
+            accent-color: #558b2f;
+            cursor: pointer;
+        }
+
+        .option-text {
+            font-size: 19px;
+            color: #37474f;
+        }
+
+        /* Short Response Inputs (Limited to exactly 3) */
+        textarea {
+            width: 100%;
+            height: 130px;
+            font-family: inherit;
+            font-size: 19px;
+            padding: 18px;
+            border: 2px solid #cfd8dc;
+            border-radius: 14px;
+            background-color: #fff;
+            color: #263238;
+            box-sizing: border-box;
+            resize: vertical;
+            transition: all 0.25s ease;
+        }
+
+        textarea:focus {
+            border-color: #66bb6a;
+            background-color: #fafdfa;
+            outline: none;
+            box-shadow: 0 0 12px rgba(102, 187, 106, 0.25);
+        }
+
+        /* Information Notice Card */
+        .notice-card {
+            background-color: #fffde7;
+            border: 2px solid #fff59d;
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .notice-icon {
+            font-size: 34px;
+            margin: 0;
+        }
+
+        /* Responsive Rescaling */
+        @media (max-width: 768px) {
+            .homework-container { padding: 25px; width: 95%; }
+            h1 { font-size: 30px; margin-bottom: 25px; }
+            p, li, .question-label { font-size: 18px; }
+            .option-text { font-size: 17px; }
+        }
+
+        /* Clean System Print Mode adjustments */
+        @media print {
+            body { background: white; color: black; padding: 0; }
+            .homework-container { box-shadow: none; border: none; width: 100%; padding: 0; }
+            .cloud-bg { display: none; }
+            textarea { border: 1px solid #777; height: 110px; }
+            .option-item { border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cloud-bg cloud1"></div>
+    <div class="cloud-bg cloud2"></div>
+    <div class="cloud-bg cloud3"></div>
+
+    <div class="homework-container">
+        
+        <h1>🌱 Unit 3: Autobiographical Adventures</h1>
+        
+        <div class="notice-card">
+            <p class="notice-icon">🗣️</p>
+            <div>
+                <strong style="font-size: 21px; color: #f57f17;">Next Class Mission: Presenting Our Adventures!</strong>
+                <p style="margin: 6px 0 0 0; font-size: 19px; color: #5d4037;">
+                    Get ready for our interactive group speaking panel! Fill out the multiple-choice analytical checks below, and use the final 3 short-response blocks to outline the real-life story you intend to share with the class.
+                </p>
+            </div>
+        </div>
+
+        <div class="section-banner">Part 1: Reading Check (Story Facts)</div>
+        
+        <p>Read the personal anecdote below carefully, then choose the correct answer for each question.</p>
+
+        <div class="narrative-box">
+            <div class="narrative-text">
+                <p>Initially, the afternoon felt utterly ordinary, hanging heavy with the lazy buzz of summer cicadas. I was wandering near the edge of my grandmother’s countryside garden when I noticed a tiny, overgrown dirt trail winding deep into the pine trees. Driven by pure curiosity, I grabbed my rusted old bicycle and began pushing my way through the thick, whispering ferns.</p>
+                
+                <p>Suddenly, the dense canopy broke open. I gasped as I stumbled into an old, forgotten orchard completely swallowed up by giant, wild sunflowers. Rising right out of the center of the golden field was an old, moss-covered green train car from decades ago! My heart hammered excitedly against my ribs as I climbed onto the metal steps, the sharp tang of iron and wet moss filling my nose. I sat in the driver's seat, looking through the cracked glass, pretending I was piloting a vehicle through a lost world.</p>
+                
+                <p>Looking back on that summer day, I realize that adventure doesn’t require a passport or a giant budget. That hidden field taught me that wonders are right around our own neighborhoods, waiting patiently for us to put down our screens and go searching.</p>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label">1. Where was the writer wandering at the start of the story?</label>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q1"><span class="option-text">Near a grandmother's countryside garden.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q1"><span class="option-text">Inside a big, busy city airport.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q1"><span class="option-text">At a school playground with friends.</span></label></li>
+            </ul>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label">2. What object did the writer take to go through the trail?</label>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q2"><span class="option-text">A fast skateboard.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q2"><span class="option-text">A rusted old bicycle.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q2"><span class="option-text">A large flashlight.</span></label></li>
+            </ul>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label">3. What did the writer find hidden inside the giant sunflowers?</label>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q3"><span class="option-text">An old, green train car.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q3"><span class="option-text">A small wooden dog house.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q3"><span class="option-text">A box of hidden money.</span></label></li>
+            </ul>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label">4. Where did the writer sit inside the old train car?</label>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q4"><span class="option-text">On top of the roof.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q4"><span class="option-text">Under the heavy wheels.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q4"><span class="option-text">In the driver's seat.</span></label></li>
+            </ul>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label">5. What lesson did the writer learn at the end of the story?</label>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q5"><span class="option-text">You must have a passport to find an adventure.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q5"><span class="option-text">Adventures are waiting nearby in our own neighborhoods.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q5"><span class="option-text">Sunflowers are very dangerous to touch.</span></label></li>
+            </ul>
+        </div>
+
+
+        <div class="section-banner">Part 2: Presentation Rules (True or False)</div>
+        
+        <p>Answer these simple questions about our upcoming class speaking panel.</p>
+
+        <div class="question-block">
+            <label class="question-label">6. What is an autobiography?</label>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q6"><span class="option-text">A true story about your own life and real memories.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q6"><span class="option-text">A fake story about magic animals and spaceships.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q6"><span class="option-text">A list of recipe directions for cooking food.</span></label></li>
+            </ul>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label">7. How should you speak during your class presentation?</label>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q7"><span class="option-text">Read in a quiet, boring whisper and never look up.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q7"><span class="option-text">Shout loudly and run around the classroom.</span></label></li>
+                <li class="option-item"><label><input type="radio" name="q7"><span class="option-text">Speak clearly with an exciting voice so friends can understand.</span></label></li>
+            </ul>
+        </div>
+
+
+        <div class="section-banner">Part 3: Personal Memory Blueprint (Short Response)</div>
+        
+        <p>Plan your own speaking presentation. Type your notes directly into the 3 boxes below using the sentence helpers.</p>
+
+        <div class="question-block">
+            <label class="question-label" for="sr1">
+                8. Your Story (What Happened?): Think of a real day in your life (examples: a fun trip, a big surprise, a sports game, or a mistake). Write 2 or 3 simple sentences to tell your story.
+            </label>
+            <textarea id="sr1" placeholder="First, I went to... Then, suddenly... In the end, ..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label" for="sr2">
+                9. Descriptive Words (The 5 Senses): Help your classmates picture your memory. Write down simple words or short sentences about what you saw, heard, felt, or smelled.
+            </label>
+            <textarea id="sr2" placeholder="I saw... I heard... I felt..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <label class="question-label" for="sr3">
+                10. The Lesson (What You Learned): Every true life story has a lesson. What did this day teach you about yourself, life, or family? Write 1 clear sentence.
+            </label>
+            <textarea id="sr3" placeholder="From this day, I learned that..."></textarea>
+        </div>
+
+    </div>
+
+</body>
+</html>
