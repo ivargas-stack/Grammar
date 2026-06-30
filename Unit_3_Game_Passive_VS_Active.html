@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Disastrous Expedition - Grammar Quest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        comic: ['"Fredoka"', 'sans-serif'],
+                        sans: ['"Outfit"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'brutal': '6px 6px 0px 0px rgba(0,0,0,1)',
+                        'brutal-lg': '10px 10px 0px 0px rgba(0,0,0,1)',
+                        'brutal-sm': '3px 3px 0px 0px rgba(0,0,0,1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #e2e8f0; background-image: radial-gradient(#cbd5e1 2px, transparent 2px); background-size: 30px 30px; }
+        .slide { display: none; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .slide.active { display: flex; }
+        
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .twist-btn.selected { background-color: #fef08a !important; transform: translate(2px, 2px); box-shadow: 2px 2px 0px 0px rgba(0,0,0,1) !important; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-left: 2px solid black; }
+        ::-webkit-scrollbar-thumb { background: #fbbf24; border: 2px solid black; border-radius: 5px; }
+    </style>
+</head>
+<body class="font-sans text-black h-screen flex flex-col overflow-hidden selection:bg-pink-300">
+
+    <nav class="bg-white border-b-4 border-black px-6 py-3 flex justify-between items-center z-20 shadow-brutal-sm m-4 rounded-xl">
+        <div class="flex items-center gap-3">
+            <span class="bg-purple-500 text-white font-comic px-4 py-1 rounded-full border-2 border-black shadow-brutal-sm transform -rotate-2">UNIT 3</span>
+            <h1 class="font-comic text-xl hidden sm:block tracking-wide">GRAMMAR QUEST</h1>
+        </div>
+        
+        <div class="flex gap-2" id="progress-dots"></div>
+
+        <div class="font-comic font-bold bg-yellow-300 px-4 py-1 rounded-full border-2 border-black shadow-brutal-sm">
+            <i class="fa-solid fa-gamepad mr-2"></i>LVL <span id="current-level">1</span>/9
+        </div>
+    </nav>
+
+    <main class="flex-1 w-full max-w-6xl mx-auto p-4 relative flex items-center justify-center">
+        
+        <section id="slide-1" class="slide active w-full h-[85vh] bg-blue-400 rounded-3xl border-4 border-black shadow-brutal-lg flex-col items-center justify-center p-8 relative overflow-hidden">
+            <i class="fa-solid fa-star absolute top-10 left-10 text-yellow-300 text-5xl transform -rotate-12"></i>
+            <i class="fa-solid fa-bolt absolute bottom-20 right-10 text-yellow-300 text-7xl transform rotate-12"></i>
+            <i class="fa-solid fa-bomb absolute top-20 right-20 text-black text-6xl opacity-20"></i>
+            
+            <div class="bg-white p-8 md:p-12 rounded-3xl border-4 border-black shadow-brutal-lg max-w-3xl text-center transform rotate-1 z-10">
+                <span class="inline-block bg-black text-white font-comic px-4 py-1 rounded-full mb-6 transform -rotate-3 border-2 border-white outline outline-4 outline-black">INTERACTIVE GAME</span>
+                <h1 class="text-5xl md:text-7xl font-comic font-bold uppercase leading-none mb-4 text-pink-500 drop-shadow-[4px_4px_0_rgba(0,0,0,1)]">
+                    The Disastrous<br>Expedition
+                </h1>
+                <p class="text-xl md:text-2xl font-bold text-gray-700 mb-8 font-sans">
+                    Master the <span class="bg-yellow-300 px-2 border-2 border-black rounded shadow-brutal-sm">Past Continuous Tense</span><br>Active vs. Passive Voice
+                </p>
+                <button onclick="changeSlide(1)" class="bg-green-400 hover:bg-green-300 text-black font-comic text-2xl px-10 py-4 rounded-xl border-4 border-black shadow-brutal transition-transform hover:-translate-y-1 active:translate-y-1 active:shadow-brutal-sm">
+                    START QUEST <i class="fa-solid fa-play ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="slide-2" class="slide w-full h-[85vh] bg-yellow-300 rounded-3xl border-4 border-black shadow-brutal-lg flex-col p-6 md:p-8">
+            <div class="flex items-center gap-4 mb-6 border-b-4 border-black pb-4">
+                <div class="bg-white border-4 border-black rounded-full w-14 h-14 flex items-center justify-center shadow-brutal-sm">
+                    <i class="fa-solid fa-book-open text-2xl text-blue-500"></i>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-comic font-bold">How to Play</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 h-full min-h-0">
+                <div class="bg-white border-4 border-black rounded-2xl shadow-brutal p-6 flex flex-col relative">
+                    <span class="absolute -top-4 -left-4 bg-blue-500 text-white font-comic px-4 py-2 rounded-xl border-4 border-black shadow-brutal-sm transform -rotate-6 text-xl">PLAYER 1</span>
+                    <h3 class="text-3xl font-comic text-blue-500 mt-4 mb-2">ACTIVE VOICE</h3>
+                    <p class="font-bold text-gray-600 mb-4 text-lg">The "Doer" does the action.</p>
+                    <div class="bg-blue-100 border-4 border-blue-500 rounded-xl p-4 mt-auto">
+                        <p class="font-comic text-sm uppercase text-blue-600 mb-1">Formula:</p>
+                        <p class="text-2xl font-bold mb-3 font-mono">was/were + verb-ing</p>
+                        <p class="font-comic text-sm uppercase text-blue-600 mb-1">Example:</p>
+                        <p class="text-lg italic font-bold">"The tiger <span class="bg-blue-300 px-1 border border-black rounded">was chasing</span> the guide."</p>
+                    </div>
+                </div>
+
+                <div class="bg-white border-4 border-black rounded-2xl shadow-brutal p-6 flex flex-col relative">
+                    <span class="absolute -top-4 -right-4 bg-pink-500 text-white font-comic px-4 py-2 rounded-xl border-4 border-black shadow-brutal-sm transform rotate-6 text-xl">PLAYER 2</span>
+                    <h3 class="text-3xl font-comic text-pink-500 mt-4 mb-2">PASSIVE VOICE</h3>
+                    <p class="font-bold text-gray-600 mb-4 text-lg">The "Receiver" comes first!</p>
+                    <div class="bg-pink-100 border-4 border-pink-500 rounded-xl p-4 mt-auto">
+                        <p class="font-comic text-sm uppercase text-pink-600 mb-1">Formula:</p>
+                        <p class="text-2xl font-bold mb-3 font-mono">was/were + being + V3</p>
+                        <p class="font-comic text-sm uppercase text-pink-600 mb-1">Example:</p>
+                        <p class="text-lg italic font-bold">"The guide <span class="bg-pink-300 px-1 border border-black rounded">was being chased</span>!"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-between">
+                <button onclick="changeSlide(-1)" class="bg-white font-comic px-6 py-2 rounded-xl border-4 border-black shadow-brutal hover:bg-gray-100"><i class="fa-solid fa-arrow-left"></i> BACK</button>
+                <button onclick="changeSlide(1)" class="bg-green-400 font-comic text-xl px-8 py-2 rounded-xl border-4 border-black shadow-brutal hover:bg-green-300">LET'S GO! <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <div id="dynamic-slides-container" class="w-full h-full contents"></div>
+
+    </main>
+
+    <footer class="bg-white border-t-4 border-black p-4 flex justify-between items-center z-20 absolute bottom-0 w-full shadow-[0_-4px_0_0_rgba(0,0,0,1)] hidden" id="global-footer">
+        <button onclick="changeSlide(-1)" id="prev-btn" class="bg-gray-200 border-2 border-black px-4 py-2 rounded-lg font-bold shadow-brutal-sm hover:bg-gray-300 disabled:opacity-50"><i class="fa-solid fa-chevron-left mr-1"></i> Prev</button>
+        <span class="font-comic font-bold text-gray-500 hidden sm:block">Use keyboard arrows ← → to navigate</span>
+        <button onclick="changeSlide(1)" id="next-btn" class="bg-blue-400 border-2 border-black px-4 py-2 rounded-lg font-bold shadow-brutal-sm hover:bg-blue-300 disabled:opacity-50">Next <i class="fa-solid fa-chevron-right ml-1"></i></button>
+    </footer>
+
+    <script>
+        const scenarios = [
+            {
+                id: 1,
+                theme: 'purple',
+                title: 'The Broken Elevator',
+                icon: 'fa-elevator',
+                intro: "We were laughing and talking on our way to the 10th floor when suddenly, the elevator lights flickered and the cables made a loud snap...",
+                twists: [
+                    { label: "Twist A", text: "The dark elevator trapped the classmates.", active: "The dark elevator was trapping the classmates.", passive: "The classmates were being trapped by the dark elevator." },
+                    { label: "Twist B", text: "Sizzling sparks filled the control panel.", active: "Sizzling sparks were filling the control panel.", passive: "The control panel was being filled by sizzling sparks." },
+                    { label: "Twist C", text: "Heavy gears crushed the safety ropes.", active: "Heavy gears were crushing the safety ropes.", passive: "The safety ropes were being crushed by heavy gears." }
+                ]
+            },
+            {
+                id: 2,
+                theme: 'blue',
+                title: 'The Deep-Sea Submarine',
+                icon: 'fa-water',
+                intro: "We were looking out the glass window at the colorful coral reef when suddenly, a giant shadow blocked the light and a massive tentacle slapped the glass...",
+                twists: [
+                    { label: "Twist A", text: "Giant octopuses shook the metal submarine.", active: "Giant octopuses were shaking the metal submarine.", passive: "The metal submarine was being shaken by giant octopuses." },
+                    { label: "Twist B", text: "The cold water slowly flooded the engines.", active: "The cold water was slowly flooding the engines.", passive: "The engines were being slowly flooded by the cold water." },
+                    { label: "Twist C", text: "Sharp coral reef tore the rubber seals.", active: "Sharp coral reef was tearing the rubber seals.", passive: "The rubber seals were being torn by sharp coral reef." }
+                ]
+            },
+            {
+                id: 3,
+                theme: 'orange',
+                title: 'The Runaway Rollercoaster',
+                icon: 'fa-train-tram',
+                intro: "We were holding onto the safety bars and cheering as the rollercoaster slowly climbed the highest hill when suddenly, the tracks ahead started to shake...",
+                twists: [
+                    { label: "Twist A", text: "Powerful magnets stopped the carriage.", active: "Powerful magnets were stopping the carriage.", passive: "The carriage was being stopped by powerful magnets." },
+                    { label: "Twist B", text: "Squeaking brakes slowed down the wheels.", active: "Squeaking brakes were slowing down the wheels.", passive: "The wheels were being slowed down by squeaking brakes." },
+                    { label: "Twist C", text: "Heavy bolts connected the emergency cables.", active: "Heavy bolts were connecting the emergency cables.", passive: "The emergency cables were being connected by heavy bolts." }
+                ]
+            },
+            {
+                id: 4,
+                theme: 'pink',
+                title: 'The Cooking Disaster',
+                icon: 'fa-fire-burner',
+                intro: "We were mixing the ingredients for our giant birthday cake and singing along to the radio when suddenly, the oven started smoking and the fire alarm screamed...",
+                twists: [
+                    { label: "Twist A", text: "Dense black smoke choked the cooks.", active: "Dense black smoke was choking the cooks.", passive: "The cooks were being choked by dense black smoke." },
+                    { label: "Twist B", text: "Sprinkler valves sprayed the flour.", active: "Sprinkler valves were spraying the flour.", passive: "The flour was being sprayed by sprinkler valves." },
+                    { label: "Twist C", text: "Our loud screams drowned the music.", active: "Our loud screams were drowning the music.", passive: "The music was being drowned by our loud screams." }
+                ]
+            },
+            {
+                id: 5,
+                theme: 'green',
+                title: 'The Camping Storm',
+                icon: 'fa-campground',
+                intro: "We were roasting marshmallows around the campfire and telling scary stories when suddenly, a freezing wind blew out the fire and the tents began to rip...",
+                twists: [
+                    { label: "Twist A", text: "Fierce winds tore the nylon canvas.", active: "Fierce winds were tearing the nylon canvas.", passive: "The nylon canvas was being torn by fierce winds." },
+                    { label: "Twist B", text: "The cold rain drenched our sleeping bags.", active: "The cold rain was drenching our sleeping bags.", passive: "Our sleeping bags were being drenched by the cold rain." },
+                    { label: "Twist C", text: "Mudslides covered the hiking tracks.", active: "Mudslides were covering the hiking tracks.", passive: "The hiking tracks were being covered by mudslides." }
+                ]
+            },
+            {
+                id: 6,
+                theme: 'purple',
+                title: 'The Escape Room',
+                icon: 'fa-dungeon',
+                intro: "We were searching the old library for the hidden key and checking behind the bookshelves when suddenly, a heavy iron door slammed shut behind us...",
+                twists: [
+                    { label: "Twist A", text: "Spinning sandglasses timed the players.", active: "Spinning sandglasses were timing the players.", passive: "The players were being timed by spinning sandglasses." },
+                    { label: "Twist B", text: "Ancient puzzles blocked the pathway.", active: "Ancient puzzles were blocking the pathway.", passive: "The pathway was being blocked by ancient puzzles." },
+                    { label: "Twist C", text: "Mysterious forces moved the ancient tables.", active: "Mysterious forces were moving the ancient tables.", passive: "The ancient tables were being moved by mysterious forces." }
+                ]
+            },
+            {
+                id: 7,
+                theme: 'indigo',
+                title: 'The Space Mission',
+                icon: 'fa-rocket',
+                intro: "We were floating peacefully inside the spaceship and eating our freeze-dried ice cream when suddenly, a red warning light started flashing on the dashboard...",
+                twists: [
+                    { label: "Twist A", text: "Falling meteors bombarded the spaceship.", active: "Falling meteors were bombarding the spaceship.", passive: "The spaceship was being bombarded by falling meteors." },
+                    { label: "Twist B", text: "Cosmic radiation drained the power grids.", active: "Cosmic radiation were draining the power grids.", passive: "The power grids were being drained by cosmic radiation." },
+                    { label: "Twist C", text: "Drifting spacewalkers fixed the communication dish.", active: "Drifting spacewalkers were fixing the communication dish.", passive: "The communication dish was being fixed by drifting spacewalkers." }
+                ]
+            }
+        ];
+
+        const colors = {
+            'purple': { bg: 'bg-purple-300', text: 'text-purple-600', border: 'border-purple-600', light: 'bg-purple-100' },
+            'blue': { bg: 'bg-blue-300', text: 'text-blue-600', border: 'border-blue-600', light: 'bg-blue-100' },
+            'orange': { bg: 'bg-orange-300', text: 'text-orange-600', border: 'border-orange-600', light: 'bg-orange-100' },
+            'pink': { bg: 'bg-pink-300', text: 'text-pink-600', border: 'border-pink-600', light: 'bg-pink-100' },
+            'green': { bg: 'bg-green-300', text: 'text-green-700', border: 'border-green-600', light: 'bg-green-100' },
+            'indigo': { bg: 'bg-indigo-300', text: 'text-indigo-600', border: 'border-indigo-600', light: 'bg-indigo-100' }
+        };
+
+        const container = document.getElementById('dynamic-slides-container');
+        
+        scenarios.forEach((scen, index) => {
+            const slideNum = index + 3; 
+            const c = colors[scen.theme];
+            
+            let html = `
+            <section id="slide-${slideNum}" class="slide w-full h-[85vh] ${c.bg} rounded-3xl border-4 border-black shadow-brutal-lg flex-col p-6 md:p-8">
+                <div class="flex flex-col lg:flex-row h-full gap-6">
+                    
+                    <div class="flex-1 flex flex-col gap-4">
+                        <div class="flex items-center gap-3 bg-white p-3 rounded-2xl border-4 border-black shadow-brutal-sm w-fit">
+                            <i class="fa-solid ${scen.icon} text-3xl ${c.text}"></i>
+                            <h2 class="text-2xl md:text-3xl font-comic uppercase">Scenario ${index + 1}: <br><span class="${c.text}">${scen.title}</span></h2>
+                        </div>
+                        
+                        <div class="bg-white flex-1 p-6 rounded-2xl border-4 border-black shadow-brutal-sm relative">
+                            <i class="fa-solid fa-quote-left absolute top-4 right-4 text-gray-200 text-6xl z-0"></i>
+                            <p class="text-xl md:text-2xl font-bold italic text-gray-800 relative z-10 leading-relaxed">
+                                "${scen.intro}"
+                            </p>
+                        </div>
+                        
+                        <div class="bg-black text-white p-4 rounded-2xl border-4 border-black shadow-brutal-sm">
+                            <h3 class="font-comic text-yellow-300 mb-2"><i class="fa-solid fa-bolt text-yellow-300 mr-2"></i> SELECT A PLOT TWIST:</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                ${scen.twists.map((t, i) => `
+                                    <button onclick="selectTwist(${scen.id}, ${i})" id="btn-${scen.id}-${i}" class="twist-btn bg-white text-black border-2 border-black rounded-xl p-2 text-left font-bold shadow-[4px_4px_0_0_#fff] hover:-translate-y-1 hover:shadow-[4px_6px_0_0_#fff] transition-all text-sm leading-tight group">
+                                        <span class="block text-xs font-comic text-gray-500 group-hover:text-black">${t.label}</span>
+                                        ${t.text}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 bg-white rounded-2xl border-4 border-black shadow-brutal-sm p-6 flex flex-col">
+                        <div class="flex justify-between items-center mb-4 border-b-4 border-gray-100 pb-2">
+                            <h3 class="font-comic text-2xl"><i class="fa-solid fa-pen-nib mr-2 ${c.text}"></i> Challenge Board</h3>
+                            <button onclick="toggleAnswer(${scen.id})" class="bg-gray-200 hover:bg-gray-300 border-2 border-black rounded-lg px-3 py-1 font-bold text-sm shadow-brutal-sm flex items-center">
+                                <i class="fa-solid fa-eye mr-2"></i> Reveal Key
+                            </button>
+                        </div>
+                        
+                        <div class="flex-1 flex flex-col justify-center text-center px-4" id="placeholder-${scen.id}">
+                            <i class="fa-solid fa-hand-pointer text-4xl text-gray-300 mb-4 animate-bounce"></i>
+                            <p class="font-bold text-gray-400 text-xl font-comic">Select a twist on the left to load the challenge...</p>
+                        </div>
+
+                        <div id="answer-area-${scen.id}" class="hidden flex-col gap-4 flex-1 justify-start">
+                            
+                            <div class="bg-amber-100 border-4 border-black rounded-xl p-4 text-center shadow-brutal-sm transform -rotate-1 mb-2">
+                                <span class="block text-xs font-comic uppercase text-amber-600 tracking-widest font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Active Target Phrase</span>
+                                <p id="twist-text-${scen.id}" class="text-xl md:text-2xl font-black text-black tracking-wide mt-1 font-sans"></p>
+                            </div>
+
+                            <div class="bg-blue-100 border-4 border-blue-500 rounded-xl p-4 relative shadow-brutal-sm transform rotate-1">
+                                <span class="absolute -top-3 left-4 bg-blue-500 text-white font-comic px-2 py-0.5 rounded border-2 border-black text-sm">ACTIVE (Player 1)</span>
+                                <p id="active-text-${scen.id}" class="text-lg md:text-xl font-bold mt-2"></p>
+                            </div>
+                            
+                            <div class="bg-pink-100 border-4 border-pink-500 rounded-xl p-4 relative shadow-brutal-sm transform -rotate-1 mt-2">
+                                <span class="absolute -top-3 left-4 bg-pink-500 text-white font-comic px-2 py-0.5 rounded border-2 border-black text-sm">PASSIVE (Player 2)</span>
+                                <p id="passive-text-${scen.id}" class="text-lg md:text-xl font-bold mt-2"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto pt-4 flex justify-between items-center">
+                            <button onclick="changeSlide(-1)" class="bg-white hover:bg-gray-100 border-2 border-black rounded-lg px-4 py-2 font-bold shadow-brutal-sm"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button onclick="changeSlide(1)" class="bg-yellow-300 hover:bg-yellow-400 border-2 border-black rounded-lg px-4 py-2 font-comic font-bold text-lg shadow-brutal-sm">Next Level <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            `;
+            container.innerHTML += html;
+        });
+
+        // Final Victory Slide
+        container.innerHTML += `
+        <section id="slide-10" class="slide w-full h-[85vh] bg-yellow-400 rounded-3xl border-4 border-black shadow-brutal-lg flex-col items-center justify-center p-8 relative overflow-hidden text-center">
+            <i class="fa-solid fa-trophy text-8xl text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)] mb-6 animate-bounce"></i>
+            <h1 class="text-6xl md:text-8xl font-comic font-bold uppercase mb-4 text-black">QUEST COMPLETE!</h1>
+            <p class="text-2xl font-bold font-sans bg-white px-6 py-2 border-4 border-black shadow-brutal-sm rounded-xl transform -rotate-2">You survived the expedition!</p>
+            <button onclick="resetGame()" class="mt-12 bg-blue-500 hover:bg-blue-400 text-white font-comic text-2xl px-8 py-3 rounded-xl border-4 border-black shadow-brutal transition-transform hover:-translate-y-1 active:translate-y-1">PLAY AGAIN <i class="fa-solid fa-rotate-right ml-2"></i></button>
+        </section>
+        `;
+
+        let currentSlide = 1;
+        const totalSlides = 10;
+
+        function initDots() {
+            const dots = document.getElementById('progress-dots');
+            dots.innerHTML = '';
+            for(let i=1; i<=totalSlides; i++) {
+                dots.innerHTML += `<div id="dot-${i}" onclick="goToSlide(${i})" class="w-4 h-4 rounded-full border-2 border-black cursor-pointer shadow-brutal-sm ${i===1 ? 'bg-black' : 'bg-white hover:bg-gray-200'}"></div>`;
+            }
+        }
+
+        function goToSlide(n) {
+            if(n < 1 || n > totalSlides) return;
+            
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(`slide-${n}`).classList.add('active');
+            
+            for(let i=1; i<=totalSlides; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if(i === n) {
+                    dot.classList.remove('bg-white', 'hover:bg-gray-200');
+                    dot.classList.add('bg-black');
+                } else {
+                    dot.classList.add('bg-white', 'hover:bg-gray-200');
+                    dot.classList.remove('bg-black');
+                }
+            }
+            
+            currentSlide = n;
+            document.getElementById('current-level').innerText = n;
+        }
+
+        function changeSlide(dir) { goToSlide(currentSlide + dir); }
+
+        function selectTwist(scenId, twistIndex) {
+            // UI Button states switching
+            document.querySelectorAll(`[id^="btn-${scenId}-"]`).forEach(b => {
+                b.classList.remove('bg-yellow-300', 'selected');
+                b.classList.add('bg-white');
+                b.style.boxShadow = "4px 4px 0 0 #fff"; 
+            });
+            const btn = document.getElementById(`btn-${scenId}-${twistIndex}`);
+            btn.classList.remove('bg-white');
+            btn.classList.add('bg-yellow-300', 'selected');
+            btn.style.boxShadow = "2px 2px 0 0 #000";
+
+            // Grab Data
+            const data = scenarios.find(s => s.id === scenId).twists[twistIndex];
+            
+            // Hide selection prompt
+            document.getElementById(`placeholder-${scenId}`).classList.add('hidden');
+            
+            const ansArea = document.getElementById(`answer-area-${scenId}`);
+            ansArea.classList.remove('hidden');
+            ansArea.classList.add('flex');
+            
+            // UPDATED: Dynamically write the selected raw twist text into the mini board display
+            document.getElementById(`twist-text-${scenId}`).innerText = `"${data.text}"`;
+            
+            // Mask answers with blur initially
+            document.getElementById(`active-text-${scenId}`).innerHTML = `<span class="blur-md select-none">${data.active}</span>`;
+            document.getElementById(`passive-text-${scenId}`).innerHTML = `<span class="blur-md select-none">${data.passive}</span>`;
+            
+            // Assign keys for toggle reveals
+            ansArea.dataset.active = data.active;
+            ansArea.dataset.passive = data.passive;
+            ansArea.dataset.revealed = "false";
+        }
+
+        function toggleAnswer(scenId) {
+            const ansArea = document.getElementById(`answer-area-${scenId}`);
+            if(!ansArea.dataset.active) return; 
+
+            if(ansArea.dataset.revealed === "false") {
+                document.getElementById(`active-text-${scenId}`).innerHTML = ansArea.dataset.active;
+                document.getElementById(`passive-text-${scenId}`).innerHTML = ansArea.dataset.passive;
+                ansArea.dataset.revealed = "true";
+            } else {
+                document.getElementById(`active-text-${scenId}`).innerHTML = `<span class="blur-md select-none">${ansArea.dataset.active}</span>`;
+                document.getElementById(`passive-text-${scenId}`).innerHTML = `<span class="blur-md select-none">${ansArea.dataset.passive}</span>`;
+                ansArea.dataset.revealed = "false";
+            }
+        }
+
+        function resetGame() {
+            scenarios.forEach(s => {
+                document.querySelectorAll(`[id^="btn-${s.id}-"]`).forEach(b => {
+                    b.classList.remove('bg-yellow-300', 'selected');
+                    b.classList.add('bg-white');
+                    b.style.boxShadow = "4px 4px 0 0 #fff"; 
+                });
+                document.getElementById(`placeholder-${s.id}`).classList.remove('hidden');
+                document.getElementById(`answer-area-${s.id}`).classList.add('hidden');
+                document.getElementById(`answer-area-${s.id}`).classList.remove('flex');
+                document.getElementById(`twist-text-${s.id}`).innerText = "";
+                document.getElementById(`answer-area-${s.id}`).dataset.active = "";
+            });
+            goToSlide(1);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        window.onload = () => {
+            initDots();
+            goToSlide(1);
+        }
+    </script>
+</body>
+</html>
+
+```
