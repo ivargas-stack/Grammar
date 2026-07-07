@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G7 Unit 3 Reviewer</title>
+    <style>
+        :root {
+            --bg-color: #f7f3ee; /* Very Pale, Warm Sand */
+            --primary-brown: #5d4037; /* Dark Chocolate Brown */
+            --secondary-taupe: #a1887f; /* Warm Taupe */
+            --accent-cream: #ffecb3; /* Soft Cream Accent */
+            --text-main: #3e2723; /* Very Dark Espresso */
+            --card-bg: #ffffff;
+            --border-color: #d7ccc8; /* Light Beige-Brown */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-brown);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        header h1 span {
+            color: var(--accent-cream);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(93, 64, 55, 0.05); /* Soft brown shadow */
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .concept-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .concept-header .icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            background-color: var(--bg-color);
+            color: var(--primary-brown);
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-brown);
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-taupe);
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .formula-box {
+            background-color: #fbe9e7; /* Very Soft, Warm Peach/Brown tint */
+            border: 2px dashed var(--secondary-taupe);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            color: var(--primary-brown);
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+
+        .example-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .example-item {
+            background-color: #fafafa;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .example-item::before {
+            content: "◆";
+            color: var(--secondary-taupe);
+            position: absolute;
+            left: 10px;
+            top: 1rem;
+            font-size: 0.8rem;
+        }
+
+        .example-item strong {
+            color: var(--primary-brown);
+        }
+
+        .collocation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: #fdfcfb;
+        }
+
+        .collocation-table th, .collocation-table td {
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .collocation-table th {
+            background-color: #efebe9;
+            color: var(--primary-brown);
+            font-weight: 700;
+        }
+
+        .collocation-table tr:nth-child(even) {
+            background-color: #faf8f7;
+        }
+
+        .tip-box {
+            background-color: #efebe9; /* Light Warm Taupe background */
+            border-left: 5px solid var(--secondary-taupe);
+            padding: 1.2rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .tip-box strong {
+            color: var(--primary-brown);
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .vocab-card {
+            background-color: #fdfcfb;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .vocab-word {
+            color: var(--primary-brown);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 0.3rem;
+        }
+
+        .vocab-def {
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .vocab-example {
+            background-color: #fafafa;
+            border-left: 3px solid var(--border-color);
+            padding: 0.8rem;
+            font-size: 0.95rem;
+            color: var(--secondary-taupe);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            color: #795548;
+            font-size: 1rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 5rem;
+            background-color: #efebe9;
+        }
+
+        /* CONCEPT GRAPHICS (Visual Learners) */
+        .graphic-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #fdfcfb;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .graphic-box {
+            text-align: center;
+            width: 30%;
+        }
+
+        .graphic-box .icon {
+            font-size: 3rem;
+            color: var(--secondary-taupe);
+            margin-bottom: 0.5rem;
+        }
+
+        .graphic-box p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .section-card { padding: 1.5rem; }
+            h2 { font-size: 1.6rem; }
+            .formula-box { font-size: 1rem; }
+            .concept-header .icon { font-size: 1.5rem; padding: 8px; }
+            .graphic-container { flex-direction: column; gap: 1rem; }
+            .graphic-box { width: 80%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><span>G7</span> Unit 3 Reviewer</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="section-card">
+            <div class="concept-header">
+                <div class="icon">⏳</div>
+                <h2>1. Past Continuous Tense</h2>
+            </div>
+            <p>We use the Past Continuous to talk about actions that were <strong>actively in progress</strong> (happening right then) at a specific time in the past. It shows that an action was not finished.</p>
+
+            <div class="graphic-container">
+                <div class="graphic-box">
+                    <div class="icon">🚶‍♂️➡️</div>
+                    <p><strong>Action started</strong> before the time</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">🛑⌚🛑</div>
+                    <p><strong>Action happening</strong> *at* the specific moment</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">➡️🚶‍♂️</div>
+                    <p><strong>Action continued</strong> after the time</p>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                Form: Subject + was/were + Verb(-ing)
+            </div>
+
+            <h3>Rule A: Singular Subjects (was)</h3>
+            <p>Use <strong>was</strong> for <em>I, he, she, it</em>, or any single person, animal, or thing.</p>
+            <ul class="example-list">
+                <li class="example-item">1. The deep-sea diver <strong>was examining</strong> the rare coral formation at 10:00 AM.</li>
+                <li class="example-item">2. While the team rested, a wild falcon <strong>was circling</strong> high above the canyon walls.</li>
+            </ul>
+
+            <h3>Rule B: Plural Subjects (were)</h3>
+            <p>Use <strong>were</strong> for <em>we, they, you</em>, or multiple people, animals, or things.</p>
+            <ul class="example-list">
+                <li class="example-item">1. Many creative designers <strong>were drafting</strong> plans for the new theater stage all last week.</li>
+                <li class="example-item">2. The rescue team members <strong>were clearing</strong> the blocked pathway when the second storm arrived.</li>
+            </ul>
+
+            <h3>Rule C: Interrupted Action</h3>
+            <p>Past Continuous is often used to show a longer background action that is <em>interrupted</em> by a sudden, short action (Past Simple). We often use "while" or "when".</p>
+            <ul class="example-list">
+                <li class="example-item">1. The students <strong>were reviewing</strong> their notes <em>when</em> the main speaker entered.</li>
+                <li class="example-item">2. She <strong>was adjusting</strong> her safety harness <em>when</em> the final countdown began.</li>
+            </ul>
+
+            <h3>Rule D: Background Setting</h3>
+            <p>Past Continuous can set the scene for a story by describing what was happening in the background.</p>
+            <ul class="example-list">
+                <li class="example-item">1. A relentless blizzard <strong>was howling</strong> through the mountain ridge all through the night.</li>
+                <li class="example-item">2. Soft waves <strong>were crashing</strong> gently against the dock while the fishermen slept soundly.</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Grammar Tip:</strong> Watch out for compound subjects! If you have two singular subjects joined by "and" (e.g., <em>The musician <strong>and</strong> her manager...</em>), it is now plural. Always use <strong>were preparing</strong>, not <em>was</em>.
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="concept-header">
+                <div class="icon">🤝</div>
+                <h2>2. Collocations (Natural Word Partnerships)</h2>
+            </div>
+            <p>Collocations are common word combinations that natively sound right to English speakers. Using them makes your writing more descriptive and professional.</p>
+
+            <div class="graphic-container">
+                <div class="graphic-box">
+                    <div class="icon">✅</div>
+                    <p><strong>Natural:</strong> "Heavy rain"</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">≠</div>
+                    <p><strong>Unnatural:</strong> "Strong rain"</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">🧩</div>
+                    <p><strong>Collocations</strong> are words that fit like puzzle pieces.</p>
+                </div>
+            </div>
+
+            <h3>A. Descriptive Modifier + Target Noun Pairings</h3>
+            <table class="collocation-table">
+                <thead>
+                    <tr>
+                        <th>Descriptive Modifier (Adjective/Adverb)</th>
+                        <th>Target Word (Noun/Verb)</th>
+                        <th>Natural Sample Sentence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Slight</td>
+                        <td><strong>delay</strong></td>
+                        <td>There will be a <strong>slight delay</strong> while we calibrate the audio gear.</td>
+                    </tr>
+                    <tr>
+                        <td>Fast</td>
+                        <td><strong>pace</strong></td>
+                        <td>The adventure movie moved at a very <strong>fast pace</strong>, keeping the audience thrilled.</td>
+                    </tr>
+                    <tr>
+                        <td>Bright</td>
+                        <td><strong>prospects</strong></td>
+                        <td>With her incredible mathematical skills, she has <strong>bright prospects</strong> in engineering.</td>
+                    </tr>
+                    <tr>
+                        <td>Serious</td>
+                        <td><strong>concern</strong></td>
+                        <td>The structural crack discovered in the old gymnasium wall is a <strong>serious concern</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td>Vast</td>
+                        <td><strong>improvement</strong></td>
+                        <td>Your rewrite of the second paragraph shows a <strong>vast improvement</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td>Severely</td>
+                        <td><strong>damaged</strong></td>
+                        <td>The historic bridge was <strong>severely damaged</strong> by the raging floodwaters.</td>
+                    </tr>
+                    <tr>
+                        <td>Rapid</td>
+                        <td><strong>decline</strong></td>
+                        <td>The mountain village experienced a <strong>rapid decline</strong> in temperature after dusk.</td>
+                    </tr>
+                    <tr>
+                        <td>Heated</td>
+                        <td><strong>debate</strong></td>
+                        <td>The city council engaged in a <strong>heated debate</strong> over the proposed park budget.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>B. Common Action-Verb Pairings</h3>
+            <p>These specific verbs must be used with these everyday nouns. Practice matching them!</p>
+            <div class="concept-header">
+                <div class="icon">🎯</div>
+                <h3>Match the Action!</h3>
+            </div>
+            <ul class="example-list">
+                <li class="example-item"><strong>Take:</strong> a look / a chance / action / permission</li>
+                <li class="example-item"><strong>Get:</strong> lost / permissions / dressed / tired</li>
+                <li class="example-item"><strong>Do:</strong> a favor / homework / research / chores</li>
+                <li class="example-item"><strong>Make:</strong> an arrangement / an impression / a mistake / a living</li>
+                <li class="example-item"><strong>Have:</strong> a chat / an impact / an argument / fun</li>
+            </ul>
+        </div>
+
+        <div class="section-card">
+            <div class="concept-header">
+                <div class="icon">📖</div>
+                <h2>3. Unit Action Vocabulary & Key Expressions</h2>
+            </div>
+            <p>These precise action and motion words are crucial for narrative and descriptive tasks. Learn their exact meanings and use cases.</p>
+
+            <div class="graphic-container">
+                <div class="graphic-box">
+                    <div class="icon">🪂</div>
+                    <p>A skydiver uses the <strong>Ripcord</strong> while <strong>Free falling</strong>.</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">📉</div>
+                    <p>To <strong>Plummet</strong> is to drop *very* fast.</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">🧶🛑🧶</div>
+                    <p>A safety <strong>Line</strong> keeps you from becoming <strong>Entangled</strong>.</p>
+                </div>
+            </div>
+
+            <h3>A. Key Action Verbs for Stories</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-word">Plummet</div>
+                    <div class="vocab-def">(Verb) To fall or drop straight downward at an extremely high speed.</div>
+                    <div class="vocab-example">Context: "The temperature began to <strong>plummet</strong> as soon as the dark clouds blocked out the sun."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Entangled</div>
+                    <div class="vocab-def">(Verb/Adjective) Caught, twisted, or closely knotted together into a complex mass.</div>
+                    <div class="vocab-example">Context: "The anchor line became completely <strong>entangled</strong> in heavy seaweed beneath the boat."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Free falling</div>
+                    <div class="vocab-def">(Verb Phrase/Adjective) Moving downward strictly driven by gravity, completely unrestricted and fast.</div>
+                    <div class="vocab-example">Context: "The payload spent thirty seconds <strong>free falling</strong> before its deployment sequence kicked in."</div>
+                </div>
+            </div>
+
+            <h3>B. Adventure Specific Terms</h3>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-word">Ripcord</div>
+                    <div class="vocab-def">(Noun) A specific cord that is pulled to initiate the opening mechanism of a parachute.</div>
+                    <div class="vocab-example">Context: "The training jumper firmly gripped the emergency <strong>ripcord</strong> during her first simulation."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-word">Line</div>
+                    <div class="vocab-def">(Noun) A designated length of cord, braided rope, or structural wire used for safety, control, or support.</div>
+                    <div class="vocab-example">Context: "Make sure to tie the safety <strong>line</strong> firmly around the anchor post before stepping down."</div>
+                </div>
+            </div>
+
+            <h3>C. Narrative Idioms & Character Expressions</h3>
+            <p>These idioms describe how characters feel or act in difficult situations.</p>
+            <div class="graphic-container">
+                <div class="graphic-box">
+                    <div class="icon">😒🔂</div>
+                    <p>Automatic motion, no effort</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">→</div>
+                    <p><strong>Idioms</strong> give color to actions.</p>
+                </div>
+                <div class="graphic-box">
+                    <div class="icon">😱💥</div>
+                    <p>Big failure, complete loss</p>
+                </div>
+            </div>
+            <ul class="example-list">
+                <li class="example-item">1. <strong>Went through the motions:</strong> Performing an assigned task or obligation routinely and mechanically, entirely lacking real passion, enthusiasm, or focused interest. (<em>"Unmotivated by the subject, the student just went through the motions during the final revision session."</em>)</li>
+                <li class="example-item">2. <strong>Blown it:</strong> To completely ruin, mishandle, or throw away an excellent opportunity, chance, or advantage. (<em>"He realized he had blown it when he accidentally deleted the only copy of his project file."</em>)</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        Grade 7 English Language Progression Base • Midterm Formative Review
+    </footer>
+
+</body>
+</html>
