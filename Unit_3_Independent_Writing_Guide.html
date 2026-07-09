@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3: Autobiographical Adventures - Slide Presentation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            color: #1e293b;
+            background-color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        /* Slide Container (Viewport Locked Landscape) */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            padding: 5% 6%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #f8fafc; /* Calm slate white background */
+            position: relative;
+            page-break-after: always;
+        }
+
+        /* Slide 1: Title Slide Specific Theme */
+        .title-slide {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%); /* Soft blue to mint cream gradient */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title-slide h1 {
+            font-size: 5.5vw;
+            color: #0c4a6e;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .title-slide p {
+            font-size: 2.8vw;
+            color: #0369a1;
+            font-weight: 600;
+        }
+
+        /* Large, Clear Headers for Back-of-Room Visibility */
+        .header {
+            border-bottom: 8px solid #0284c7;
+            font-size: 4.5vw;
+            color: #0c4a6e;
+            font-weight: 800;
+            padding-bottom: 15px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2.5vw;
+            color: #475569;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        /* Component Grid Layouts */
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            width: 100%;
+        }
+
+        /* EXTRA LARGE TYPOGRAPHY FOR SLIDE 2 CARD BLOCKS */
+        .grid-box-xl {
+            flex: 1 1 45%;
+            background: #ffffff;
+            border: 5px solid #cbd5e1;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.04);
+        }
+
+        .grid-box-xl h3 {
+            font-size: 3.5vw; /* Significantly increased font size */
+            color: #0284c7;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .grid-box-xl p {
+            font-size: 2.4vw; /* Significantly increased font size */
+            color: #1e293b;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        /* Standard Grid Box for other content pages */
+        .grid-box {
+            flex: 1 1 45%;
+            background: #ffffff;
+            border: 4px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .grid-box h3 {
+            font-size: 2.5vw;
+            color: #0369a1;
+            margin-bottom: 12px;
+        }
+
+        .grid-box p {
+            font-size: 2vw;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        /* Topic Cards Layout */
+        .topic-card {
+            flex: 1 1 45%;
+            background: #e0f2fe; /* Calm light blue */
+            border: 4px solid #bae6fd;
+            border-radius: 16px;
+            padding: 35px;
+            font-size: 3.2vw;
+            font-weight: 800;
+            text-align: center;
+            color: #0369a1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+        }
+
+        /* Extra-Large, High-Contrast Visual Phrase Cards */
+        .phrase-card {
+            width: 100%;
+            font-size: 3.8vw;
+            font-weight: 800;
+            background: #ffffff;
+            padding: 20px 40px;
+            margin-bottom: 20px;
+            border-left: 20px solid #ef4444; /* Vivid red accent for visibility */
+            border-radius: 8px;
+            color: #1e293b;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .phrase-action { border-left-color: #f97316; } /* Orange accent */
+        .phrase-feeling { border-left-color: #10b981; } /* Green accent */
+
+        /* Vocabulary Badges Layout */
+        .vocab-badge {
+            flex: 1 1 45%;
+            background: #f0fdf4; /* Calm light mint green */
+            border: 4px dashed #4ade80;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .vocab-badge h3 {
+            font-size: 3.2vw;
+            color: #166534;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .vocab-badge p {
+            font-size: 1.8vw;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        /* Explicit Slide Navigation Footer */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 6%;
+            right: 6%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.6vw;
+            color: #64748b;
+            border-top: 3px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        /* Printing Adjustments */
+        @media print {
+            .slide { width: 297mm; height: 210mm; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: TITLE SLIDE -->
+    <main class="slide title-slide">
+        <h1>Unit 3: Autobiographical Adventures</h1>
+        <p>Cambridge Grammar &amp; Writing Skills — Learner's Book 8</p>
+    </main>
+
+    <!-- SLIDE 2: THE CRITERIA (BIGGER FONTS FIX) -->
+    <main class="slide">
+        <div class="header">What Makes a Good Adventure Story?</div>
+        <div class="section-title">Checklist from your Cambridge Learner's Book:</div>
+        <div class="grid-container">
+            <div class="grid-box-xl">
+                <h3>1. First Person</h3>
+                <p>Use <strong>"I"</strong> or <strong>"We"</strong>. It must look like it happened directly to you!</p>
+            </div>
+            <div class="grid-box-xl">
+                <h3>2. A Complication</h3>
+                <p>A chain of events where things suddenly go dangerous or unexpected.</p>
+            </div>
+            <div class="grid-box-xl">
+                <h3>3. Inner Thoughts</h3>
+                <p>Describe exactly what you were thinking and feeling during the crisis.</p>
+            </div>
+            <div class="grid-box-xl">
+                <h3>4. Strong Contrasts</h3>
+                <p>Contrast ordinary settings with sudden chaos using vivid sensory words.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Cambridge Writing Standards</span>
+            <span>Slide 2</span>
+        </div>
+    </main>
+
+    <!-- SLIDE 3: STEP 1 - CHOOSE TOPIC -->
+    <main class="slide">
+        <div class="header">Step 1: Choose Your Topic</div>
+        <div class="section-title">Pick ONE adventure scenario to write about today:</div>
+        <div class="grid-container">
+            <div class="topic-card">⛈️ 1. The Big Storm</div>
+            <div class="topic-card">🌲 2. Lost in the Woods</div>
+            <div class="topic-card">🎢 3. The Scary Ride</div>
+            <div class="topic-card">🪂 4. Parachute Jump</div>
+        </div>
+        <div class="footer">
+            <span>Select one and focus on your setting</span>
+            <span>Slide 3</span>
+        </div>
+    </main>
+
+    <!-- SLIDE 4: STEP 2 - STORY STARTS -->
+    <main class="slide">
+        <div class="header">Step 2: Start Your Story</div>
+        <div class="section-title">🎬 Choose a beginning phrase (Max 4 words):</div>
+        <div class="phrase-card">👉 It was a dark...</div>
+        <div class="phrase-card">👉 Suddenly, the wind blew...</div>
+        <div class="phrase-card">👉 I looked out and...</div>
+        <div class="phrase-card">👉 We arrived at the...</div>
+        <div class="footer">
+            <span>Finish the phrase to build your first sentence</span>
+            <span>Slide 4</span>
+        </div>
+    </main>
+
+    <!-- SLIDE 5: STEP 3 - ACTION PHRASES -->
+    <main class="slide">
+        <div class="header">Step 3: Add the Action</div>
+        <div class="section-title">🏃‍♂️ Choose a sentence to build excitement (Max 4 words):</div>
+        <div class="phrase-card phrase-action">👉 My heart beat fast...</div>
+        <div class="phrase-card phrase-action">👉 I started to run...</div>
+        <div class="phrase-card phrase-action">👉 We fell down quickly...</div>
+        <div class="phrase-card phrase-action">👉 I held on tight...</div>
+        <div class="footer">
+            <span>Build narrative pace and action here</span>
+            <span>Slide 5</span>
+        </div>
+    </main>
+
+    <!-- SLIDE 6: STEP 4 - FEELING PHRASES -->
+    <main class="slide">
+        <div class="header">Step 4: Describe Feelings</div>
+        <div class="section-title">😮 Choose how the adventure ends or feels (Max 4 words):</div>
+        <div class="phrase-card phrase-feeling">👉 I felt so scared...</div>
+        <div class="phrase-card phrase-feeling">👉 Everything went totally black...</div>
+        <div class="phrase-card phrase-feeling">👉 I started to smile...</div>
+        <div class="phrase-card phrase-feeling">👉 We were safe now...</div>
+        <div class="footer">
+            <span>Combine all 4 steps to complete a structured paragraph!</span>
+            <span>Slide 6</span>
+        </div>
+    </main>
+
+    <!-- SLIDE 7: TARGET UNIT 3 VOCABULARY -->
+    <main class="slide">
+        <div class="header">Bonus: Use Unit 3 Action Words</div>
+        <div class="section-title">Add these exact textbook words to earn extra points:</div>
+        <div class="grid-container">
+            <div class="vocab-badge">
+                <h3>Plummet</h3>
+                <p>To drop straight down at very high speed.</p>
+            </div>
+            <div class="vocab-badge">
+                <h3>Ripcord</h3>
+                <p>The cord you pull to open up a safety parachute.</p>
+            </div>
+            <div class="vocab-badge">
+                <h3>Entangled</h3>
+                <p>To get completely caught or twisted up in ropes or lines.</p>
+            </div>
+            <div class="vocab-badge">
+                <h3>Struggle</h3>
+                <p>To fight hard to overcome a difficult problem.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Cambridge Core Vocabulary Matrix</span>
+            <span>Slide 7</span>
+        </div>
+    </main>
+
+</body>
+</html>
