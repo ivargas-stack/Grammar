@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4 Pics 1 Word - 3 Group Edition</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; display: flex; justify-content: center; padding: 15px; margin: 0; }
+    .card { background: white; padding: 20px; border-radius: 12px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    
+    /* Group Scoreboard Header */
+    .scoreboard { display: flex; justify-content: space-between; gap: 5px; margin-bottom: 12px; }
+    .group-box { flex: 1; padding: 6px 4px; background: #e5e7eb; border-radius: 6px; font-weight: bold; font-size: 0.85rem; color: #4b5563; }
+    .group-box.active { background: #4f46e5; color: white; border: 2px solid #3730a3; transform: scale(1.03); }
+
+    .top-bar { display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; }
+    .badge { background: #10b981; color: white; padding: 4px 8px; border-radius: 10px; font-size: 0.8rem; text-transform: uppercase; }
+    .timer { color: #d9534f; font-size: 1.1rem; }
+    .turn-banner { background: #e0e7ff; color: #3730a3; font-weight: bold; padding: 6px; border-radius: 6px; margin-bottom: 10px; font-size: 1rem; }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+    .grid img { width: 100%; height: 115px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
+    input { padding: 12px; width: 85%; font-size: 1.1rem; text-transform: uppercase; text-align: center; margin-bottom: 10px; border: 2px solid #ccc; border-radius: 6px; font-weight: bold; }
+    
+    .btn-group { display: flex; gap: 8px; justify-content: center; margin-bottom: 10px; }
+    button { padding: 10px 16px; font-size: 0.95rem; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
+    .btn-submit { background: #0275d8; }
+    .btn-reveal { background: #f0ad4e; }
+    .btn-next { background: #5cb85c; width: 100%; margin-top: 10px; font-size: 1.05rem; }
+    .feedback { font-weight: bold; margin-top: 10px; min-height: 24px; font-size: 1rem; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <!-- Scoreboard for 3 Groups -->
+  <div class="scoreboard">
+    <div class="group-box" id="g1-box">Group 1: <span id="g1-score">0</span></div>
+    <div class="group-box" id="g2-box">Group 2: <span id="g2-score">0</span></div>
+    <div class="group-box" id="g3-box">Group 3: <span id="g3-score">0</span></div>
+  </div>
+
+  <div class="turn-banner" id="turn-banner">🎯 TURN: GROUP 1</div>
+
+  <div class="top-bar">
+    <span class="badge" id="category-badge">Movies</span>
+    <span id="progress">1 / 15</span>
+    <span class="timer" id="timer">01:30</span>
+  </div>
+
+  <div class="grid">
+    <img id="img1" src="" alt="Clue 1">
+    <img id="img2" src="" alt="Clue 2">
+    <img id="img3" src="" alt="Clue 3">
+    <img id="img4" src="" alt="Clue 4">
+  </div>
+
+  <input type="text" id="answer-input" placeholder="TYPE ANSWER HERE" onkeypress="handleKeyPress(event)">
+
+  <div class="btn-group">
+    <button class="btn-submit" id="submit-btn" onclick="checkAnswer()">Submit</button>
+    <button class="btn-reveal" id="reveal-btn" onclick="revealAnswer()">Reveal Answer</button>
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+  <button class="btn-next hidden" id="next-btn" onclick="nextQuestion()">Next Group's Turn →</button>
+</div>
+
+<script>
+  const data = [
+    { cat: "Movies", ans: "BARBIE", alts: ["BARBIE"], imgs: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300", "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=300", "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300", "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300"] },
+    { cat: "Movies", ans: "SPIDER MAN", alts: ["SPIDERMAN", "SPIDER-MAN"], imgs: ["https://images.unsplash.com/photo-1534361960057-19889db9621e?w=300", "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300", "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300"] },
+    { cat: "Song", ans: "HAPPY", alts: ["HAPPY"], imgs: ["https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?w=300", "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?w=300", "https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?w=300", "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=300"] },
+    { cat: "Movies", ans: "FROZEN", alts: ["FROZEN"], imgs: ["https://images.unsplash.com/photo-1517299321609-52687d1bc55a?w=300", "https://images.unsplash.com/photo-1543852786-1cf6624b9987?w=300", "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300", "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=300"] },
+    { cat: "Movies", ans: "CARS", alts: ["CAR", "CARS"], imgs: ["https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=300", "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=300", "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300", "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=300"] },
+    { cat: "Song", ans: "UMBRELLA", alts: ["UMBRELLA"], imgs: ["https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=300", "https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=300", "https://images.unsplash.com/photo-1519692933481-e162a57d6721?w=300", "https://images.unsplash.com/photo-1501999635878-71cb5379c2d4?w=300"] },
+    { cat: "Movies", ans: "MINIONS", alts: ["MINION", "MINIONS"], imgs: ["https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300", "https://images.unsplash.com/photo-1508296695146-257a814070b4?w=300", "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=300", "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=300"] },
+    { cat: "Song", ans: "BUTTER", alts: ["BUTTER"], imgs: ["https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=300", "https://images.unsplash.com/photo-1584776296944-ab6fb57b0bdd?w=300", "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300", "https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=300"] },
+    { cat: "Movies", ans: "TITANIC", alts: ["TITANIC"], imgs: ["https://images.unsplash.com/photo-1548574505-5e2386903d8f?w=300", "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=300", "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300", "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300"] },
+    { cat: "Song", ans: "FIREWORK", alts: ["FIREWORKS", "FIREWORK"], imgs: ["https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300", "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=300", "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300", "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300"] },
+    { cat: "Movies", ans: "MOANA", alts: ["MOANA"], imgs: ["https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300", "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300", "https://images.unsplash.com/photo-1509233725247-49e657c54213?w=300", "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300"] },
+    { cat: "Song", ans: "ROAR", alts: ["ROAR"], imgs: ["https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?w=300", "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?w=300", "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=300", "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=300"] },
+    { cat: "Movies", ans: "AVATAR", alts: ["AVATAR"], imgs: ["https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=300", "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=300", "https://images.unsplash.com/photo-1511096338573-0f11904d9434?w=300", "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300"] },
+    { cat: "Song", ans: "DYNAMITE", alts: ["DYNAMITE"], imgs: ["https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300", "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=300", "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=300", "https://images.unsplash.com/photo-1508873696983-2df515122519?w=300"] },
+    { cat: "Song", ans: "COUNTING STARS", alts: ["COUNTING STARS"], imgs: ["https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=300", "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300", "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=300", "https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=300"] }
+  ];
+
+  let index = 0, groupScores = [0, 0, 0], timeLeft = 90, timerId = null;
+
+  function getCurrentGroup() {
+    return (index % 3); // 0 = Group 1, 1 = Group 2, 2 = Group 3
+  }
+
+  function startTimer() {
+    clearInterval(timerId);
+    timeLeft = 90;
+    updateTimerDisplay();
+    timerId = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+      if (timeLeft <= 0) {
+        clearInterval(timerId);
+        endRound("⏰ Time's up! The answer was: " + data[index].ans);
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    let m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+    document.getElementById('timer').textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+
+  function updateScoreboard() {
+    document.getElementById('g1-score').textContent = groupScores[0];
+    document.getElementById('g2-score').textContent = groupScores[1];
+    document.getElementById('g3-score').textContent = groupScores[2];
+
+    const currentG = getCurrentGroup();
+    document.getElementById('g1-box').className = 'group-box' + (currentG === 0 ? ' active' : '');
+    document.getElementById('g2-box').className = 'group-box' + (currentG === 1 ? ' active' : '');
+    document.getElementById('g3-box').className = 'group-box' + (currentG === 2 ? ' active' : '');
+
+    document.getElementById('turn-banner').textContent = `🎯 TURN: GROUP ${currentG + 1}`;
+  }
+
+  function loadQuestion() {
+    let item = data[index];
+    updateScoreboard();
+
+    document.getElementById('category-badge').textContent = item.cat;
+    document.getElementById('progress').textContent = `${index + 1} / ${data.length}`;
+    document.getElementById('answer-input').value = '';
+    document.getElementById('answer-input').disabled = false;
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('submit-btn').style.display = 'inline-block';
+    document.getElementById('reveal-btn').style.display = 'inline-block';
+    document.getElementById('next-btn').classList.add('hidden');
+
+    for (let i = 0; i < 4; i++) {
+      document.getElementById(`img${i+1}`).src = item.imgs[i];
+    }
+    startTimer();
+  }
+
+  function checkAnswer() {
+    let input = document.getElementById('answer-input').value.trim().toUpperCase().replace(/[^A-Z0-9 ]/g, "");
+    let valid = [data[index].ans, ...data[index].alts].map(a => a.toUpperCase().replace(/[^A-Z0-9 ]/g, ""));
+
+    if (valid.includes(input)) {
+      let activeGroup = getCurrentGroup();
+      groupScores[activeGroup]++;
+      updateScoreboard();
+      clearInterval(timerId);
+      endRound(` Correct! 🎉 Group ${activeGroup + 1} gets 1 point! Speak your review sentence!`);
+    } else {
+      document.getElementById('feedback').textContent = "❌ Incorrect, try again!";
+      document.getElementById('feedback').style.color = "red";
+    }
+  }
+
+  function revealAnswer() {
+    clearInterval(timerId);
+    endRound("💡 Answer: " + data[index].ans);
+  }
+
+  function endRound(msg) {
+    document.getElementById('feedback').textContent = msg;
+    document.getElementById('feedback').style.color = "#222";
+    document.getElementById('answer-input').disabled = true;
+    document.getElementById('submit-btn').style.display = 'none';
+    document.getElementById('reveal-btn').style.display = 'none';
+    document.getElementById('next-btn').classList.remove('hidden');
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter' && !document.getElementById('answer-input').disabled) {
+      checkAnswer();
+    }
+  }
+
+  function nextQuestion() {
+    index++;
+    if (index < data.length) {
+      loadQuestion();
+    } else {
+      let maxScore = Math.max(...groupScores);
+      let winners = [];
+      groupScores.forEach((s, idx) => { if (s === maxScore) winners.push(`Group ${idx + 1}`); });
+
+      document.getElementById('card').innerHTML = `
+        <h2>Game Over! 🏆</h2>
+        <p style="font-size:1.1rem; font-weight:bold;">Final Scores:</p>
+        <p>Group 1: ${groupScores[0]} | Group 2: ${groupScores[1]} | Group 3: ${groupScores[2]}</p>
+        <h3 style="color:#4f46e5;">👑 Winner: ${winners.join(' & ')}!</h3>
+        <button onclick="location.reload()" class="btn-submit" style="width:100%; padding:12px;">Play Again</button>
+      `;
+    }
+  }
+
+  loadQuestion();
+</script>
+</body>
+</html>
