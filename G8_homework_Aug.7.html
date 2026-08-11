@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 4: Listen Up - Interactive Homework</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --card-bg: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --accent-soft: #e0e7ff;
+      --highlight: #f3f4f6;
+      --success: #10b981;
+      --success-bg: #d1fae5;
+      --error: #ef4444;
+      --error-bg: #fee2e2;
+      --border-color: #e5e7eb;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 720px;
+      width: 100%;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Teacher Submission Banner */
+    .teacher-tab {
+      background-color: #fef3c7;
+      border-left: 5px solid #f59e0b;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: #92400e;
+      font-weight: 500;
+    }
+
+    /* Header Styling */
+    h1 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-top: 0;
+      margin-bottom: 6px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .subtitle-description {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      background-color: #e5e7eb;
+      height: 8px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      display: none; /* Shown during quiz */
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4f46e5, #a855f7);
+      transition: width 0.3s ease;
+    }
+
+    /* Slide System */
+    .slide {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Intro Slide */
+    .intro-box {
+      background-color: #f9fafb;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .intro-box h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+
+    .intro-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    .intro-box li {
+      margin-bottom: 10px;
+    }
+
+    /* Question Cards */
+    .question-card {
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .question-number {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .question-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: #111827;
+      line-height: 1.4;
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      background: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 3px solid var(--primary);
+      margin-bottom: 20px;
+      color: #334155;
+    }
+
+    /* Options */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    label.option-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background-color: #f9fafb;
+      border: 1.5px solid var(--border-color);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      color: #374151;
+    }
+
+    label.option-label:hover {
+      background-color: var(--accent-soft);
+      border-color: var(--primary);
+    }
+
+    label.option-label input[type="radio"] {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+    }
+
+    select {
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      font-size: 0.95rem;
+      width: 100%;
+      background-color: #f9fafb;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    select:focus {
+      border-color: var(--primary);
+      background-color: #ffffff;
+    }
+
+    /* Feedback */
+    .feedback {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .feedback.correct {
+      background-color: var(--success-bg);
+      color: #065f46;
+      display: block;
+    }
+
+    .feedback.incorrect {
+      background-color: var(--error-bg);
+      color: #991b1b;
+      display: block;
+    }
+
+    /* Navigation Controls */
+    .nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      background-color: #d1d5db;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background-color: #f3f4f6;
+      color: #374151;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: #e5e7eb;
+    }
+
+    .btn-start {
+      width: 100%;
+      justify-content: center;
+      font-size: 1.1rem;
+      padding: 14px;
+    }
+
+    .page-indicator {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Summary Slide */
+    #score-summary {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .score-badge {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 16px 0;
+    }
+
+    .summary-text {
+      font-size: 1.1rem;
+      color: #374151;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Screenshot Banner -->
+  <div class="teacher-tab">
+    <span style="font-size: 1.25rem;">📸</span>
+    <div>
+      <strong>Teacher Submission:</strong> Take a screenshot of your final score and submit it to your teacher tab when finished.
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container" id="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <!-- SLIDE 0: INTRO PAGE -->
+  <div class="slide active" id="slide-0">
+    <h1>Unit 4: Listen Up</h1>
+    <div class="subtitle-description">Cambridge Grade 8 (Stage 9) — Music Reviews, Present Tenses & Title Formatting</div>
+    
+    <div class="intro-box">
+      <h2>Welcome to Your Interactive Homework</h2>
+      <ul>
+        <li><strong>Grammar Focus:</strong> Active vs. Passive voice in Present Tenses (Simple & Perfect).</li>
+        <li><strong>Vocabulary & Style:</strong> Music terminology and Cambridge Stage 9 title punctuation conventions.</li>
+        <li><strong>Format:</strong> 10 interactive slides with single-question navigation.</li>
+        <li>Read every question carefully before making your selection.</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-start" onclick="startQuiz()">Start Homework →</button>
+  </div>
+
+  <!-- QUESTION SLIDES (1-10) -->
+  <form id="homework-form">
+    <!-- Q1 -->
+    <div class="slide" id="slide-1">
+      <div class="question-number">Question 1 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Complete with the correct Present Perfect Simple Active form:</div>
+        <div class="question-text">"The K-pop sensation BTS _________ (release) a brand-new album this week."</div>
+        <select id="q1">
+          <option value="">-- Choose an answer --</option>
+          <option value="releases">releases</option>
+          <option value="has released">has released</option>
+          <option value="is releasing">is releasing</option>
+          <option value="have released">have released</option>
+        </select>
+        <div class="feedback" id="fb-q1"></div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="slide" id="slide-2">
+      <div class="question-number">Question 2 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Complete with the correct Present Simple Passive form:</div>
+        <div class="question-text">"The single 'Idol' _________ (describe) by reviewers as an energetic blend of pop and traditional drums."</div>
+        <select id="q2">
+          <option value="">-- Choose an answer --</option>
+          <option value="is described">is described</option>
+          <option value="describes">describes</option>
+          <option value="has described">has described</option>
+          <option value="are described">are described</option>
+        </select>
+        <div class="feedback" id="fb-q2"></div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="slide" id="slide-3">
+      <div class="question-number">Question 3 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Complete with the correct Present Perfect Passive form:</div>
+        <div class="question-text">"Over two million copies of the album _________ (download) worldwide since Friday."</div>
+        <select id="q3">
+          <option value="">-- Choose an answer --</option>
+          <option value="have downloaded">have downloaded</option>
+          <option value="is downloaded">is downloaded</option>
+          <option value="have been downloaded">have been downloaded</option>
+          <option value="has been downloaded">has been downloaded</option>
+        </select>
+        <div class="feedback" id="fb-q3"></div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="slide" id="slide-4">
+      <div class="question-number">Question 4 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Music Vocabulary:</div>
+        <div class="question-text">Traditional instruments such as the <em>ggwenggari</em>, <em>jing</em>, and drums fall under which musical category?</div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q4" value="Vocals"> Vocals</label>
+          <label class="option-label"><input type="radio" name="q4" value="Percussion"> Percussion</label>
+          <label class="option-label"><input type="radio" name="q4" value="Harmonies"> Harmonies</label>
+          <label class="option-label"><input type="radio" name="q4" value="Synthesiser"> Synthesiser</label>
+        </div>
+        <div class="feedback" id="fb-q4"></div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="slide" id="slide-5">
+      <div class="question-number">Question 5 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Music Vocabulary:</div>
+        <div class="question-text">What is the technical term for the written words of a song?</div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q5" value="Groove"> Groove</label>
+          <label class="option-label"><input type="radio" name="q5" value="Melody"> Melody</label>
+          <label class="option-label"><input type="radio" name="q5" value="Lyrics"> Lyrics</label>
+          <label class="option-label"><input type="radio" name="q5" value="Chords"> Chords</label>
+        </div>
+        <div class="feedback" id="fb-q5"></div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="slide" id="slide-6">
+      <div class="question-number">Question 6 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Punctuation Rules for Music Titles:</div>
+        <div class="question-text">According to Cambridge Stage 9 conventions, which format is correct for an individual <strong>song title</strong>?</div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q6" value="A"> 'Trivia: Just Dance' (in single inverted commas / italics with capitalized words)</label>
+          <label class="option-label"><input type="radio" name="q6" value="B"> "trivia: just dance" (in lower case without capitals)</label>
+          <label class="option-label"><input type="radio" name="q6" value="C"> trivia: just dance (plain text)</label>
+        </div>
+        <div class="feedback" id="fb-q6"></div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="slide" id="slide-7">
+      <div class="question-number">Question 7 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Punctuation Rules for Music Titles:</div>
+        <div class="question-text">Which format is correct for a full <strong>album title</strong>?</div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q7" value="A"> love yourself: answer</label>
+          <label class="option-label"><input type="radio" name="q7" value="B"> "Love Yourself: Answer" (or in quotation marks / italics with capital letters)</label>
+          <label class="option-label"><input type="radio" name="q7" value="C"> 'love yourself: answer'</label>
+        </div>
+        <div class="feedback" id="fb-q7"></div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="slide" id="slide-8">
+      <div class="question-number">Question 8 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Complete with the correct Present Simple Active form:</div>
+        <div class="question-text">"Suga _________ (showcase) his remarkable skill for writing melancholy lyrics in this new track."</div>
+        <select id="q8">
+          <option value="">-- Choose an answer --</option>
+          <option value="showcases">showcases</option>
+          <option value="has showcased">has showcased</option>
+          <option value="is showcased">is showcased</option>
+          <option value="showcase">showcase</option>
+        </select>
+        <div class="feedback" id="fb-q8"></div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="slide" id="slide-9">
+      <div class="question-number">Question 9 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Music Genre Identification:</div>
+        <div class="question-text">A contemporary musical genre featuring rhythm and blues often mixed with hip-hop elements is known as:</div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q9" value="Ballad"> Ballad</label>
+          <label class="option-label"><input type="radio" name="q9" value="R&B"> R&B</label>
+          <label class="option-label"><input type="radio" name="q9" value="Perilous"> Folk</label>
+          <label class="option-label"><input type="radio" name="q9" value="Solo"> Solo</label>
+        </div>
+        <div class="feedback" id="fb-q9"></div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="slide" id="slide-10">
+      <div class="question-number">Question 10 of 10</div>
+      <div class="question-card">
+        <div class="question-title">Active vs. Passive Identification:</div>
+        <div class="question-text">In the sentence: <em>"The album is padded with previously released material,"</em> what tense and voice is used?</div>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q10" value="A"> Present Simple Active</label>
+          <label class="option-label"><input type="radio" name="q10" value="B"> Present Simple Passive</label>
+          <label class="option-label"><input type="radio" name="q10" value="C"> Present Perfect Active</label>
+          <label class="option-label"><input type="radio" name="q10" value="D"> Present Perfect Passive</label>
+        </div>
+        <div class="feedback" id="fb-q10"></div>
+      </div>
+    </div>
+  </form>
+
+  <!-- SLIDE 11: SUMMARY / RESULTS -->
+  <div class="slide" id="slide-summary">
+    <div id="score-summary">
+      <h1>Homework Completed!</h1>
+      <div class="score-badge" id="score-badge">0 / 10</div>
+      <p class="summary-text" id="score-text"></p>
+      <div style="background-color: var(--accent-soft); padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+        <p style="margin: 0; font-size: 0.95rem; color: #374151;">
+          📸 <strong>Action Required:</strong> Please take a clear screenshot of this screen showing your final score and upload it directly to your teacher submission tab.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION CONTROLS -->
+  <div class="nav-controls" id="nav-controls" style="display: none;">
+    <button class="btn btn-secondary" id="btn-prev" onclick="changeSlide(-1)">← Previous</button>
+    <span class="page-indicator" id="page-indicator">Question 1 of 10</span>
+    <button class="btn" id="btn-next" onclick="changeSlide(1)">Next →</button>
+  </div>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const totalQuestions = 10;
+
+  const answers = {
+    q1: "has released",
+    q2: "is described",
+    q3: "have been downloaded",
+    q4: "Percussion",
+    q5: "Lyrics",
+    q6: "A",
+    q7: "B",
+    q8: "showcases",
+    q9: "R&B",
+    q10: "B"
+  };
+
+  function startQuiz() {
+    goToSlide(1);
+    document.getElementById('progress-container').style.display = 'block';
+    document.getElementById('nav-controls').style.display = 'flex';
+  }
+
+  function goToSlide(slideIndex) {
+    // Hide all slides
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(s => s.classList.remove('active'));
+
+    // Show target slide
+    currentSlide = slideIndex;
+    document.getElementById(`slide-${currentSlide}`).classList.add('active');
+
+    updateNav();
+  }
+
+  function changeSlide(direction) {
+    const newSlide = currentSlide + direction;
+
+    if (newSlide >= 1 && newSlide <= totalQuestions) {
+      goToSlide(newSlide);
+    } else if (newSlide > totalQuestions) {
+      finishQuiz();
+    }
+  }
+
+  function updateNav() {
+    const prevBtn = document.getElementById('btn-prev');
+    const nextBtn = document.getElementById('btn-next');
+    const indicator = document.getElementById('page-indicator');
+    const progressBar = document.getElementById('progress-bar');
+
+    if (currentSlide === 0) {
+      document.getElementById('progress-container').style.display = 'none';
+      document.getElementById('nav-controls').style.display = 'none';
+      return;
+    }
+
+    // Update Progress Bar & Indicator
+    const progressPercent = (currentSlide / totalQuestions) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+    indicator.innerText = `Question ${currentSlide} of ${totalQuestions}`;
+
+    // Enable/Disable buttons
+    prevBtn.disabled = (currentSlide === 1);
+
+    if (currentSlide === totalQuestions) {
+      nextBtn.innerText = "Submit Answer ✓";
+      nextBtn.style.backgroundColor = "var(--success)";
+    } else {
+      nextBtn.innerText = "Next →";
+      nextBtn.style.backgroundColor = "var(--primary)";
+    }
+  }
+
+  function finishQuiz() {
+    let score = 0;
+
+    // Q1 Evaluation
+    const val1 = document.getElementById('q1').value;
+    showFeedback('q1', val1 === answers.q1, "Correct! 'has released' (Present Perfect Active).", "Incorrect. Use Present Perfect Active: 'has released'.");
+    if (val1 === answers.q1) score++;
+
+    // Q2 Evaluation
+    const val2 = document.getElementById('q2').value;
+    showFeedback('q2', val2 === answers.q2, "Correct! 'is described' (Present Simple Passive).", "Incorrect. Use Present Simple Passive: 'is described'.");
+    if (val2 === answers.q2) score++;
+
+    // Q3 Evaluation
+    const val3 = document.getElementById('q3').value;
+    showFeedback('q3', val3 === answers.q3, "Correct! 'have been downloaded' (Present Perfect Passive for plural).", "Incorrect. Plural subject requires Present Perfect Passive: 'have been downloaded'.");
+    if (val3 === answers.q3) score++;
+
+    // Q4 Evaluation
+    const rad4 = document.querySelector('input[name="q4"]:checked');
+    const val4 = rad4 ? rad4.value : "";
+    showFeedback('q4', val4 === answers.q4, "Correct! Drums and traditional instruments belong to Percussion.", "Incorrect. The answer is Percussion.");
+    if (val4 === answers.q4) score++;
+
+    // Q5 Evaluation
+    const rad5 = document.querySelector('input[name="q5"]:checked');
+    const val5 = rad5 ? rad5.value : "";
+    showFeedback('q5', val5 === answers.q5, "Correct! The words of a song are called Lyrics.", "Incorrect. The correct term is Lyrics.");
+    if (val5 === answers.q5) score++;
+
+    // Q6 Evaluation
+    const rad6 = document.querySelector('input[name="q6"]:checked');
+    const val6 = rad6 ? rad6.value : "";
+    showFeedback('q6', val6 === answers.q6, "Correct! Song titles use single quotes/italics and capital letters.", "Incorrect. Song titles are enclosed in single quotes with initial caps.");
+    if (val6 === answers.q6) score++;
+
+    // Q7 Evaluation
+    const rad7 = document.querySelector('input[name="q7"]:checked');
+    const val7 = rad7 ? rad7.value : "";
+    showFeedback('q7', val7 === answers.q7, "Correct! Album titles use quotation marks/italics with capital letters.", "Incorrect. Album titles use quotation marks/italics with initial caps.");
+    if (val7 === answers.q7) score++;
+
+    // Q8 Evaluation
+    const val8 = document.getElementById('q8').value;
+    showFeedback('q8', val8 === answers.q8, "Correct! 'showcases' (Present Simple Active to comment on present work).", "Incorrect. Use Present Simple Active: 'showcases'.");
+    if (val8 === answers.q8) score++;
+
+    // Q9 Evaluation
+    const rad9 = document.querySelector('input[name="q9"]:checked');
+    const val9 = rad9 ? rad9.value : "";
+    showFeedback('q9', val9 === answers.q9, "Correct! R&B stands for Rhythm and Blues.", "Incorrect. The genre is R&B.");
+    if (val9 === answers.q9) score++;
+
+    // Q10 Evaluation
+    const rad10 = document.querySelector('input[name="q10"]:checked');
+    const val10 = rad10 ? rad10.value : "";
+    showFeedback('q10', val10 === answers.q10, "Correct! 'is padded' is Present Simple Passive.", "Incorrect. 'is padded' is formed with is + past participle (Present Simple Passive).");
+    if (val10 === answers.q10) score++;
+
+    // Hide controls & progress bar
+    document.getElementById('nav-controls').style.display = 'none';
+    document.getElementById('progress-container').style.display = 'none';
+
+    // Update Summary Slide
+    document.getElementById('score-badge').innerText = `${score} / ${totalQuestions}`;
+    const percentage = (score / totalQuestions) * 100;
+    document.getElementById('score-text').innerHTML = `You scored <strong>${score}</strong> out of <strong>${totalQuestions}</strong> (${percentage}%).`;
+
+    // Go to summary slide
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach(s => s.classList.remove('active'));
+    document.getElementById('slide-summary').classList.add('active');
+  }
+
+  function showFeedback(qId, isCorrect, correctMsg, incorrectMsg) {
+    const fb = document.getElementById('fb-' + qId);
+    fb.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+    fb.innerText = isCorrect ? '✓ ' + correctMsg : '✗ ' + incorrectMsg;
+  }
+</script>
+
+</body>
+</html>
