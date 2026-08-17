@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambridge Grade 8 English: Present Simple vs. Present Perfect</title>
+  <style>
+    :root {
+      --bg-warm: #FAF5EF;
+      --card-bg: #FFFFFF;
+      --text-main: #36322E;
+      --text-muted: #786F66;
+      --accent-warm: #D97706;
+      --accent-hover: #B45309;
+      --border-color: #E8E0D5;
+      --correct-bg: #E8F5E9;
+      --correct-text: #1B5E20;
+      --incorrect-bg: #FFEBEE;
+      --incorrect-text: #B71C1C;
+      --shadow: 0 10px 30px rgba(120, 111, 102, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 24px 32px 16px;
+      border-bottom: 1px solid var(--border-color);
+      background: #FCF9F5;
+    }
+
+    .header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent-warm);
+      width: 5%;
+      transition: width 0.3s ease;
+    }
+
+    .card-body {
+      padding: 32px;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .question-number {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-warm);
+    }
+
+    .score-badge {
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #F3EDE2;
+      padding: 4px 10px;
+      border-radius: 12px;
+      color: var(--text-main);
+    }
+
+    .question-text {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: #FFFFFF;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--accent-warm);
+      background: #FFFDF9;
+    }
+
+    .option-btn.selected {
+      border-color: var(--accent-warm);
+      background: #FFF8EE;
+      font-weight: 600;
+    }
+
+    .option-btn.correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct-text) !important;
+      color: var(--correct-text) !important;
+      font-weight: 600;
+    }
+
+    .option-btn.incorrect {
+      background-color: var(--incorrect-bg) !important;
+      border-color: var(--incorrect-text) !important;
+      color: var(--incorrect-text) !important;
+    }
+
+    .explanation-box {
+      background: #FDF9F3;
+      border-left: 4px solid var(--accent-warm);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .nav-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: #F0EAE1;
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #E4DCD0;
+    }
+
+    .btn-primary {
+      background: var(--accent-warm);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .results-screen {
+      text-align: center;
+      padding: 40px 20px;
+      display: none;
+    }
+
+    .results-screen h2 {
+      font-size: 1.75rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--accent-warm);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 24px auto;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .score-circle span {
+      font-size: 0.85rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    .results-msg {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Cambridge English Stage 9 (Grade 8)</h1>
+      <p>Grammar Practice: Present Simple vs. Present Perfect Tense</p>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- Main Question Card Body -->
+    <div class="card-body" id="quiz-card">
+      <div>
+        <div class="question-meta">
+          <span class="question-number" id="question-number">Question 1 of 20</span>
+          <span class="score-badge" id="score-badge">Score: 0 / 20</span>
+        </div>
+
+        <div class="question-text" id="question-text">
+          Loading question...
+        </div>
+
+        <div class="options-grid" id="options-grid">
+          <!-- Options rendered dynamically -->
+        </div>
+
+        <div class="explanation-box" id="explanation-box">
+          <!-- Explanation text -->
+        </div>
+      </div>
+
+      <!-- Navigation Footer -->
+      <div class="navigation">
+        <button class="nav-btn btn-secondary" id="prev-btn" onclick="navigate(-1)">Previous</button>
+        <button class="nav-btn btn-primary" id="next-btn" onclick="navigate(1)">Next</button>
+      </div>
+    </div>
+
+    <!-- Results Screen (Hidden by default) -->
+    <div class="results-screen" id="results-screen">
+      <h2>Practice Complete!</h2>
+      <p>Here is your total score for the test:</p>
+      
+      <div class="score-circle" id="final-score-circle">
+        0/20
+        <span>Correct</span>
+      </div>
+
+      <p class="results-msg" id="results-feedback">
+        Great effort! Review the rules of Present Simple (habits, general facts, review conventions) and Present Perfect (experiences, recent actions, background history) to keep improving.
+      </p>
+
+      <button class="nav-btn btn-primary" onclick="restartQuiz()">Try Again</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "BTS ________ several record-breaking albums over the past five years.",
+        options: ["has released", "have released", "releases", "are releasing"],
+        answer: 1,
+        explanation: "Use Present Perfect ('have released') to describe actions occurring over a period of time that continues up to the present ('over the past five years')."
+      },
+      {
+        question: "The new review ________ twelve tracks, featuring traditional Korean drums mixed with modern pop beats.",
+        options: ["includes", "has included", "is including", "have included"],
+        answer: 0,
+        explanation: "Use Present Simple ('includes') when giving a summary, fact, or review commentary about a work of art or album."
+      },
+      {
+        question: "My brother ________ the guitar since he was eight years old.",
+        options: ["plays", "is playing", "has played", "play"],
+        answer: 2,
+        explanation: "Use Present Perfect ('has played') with 'since' to express an action that started in the past and continues to the present."
+      },
+      {
+        question: "She usually ________ to classical music while studying for her English exams.",
+        options: ["has listened", "listens", "is listening", "listen"],
+        answer: 1,
+        explanation: "Use Present Simple ('listens') to describe a habitual or regular action indicated by 'usually'."
+      },
+      {
+        question: "Look at the official charts! The single ________ number one worldwide!",
+        options: ["reaches", "has reached", "reach", "is reaching"],
+        answer: 1,
+        explanation: "Use Present Perfect ('has reached') for a recent completed action with a visible result in the present."
+      },
+      {
+        question: "The vocalist ________ a remarkably unique voice that spans three octaves.",
+        options: ["possesses", "has possessed", "is possessing", "possess"],
+        answer: 0,
+        explanation: "Use Present Simple ('possesses') for state verbs that describe permanent qualities or characteristics."
+      },
+      {
+        question: "I ________ such a breathtaking live performance before today.",
+        options: ["never saw", "have never seen", "never see", "am never seeing"],
+        answer: 1,
+        explanation: "Use Present Perfect ('have never seen') to talk about life experiences up to the present point."
+      },
+      {
+        question: "Sound waves ________ faster through liquids than through air.",
+        options: ["travel", "have traveled", "are traveling", "has traveled"],
+        answer: 0,
+        explanation: "Use Present Simple ('travel') to state general scientific facts and universal truths."
+      },
+      {
+        question: "The music critic ________ three album reviews this week, and it is only Wednesday.",
+        options: ["writes", "has written", "is writing", "write"],
+        answer: 1,
+        explanation: "Use Present Perfect ('has written') for an action performed within a time period that is not yet finished ('this week')."
+      },
+      {
+        question: "The band members ________ in Seoul and produce all their own music.",
+        options: ["have lived", "live", "are living", "has lived"],
+        answer: 1,
+        explanation: "Use Present Simple ('live') for permanent situations and routines."
+      },
+      {
+        question: "K-pop ________ a global cultural phenomenon over the last decade.",
+        options: ["becomes", "is becoming", "has become", "become"],
+        answer: 2,
+        explanation: "Use Present Perfect ('has become') to describe a continuous change or development over a period up to now ('over the last decade')."
+      },
+      {
+        question: "In the music video, the main character ________ through a snowstorm while singing the chorus.",
+        options: ["has walked", "walks", "have walked", "is walking"],
+        answer: 1,
+        explanation: "Use Present Simple ('walks') when summarizing plot events, stories, or scene actions in commentary and creative writing."
+      },
+      {
+        question: "We ________ our concert tickets already, so we don't need to stand in line.",
+        options: ["buy", "have already bought", "already buy", "are buying"],
+        answer: 1,
+        explanation: "Use Present Perfect ('have already bought') with 'already' to emphasize that an action took place earlier than expected."
+      },
+      {
+        question: "How often ________ your violin teacher give you practice assignments?",
+        options: ["has", "does", "is", "have"],
+        answer: 1,
+        explanation: "Use Present Simple auxiliary ('does') for questions inquiring about frequency or regular schedules."
+      },
+      {
+        question: "The lead singer ________ several prestigious music awards throughout her career.",
+        options: ["wins", "is winning", "has won", "win"],
+        answer: 2,
+        explanation: "Use Present Perfect ('has won') for achievements during an ongoing timeframe ('throughout her career')."
+      },
+      {
+        question: "This new song ________ much more energetic than their previous track.",
+        options: ["sounds", "has sounded", "is sounding", "sound"],
+        answer: 0,
+        explanation: "Use Present Simple ('sounds') with sensory verbs expressing immediate opinions or current states."
+      },
+      {
+        question: "The sound engineer ________ mixing the final track for the album release.",
+        options: ["just finishes", "has just finished", "just finish", "is just finishing"],
+        answer: 1,
+        explanation: "Use Present Perfect ('has just finished') with 'just' to describe an action completed very recently."
+      },
+      {
+        question: "Modern producers frequently ________ electronic synthesisers to craft unique beats.",
+        options: ["have used", "use", "uses", "are using"],
+        answer: 1,
+        explanation: "Use Present Simple ('use') to describe general habits, trends, or facts in the modern industry."
+      },
+      {
+        question: "So far, the band ________ ten cities on their international tour.",
+        options: ["visited", "visits", "has visited", "is visiting"],
+        answer: 2,
+        explanation: "Use Present Perfect ('has visited') with time phrases like 'so far' to indicate achievements up to the moment of speaking."
+      },
+      {
+        question: "Critics generally ________ that this album represents the group's finest work.",
+        options: ["agree", "has agreed", "are agreeing", "have agreed"],
+        answer: 0,
+        explanation: "Use Present Simple ('agree') to state widespread opinions, general beliefs, or established facts."
+      }
+    ];
+
+    let currentIndex = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+
+    function initQuiz() {
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = questions[currentIndex];
+      
+      // Update metadata
+      document.getElementById('question-number').innerText = `Question ${currentIndex + 1} of ${questions.length}`;
+      document.getElementById('progress-bar').style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
+      
+      // Update text
+      document.getElementById('question-text').innerText = q.question;
+
+      // Update options
+      const optionsGrid = document.getElementById('options-grid');
+      optionsGrid.innerHTML = '';
+
+      const isAnswered = userAnswers[currentIndex] !== null;
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        
+        if (isAnswered) {
+          btn.disabled = true;
+          if (idx === q.answer) {
+            btn.classList.add('correct');
+            btn.innerHTML += ' <span>✓</span>';
+          } else if (idx === userAnswers[currentIndex]) {
+            btn.classList.add('incorrect');
+            btn.innerHTML += ' <span>✗</span>';
+          }
+        } else {
+          btn.onclick = () => selectOption(idx);
+        }
+
+        optionsGrid.appendChild(btn);
+      });
+
+      // Update explanation box
+      const expBox = document.getElementById('explanation-box');
+      if (isAnswered) {
+        expBox.style.display = 'block';
+        expBox.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+      } else {
+        expBox.style.display = 'none';
+      }
+
+      // Update score display
+      updateScoreBadge();
+
+      // Navigation button state
+      document.getElementById('prev-btn').disabled = currentIndex === 0;
+      
+      const nextBtn = document.getElementById('next-btn');
+      if (currentIndex === questions.length - 1) {
+        nextBtn.innerText = 'Finish Test';
+      } else {
+        nextBtn.innerText = 'Next';
+      }
+    }
+
+    function selectOption(index) {
+      if (userAnswers[currentIndex] !== null) return;
+      userAnswers[currentIndex] = index;
+      renderQuestion();
+    }
+
+    function updateScoreBadge() {
+      const currentScore = userAnswers.reduce((score, ans, idx) => {
+        return ans === questions[idx].answer ? score + 1 : score;
+      }, 0);
+      document.getElementById('score-badge').innerText = `Score: ${currentScore} / ${questions.length}`;
+    }
+
+    function navigate(direction) {
+      if (direction === 1 && currentIndex === questions.length - 1) {
+        showResults();
+        return;
+      }
+      currentIndex += direction;
+      renderQuestion();
+    }
+
+    function showResults() {
+      const finalScore = userAnswers.reduce((score, ans, idx) => {
+        return ans === questions[idx].answer ? score + 1 : score;
+      }, 0);
+
+      document.getElementById('quiz-card').style.display = 'none';
+      document.getElementById('results-screen').style.display = 'block';
+      document.getElementById('final-score-circle').innerHTML = `${finalScore}/${questions.length}<span>Correct</span>`;
+      
+      const feedback = document.getElementById('results-feedback');
+      const percentage = (finalScore / questions.length) * 100;
+      
+      if (percentage >= 85) {
+        feedback.innerText = "Outstanding mastery! You have a clear understanding of when to use the Present Simple (habits/facts/reviews) versus Present Perfect (experiences/recent actions).";
+      } else if (percentage >= 60) {
+        feedback.innerText = "Good progress! You're solid on most tense rules, but keep practicing time signals like 'since', 'already', and 'this week'.";
+      } else {
+        feedback.innerText = "Keep practicing! Remember: Present Simple is for routines, states, and facts. Present Perfect connects past actions to the present moment.";
+      }
+    }
+
+    function restartQuiz() {
+      currentIndex = 0;
+      userAnswers = new Array(questions.length).fill(null);
+      document.getElementById('results-screen').style.display = 'none';
+      document.getElementById('quiz-card').style.display = 'flex';
+      renderQuestion();
+    }
+
+    // Initialize on page load
+    window.onload = initQuiz;
+  </script>
+</body>
+</html>
