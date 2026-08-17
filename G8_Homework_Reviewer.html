@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 8 English Reviewer - Unit 4: Listen Up</title>
+    <style>
+        :root {
+            /* Warm & Calm Color Palette */
+            --bg-color: #f7f5f0;
+            --card-bg: #ffffff;
+            --text-main: #36322e;
+            --text-muted: #6e6761;
+            --primary-sage: #5f7465;
+            --primary-hover: #4b5e50;
+            --accent-terracotta: #c48b71;
+            --accent-sand: #e8dccb;
+            --secondary-bg: #efece6;
+            --border-color: #e2ddd5;
+            --success-bg: #e3ece6;
+            --success-text: #2f593b;
+            --error-bg: #f6e8e8;
+            --error-text: #943e3e;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #5f7465, #4b5e50);
+            color: #ffffff;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        header h1 {
+            margin: 0 0 8px 0;
+            font-size: 2.1rem;
+            font-weight: 600;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background-color: var(--secondary-bg);
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .tab-btn.active {
+            background-color: var(--card-bg);
+            color: var(--primary-sage);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Tab Content Containers */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-sage);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        /* Timeline Graphics Styles */
+        .timeline-container {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            color: var(--primary-sage);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .graphic-wrapper {
+            position: relative;
+            padding: 20px 10px 10px 10px;
+        }
+
+        .timeline-axis {
+            position: relative;
+            height: 4px;
+            background-color: #d1caaf;
+            border-radius: 2px;
+            margin: 40px 0 30px 0;
+        }
+
+        .timeline-axis::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: -5px;
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 10px solid #d1caaf;
+        }
+
+        .time-label {
+            position: absolute;
+            top: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .time-label.past { left: 5%; }
+        .time-label.present { left: 50%; transform: translateX(-50%); color: var(--accent-terracotta); }
+        .time-label.future { right: 5%; }
+
+        /* Markers for Present Simple */
+        .simple-marker {
+            position: absolute;
+            top: -8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-sage);
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px var(--primary-sage);
+        }
+
+        /* Marker for Present Perfect Span */
+        .perfect-span {
+            position: absolute;
+            top: -5px;
+            left: 15%;
+            width: 35%;
+            height: 14px;
+            background: linear-gradient(90deg, var(--accent-terracotta), var(--accent-sand));
+            border-radius: 7px;
+            opacity: 0.85;
+        }
+
+        .perfect-end-dot {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent-terracotta);
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px var(--accent-terracotta);
+        }
+
+        .graphic-caption {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-terracotta);
+            margin-top: 10px;
+        }
+
+        .grammar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 650px) {
+            .grammar-grid { grid-template-columns: 1fr; }
+        }
+
+        .rule-box {
+            background-color: var(--bg-color);
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-sage);
+        }
+
+        .rule-box.perfect {
+            border-left-color: var(--accent-terracotta);
+        }
+
+        .rule-box h3 {
+            margin-top: 0;
+            color: var(--text-main);
+            font-size: 1.15rem;
+        }
+
+        /* Vocabulary Cards Grid */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 15px;
+        }
+
+        .vocab-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .vocab-term {
+            font-weight: 700;
+            color: var(--primary-sage);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .vocab-def {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin: 6px 0;
+        }
+
+        .vocab-ex {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        /* Practice Test Controls */
+        .question-block {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .option-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 11px 16px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: var(--accent-sand);
+            border-color: #d1c5b4;
+        }
+
+        .feedback {
+            margin-top: 12px;
+            font-weight: 600;
+            display: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            color: var(--error-text);
+        }
+
+        .score-board {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--accent-sand);
+            border-radius: 10px;
+            color: var(--text-main);
+        }
+
+        button.reset-btn {
+            background-color: var(--primary-sage);
+            color: #ffffff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 12px;
+            transition: background 0.2s;
+        }
+
+        button.reset-btn:hover {
+            background-color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Grade 8 English Revision Guide</h1>
+        <p>Bangkok Bilingual School | Semester 1/2026 — Unit 4: Listen Up</p>
+    </header>
+
+    <!-- TAB NAVIGATION BAR -->
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-grammar')">1. Grammar Rules</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-vocab')">2. Key Vocabulary</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-practice')">3. Practice Test</button>
+    </div>
+
+    <!-- TAB 1: GRAMMAR CONCEPTS & VISUAL TIMELINES -->
+    <div id="tab-grammar" class="tab-content active">
+        <div class="section-card">
+            <h2>Grammar Concepts & Visual Timelines</h2>
+
+            <!-- Visual Graphic: Present Simple -->
+            <div class="timeline-container">
+                <div class="timeline-title">1. Present Simple Tense — Routines, Facts & General States</div>
+                <div class="graphic-wrapper">
+                    <div class="timeline-axis">
+                        <div class="simple-marker" style="left: 15%;" title="Regular Action"></div>
+                        <div class="simple-marker" style="left: 50%;" title="Regular Action / Current Fact"></div>
+                        <div class="simple-marker" style="left: 80%;" title="Regular Action"></div>
+                        <span class="time-label past">Past</span>
+                        <span class="time-label present">NOW (Present)</span>
+                        <span class="time-label future">Future</span>
+                    </div>
+                </div>
+                <div class="graphic-caption">
+                    <strong>Visual Meaning:</strong> Repetitive actions, ongoing truths, or regular habits occurring consistently across time.
+                </div>
+            </div>
+
+            <!-- Visual Graphic: Present Perfect -->
+            <div class="timeline-container">
+                <div class="timeline-title">2. Present Perfect Tense — Life Experiences & Unfinished Time</div>
+                <div class="graphic-wrapper">
+                    <div class="timeline-axis">
+                        <div class="perfect-span"></div>
+                        <div class="perfect-end-dot" title="Action touching Present moment"></div>
+                        <span class="time-label past">Past (Started)</span>
+                        <span class="time-label present">NOW (Connected)</span>
+                        <span class="time-label future">Future</span>
+                    </div>
+                </div>
+                <div class="graphic-caption">
+                    <strong>Visual Meaning:</strong> An event that started in the past and continues up to—or has direct relevance to—the present moment.
+                </div>
+            </div>
+
+            <div class="grammar-grid">
+                <div class="rule-box">
+                    <h3>Present Simple</h3>
+                    <p><strong>Use for:</strong> General truths, continuous facts, routine behaviors, or summaries of creative works.</p>
+                    <p><strong>Key Signals:</strong> usually, generally, currently, every week, often, always.</p>
+                    <p><strong>Sentence Examples:</strong></p>
+                    <ul>
+                        <li>The guitarist <strong>plays</strong> with incredible speed during every show.</li>
+                        <li>The sound engineer <strong>adjusts</strong> the audio levels before the concert begins.</li>
+                    </ul>
+                </div>
+                <div class="rule-box perfect">
+                    <h3>Present Perfect</h3>
+                    <p><strong>Use for:</strong> Completed life experiences, recent events without specific time, or ongoing states from past to present.</p>
+                    <p><strong>Key Signals:</strong> so far, for [duration], since [date], already, recently, ever, never.</p>
+                    <p><strong>Sentence Examples:</strong></p>
+                    <ul>
+                        <li>The orchestra <strong>has performed</strong> in over twenty European cities so far.</li>
+                        <li>She <strong>has produced</strong> hit songs for more than a decade.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: VOCABULARY KEY TERMS -->
+    <div id="tab-vocab" class="tab-content">
+        <div class="section-card">
+            <h2>Unit Vocabulary Glossary</h2>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-term">Momentous</div>
+                    <div class="vocab-def">Very important, significant, or serious.</div>
+                    <div class="vocab-ex">"Winning the trophy was a momentous milestone in her career."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Thought-provoking</div>
+                    <div class="vocab-def">Making you think deeply about a subject or idea.</div>
+                    <div class="vocab-ex">"The film provided a thought-provoking message on nature."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Bubblegum</div>
+                    <div class="vocab-def">Fun, lighthearted, cheerful, and popular with younger audiences.</div>
+                    <div class="vocab-ex">"The album featured upbeat bubblegum pop songs."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Don</div>
+                    <div class="vocab-def">To put on clothing, equipment, or special gear.</div>
+                    <div class="vocab-ex">"The performers don colorful masks before walking out."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Garb</div>
+                    <div class="vocab-def">Clothing or attire designed for a specific role or style.</div>
+                    <div class="vocab-ex">"The dancers wore traditional silk garb during the festival."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Record-breaking</div>
+                    <div class="vocab-def">Surpassing all previous performance levels or standard records.</div>
+                    <div class="vocab-ex">"The stadium welcomed a record-breaking crowd of fans."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Concise</div>
+                    <div class="vocab-def">Expressing much information clearly in very few words.</div>
+                    <div class="vocab-ex">"Please keep your written answers clear and concise."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Pique</div>
+                    <div class="vocab-def">To awaken, stimulate, or spark curiosity or interest.</div>
+                    <div class="vocab-ex">"The mysterious trailer served to pique everyone's curiosity."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Style</div>
+                    <div class="vocab-def">The distinct manner in which words, music, or artwork are created.</div>
+                    <div class="vocab-ex">"His unique writing style combines humor and mystery."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Laments</div>
+                    <div class="vocab-def">Expresses sorrow, deep regret, or sadness about something.</div>
+                    <div class="vocab-ex">"The poem laments the loss of old country traditions."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Cement</div>
+                    <div class="vocab-def">To solidify or make a relationship, position, or idea stronger.</div>
+                    <div class="vocab-ex">"This victory helped cement their standing as champions."</div>
+                </div>
+                <div class="vocab-card">
+                    <div class="vocab-term">Padded</div>
+                    <div class="vocab-def">Filled out with extra, repetitive, or unnecessary material.</div>
+                    <div class="vocab-ex">"The essay felt padded with unnecessary repetition."</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: INTERACTIVE PRACTICE TEST -->
+    <div id="tab-practice" class="tab-content">
+        <div class="section-card">
+            <h2>Interactive Practice Test</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Choose the best option for each question to evaluate your understanding.</p>
+
+            <!-- Question 1 -->
+            <div class="question-block" id="q1">
+                <p><strong>1. The sound producer _______ hit tracks for major independent labels for over fifteen years.</strong></p>
+                <div class="options">
+                    <button class="option-btn" onclick="checkAnswer('q1', false)">creates</button>
+                    <button class="option-btn" onclick="checkAnswer('q1', true)">has created</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-block" id="q2">
+                <p><strong>2. The young violinist usually _______ classical melodies with modern pop sounds.</strong></p>
+                <div class="options">
+                    <button class="option-btn" onclick="checkAnswer('q2', true)">blends</button>
+                    <button class="option-btn" onclick="checkAnswer('q2', false)">has blended</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-block" id="q3">
+                <p><strong>3. Which word best completes the sentence: "The organizers hope to _______ their strong partnership with local musicians."?</strong></p>
+                <div class="options">
+                    <button class="option-btn" onclick="checkAnswer('q3', false)">lament</button>
+                    <button class="option-btn" onclick="checkAnswer('q3', false)">don</button>
+                    <button class="option-btn" onclick="checkAnswer('q3', true)">cement</button>
+                    <button class="option-btn" onclick="checkAnswer('q3', false)">padded</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-block" id="q4">
+                <p><strong>4. If a review expresses ideas briefly and clearly without extra fluff, it is:</strong></p>
+                <div class="options">
+                    <button class="option-btn" onclick="checkAnswer('q4', false)">momentous</button>
+                    <button class="option-btn" onclick="checkAnswer('q4', true)">concise</button>
+                    <button class="option-btn" onclick="checkAnswer('q4', false)">bubblegum</button>
+                    <button class="option-btn" onclick="checkAnswer('q4', false)">padded</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-block" id="q5">
+                <p><strong>5. The concert tour _______ thousands of international fans since it began last month.</strong></p>
+                <div class="options">
+                    <button class="option-btn" onclick="checkAnswer('q5', false)">attracts</button>
+                    <button class="option-btn" onclick="checkAnswer('q5', true)">has attracted</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-block" id="q6">
+                <p><strong>6. What does the word "pique" mean in the sentence "The intro serves to pique the listener's interest"?</strong></p>
+                <div class="options">
+                    <button class="option-btn" onclick="checkAnswer('q6', true)">To awaken or excite</button>
+                    <button class="option-btn" onclick="checkAnswer('q6', false)">To ignore completely</button>
+                    <button class="option-btn" onclick="checkAnswer('q6', false)">To criticize strongly</button>
+                    <button class="option-btn" onclick="checkAnswer('q6', false)">To dress up in gear</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-block" id="q7">
+                <p><strong>7. Before entering the stage, the lead singer decided to _______ a stylish jacket.</strong></p>
+                <div class="options">
+                    <button class="option-btn" onclick="checkAnswer('q7', false)">garb</button>
+                    <button class="option-btn" onclick="checkAnswer('q7', true)">don</button>
+                    <button class="option-btn" onclick="checkAnswer('q7', false)">pique</button>
+                    <button class="option-btn" onclick="checkAnswer('q7', false)">lament</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="score-board">
+                Score: <span id="score">0</span> / 7
+                <br>
+                <button class="reset-btn" onclick="resetQuiz()">Reset Practice Test</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab Switching Functionality
+    function openTab(evt, tabId) {
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Interactive Quiz Logic
+    let answered = {};
+    let score = 0;
+
+    function checkAnswer(questionId, isCorrect) {
+        if (answered[questionId]) return;
+
+        const block = document.getElementById(questionId);
+        const feedback = block.querySelector('.feedback');
+        const buttons = block.querySelectorAll('.option-btn');
+
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (isCorrect) {
+            feedback.textContent = "Correct! Well done.";
+            feedback.className = "feedback correct";
+            score++;
+        } else {
+            feedback.textContent = "Incorrect. Review the rule or definition and try again!";
+            feedback.className = "feedback incorrect";
+        }
+
+        answered[questionId] = true;
+        document.getElementById('score').textContent = score;
+    }
+
+    function resetQuiz() {
+        score = 0;
+        answered = {};
+        document.getElementById('score').textContent = score;
+
+        const blocks = document.querySelectorAll('.question-block');
+        blocks.forEach(block => {
+            const feedback = block.querySelector('.feedback');
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            const buttons = block.querySelectorAll('.option-btn');
+            buttons.forEach(btn => btn.disabled = false);
+        });
+    }
+</script>
+
+</body>
+</html>
