@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 7 English Grammar & Vocabulary Reviewer</title>
+    <style>
+        :root {
+            --bg-color: #FDFBF7;
+            --primary-color: #6B8E6B;
+            --secondary-color: #D4A373;
+            --text-color: #4A4A4A;
+            --accent-color: #E9EDC9;
+            --border-color: #CCD5AE;
+            --correct-bg: #E8F5E9;
+            --correct-border: #4CAF50;
+            --incorrect-bg: #FFEBEE;
+            --incorrect-border: #F44336;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-info {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        /* Tab Navigation */
+        .tab {
+            overflow: hidden;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 25px;
+            display: flex;
+        }
+
+        .tab button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 12px 24px;
+            transition: 0.3s;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--text-color);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .tab button.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .tabcontent {
+            display: none;
+            animation: fadeEffect 0.4s;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Submission Instruction Banner */
+        .submission-instruction {
+            background-color: #FEFAE0;
+            border: 2px dashed var(--secondary-color);
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #5C4033;
+            text-align: center;
+            font-size: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        /* Concept Explanations */
+        .concept-card {
+            background-color: #FAFAFA;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .example-box {
+            background-color: var(--accent-color);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 10px 0;
+        }
+
+        /* Timeline Visual */
+        .timeline-container {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .time-point {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .time-point.past-perfect {
+            background-color: var(--secondary-color);
+        }
+
+        .time-line {
+            height: 4px;
+            background-color: var(--border-color);
+            width: 80px;
+        }
+
+        /* Interactive Controls */
+        .task-box {
+            background-color: #FAFAFA;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .directions {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .word-bank {
+            border: 1px dashed var(--primary-color);
+            background-color: var(--accent-color);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .question-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        select, input[type="text"] {
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--text-color);
+            background-color: var(--white);
+            margin: 2px 4px;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .action-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: #557255;
+        }
+
+        .reset-btn {
+            background-color: var(--secondary-color);
+        }
+
+        .reset-btn:hover {
+            background-color: #C08C5D;
+        }
+
+        .score-display {
+            display: none;
+            padding: 15px;
+            background-color: var(--accent-color);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Feedback Styles */
+        .is-correct {
+            background-color: var(--correct-bg) !important;
+            border: 1px solid var(--correct-border);
+        }
+
+        .is-incorrect {
+            background-color: var(--incorrect-bg) !important;
+            border: 1px solid var(--incorrect-border);
+        }
+
+        .feedback-text {
+            font-size: 13px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .feedback-text.correct { color: #2E7D32; }
+        .feedback-text.incorrect { color: #C62828; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-info">
+        <h2>Cambridge Lower Secondary English</h2>
+        <h1>Unit 4 Reviewer: Real-life Diaries</h1>
+        <p><strong>Topics:</strong> Past Simple vs. Past Perfect, Verb-Noun Collocations, Action Verbs</p>
+    </div>
+
+    <!-- TAB BUTTONS -->
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'Concept')">Grammar & Concept Review</button>
+        <button class="tablinks" onclick="openTab(event, 'Practice')">Interactive Practice Test</button>
+    </div>
+
+    <!-- TAB 1: CONCEPT REVIEW -->
+    <div id="Concept" class="tabcontent" style="display: block;">
+        
+        <!-- Concept 1 -->
+        <div class="concept-card">
+            <h3>1. Past Simple vs. Past Perfect</h3>
+            <p>When discussing two connected events in the past, we use the <strong>Past Perfect</strong> for the event that occurred earlier, and the <strong>Past Simple</strong> for the event that occurred later[cite: 1].</p>
+            <ul>
+                <li><strong>Past Perfect Form:</strong> <code>had + past participle</code> (e.g., <em>had left, had finished, had lived</em>)[cite: 1]</li>
+                <li><strong>Past Simple Form:</strong> Regular <code>verb + -ed</code> or irregular past form (e.g., <em>arrived, began, saw</em>)[cite: 1]</li>
+            </ul>
+
+            <div class="timeline-container">
+                <h4>Visual Timeline Representation</h4>
+                <div class="timeline">
+                    <div class="time-point past-perfect">First Event (Past Perfect)<br><em>"had left" / "had finished"</em></div>
+                    <div class="time-line"></div>
+                    <div class="time-point">Second Event (Past Simple)<br><em>"arrived" / "started"</em></div>
+                    <div class="time-line"></div>
+                    <div class="time-point" style="background-color: #888;">NOW<br>(Present Moment)</div>
+                </div>
+            </div>
+
+            <h4>Detailed Sample Sentences:</h4>
+            
+            <div class="example-box">
+                <strong>Sample 1:</strong> "The robbers <strong>had left</strong> the bank when the policemen finally <strong>arrived</strong>."[cite: 1]<br>
+                <em>Explanation:</em> Action 1 (robbers leaving) happened first in the past, so it uses <strong>Past Perfect</strong> (*had left*)[cite: 1]. Action 2 (police arriving) happened second, so it uses <strong>Past Simple</strong> (*arrived*)[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 2:</strong> "Mr. Palmer <strong>hadn't spoken</strong> any Chinese before he <strong>moved</strong> to Peking."[cite: 1]<br>
+                <em>Explanation:</em> His lack of Chinese speech (Action 1) occurred before his relocation to Peking (Action 2)[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 3:</strong> "When the rain <strong>started</strong>, the Atkinsons <strong>had finished</strong> planting trees."[cite: 1]<br>
+                <em>Explanation:</em> The planting was completely completed (Action 1: *had finished*) before the rain began (Action 2: *started*)[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 4:</strong> "Darcy <strong>had seen</strong> this castle before she <strong>came</strong> again last Sunday."[cite: 1]<br>
+                <em>Explanation:</em> Her first visit (Action 1) happened prior to her visit last Sunday (Action 2)[cite: 1].
+            </div>
+        </div>
+
+        <!-- Concept 2 -->
+        <div class="concept-card">
+            <h3>2. Verb-Noun Collocations</h3>
+            <p>A <strong>collocation</strong> refers to a group of words that naturally co-occur together in standard English[cite: 1]. Verbs must pair correctly with specific nouns[cite: 1].</p>
+            
+            <h4>Detailed Sample Sentences:</h4>
+
+            <div class="example-box">
+                <strong>Sample 1:</strong> "The contestants had to perform several <strong>tasks</strong> like hitting a target and jumping hurdles."[cite: 1]<br>
+                <em>Explanation:</em> The verb <em>perform</em> naturally collocates with the noun <em>tasks</em> when executing specific assigned activities[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 2:</strong> "Our team celebrated their <strong>victory</strong> by swimming in the fountain."[cite: 1]<br>
+                <em>Explanation:</em> We <em>celebrate a victory</em> (win), rather than "making a victory" or "doing a victory"[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 3:</strong> "Athletes need to pay <strong>attention</strong> when officials give instructions."[cite: 1]<br>
+                <em>Explanation:</em> The verb <em>pay</em> pairs with <em>attention</em> to mean listening or watching carefully[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 4:</strong> "Siti was awarded a <strong>medal</strong> for her bravery."[cite: 1]<br>
+                <em>Explanation:</em> A <em>medal</em> is the specific noun used for formal honors given for bravery or athletic achievements[cite: 1].
+            </div>
+        </div>
+
+        <!-- Concept 3 -->
+        <div class="concept-card">
+            <h3>3. Action Verbs & Definitions</h3>
+            <p>Action verbs communicate physical or structural activities clearly in real-life diaries and narratives[cite: 1].</p>
+
+            <h4>Detailed Sample Sentences:</h4>
+
+            <div class="example-box">
+                <strong>Sample 1:</strong> "Many students chose to <strong>take part in</strong> the annual sports tournament."[cite: 1]<br>
+                <em>Meaning:</em> To be involved in or participate in an activity[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 2:</strong> "The organization decided to <strong>give away</strong> free books to young readers."[cite: 1]<br>
+                <em>Meaning:</em> To freely offer or distribute something without asking for payment[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 3:</strong> "The drama club worked hard to <strong>perform</strong> a theatrical play on the last day of the week."[cite: 1]<br>
+                <em>Meaning:</em> To carry out an action, pattern of behavior, or stage presentation[cite: 1].
+            </div>
+
+            <div class="example-box">
+                <strong>Sample 4:</strong> "Families gather together every autumn to <strong>celebrate</strong> the harvest festival."[cite: 1]<br>
+                <em>Meaning:</em> To mark an occasion or anniversary with festivities[cite: 1].
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: INTERACTIVE PRACTICE TEST -->
+    <div id="Practice" class="tabcontent">
+        
+        <!-- STUDENT SUBMISSION INSTRUCTION BANNER -->
+        <div class="submission-instruction">
+            📸 <strong>Submission Notice:</strong> Make sure to take a screenshot of your final score after completing the test and post it on Google Classroom or send it directly to your teacher's email!
+        </div>
+
+        <form id="quizForm">
+            
+            <!-- TASK I -->
+            <div class="task-box">
+                <p class="directions">TASK I. PAST PERFECT and PAST SIMPLE</p>
+                <p>Directions: Choose the correct verb forms to complete each sentence[cite: 1].</p>
+                
+                <div class="question-item" id="q1_item">
+                    1. The robbers 
+                    <select id="q1a">
+                        <option value="">-- select --</option>
+                        <option value="left">left</option>
+                        <option value="had left">had left</option>
+                    </select>
+                    the bank when the policemen finally 
+                    <select id="q1b">
+                        <option value="">-- select --</option>
+                        <option value="arrived">arrived</option>
+                        <option value="had arrived">had arrived</option>
+                    </select>.[cite: 1]
+                    <span class="feedback-text" id="fb_q1"></span>
+                </div>
+
+                <div class="question-item" id="q2_item">
+                    2. Mr. Palmer 
+                    <select id="q2a">
+                        <option value="">-- select --</option>
+                        <option value="didn't speak">didn't speak</option>
+                        <option value="hadn't spoken">hadn't spoken</option>
+                    </select>
+                    any Chinese before he 
+                    <select id="q2b">
+                        <option value="">-- select --</option>
+                        <option value="moved">moved</option>
+                        <option value="had moved">had moved</option>
+                    </select>
+                    to Peking.[cite: 1]
+                    <span class="feedback-text" id="fb_q2"></span>
+                </div>
+
+                <div class="question-item" id="q3_item">
+                    3. When the rain 
+                    <select id="q3a">
+                        <option value="">-- select --</option>
+                        <option value="started">started</option>
+                        <option value="had started">had started</option>
+                    </select>, 
+                    the Atkinsons 
+                    <select id="q3b">
+                        <option value="">-- select --</option>
+                        <option value="finished">finished</option>
+                        <option value="had finished">had finished</option>
+                    </select>
+                    planting trees.[cite: 1]
+                    <span class="feedback-text" id="fb_q3"></span>
+                </div>
+
+                <div class="question-item" id="q4_item">
+                    4. Darcy 
+                    <select id="q4a">
+                        <option value="">-- select --</option>
+                        <option value="saw">saw</option>
+                        <option value="had seen">had seen</option>
+                    </select>
+                    this castle before she 
+                    <select id="q4b">
+                        <option value="">-- select --</option>
+                        <option value="came">came</option>
+                        <option value="had come">had come</option>
+                    </select>
+                    again last Sunday.[cite: 1]
+                    <span class="feedback-text" id="fb_q4"></span>
+                </div>
+
+                <div class="question-item" id="q5_item">
+                    5. The patient 
+                    <select id="q5a">
+                        <option value="">-- select --</option>
+                        <option value="fainted">fainted</option>
+                        <option value="had fainted">had fainted</option>
+                    </select>
+                    by the time the ambulance 
+                    <select id="q5b">
+                        <option value="">-- select --</option>
+                        <option value="reached">reached</option>
+                        <option value="had reached">had reached</option>
+                    </select>
+                    the hospital.[cite: 1]
+                    <span class="feedback-text" id="fb_q5"></span>
+                </div>
+            </div>
+
+            <!-- TASK II -->
+            <div class="task-box">
+                <p class="directions">TASK II. PAST PERFECT FORMATION</p>
+                <p>Directions: Type the correct past perfect form of the verb given in parentheses[cite: 1]. (Example format: <em>had closed</em> or <em>had already closed</em>)</p>
+
+                <div class="question-item" id="t2_1_item">
+                    1. When I arrived at the shop at 8:00, it <input type="text" id="t2_1" placeholder="already close">.[cite: 1]
+                    <span class="feedback-text" id="fb_t2_1"></span>
+                </div>
+
+                <div class="question-item" id="t2_2_item">
+                    2. I <input type="text" id="t2_2" placeholder="look"> everywhere for my phone before I found it in my bag.[cite: 1]
+                    <span class="feedback-text" id="fb_t2_2"></span>
+                </div>
+
+                <div class="question-item" id="t2_3_item">
+                    3. I saw a science fiction film which I <input type="text" id="t2_3" placeholder="not see"> before.[cite: 1]
+                    <span class="feedback-text" id="fb_t2_3"></span>
+                </div>
+
+                <div class="question-item" id="t2_4_item">
+                    4. Tania <input type="text" id="t2_4" placeholder="live"> in China before she went to England.[cite: 1]
+                    <span class="feedback-text" id="fb_t2_4"></span>
+                </div>
+
+                <div class="question-item" id="t2_5_item">
+                    5. My parents were late for the plane because they <input type="text" id="t2_5" placeholder="forget"> their passports.[cite: 1]
+                    <span class="feedback-text" id="fb_t2_5"></span>
+                </div>
+            </div>
+
+            <!-- TASK III -->
+            <div class="task-box">
+                <p class="directions">TASK III. SIMPLE PAST</p>
+                <p>Directions: Select the correct simple past verb form[cite: 1].</p>
+
+                <div class="question-item" id="t3_1_item">
+                    1. My friend ______ up all the biscuits we baked last night.[cite: 1]<br>
+                    <select id="t3_1">
+                        <option value="">-- select answer --</option>
+                        <option value="eaten">eaten</option>
+                        <option value="eated">eated</option>
+                        <option value="ate">ate</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t3_1"></span>
+                </div>
+
+                <div class="question-item" id="t3_2_item">
+                    2. The teacher ______ past simple and past perfect forms of verbs last week.[cite: 1]<br>
+                    <select id="t3_2">
+                        <option value="">-- select answer --</option>
+                        <option value="taught">taught</option>
+                        <option value="teached">teached</option>
+                        <option value="had taught">had taught</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t3_2"></span>
+                </div>
+
+                <div class="question-item" id="t3_3_item">
+                    3. The whole class ______ a theatrical play to perform during the last day of the week.[cite: 1]<br>
+                    <select id="t3_3">
+                        <option value="">-- select answer --</option>
+                        <option value="prepares">prepares</option>
+                        <option value="had been prepared">had been prepared</option>
+                        <option value="prepared">prepared</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t3_3"></span>
+                </div>
+
+                <div class="question-item" id="t3_4_item">
+                    4. Last night while the whole village was asleep, they ______ the square with lights.[cite: 1]<br>
+                    <select id="t3_4">
+                        <option value="">-- select answer --</option>
+                        <option value="decorated">decorated</option>
+                        <option value="had decorated">had decorated</option>
+                        <option value="decorating">decorating</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t3_4"></span>
+                </div>
+
+                <div class="question-item" id="t3_5_item">
+                    5. When Simon went home, his classmate ______ his things and gave them to the teacher.[cite: 1]<br>
+                    <select id="t3_5">
+                        <option value="">-- select answer --</option>
+                        <option value="packing">packing</option>
+                        <option value="packed">packed</option>
+                        <option value="have packed">have packed</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t3_5"></span>
+                </div>
+            </div>
+
+            <!-- TASK IV -->
+            <div class="task-box">
+                <p class="directions">TASK IV. COLLOCATIONS</p>
+                <p>Directions: Complete each sentence by selecting the noun that forms a proper collocation with the verb[cite: 1].</p>
+                
+                <div class="word-bank">
+                    Word Options: last | tasks | victory | medal | attention[cite: 1]
+                </div>
+
+                <div class="question-item" id="t4_1_item">
+                    1. The contestants had to perform several 
+                    <select id="t4_1">
+                        <option value="">-- select --</option>
+                        <option value="last">last</option>
+                        <option value="tasks">tasks</option>
+                        <option value="victory">victory</option>
+                        <option value="medal">medal</option>
+                        <option value="attention">attention</option>
+                    </select>
+                    like hitting a target and jumping hurdles.[cite: 1]
+                    <span class="feedback-text" id="fb_t4_1"></span>
+                </div>
+
+                <div class="question-item" id="t4_2_item">
+                    2. Our team celebrated their 
+                    <select id="t4_2">
+                        <option value="">-- select --</option>
+                        <option value="last">last</option>
+                        <option value="tasks">tasks</option>
+                        <option value="victory">victory</option>
+                        <option value="medal">medal</option>
+                        <option value="attention">attention</option>
+                    </select>
+                    by swimming in the fountain in the park.[cite: 1]
+                    <span class="feedback-text" id="fb_t4_2"></span>
+                </div>
+
+                <div class="question-item" id="t4_3_item">
+                    3. Siti was awarded a 
+                    <select id="t4_3">
+                        <option value="">-- select --</option>
+                        <option value="last">last</option>
+                        <option value="tasks">tasks</option>
+                        <option value="victory">victory</option>
+                        <option value="medal">medal</option>
+                        <option value="attention">attention</option>
+                    </select>
+                    for her bravery for saving a little girl from drowning.[cite: 1]
+                    <span class="feedback-text" id="fb_t4_3"></span>
+                </div>
+
+                <div class="question-item" id="t4_4_item">
+                    4. Athletes need to pay 
+                    <select id="t4_4">
+                        <option value="">-- select --</option>
+                        <option value="last">last</option>
+                        <option value="tasks">tasks</option>
+                        <option value="victory">victory</option>
+                        <option value="medal">medal</option>
+                        <option value="attention">attention</option>
+                    </select>
+                    when officials give instructions before events.[cite: 1]
+                    <span class="feedback-text" id="fb_t4_4"></span>
+                </div>
+
+                <div class="question-item" id="t4_5_item">
+                    5. Everyone was faster than Amara, so she came 
+                    <select id="t4_5">
+                        <option value="">-- select --</option>
+                        <option value="last">last</option>
+                        <option value="tasks">tasks</option>
+                        <option value="victory">victory</option>
+                        <option value="medal">medal</option>
+                        <option value="attention">attention</option>
+                    </select>.[cite: 1]
+                    <span class="feedback-text" id="fb_t4_5"></span>
+                </div>
+            </div>
+
+            <!-- TASK V -->
+            <div class="task-box">
+                <p class="directions">TASK V. VOCABULARY MATCHING</p>
+                <p>Directions: Select the correct definition letter (a - e) for each action verb[cite: 1].</p>
+                
+                <div class="word-bank" style="text-align: left; font-weight: normal; font-size: 14px;">
+                    <strong>Definitions List:</strong><br>
+                    <strong>a.</strong> to mark something, such as an anniversary by festivities[cite: 1]<br>
+                    <strong>b.</strong> to carry out an action or pattern of behavior[cite: 1]<br>
+                    <strong>c.</strong> to put together from components[cite: 1]<br>
+                    <strong>d.</strong> to be involved in some activity[cite: 1]<br>
+                    <strong>e.</strong> to freely offer or distribute something[cite: 1]
+                </div>
+
+                <div class="question-item" id="t5_1_item">
+                    1. <strong>take part in</strong> — Definition: 
+                    <select id="t5_1">
+                        <option value="">-- select --</option>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                        <option value="e">e</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t5_1"></span>
+                </div>
+
+                <div class="question-item" id="t5_2_item">
+                    2. <strong>give away</strong> — Definition: 
+                    <select id="t5_2">
+                        <option value="">-- select --</option>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                        <option value="e">e</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t5_2"></span>
+                </div>
+
+                <div class="question-item" id="t5_3_item">
+                    3. <strong>make</strong> — Definition: 
+                    <select id="t5_3">
+                        <option value="">-- select --</option>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                        <option value="e">e</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t5_3"></span>
+                </div>
+
+                <div class="question-item" id="t5_4_item">
+                    4. <strong>celebrate</strong> — Definition: 
+                    <select id="t5_4">
+                        <option value="">-- select --</option>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                        <option value="e">e</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t5_4"></span>
+                </div>
+
+                <div class="question-item" id="t5_5_item">
+                    5. <strong>perform</strong> — Definition: 
+                    <select id="t5_5">
+                        <option value="">-- select --</option>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                        <option value="c">c</option>
+                        <option value="d">d</option>
+                        <option value="e">e</option>
+                    </select>
+                    <span class="feedback-text" id="fb_t5_5"></span>
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="action-btn" onclick="checkAnswers()">Submit & Check Answers</button>
+                <button type="button" class="action-btn reset-btn" onclick="resetQuiz()">Reset Practice Test</button>
+            </div>
+
+            <div id="scoreDisplay" class="score-display"></div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Tab Switching Function
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Interactive Answer Checking
+    function checkAnswers() {
+        let score = 0;
+        let total = 25;
+
+        // Helper function to validate
+        function validateItem(itemId, isCorrect, feedbackId) {
+            const itemElem = document.getElementById(itemId);
+            const fbElem = document.getElementById(feedbackId);
+            
+            if (isCorrect) {
+                itemElem.classList.remove('is-incorrect');
+                itemElem.classList.add('is-correct');
+                fbElem.textContent = "✓ Correct";
+                fbElem.className = "feedback-text correct";
+                score++;
+            } else {
+                itemElem.classList.remove('is-correct');
+                itemElem.classList.add('is-incorrect');
+                fbElem.textContent = "✗ Check again";
+                fbElem.className = "feedback-text incorrect";
+            }
+        }
+
+        // Task I Checking
+        validateItem('q1_item', (document.getElementById('q1a').value === 'had left' && document.getElementById('q1b').value === 'arrived'), 'fb_q1');
+        validateItem('q2_item', (document.getElementById('q2a').value === "hadn't spoken" && document.getElementById('q2b').value === 'moved'), 'fb_q2');
+        validateItem('q3_item', (document.getElementById('q3a').value === 'started' && document.getElementById('q3b').value === 'had finished'), 'fb_q3');
+        validateItem('q4_item', (document.getElementById('q4a').value === 'had seen' && document.getElementById('q4b').value === 'came'), 'fb_q4');
+        validateItem('q5_item', (document.getElementById('q5a').value === 'had fainted' && document.getElementById('q5b').value === 'reached'), 'fb_q5');
+
+        // Task II Checking
+        const t2_1_val = document.getElementById('t2_1').value.trim().toLowerCase();
+        validateItem('t2_1_item', (t2_1_val === 'had already closed' || t2_1_val === 'already closed' || t2_1_val === 'had closed'), 'fb_t2_1');
+
+        const t2_2_val = document.getElementById('t2_2').value.trim().toLowerCase();
+        validateItem('t2_2_item', (t2_2_val === 'had looked'), 'fb_t2_2');
+
+        const t2_3_val = document.getElementById('t2_3').value.trim().toLowerCase();
+        validateItem('t2_3_item', (t2_3_val === 'had not seen' || t2_3_val === "hadn't seen" || t2_3_val === 'had seen'), 'fb_t2_3');
+
+        const t2_4_val = document.getElementById('t2_4').value.trim().toLowerCase();
+        validateItem('t2_4_item', (t2_4_val === 'had lived'), 'fb_t2_4');
+
+        const t2_5_val = document.getElementById('t2_5').value.trim().toLowerCase();
+        validateItem('t2_5_item', (t2_5_val === 'had forgotten'), 'fb_t2_5');
+
+        // Task III Checking
+        validateItem('t3_1_item', (document.getElementById('t3_1').value === 'ate'), 'fb_t3_1');
+        validateItem('t3_2_item', (document.getElementById('t3_2').value === 'taught'), 'fb_t3_2');
+        validateItem('t3_3_item', (document.getElementById('t3_3').value === 'prepared'), 'fb_t3_3');
+        validateItem('t3_4_item', (document.getElementById('t3_4').value === 'decorated'), 'fb_t3_4');
+        validateItem('t3_5_item', (document.getElementById('t3_5').value === 'packed'), 'fb_t3_5');
+
+        // Task IV Checking
+        validateItem('t4_1_item', (document.getElementById('t4_1').value === 'tasks'), 'fb_t4_1');
+        validateItem('t4_2_item', (document.getElementById('t4_2').value === 'victory'), 'fb_t4_2');
+        validateItem('t4_3_item', (document.getElementById('t4_3').value === 'medal'), 'fb_t4_3');
+        validateItem('t4_4_item', (document.getElementById('t4_4').value === 'attention'), 'fb_t4_4');
+        validateItem('t4_5_item', (document.getElementById('t4_5').value === 'last'), 'fb_t4_5');
+
+        // Task V Checking
+        validateItem('t5_1_item', (document.getElementById('t5_1').value === 'd'), 'fb_t5_1');
+        validateItem('t5_2_item', (document.getElementById('t5_2').value === 'e'), 'fb_t5_2');
+        validateItem('t5_3_item', (document.getElementById('t5_3').value === 'c'), 'fb_t5_3');
+        validateItem('t5_4_item', (document.getElementById('t5_4').value === 'a'), 'fb_t5_4');
+        validateItem('t5_5_item', (document.getElementById('t5_5').value === 'b'), 'fb_t5_5');
+
+        // Display Score
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const percentage = Math.round((score / total) * 100);
+        scoreDisplay.style.display = 'block';
+        scoreDisplay.innerHTML = `Your Score: ${score} / ${total} (${percentage}%)<br><small style="font-weight: normal; font-size: 14px;">📸 Remember to take a screenshot of this score box!</small>`;
+    }
+
+    // Reset Quiz Function
+    function resetQuiz() {
+        document.getElementById('quizForm').reset();
+        
+        const items = document.querySelectorAll('.question-item');
+        items.forEach(item => {
+            item.classList.remove('is-correct', 'is-incorrect');
+        });
+
+        const feedbacks = document.querySelectorAll('.feedback-text');
+        feedbacks.forEach(fb => {
+            fb.textContent = '';
+            fb.className = 'feedback-text';
+        });
+
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        scoreDisplay.style.display = 'none';
+        scoreDisplay.innerHTML = '';
+    }
+</script>
+
+</body>
+</html>
