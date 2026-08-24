@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -64,7 +64,6 @@ html_content = """<!DOCTYPE html>
       font-size: 0.95rem;
     }
 
-    /* Enhanced Student Name Field Styling */
     .student-info {
       background: linear-gradient(135deg, #eaf4ee 0%, #d5e6dc 100%);
       border: 2px solid var(--accent-color);
@@ -177,7 +176,6 @@ html_content = """<!DOCTYPE html>
       border-color: var(--incorrect-border);
     }
 
-    /* Modern Dropdown Styling */
     select {
       appearance: none;
       -webkit-appearance: none;
@@ -252,8 +250,8 @@ html_content = """<!DOCTYPE html>
       background-color: var(--accent-color);
       color: #ffffff;
       border: none;
-      padding: 10px 20px;
-      font-size: 0.9rem;
+      padding: 12px 24px;
+      font-size: 0.95rem;
       font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
@@ -268,7 +266,6 @@ html_content = """<!DOCTYPE html>
       background-color: var(--primary-color);
     }
 
-    /* Score Receipt Styling */
     .receipt-container {
       display: none;
       width: 100%;
@@ -321,9 +318,9 @@ html_content = """<!DOCTYPE html>
       border: 1px solid var(--accent-color);
       color: var(--primary-color);
       text-align: center;
-      padding: 12px;
+      padding: 16px;
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 600;
     }
   </style>
@@ -342,12 +339,9 @@ html_content = """<!DOCTYPE html>
       </div>
     </header>
 
-    <!-- Styled Name Section -->
     <div class="student-info">
       <div class="name-wrapper">
-        <label for="studentName">
-          Student Information
-        </label>
+        <label for="studentName">Student Information</label>
         <div class="input-container">
           <svg viewBox="0 0 24 24">
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
@@ -358,7 +352,6 @@ html_content = """<!DOCTYPE html>
     </div>
 
     <div class="exercise-list">
-      <!-- 20 Drop-down Exercises -->
       <div class="exercise-card" id="card-1">
         <p>1. She usually 
           <select id="q1">
@@ -642,8 +635,7 @@ html_content = """<!DOCTYPE html>
 
     <div class="actions">
       <button class="btn-main" onclick="checkAnswers()">Check Answers</button>
-      
-      <!-- Score Receipt Card -->
+
       <div class="receipt-container" id="receipt">
         <div class="receipt-header">
           <h2>Official Homework Receipt</h2>
@@ -671,15 +663,15 @@ html_content = """<!DOCTYPE html>
         </div>
 
         <div class="download-alert">
-          ✅ <strong>Receipt Image Downloaded!</strong><br>
-          Attach the downloaded <code>.png</code> file to your Google Classroom assignment.
+          📋 <strong>Homework Receipt Ready!</strong><br>
+          Click the button below to download your receipt image, then attach the <code>.png</code> file to your Google Classroom assignment.
           <br>
           <button class="btn-secondary" onclick="downloadReceiptImage()">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
               <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
               <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
             </svg>
-            Re-download Receipt Image
+            Download Receipt Image
           </button>
         </div>
       </div>
@@ -747,7 +739,6 @@ html_content = """<!DOCTYPE html>
         }
       }
 
-      // Generate Receipt Data
       const percentage = Math.round((score / totalQuestions) * 100);
       const now = new Date();
       const timestamp = now.toLocaleDateString() + " at " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -761,44 +752,34 @@ html_content = """<!DOCTYPE html>
         percentage: `${percentage}%`
       };
 
-      // Populate On-Screen Receipt
       document.getElementById("rName").textContent = nameInput;
       document.getElementById("rDate").textContent = timestamp;
       document.getElementById("rCode").textContent = randomVerificationCode;
       document.getElementById("rScore").textContent = `${score} / ${totalQuestions} (${percentage}%)`;
 
-      // Display Receipt Card
       const receiptElem = document.getElementById("receipt");
       receiptElem.style.display = "block";
       receiptElem.scrollIntoView({ behavior: 'smooth' });
-
-      // Automatically generate PNG Image receipt and trigger browser download
-      downloadReceiptImage();
     }
 
     function downloadReceiptImage() {
       if (!latestReceiptData) return;
 
-      // Create an off-screen HTML Canvas to render an official image receipt
       const canvas = document.createElement("canvas");
       canvas.width = 650;
       canvas.height = 420;
       const ctx = canvas.getContext("2d");
 
-      // Background card
       ctx.fillStyle = "#fafcfb";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Card Outer Border
       ctx.strokeStyle = "#5b8e7d";
       ctx.lineWidth = 6;
       ctx.strokeRect(3, 3, canvas.width - 6, canvas.height - 6);
 
-      // Card Header Banner
       ctx.fillStyle = "#2e5a44";
       ctx.fillRect(15, 15, canvas.width - 30, 75);
 
-      // Header Text
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 22px 'Segoe UI', Arial, sans-serif";
       ctx.textAlign = "center";
@@ -808,7 +789,6 @@ html_content = """<!DOCTYPE html>
       ctx.fillStyle = "#d8e6df";
       ctx.fillText("OFFICIAL SUBMISSION RECEIPT", canvas.width / 2, 70);
 
-      // Content Box Details
       ctx.textAlign = "left";
       ctx.font = "bold 15px 'Segoe UI', Arial, sans-serif";
       ctx.fillStyle = "#2c3531";
@@ -833,7 +813,6 @@ html_content = """<!DOCTYPE html>
         ctx.font = "bold 15px 'Segoe UI', Arial, sans-serif";
         ctx.fillText(item.val, 200, y);
 
-        // Subtle divider line
         ctx.strokeStyle = "#e2e8e4";
         ctx.lineWidth = 1;
         ctx.beginPath();
@@ -842,7 +821,6 @@ html_content = """<!DOCTYPE html>
         ctx.stroke();
       });
 
-      // Total Score Banner
       const scoreY = startY + (items.length * lineGap) + 10;
       ctx.fillStyle = "#e8f5e9";
       ctx.fillRect(35, scoreY, canvas.width - 70, 50);
@@ -859,13 +837,11 @@ html_content = """<!DOCTYPE html>
       ctx.font = "bold 20px 'Segoe UI', Arial, sans-serif";
       ctx.fillText(`${latestReceiptData.score} (${latestReceiptData.percentage})`, canvas.width - 50, scoreY + 32);
 
-      // Watermark / Footer
       ctx.textAlign = "center";
       ctx.fillStyle = "#9ab0a5";
       ctx.font = "italic 11px 'Segoe UI', Arial, sans-serif";
       ctx.fillText("Generated for Google Classroom Submission • Valid Digital Copy", canvas.width / 2, canvas.height - 18);
 
-      // Trigger File Download
       const safeName = latestReceiptData.name.replace(/[^a-zA-Z0-9]/g, "_");
       const downloadLink = document.createElement("a");
       downloadLink.download = `${safeName}_Unit5_Homework_Receipt.png`;
@@ -876,9 +852,3 @@ html_content = """<!DOCTYPE html>
 
 </body>
 </html>
-"""
-
-with open("unit_5_digital_homework.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print("File unit_5_digital_homework.html generated successfully.")
