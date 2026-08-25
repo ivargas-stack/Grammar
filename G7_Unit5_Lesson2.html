@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 5 Grammar, Colons & Practice Test — Learners Book 8</title>
+  <style>
+    :root {
+      --bg-color: #eaf0ec;
+      --card-bg: #ffffff;
+      --primary-color: #2e5a44;
+      --primary-hover: #1f3d2e;
+      --accent-color: #5b8e7d;
+      --text-dark: #2c3531;
+      --text-muted: #596560;
+      --border-color: #cfd8d3;
+      --light-green: #f0f7f3;
+      --warning-bg: #fff8e1;
+      --warning-border: #ffe082;
+      --warning-text: #8c6d00;
+      --correct-bg: #e8f5e9;
+      --correct-border: #388e3c;
+      --correct-text: #1b5e20;
+      --incorrect-bg: #ffebee;
+      --incorrect-border: #d32f2f;
+      --incorrect-text: #b71c1c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    .main-container {
+      background-color: var(--card-bg);
+      max-width: 860px;
+      width: 100%;
+      padding: 35px 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(46, 90, 68, 0.08);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      color: var(--primary-color);
+      font-size: 2.1rem;
+      margin-bottom: 6px;
+    }
+
+    header p.subtitle {
+      color: var(--accent-color);
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    header p.book-ref {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* Tab Navigation */
+    .tab-nav {
+      display: flex;
+      gap: 12px;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 30px;
+    }
+
+    .tab-btn {
+      padding: 12px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary-color);
+    }
+
+    .tab-btn.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Presentation Styles */
+    .section-title {
+      color: var(--primary-color);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 30px 0 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background-color: var(--accent-color);
+      border-radius: 3px;
+    }
+
+    .rule-card {
+      background-color: var(--light-green);
+      border-left: 4px solid var(--accent-color);
+      padding: 18px 20px;
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .rule-card strong {
+      color: var(--primary-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fbf9;
+    }
+
+    .highlight-prep {
+      background-color: #d8e6df;
+      color: var(--primary-color);
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .colon-symbol {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.2rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-right: 6px;
+    }
+
+    .pitfall-box {
+      background-color: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 25px;
+    }
+
+    .pitfall-box h3 {
+      color: var(--warning-text);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pitfall-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pitfall-list li {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .incorrect-text {
+      color: #b71c1c;
+      text-decoration: line-through;
+      margin-right: 8px;
+    }
+
+    .correct-text {
+      color: #1b5e20;
+      font-weight: 700;
+    }
+
+    /* Practice Test Wizard Styles */
+    .progress-wrapper {
+      margin-bottom: 25px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 0.95rem;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 10px;
+      background-color: #e2e8e4;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 4%;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .question-slide {
+      display: none;
+    }
+
+    .question-slide.active {
+      display: block;
+    }
+
+    .q-card {
+      background-color: #f8faf9;
+      border: 1px solid var(--border-color);
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .q-card p.q-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      font-size: 1rem;
+      text-align: left;
+      transition: all 0.2s ease;
+      width: 100%;
+      color: var(--text-dark);
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--accent-color);
+      background-color: var(--light-green);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .option-btn.selected-correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+      font-weight: 700;
+    }
+
+    .option-btn.selected-incorrect {
+      background-color: var(--incorrect-bg);
+      border-color: var(--incorrect-border);
+      color: var(--incorrect-text);
+      font-weight: 700;
+    }
+
+    .option-btn.show-correct {
+      border-color: var(--correct-border);
+      background-color: var(--correct-bg);
+      color: var(--correct-text);
+      font-weight: 700;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .explanation-box.correct {
+      background-color: var(--correct-bg);
+      border-left: 5px solid var(--correct-border);
+      color: var(--correct-text);
+    }
+
+    .explanation-box.incorrect {
+      background-color: var(--incorrect-bg);
+      border-left: 5px solid var(--incorrect-border);
+      color: var(--incorrect-text);
+    }
+
+    .explanation-box strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    /* Navigation Buttons */
+    .wizard-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 25px;
+    }
+
+    .btn-nav {
+      background-color: var(--accent-color);
+      color: #ffffff;
+      border: none;
+      padding: 12px 26px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background-color: var(--primary-color);
+    }
+
+    .btn-nav:disabled {
+      background-color: #bdc7c1;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .score-summary {
+      display: none;
+      background: linear-gradient(135deg, #2e5a44 0%, #1f3d2e 100%);
+      color: #ffffff;
+      padding: 35px 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .score-summary h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .score-summary p.score-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #a8e0c7;
+      margin: 15px 0;
+    }
+
+    .btn-restart {
+      background-color: #ffffff;
+      color: var(--primary-color);
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-restart:hover {
+      background-color: #eaf0ec;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+    <header>
+      <h1>Unit 5 Grammar & Punctuation</h1>
+      <p class="subtitle">Collocations & Using Colons</p>
+      <p class="book-ref">Cambridge Grammar and Writing Skills — Learner's Book 8</p>
+    </header>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('presentation')">📖 Grammar Presentation</button>
+      <button class="tab-btn" onclick="switchTab('practice')">✍️ Interactive Practice Test (25 Items)</button>
+    </div>
+
+    <!-- TAB 1: PRESENTATION -->
+    <div id="presentation" class="tab-content active">
+      
+      <div class="rule-card">
+        <strong>Grammar Focus: Dependent Prepositions (Collocations)</strong><br>
+        Certain nouns and adjectives are paired with specific prepositions. These fixed combinations are known as <strong>collocations</strong>. Always memorize the word together with its dependent preposition.
+      </div>
+
+      <div class="section-title">1. Noun + Preposition Collocations</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Preposition</th>
+            <th>Common Nouns</th>
+            <th>Example Sentence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="highlight-prep">FOR</span></td>
+            <td>reason, demand, need, respect, cure</td>
+            <td>There is a growing demand <span class="highlight-prep">for</span> renewable energy.</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">IN</span></td>
+            <td>increase, decrease, rise, fall, interest</td>
+            <td>We observed a sharp increase <span class="highlight-prep">in</span> temperature.</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">TO</span></td>
+            <td>solution, answer, damage, reaction</td>
+            <td>Scientists found a solution <span class="highlight-prep">to</span> the equation.</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">OF</span></td>
+            <td>cause, picture, map, photo, advantage</td>
+            <td>What was the primary cause <span class="highlight-prep">of</span> the accident?</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">WITH</span></td>
+            <td>connection, relationship, contact</td>
+            <td>She maintains a good connection <span class="highlight-prep">with</span> her peers.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">2. Adjective + Preposition Collocations</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Preposition</th>
+            <th>Common Adjectives</th>
+            <th>Example Sentence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="highlight-prep">AT</span></td>
+            <td>good, bad, clever, brilliant</td>
+            <td>He is exceptionally good <span class="highlight-prep">at</span> solving puzzles.</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">IN</span></td>
+            <td>interested, experienced, involved</td>
+            <td>Are you interested <span class="highlight-prep">in</span> creative writing?</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">OF</span></td>
+            <td>afraid, proud, fond, aware, full</td>
+            <td>They are immensely proud <span class="highlight-prep">of</span> their progress.</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">FOR</span></td>
+            <td>famous, responsible, ready, suitable</td>
+            <td>The region is famous <span class="highlight-prep">for</span> its historic tea gardens.</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">ABOUT</span></td>
+            <td>excited, worried, anxious, passionate</td>
+            <td>The students are excited <span class="highlight-prep">about</span> the upcoming trip.</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-prep">TO</span></td>
+            <td>married, similar, accustomed, addicted</td>
+            <td>This outcome is very similar <span class="highlight-prep">to</span> our first test.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="rule-card">
+        <strong>The Preposition + Gerund (-ing) Rule:</strong><br>
+        When a verb follows a preposition, it must take the <strong>-ing form (gerund)</strong>.
+        <br><em>Example:</em> She is responsible for <strong>organizing</strong> the event (NOT <s>for organize</s>).
+      </div>
+
+      <div class="section-title">3. Punctuation Focus: Colons <span class="colon-symbol">:</span></div>
+
+      <div class="rule-card">
+        <strong>What is a Colon?</strong><br>
+        A colon (<strong>:</strong>) signals a pause and directs the reader's attention forward to what follows. It acts like a signpost saying <em>"look at this next part."</em>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Colon Function</th>
+            <th>Rule & Explanation</th>
+            <th>Example Sentence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Introducing a List</strong></td>
+            <td>Use a colon to introduce a list, but <strong>only</strong> after a complete independent clause.</td>
+            <td>The recipe requires three main ingredients<strong>:</strong> flour, sugar, and butter.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Introducing an Explanation</strong></td>
+            <td>Use a colon to connect two clauses when the second clause explains or illustrates the first.</td>
+            <td>The team had only one goal<strong>:</strong> they wanted to win the championship.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Direct Quotations & Emphasis</strong></td>
+            <td>Use a colon before a formal statement, direct quote, or single emphatic word.</td>
+            <td>Remember the main rule of writing<strong>:</strong> clarity.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pitfall-box">
+        <h3>⚠️ Crucial Colon Rules & Mistakes to Avoid</h3>
+        <ul class="pitfall-list">
+          <li><strong>Rule 1: Must Follow an Independent Clause</strong><br>
+            A colon must always be preceded by a complete sentence that can stand alone.
+          </li>
+          <li><span class="incorrect-text">My favorite fruits are: apples, bananas, and grapes.</span> (Incorrect: "are" is a verb leading into the list)</li>
+          <li><span class="correct-text">My favorite fruits are apples, bananas, and grapes.</span> (Correct: No colon needed)</li>
+          <li><span class="correct-text">I love three types of fruit: apples, bananas, and grapes.</span> (Correct: Preceded by a complete clause)</li>
+          <li><span class="incorrect-text">We traveled through: France, Italy, and Spain.</span> ➔ <span class="correct-text">We traveled through three countries: France, Italy, and Spain.</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: PRACTICE TEST (25 ITEMS - WIZARD) -->
+    <div id="practice" class="tab-content">
+      
+      <div class="progress-wrapper">
+        <div class="progress-info">
+          <span id="progressText">Question 1 of 25</span>
+          <span id="scoreTracker">Score: 0</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div id="wizardContainer">
+        <!-- Question slides generated dynamically by JavaScript -->
+      </div>
+
+      <div class="wizard-nav" id="wizardNav">
+        <button class="btn-nav" id="btnBack" onclick="prevQuestion()" disabled>
+          ← Back
+        </button>
+        <button class="btn-nav" id="btnNext" onclick="nextQuestion()">
+          Next →
+        </button>
+      </div>
+
+      <div class="score-summary" id="scoreSummary">
+        <h2>Practice Test Completed!</h2>
+        <p>Great effort! Here is your final performance summary:</p>
+        <p class="score-number" id="finalScoreNumber">0 / 25</p>
+        <p id="finalScoreMsg">You scored 0%</p>
+        <button class="btn-restart" onclick="restartTest()">🔄 Restart Test</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Tab Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // 25 Test Questions Data
+    const quizData = [
+      {
+        q: "1. Select the correct preposition: 'She is deeply interested ___ environmental science.'",
+        options: ["at", "in", "for", "of"],
+        correct: 1,
+        exp: "Correct! The adjective 'interested' is always paired with the preposition 'in' (interested in something)."
+      },
+      {
+        q: "2. Select the correct preposition: 'Engineers worked hard to find a solution ___ the traffic problem.'",
+        options: ["of", "for", "to", "in"],
+        correct: 2,
+        exp: "Correct! The noun 'solution' collocates with 'to' (solution to a problem)."
+      },
+      {
+        q: "3. Select the correct preposition: 'The city is famous ___ its historical architecture.'",
+        options: ["with", "about", "for", "of"],
+        correct: 2,
+        exp: "Correct! The adjective 'famous' is paired with 'for' (famous for something)."
+      },
+      {
+        q: "4. Which sentence uses a colon CORRECTLY to introduce a list?",
+        options: [
+          "The store sells: books, pens, and paper.",
+          "Please purchase the following items: books, pens, and paper.",
+          "I need to buy: items for school."
+        ],
+        correct: 1,
+        exp: "Correct! A colon must follow a complete independent clause. 'Please purchase the following items' is a complete clause."
+      },
+      {
+        q: "5. Select the correct verb form: 'He is responsible for ___ the monthly reports.'",
+        options: ["write", "writing", "to write", "written"],
+        correct: 1,
+        exp: "Correct! Verbs following any preposition must be in the gerund (-ing) form."
+      },
+      {
+        q: "6. Select the correct collocation: 'My cousin has been married ___ an architect for five years.'",
+        options: ["with", "to", "by", "for"],
+        correct: 1,
+        exp: "Correct! In standard English, we say someone is married 'to' another person (not married with)."
+      },
+      {
+        q: "7. Select the correct preposition: 'Police are investigating the main cause ___ the sudden fire.'",
+        options: ["for", "in", "of", "to"],
+        correct: 2,
+        exp: "Correct! The noun 'cause' is followed by 'of' (the cause of something)."
+      },
+      {
+        q: "8. Select the correct preposition: 'They are immensely proud ___ their daughter\'s academic achievements.'",
+        options: ["with", "for", "of", "about"],
+        correct: 2,
+        exp: "Correct! The adjective 'proud' takes the dependent preposition 'of' (proud of someone/something)."
+      },
+      {
+        q: "9. True or False: A colon can directly follow a verb like 'are' or 'include' when introducing a list.",
+        options: ["True", "False"],
+        correct: 1,
+        exp: "Correct! False. A colon should never directly follow a verb or a preposition; it must follow a complete sentence."
+      },
+      {
+        q: "10. Select the correct preposition: 'There has been a sudden increase ___ fuel prices this month.'",
+        options: ["on", "at", "in", "for"],
+        correct: 2,
+        exp: "Correct! Nouns describing movement up or down (increase, decrease, rise, fall) take 'in'."
+      },
+      {
+        q: "11. Select the correct preposition: 'He is exceptionally good ___ playing the piano.'",
+        options: ["in", "at", "with", "on"],
+        correct: 1,
+        exp: "Correct! The adjective 'good' (expressing skill/ability) collocates with 'at' (good at doing something)."
+      },
+      {
+        q: "12. Select the correct preposition: 'What was her initial reaction ___ the surprising announcement?'",
+        options: ["for", "to", "of", "about"],
+        correct: 1,
+        exp: "Correct! The noun 'reaction' is followed by 'to' (reaction to something)."
+      },
+      {
+        q: "13. Select the correct preposition: 'We are very excited ___ starting our new project next week.'",
+        options: ["of", "for", "about", "at"],
+        correct: 2,
+        exp: "Correct! The adjective 'excited' takes 'about' (excited about something)."
+      },
+      {
+        q: "14. Select the correct preposition: 'There is currently a high demand ___ skilled programmers.'",
+        options: ["for", "of", "in", "to"],
+        correct: 0,
+        exp: "Correct! The noun 'demand' takes 'for' (demand for something)."
+      },
+      {
+        q: "15. Why is a colon used in this sentence? 'He had only one desire: to travel the world.'",
+        options: [
+          "To introduce a multi-item list.",
+          "To connect two clauses where the second explains/amplifies the first.",
+          "It is used incorrectly."
+        ],
+        correct: 1,
+        exp: "Correct! The second part explains and specifies what the 'one desire' actually is."
+      },
+      {
+        q: "16. Select the correct preposition: 'My uncle is extremely fond ___ classical orchestra music.'",
+        options: ["with", "about", "of", "in"],
+        correct: 2,
+        exp: "Correct! The adjective 'fond' always takes 'of' (fond of something)."
+      },
+      {
+        q: "17. Select the correct preposition: 'They were very disappointed ___ the poor quality of the hotel room.'",
+        options: ["with", "of", "to", "from"],
+        correct: 0,
+        exp: "Correct! The adjective 'disappointed' is commonly paired with 'with' (or 'by/about'). Here 'with' is correct."
+      },
+      {
+        q: "18. Select the correct preposition: 'Is there any visible damage ___ the vehicle after the hail storm?'",
+        options: ["of", "to", "for", "on"],
+        correct: 1,
+        exp: "Correct! The noun 'damage' takes the preposition 'to' (damage to something)."
+      },
+      {
+        q: "19. Select the correct preposition: 'Small children are often afraid ___ the dark.'",
+        options: ["of", "with", "for", "at"],
+        correct: 0,
+        exp: "Correct! The adjective 'afraid' takes 'of' (afraid of something)."
+      },
+      {
+        q: "20. Select the correct preposition: 'She maintains a strong connection ___ her former classmates.'",
+        options: ["with", "to", "on", "in"],
+        correct: 0,
+        exp: "Correct! The noun 'connection' collocates with 'with' when joining people or groups."
+      },
+      {
+        q: "21. Which sentence contains a colon ERROR?",
+        options: [
+          "The teacher had one warning: do not open your booklets yet.",
+          "My favorite sports are: basketball, tennis, and swimming.",
+          "You will need three tools: a hammer, pliers, and a screwdriver."
+        ],
+        correct: 1,
+        exp: "Correct! 'My favorite sports are:' is an incomplete clause because 'are' separates the verb from the list."
+      },
+      {
+        q: "22. Select the correct preposition: 'Scientists hope to discover a cure ___ this rare disease.'",
+        options: ["for", "of", "to", "in"],
+        correct: 0,
+        exp: "Correct! The noun 'cure' is paired with 'for' (a cure for a disease)."
+      },
+      {
+        q: "23. Select the correct preposition: 'She showed a keen interest ___ learning foreign languages.'",
+        options: ["for", "in", "on", "to"],
+        correct: 1,
+        exp: "Correct! The noun 'interest' takes 'in' (an interest in something)."
+      },
+      {
+        q: "24. Which punctuation mark completes the sentence? 'Remember the key rule of writing ___ clarity.'",
+        options: [
+          "Comma (,)",
+          "Colon (:)",
+          "Semicolon (;)"
+        ],
+        correct: 1,
+        exp: "Correct! A colon is used to introduce an important single word or phrase emphasized at the end of a sentence."
+      },
+      {
+        q: "25. Select the correct form: 'By ___ hard every day, she passed the exam.'",
+        options: ["study", "studying", "to study", "studied"],
+        correct: 1,
+        exp: "Correct! 'By' is a preposition, so the verb that follows must take the gerund (-ing) form ('studying')."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let userAnswers = new Array(quizData.length).fill(null);
+    let totalScore = 0;
+
+    function renderQuiz() {
+      const container = document.getElementById("wizardContainer");
+      container.innerHTML = "";
+
+      quizData.forEach((qData, index) => {
+        const slide = document.createElement("div");
+        slide.className = `question-slide ${index === 0 ? 'active' : ''}`;
+        slide.id = `slide-${index}`;
+
+        let optionsHTML = "";
+        qData.options.forEach((opt, optIdx) => {
+          optionsHTML += `
+            <button class="option-btn" id="opt-${index}-${optIdx}" onclick="selectAnswer(${index}, ${optIdx})">
+              <span>${String.fromCharCode(65 + optIdx)}.</span> ${opt}
+            </button>
+          `;
+        });
+
+        slide.innerHTML = `
+          <div class="q-card">
+            <p class="q-text">${qData.q}</p>
+            <div class="options-group">
+              ${optionsHTML}
+            </div>
+            <div class="explanation-box" id="exp-${index}">
+              <strong id="exp-title-${index}">Explanation</strong>
+              <span id="exp-text-${index}">${qData.exp}</span>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(slide);
+      });
+
+      updateProgress();
+    }
+
+    function selectAnswer(qIndex, optIndex) {
+      if (userAnswers[qIndex] !== null) return; // Answered already
+
+      userAnswers[qIndex] = optIndex;
+      const qData = quizData[qIndex];
+      const isCorrect = optIndex === qData.correct;
+
+      if (isCorrect) totalScore++;
+
+      // Update options styling
+      qData.options.forEach((_, idx) => {
+        const btn = document.getElementById(`opt-${qIndex}-${idx}`);
+        btn.disabled = true;
+
+        if (idx === qData.correct) {
+          btn.classList.add("show-correct");
+        }
+        if (idx === optIndex && !isCorrect) {
+          btn.classList.add("selected-incorrect");
+        }
+      });
+
+      // Show immediate explanation
+      const expBox = document.getElementById(`exp-${qIndex}`);
+      const expTitle = document.getElementById(`exp-title-${qIndex}`);
+      expBox.style.display = "block";
+
+      if (isCorrect) {
+        expBox.className = "explanation-box correct";
+        expTitle.textContent = "✓ Correct Answer!";
+      } else {
+        expBox.className = "explanation-box incorrect";
+        expTitle.textContent = `✗ Incorrect. The correct answer was (${String.fromCharCode(65 + qData.correct)}).`;
+      }
+
+      document.getElementById("scoreTracker").textContent = `Score: ${totalScore}`;
+    }
+
+    function updateProgress() {
+      const total = quizData.length;
+      document.getElementById("progressText").textContent = `Question ${currentQuestion + 1} of ${total}`;
+      
+      const pct = ((currentQuestion + 1) / total) * 100;
+      document.getElementById("progressBar").style.width = `${pct}%`;
+
+      // Back Button state
+      document.getElementById("btnBack").disabled = currentQuestion === 0;
+
+      // Next / Finish Button state
+      const nextBtn = document.getElementById("btnNext");
+      if (currentQuestion === total - 1) {
+        nextBtn.textContent = "Finish Test 🏆";
+      } else {
+        nextBtn.textContent = "Next →";
+      }
+    }
+
+    function showSlide(index) {
+      document.querySelectorAll(".question-slide").forEach((s, idx) => {
+        s.classList.toggle("active", idx === index);
+      });
+      currentQuestion = index;
+      updateProgress();
+    }
+
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        showSlide(currentQuestion - 1);
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < quizData.length - 1) {
+        showSlide(currentQuestion + 1);
+      } else {
+        finishTest();
+      }
+    }
+
+    function finishTest() {
+      document.getElementById("wizardContainer").style.display = "none";
+      document.getElementById("wizardNav").style.display = "none";
+      document.querySelector(".progress-wrapper").style.display = "none";
+
+      const total = quizData.length;
+      const pct = Math.round((totalScore / total) * 100);
+
+      document.getElementById("finalScoreNumber").textContent = `${totalScore} / ${total}`;
+      document.getElementById("finalScoreMsg").textContent = `You scored ${pct}% on Unit 5 Practice Test.`;
+      
+      document.getElementById("scoreSummary").style.display = "block";
+    }
+
+    function restartTest() {
+      currentQuestion = 0;
+      userAnswers = new Array(quizData.length).fill(null);
+      totalScore = 0;
+
+      document.getElementById("scoreTracker").textContent = `Score: 0`;
+      document.getElementById("scoreSummary").style.display = "none";
+      document.getElementById("wizardContainer").style.display = "block";
+      document.getElementById("wizardNav").style.display = "flex";
+      document.querySelector(".progress-wrapper").style.display = "block";
+
+      renderQuiz();
+    }
+
+    // Initialize on load
+    window.onload = function() {
+      renderQuiz();
+    };
+  </script>
+
+</body>
+</html>
