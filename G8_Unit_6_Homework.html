@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 8 English: Reading Between the Lines (Interactive Homework)</title>
+  <style>
+    :root {
+      --primary: #0f4c81;
+      --primary-dark: #0a3357;
+      --secondary: #2a9d8f;
+      --accent: #e76f51;
+      --bg-light: #f4f7f9;
+      --card-bg: #ffffff;
+      --text-dark: #2b2d42;
+      --text-muted: #6c757d;
+      --correct: #28a745;
+      --incorrect: #dc3545;
+      --border-radius: 10px;
+      --shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .meta-badges {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .walt-box {
+      background: white;
+      border-left: 5px solid var(--secondary);
+      padding: 18px 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 25px;
+    }
+
+    .walt-box h3 {
+      color: var(--secondary);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .progress-sticky {
+      position: sticky;
+      top: 15px;
+      z-index: 100;
+      background: white;
+      padding: 12px 20px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .progress-bar-container {
+      flex-grow: 1;
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin: 0 15px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      transition: width 0.4s ease;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--bg-light);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .tier-tag {
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .tier-support { background-color: #e3f2fd; color: #0d47a1; }
+    .tier-core { background-color: #e8f5e9; color: #1b5e20; }
+    .tier-extension { background-color: #fff3e0; color: #e65100; }
+
+    .reading-passage {
+      background: #fafafa;
+      border-left: 4px solid var(--primary);
+      padding: 18px;
+      font-style: italic;
+      margin-bottom: 20px;
+      border-radius: 0 8px 8px 0;
+      line-height: 1.8;
+    }
+
+    .question-block {
+      margin-bottom: 25px;
+    }
+
+    .question-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .dropdown-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #dcdcdc;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background-color: white;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 10px;
+    }
+
+    .dropdown-select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .feedback-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback-incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      transition: background 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Cambridge Lower Secondary English (Stage 9)</h1>
+    <p>Interactive Homework: Reading Between the Lines (Inference & Subtext)</p>
+    <div class="meta-badges">
+      <span class="badge">Grade 8 / Stage 9</span>
+      <span class="badge">Reading & Analysis</span>
+      <span class="badge">Differentiated Tasks</span>
+    </div>
+  </header>
+
+  <div class="walt-box">
+    <h3>WALT (We Are Learning To):</h3>
+    <p>Read between the lines by inferring implicit meanings, analyzing subtext, character motives, and evaluating a writer's deliberate language choices.</p>
+    <h3 style="margin-top: 10px; color: var(--primary);">WILF (What I'm Looking For):</h3>
+    <ul style="margin-left: 20px; font-size: 0.95rem;">
+      <li>Distinction between explicit facts and implicit clues.</li>
+      <li>Selection of precise textual evidence to justify inferences.</li>
+      <li>Analysis of how word choice and sentence structures convey implicit tone and character dynamics.</li>
+    </ul>
+  </div>
+
+  <div class="progress-sticky">
+    <span style="font-weight: 600; font-size: 0.9rem;">Your Progress</span>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <span id="scoreTracker" style="font-weight: 700; color: var(--primary); font-size: 0.95rem;">0 / 6 Completed</span>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">Section A: Foundation - Explicit vs. Implicit</h2>
+      <span class="tier-tag tier-support">Support Level</span>
+    </div>
+    <p style="margin-bottom: 15px; font-size: 0.95rem; color: var(--text-muted);">
+      <strong>Explicit information</strong> is directly stated in the text. <strong>Implicit information</strong> must be deduced by reading between the lines.
+    </p>
+
+    <div class="question-block" id="q1-block">
+      <p class="question-title">1. Read the statement: <em>"Marcus slammed the car door, stuffed his hands deep into his pockets, and stared silently out of the rain-streaked window."</em> Which of the following is an <strong>IMPLICIT</strong> deduction?</p>
+      <select class="dropdown-select" id="select-q1">
+        <option value="">-- Select an option --</option>
+        <option value="A">A) Marcus put his hands into his pockets.</option>
+        <option value="B">B) It was raining outside.</option>
+        <option value="C">C) Marcus is upset, frustrated, or reluctant to communicate.</option>
+        <option value="D">D) Marcus looked out of the window.</option>
+      </select>
+      <button class="action-btn" onclick="checkAnswer(1)">Submit Answer</button>
+      <div class="feedback-box" id="fb-1"></div>
+    </div>
+
+    <div class="question-block" id="q2-block">
+      <p class="question-title">2. Read the statement: <em>"When asked about the new school project, Sophia smiled politely, cleared her throat, and remarked, 'Well, it is certainly... unique.'"</em> What is the <strong>subtext</strong> of Sophia's response?</p>
+      <select class="dropdown-select" id="select-q2">
+        <option value="">-- Select an option --</option>
+        <option value="A">A) She is thrilled and amazed by the project.</option>
+        <option value="B">B) She has reservations or dislikes it, but is trying to remain polite.</option>
+        <option value="C">C) She does not understand what the project is about.</option>
+      </select>
+      <button class="action-btn" onclick="checkAnswer(2)">Submit Answer</button>
+      <div class="feedback-box" id="fb-2"></div>
+    </div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">Section B: Core Application - Text & Subtext Analysis</h2>
+      <span class="tier-tag tier-core">Core Level</span>
+    </div>
+
+    <div class="reading-passage">
+      <p><strong>Extract from <em>The Cold Market</em>:</strong></p>
+      <p>"The market square was quiet under the dim grey sky. Old Mr. Thorne stood beside his small wooden stall, his fingers stiff inside his fingerless gloves. He arranged his three remaining handcrafted wooden birdhouses in a neat row for the fifth time. Across the cobbles, the townspeople hurried past, their heavy coats buttoned tight, eyes fixed firmly on the brick entrance of the warm new supermarket."</p>
+    </div>
+
+    <div class="question-block" id="q3-block">
+      <p class="question-title">3. What does Mr. Thorne arranging his birdhouses <em>"for the fifth time"</em> implicitly suggest about his situation and feelings?</p>
+      <select class="dropdown-select" id="select-q3">
+        <option value="">-- Select an option --</option>
+        <option value="A">A) He is disorganised and trying to clean his stall.</option>
+        <option value="B">B) He is anxious, restless, and waiting desperately for buyers because business is poor.</option>
+        <option value="C">C) He is preparing for a sudden surge of eager customers.</option>
+      </select>
+      <button class="action-btn" onclick="checkAnswer(3)">Submit Answer</button>
+      <div class="feedback-box" id="fb-3"></div>
+    </div>
+
+    <div class="question-block" id="q4-block">
+      <p class="question-title">4. How does the contrast between Mr. Thorne's stall and the supermarket convey a deeper message?</p>
+      <select class="dropdown-select" id="select-q4">
+        <option value="">-- Select an option --</option>
+        <option value="A">A) It highlights modern consumerism overshadowing traditional, handmade crafts.</option>
+        <option value="B">B) It proves that Mr. Thorne's birdhouses are overpriced.</option>
+        <option value="C">C) It shows that the supermarket has better heating than the market square.</option>
+      </select>
+      <button class="action-btn" onclick="checkAnswer(4)">Submit Answer</button>
+      <div class="feedback-box" id="fb-4"></div>
+    </div>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">Section C: Extension - Writer's Craft & Subtext Analysis</h2>
+      <span class="tier-tag tier-extension">Extension Level</span>
+    </div>
+    <p style="margin-bottom: 15px; font-size: 0.95rem;">
+      Analyse how short, emphatic sentences and specific vocabulary choices create subtext and emotional resonance.
+    </p>
+
+    <div class="question-block" id="q5-block">
+      <p class="question-title">5. Read this sentence: <em>"Bronze stood there in the snow with a handful of cash. He'd done it!"</em> Which option best explains why the writer uses the short, emphatic sentence <em>"He'd done it!"</em>?</p>
+      <select class="dropdown-select" id="select-q5">
+        <option value="">-- Select an option --</option>
+        <option value="A">A) It creates a sudden burst of triumph and relief, highlighting Bronze's intense pride and emotional release after facing cold weather and initial rejection.</option>
+        <option value="B">B) It shows that Bronze is angry at the city people for making him stand outside in the freezing weather.</option>
+        <option value="C">C) It indicates that Bronze has decided to give up making reed shoes for good.</option>
+      </select>
+      <button class="action-btn" onclick="checkAnswer(5)">Submit Answer</button>
+      <div class="feedback-box" id="fb-5"></div>
+    </div>
+
+    <div class="question-block" id="q6-block">
+      <p class="question-title">6. Writer's Challenge: Identify Subtext. Which description best conveys a student receiving an exam result without explicitly naming emotion words (such as happy, sad, or nervous)?</p>
+      <select class="dropdown-select" id="select-q6">
+        <option value="">-- Select an option --</option>
+        <option value="A">A) Elena felt very happy and excited when she saw her high test score on the sheet of paper.</option>
+        <option value="B">B) Elena unfolded the paper with trembling fingers; her eyes scanned the top grade, a wide grin broke across her face, and she let out a long breath.</option>
+        <option value="C">C) Elena was extremely nervous about her exam because she thought she had failed the test.</option>
+      </select>
+      <button class="action-btn" onclick="checkAnswer(6)">Submit Answer</button>
+      <div class="feedback-box" id="fb-6"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Aligned with Cambridge Lower Secondary English Curriculum Framework (Stage 9)</p>
+    <p>© Cambridge English Educator Resource</p>
+  </footer>
+</div>
+
+<script>
+  let completedQuestions = new Set();
+  const totalInteractiveCount = 6;
+
+  const answerKey = {
+    1: {
+      correct: "C",
+      explanations: {
+        A: "Incorrect. Marcus putting his hands into his pockets is an explicit fact stated directly in the text.",
+        B: "Incorrect. The rain on the window is directly stated (explicit).",
+        C: "Correct! The writer never directly states Marcus is upset or frustrated, but his physical actions (slammed door, silence, posture) implicitly convey his emotional state.",
+        D: "Incorrect. Marcus looking out of the window is an explicit action."
+      }
+    },
+    2: {
+      correct: "B",
+      explanations: {
+        A: "Incorrect. The word 'unique' used with hesitation indicates subtle criticism, not enthusiastic approval.",
+        B: "Correct! Her hesitation ('cleared her throat', pause) and choice of the word 'unique' implicitly show she harbors doubts or dislikes it, but wants to remain polite.",
+        C: "Incorrect. She explicitly answered the question, so she isn't confused about what the project is."
+      }
+    },
+    3: {
+      correct: "B",
+      explanations: {
+        A: "Incorrect. Repeatedly arranging three items suggests anxiety or lack of customers, not disorganisation.",
+        B: "Correct! Re-arranging a tiny stock repeatedly implies anxiety, restlessness, and a desperate desire for customers in a slow, struggling business.",
+        C: "Incorrect. The text notes he only has three items left and no shoppers stopping by."
+      }
+    },
+    4: {
+      correct: "A",
+      explanations: {
+        A: "Correct! The contrast highlights how modern convenience (the supermarket) is causing traditional craftsmanship (Mr. Thorne) to fade away unnoticed.",
+        B: "Incorrect. The people are hurrying past him toward the supermarket, showing he is ignored.",
+        C: "Incorrect. Weather affects both, but the contrast focuses on where shoppers choose to go."
+      }
+    },
+    5: {
+      correct: "A",
+      explanations: {
+        A: "Correct! The short, exclamatory sentence creates a sudden burst of triumph and relief, contrasting with the long struggle and implicitly revealing Bronze's intense pride and emotional release.",
+        B: "Incorrect. Bronze is not angry; he is proud and relieved to have made a sale.",
+        C: "Incorrect. The text shows he is proud of his work, not giving up."
+      }
+    },
+    6: {
+      correct: "B",
+      explanations: {
+        A: "Incorrect. This option directly names emotions ('happy', 'excited') instead of using subtext.",
+        B: "Correct! This option uses physical actions ('trembling fingers', 'grin', 'long breath') to convey relief and joy without using explicit emotion words.",
+        C: "Incorrect. This option directly states emotions ('nervous') rather than showing them."
+      }
+    }
+  };
+
+  function checkAnswer(qNum) {
+    const selectElem = document.getElementById(`select-qnum`.replace('qnum', `q${qNum}`));
+    const selectedVal = selectElem.value;
+    const fbBox = document.getElementById(`fb-${qNum}`);
+
+    if (!selectedVal) {
+      alert("Please select an option from the drop-down menu first.");
+      return;
+    }
+
+    const itemData = answerKey[qNum];
+    const isCorrect = (selectedVal === itemData.correct);
+    const expText = itemData.explanations[selectedVal];
+
+    selectElem.disabled = true;
+
+    if (isCorrect) {
+      fbBox.className = "feedback-box show feedback-correct";
+      fbBox.innerHTML = `<strong>✔ Correct!</strong> ${expText}`;
+    } else {
+      fbBox.className = "feedback-box show feedback-incorrect";
+      fbBox.innerHTML = `<strong>✘ Not quite.</strong> ${expText}`;
+    }
+
+    completedQuestions.add(qNum);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const count = completedQuestions.size;
+    const percentage = Math.min((count / totalInteractiveCount) * 100, 100);
+    document.getElementById('progressBar').style.width = `${percentage}%`;
+    document.getElementById('scoreTracker').innerText = `${count} / ${totalInteractiveCount} Completed`;
+  }
+</script>
+
+</body>
+</html>
