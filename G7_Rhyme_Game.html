@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rhyme Quest: Animated Verse of Destiny</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --accent-gold: #fbbf24;
+      --hero-green: #22c55e;
+      --enemy-red: #ef4444;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 15px;
+      overflow-x: hidden;
+    }
+
+    .game-container {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      max-width: 780px;
+      width: 100%;
+      padding: 25px;
+      box-sizing: border-box;
+      border: 2px solid #334155;
+    }
+
+    .stage-badge {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    /* --- ANIMATED BATTLE ARENA --- */
+    .battle-stage {
+      background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .status-bars {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .character-status {
+      width: 48%;
+    }
+
+    .name-tag {
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hp-bar-bg {
+      background: #334155;
+      height: 14px;
+      border-radius: 7px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .hp-bar-fill {
+      height: 100%;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #hero-hp { background-color: var(--hero-green); width: 100%; }
+    #enemy-hp { background-color: var(--enemy-red); width: 100%; }
+
+    /* Character Visual Sprites Container */
+    .sprite-arena {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 120px;
+      padding: 0 30px;
+      position: relative;
+    }
+
+    .sprite-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+
+    .sprite {
+      font-size: 4.2rem;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.5));
+      user-select: none;
+    }
+
+    .shadow {
+      width: 60px;
+      height: 12px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 50%;
+      margin-top: -8px;
+    }
+
+    /* --- KEYFRAME ANIMATIONS --- */
+    .idle-hero {
+      animation: heroFloat 2.5s infinite ease-in-out;
+    }
+
+    .idle-enemy {
+      animation: enemyFloat 2.2s infinite ease-in-out;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes enemyFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+
+    /* Attack Animations */
+    .anim-hero-attack {
+      animation: heroLunge 0.5s ease-in-out;
+    }
+
+    @keyframes heroLunge {
+      0% { transform: translateX(0) scale(1); }
+      40% { transform: translateX(180px) scale(1.3) rotate(10deg); }
+      100% { transform: translateX(0) scale(1); }
+    }
+
+    .anim-enemy-attack {
+      animation: enemyLunge 0.5s ease-in-out;
+    }
+
+    @keyframes enemyLunge {
+      0% { transform: translateX(0) scale(1); }
+      40% { transform: translateX(-180px) scale(1.3) rotate(-10deg); }
+      100% { transform: translateX(0) scale(1); }
+    }
+
+    /* Damage Shakes */
+    .anim-hurt {
+      animation: hurtShake 0.4s ease-in-out;
+    }
+
+    @keyframes hurtShake {
+      0%, 100% { transform: translateX(0); filter: brightness(1); }
+      20% { transform: translateX(-12px); filter: brightness(2) drop-shadow(0 0 10px red); }
+      40% { transform: translateX(12px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+    }
+
+    /* Defeat Fade */
+    .anim-defeat {
+      animation: defeatCollapse 0.8s forwards ease-in;
+    }
+
+    @keyframes defeatCollapse {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(-20deg); opacity: 0.8; }
+      100% { transform: scale(0) rotate(90deg); opacity: 0; }
+    }
+
+    /* --- POEM BOX & INTERACTIVE CONTROL --- */
+    .poem-box {
+      background: #0f172a;
+      border-left: 5px solid var(--accent-gold);
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      font-family: 'Georgia', serif;
+      margin-bottom: 20px;
+      white-space: pre-line;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .blank {
+      display: inline-block;
+      min-width: 90px;
+      border-bottom: 3px dashed var(--accent-gold);
+      color: var(--accent-gold);
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 15px;
+      font-size: 1rem;
+      background: #0f172a;
+      border: 2px solid #334155;
+      color: #fff;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent-gold);
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #0f172a;
+      background-color: var(--accent-gold);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    button:hover { opacity: 0.9; }
+    button:active { transform: scale(0.98); }
+
+    button.btn-hint {
+      background-color: #38bdf8;
+    }
+
+    .combat-log {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .combat-log.hit {
+      background-color: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--hero-green);
+      color: #4ade80;
+    }
+
+    .combat-log.miss {
+      background-color: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--enemy-red);
+      color: #fca5a5;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hint-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .hidden { display: none; }
+
+    .end-screen {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .end-screen h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-container">
+  <div id="game-body">
+    <div class="stage-badge" id="stage-badge">Encounter 1 of 15</div>
+    
+    <!-- ANIMATED BATTLE STAGE -->
+    <div class="battle-stage">
+      <div class="status-bars">
+        <div class="character-status">
+          <div class="name-tag"><span>🛡️ Bard Knight</span> <span id="hero-hp-text">100 HP</span></div>
+          <div class="hp-bar-bg"><div id="hero-hp" class="hp-bar-fill"></div></div>
+        </div>
+        <div class="character-status">
+          <div class="name-tag"><span id="enemy-name">👺 Dark Goblin</span> <span id="enemy-hp-text">100 HP</span></div>
+          <div class="hp-bar-bg"><div id="enemy-hp" class="hp-bar-fill"></div></div>
+        </div>
+      </div>
+
+      <div class="sprite-arena">
+        <!-- Hero Character -->
+        <div class="sprite-wrapper" id="hero-wrapper">
+          <div class="sprite idle-hero" id="hero-sprite">🧙‍♂️</div>
+          <div class="shadow"></div>
+        </div>
+        <!-- Villain Character -->
+        <div class="sprite-wrapper" id="enemy-wrapper">
+          <div class="sprite idle-enemy" id="enemy-sprite">👺</div>
+          <div class="shadow"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POEM DISCOVERY BOX -->
+    <div class="poem-box" id="poem-display"></div>
+
+    <!-- INPUT & CONTROLS -->
+    <div class="input-group">
+      <input type="text" id="user-input" placeholder="Cast rhyming spell..." autocomplete="off">
+      <button onclick="attack()">Attack!</button>
+      <button class="btn-hint" onclick="showHint()">Hint</button>
+    </div>
+
+    <!-- COMBAT & EDUCATIONAL LOG -->
+    <div id="combat-log" class="combat-log"></div>
+
+    <div class="controls">
+      <span class="hint-text" id="hint-display"></span>
+      <button id="next-btn" class="hidden" onclick="nextEncounter()">Next Battle &rarr;</button>
+    </div>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="end-screen" class="end-screen hidden">
+    <h2 id="end-title">Victory!</h2>
+    <p id="end-desc"></p>
+    <button onclick="restartGame()">Play Again</button>
+  </div>
+</div>
+
+<script>
+  const encounters = [
+    // STAGE 1: GOBLIN
+    {
+      enemyName: "Dark Goblin",
+      enemySprite: "👺",
+      lines: "The ancient shadows stretch across the floor,\nAs silent footsteps linger near the <span class='blank' id='target-blank'>????</span>.",
+      answer: "door",
+      acceptable: ["door"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'floor'. Focus on narrative suspense.",
+      analysis: "Critical Strike! The exact end-rhyme pair (floor / door) shatters the goblin's barrier!"
+    },
+    {
+      enemyName: "Dark Goblin",
+      enemySprite: "👺",
+      lines: "The autumn wind begins to sigh,\nThe golden leaves fall down and call,\nThe birds take flight into the sky,\nAnd winter answers over <span class='blank' id='target-blank'>????</span>.",
+      answer: "all",
+      acceptable: ["all", "fall"],
+      scheme: "ABAB Quatrain",
+      hint: "Rhymes with 'call' in line 2.",
+      analysis: "Direct Hit! The ABAB alternating rhyme scheme unleashes a surging gale!"
+    },
+    {
+      enemyName: "Dark Goblin",
+      enemySprite: "👺",
+      lines: "The crisp white snow falls soft and light,\nAnd blankets all the earth in <span class='blank' id='target-blank'>????</span>.",
+      answer: "white",
+      acceptable: ["white", "night"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'light'. Relates to color or sight.",
+      analysis: "Goblin Defeated! Imagery paired with rhyming couplets freezes the foe!"
+    },
+
+    // STAGE 2: SEA KRAKEN
+    {
+      enemyName: "Ocean Kraken",
+      enemySprite: "🐙",
+      lines: "Through stormy waves the vessel flew,\nBeneath a sky of dark and stormy <span class='blank' id='target-blank'>????</span>.",
+      answer: "blue",
+      acceptable: ["blue", "hue"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'flew'. Describes a shade.",
+      analysis: "Hit! Visual imagery paired with strong end-rhyme strikes the monster's tentacle!"
+    },
+    {
+      enemyName: "Ocean Kraken",
+      enemySprite: "🐙",
+      lines: "He held the key within his hand,\nA secret locked away,\nHe traveled far to find the land,\nWhere shadow turns to <span class='blank' id='target-blank'>????</span>.",
+      answer: "day",
+      acceptable: ["day", "gray", "grey"],
+      scheme: "ABCB Ballad Stanza",
+      hint: "Rhymes with 'away' in line 2.",
+      analysis: "Smash! The ABCB ballad stanza drives the abyssal creature back!"
+    },
+    {
+      enemyName: "Ocean Kraken",
+      enemySprite: "🐙",
+      lines: "The sailor turned his ship around,\nTo face the open sea,\nNo safer harbor could be found,\nThan where he longed to <span class='blank' id='target-blank'>????</span>.",
+      answer: "be",
+      acceptable: ["be"],
+      scheme: "ABCB Ballad Stanza",
+      hint: "Rhymes with 'sea' in line 2.",
+      analysis: "Kraken Banished! Rhythm and context push the beast into the deep!"
+    },
+
+    // STAGE 3: SHADOW PHANTOM
+    {
+      enemyName: "Shadow Phantom",
+      enemySprite: "👻",
+      lines: "The night is quiet, deep, and still,\nThe moon hangs high above the <span class='blank' id='target-blank'>????</span>.",
+      answer: "hill",
+      acceptable: ["hill", "mill", "rill"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'still'. Natural landform.",
+      analysis: "Direct Strike! Monosyllabic meter disrupts the specter's ethereal form!"
+    },
+    {
+      enemyName: "Shadow Phantom",
+      enemySprite: "👻",
+      lines: "The ticking clock measures the night,\nWhile memories begin to fade,\nUntil the morning brings the light,\nAnd drives away the quiet <span class='blank' id='target-blank'>????</span>.",
+      answer: "shade",
+      acceptable: ["shade", "glade"],
+      scheme: "ABAB Quatrain",
+      hint: "Rhymes with 'fade' in line 2.",
+      analysis: "Hit! Personification of morning drives back the spectral gloom!"
+    },
+    {
+      enemyName: "Shadow Phantom",
+      enemySprite: "👻",
+      lines: "Hope is a bird that sings its song,\nAcross the coldest sea,\nIt carries courage all day long,\nTo set the spirit <span class='blank' id='target-blank'>????</span>.",
+      answer: "free",
+      acceptable: ["free"],
+      scheme: "ABCB Ballad Stanza",
+      hint: "Rhymes with 'sea' in line 2.",
+      analysis: "Phantom Exorcised! Metaphorical imagery shatters the dark curse!"
+    },
+
+    // STAGE 4: STORM SORCERER
+    {
+      enemyName: "Storm Sorcerer",
+      enemySprite: "🧙‍♂️",
+      lines: "The thunder strikes with sudden crash,\nFollowed by a blinding <span class='blank' id='target-blank'>????</span>.",
+      answer: "flash",
+      acceptable: ["flash"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'crash'. Onomatopoeic context clue.",
+      analysis: "Counter-spell success! Onomatopoeia reflects the sorcerer's lightning strike!"
+    },
+    {
+      enemyName: "Storm Sorcerer",
+      enemySprite: "🧙‍♂️",
+      lines: "Deep in the woods where mosses grow,\nThe winding path begins to bend,\nWhere silent rivers gently flow,\nAnd journeys find a peaceful <span class='blank' id='target-blank'>????</span>.",
+      answer: "end",
+      acceptable: ["end"],
+      scheme: "ABAB Quatrain",
+      hint: "Rhymes with 'bend' in line 2.",
+      analysis: "Spell Intercepted! Rhythmic resolution breaks the sorcerer's focus!"
+    },
+    {
+      enemyName: "Storm Sorcerer",
+      enemySprite: "🧙‍♂️",
+      lines: "The embers glowing red and bright,\nWarm up the cabin in the <span class='blank' id='target-blank'>????</span>.",
+      answer: "night",
+      acceptable: ["night"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'bright'. Time of day.",
+      analysis: "Sorcerer vanquished! Warm sensory imagery extinguishes storm magic!"
+    },
+
+    // STAGE 5: RHYME DRAGON
+    {
+      enemyName: "Rhyme Dragon",
+      enemySprite: "🐉",
+      lines: "The streetlamps flicker line by line,\nAlong the boulevard they <span class='blank' id='target-blank'>????</span>.",
+      answer: "shine",
+      acceptable: ["shine"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'line'. Light action.",
+      analysis: "Boss Damaged! Structural parallelism pierces dragon scales!"
+    },
+    {
+      enemyName: "Rhyme Dragon",
+      enemySprite: "🐉",
+      lines: "The silver stars begin to glow,\nAcross the endless velvet sky,\nThey watch the sleeping world below,\nAs quiet hours hurry <span class='blank' id='target-blank'>????</span>.",
+      answer: "by",
+      acceptable: ["by"],
+      scheme: "ABAB Quatrain",
+      hint: "Rhymes with 'sky' in line 2.",
+      analysis: "Critical Strike! Alternating rhyme scheme weakens the dragon's aura!"
+    },
+    {
+      enemyName: "Rhyme Dragon",
+      enemySprite: "🐉",
+      lines: "The morning dew is cold and clear,\nA sign that gentle spring is <span class='blank' id='target-blank'>????</span>.",
+      answer: "near",
+      acceptable: ["near", "here"],
+      scheme: "AABB Couplet",
+      hint: "Rhymes with 'clear'. Arrival marker.",
+      analysis: "VICTORY! The final poetic rhyme tames the legendary Dragon!"
+    }
+  ];
+
+  let currentIdx = 0;
+  let heroHP = 100;
+  let enemyHP = 100;
+
+  function updateHPBars() {
+    document.getElementById("hero-hp").style.width = Math.max(0, heroHP) + "%";
+    document.getElementById("enemy-hp").style.width = Math.max(0, enemyHP) + "%";
+    document.getElementById("hero-hp-text").innerText = `${Math.max(0, heroHP)} HP`;
+    document.getElementById("enemy-hp-text").innerText = `${Math.max(0, enemyHP)} HP`;
+  }
+
+  function loadEncounter() {
+    const q = encounters[currentIdx];
+    document.getElementById("stage-badge").innerText = `Encounter ${currentIdx + 1} of ${encounters.length}`;
+    document.getElementById("enemy-name").innerText = q.enemyName;
+    document.getElementById("enemy-sprite").innerText = q.enemySprite;
+    document.getElementById("poem-display").innerHTML = q.lines;
+    
+    // Reset inputs & containers
+    document.getElementById("user-input").value = "";
+    document.getElementById("user-input").disabled = false;
+    document.getElementById("combat-log").className = "combat-log";
+    document.getElementById("combat-log").style.display = "none";
+    document.getElementById("hint-display").innerText = "";
+    document.getElementById("next-btn").classList.add("hidden");
+
+    // Reset Enemy Animations & Status
+    const enemySprite = document.getElementById("enemy-sprite");
+    enemySprite.className = "sprite idle-enemy";
+
+    enemyHP = 100;
+    updateHPBars();
+  }
+
+  function attack() {
+    const input = document.getElementById("user-input").value.trim().toLowerCase();
+    const q = encounters[currentIdx];
+    const logEl = document.getElementById("combat-log");
+    const heroSprite = document.getElementById("hero-sprite");
+    const enemySprite = document.getElementById("enemy-sprite");
+
+    if (!input) return;
+
+    document.getElementById("user-input").disabled = true;
+
+    if (q.acceptable.includes(input)) {
+      // Hero Attacks Enemy
+      heroSprite.classList.add("anim-hero-attack");
+      setTimeout(() => heroSprite.classList.remove("anim-hero-attack"), 500);
+
+      setTimeout(() => {
+        enemySprite.classList.add("anim-hurt");
+        enemyHP = 0;
+        updateHPBars();
+        setTimeout(() => enemySprite.classList.remove("anim-hurt"), 400);
+
+        // If encounter clear, trigger defeat collapse animation
+        setTimeout(() => {
+          enemySprite.classList.remove("idle-enemy");
+          enemySprite.classList.add("anim-defeat");
+        }, 450);
+
+      }, 250);
+
+      document.getElementById("target-blank").innerText = input;
+      logEl.className = "combat-log hit";
+      logEl.innerHTML = `⚔️ <strong>SPELL CAST SUCCESSFUL!</strong><br>Scheme Identified: <em>${q.scheme}</em>.<br>${q.analysis}`;
+    } else {
+      // Enemy Counter-Attacks Hero
+      enemySprite.classList.add("anim-enemy-attack");
+      setTimeout(() => enemySprite.classList.remove("anim-enemy-attack"), 500);
+
+      setTimeout(() => {
+        heroSprite.classList.add("anim-hurt");
+        heroHP -= 15;
+        updateHPBars();
+        setTimeout(() => heroSprite.classList.remove("anim-hurt"), 400);
+      }, 250);
+
+      document.getElementById("target-blank").innerText = q.answer;
+      logEl.className = "combat-log miss";
+      logEl.innerHTML = `💥 <strong>SPELL MISFIRED!</strong> You took 15 damage.<br>Correct Rhyme: <strong>${q.answer}</strong> | Scheme: <em>${q.scheme}</em>.`;
+    }
+
+    logEl.style.display = "block";
+
+    if (heroHP <= 0) {
+      setTimeout(showGameOver, 1200);
+    } else {
+      document.getElementById("next-btn").classList.remove("hidden");
+    }
+  }
+
+  function showHint() {
+    document.getElementById("hint-display").innerText = "📜 Scroll Hint: " + encounters[currentIdx].hint;
+  }
+
+  function nextEncounter() {
+    currentIdx++;
+    if (currentIdx < encounters.length) {
+      loadEncounter();
+    } else {
+      showVictory();
+    }
+  }
+
+  function showVictory() {
+    document.getElementById("game-body").classList.add("hidden");
+    const endScreen = document.getElementById("end-screen");
+    endScreen.classList.remove("hidden");
+    document.getElementById("end-title").innerText = "👑 Realm Saved!";
+    document.getElementById("end-desc").innerText = `Huzzah! Your class mastered all ${encounters.length} poetic verses and defeated every villain with ${heroHP}% HP remaining!`;
+  }
+
+  function showGameOver() {
+    document.getElementById("game-body").classList.add("hidden");
+    const endScreen = document.getElementById("end-screen");
+    endScreen.classList.remove("hidden");
+    document.getElementById("end-title").innerText = "💀 Defeat!";
+    document.getElementById("end-desc").innerText = "The dark forces overpowered your poetic spells. Review your rhyme schemes and strike back!";
+  }
+
+  function restartGame() {
+    currentIdx = 0;
+    heroHP = 100;
+    document.getElementById("end-screen").classList.add("hidden");
+    document.getElementById("game-body").classList.remove("hidden");
+    loadEncounter();
+  }
+
+  // Initialize
+  loadEncounter();
+</script>
+
+</body>
+</html>
