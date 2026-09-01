@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambridge Grade 7 English - Unit 6 Homework</title>
+  <style>
+    :root {
+      --bg-color: #eaf0ec;
+      --card-bg: #ffffff;
+      --primary-color: #2e5a44;
+      --primary-hover: #1f3d2e;
+      --accent-color: #5b8e7d;
+      --text-dark: #2c3531;
+      --text-muted: #596560;
+      --correct-bg: #e8f5e9;
+      --correct-border: #388e3c;
+      --correct-text: #1b5e20;
+      --incorrect-bg: #ffebee;
+      --incorrect-border: #d32f2f;
+      --incorrect-text: #b71c1c;
+      --border-color: #cfd8d3;
+      --receipt-box-bg: #e8f0eb;
+      --receipt-btn-bg: #4f806e;
+      --receipt-btn-hover: #3b6354;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 25px 15px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      max-width: 780px;
+      width: 100%;
+      padding: 35px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(46, 90, 68, 0.08);
+    }
+
+    header {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    header h1 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .student-info {
+      background: linear-gradient(135deg, #eaf4ee 0%, #d5e6dc 100%);
+      border: 2px solid var(--accent-color);
+      padding: 20px 24px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(46, 90, 68, 0.06);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .input-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .student-info input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #ffffff;
+      background-color: #ffffff;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      outline: none;
+    }
+
+    .student-info input:focus {
+      border-color: var(--primary-color);
+    }
+
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .badge {
+      background-color: #d8e6df;
+      color: var(--primary-color);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .exercise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .exercise-card {
+      background-color: #f8faf9;
+      border: 1px solid var(--border-color);
+      padding: 18px;
+      border-radius: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .exercise-card p {
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .exercise-card.correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+    }
+
+    .exercise-card.incorrect {
+      background-color: var(--incorrect-bg);
+      border-color: var(--incorrect-border);
+    }
+
+    select {
+      appearance: none;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding: 6px 30px 6px 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      color: var(--text-dark);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235b8e7d' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 10px) center;
+    }
+
+    .feedback {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .feedback.correct-text {
+      color: var(--correct-text);
+      display: block;
+    }
+
+    .feedback.incorrect-text {
+      color: var(--incorrect-text);
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-main {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      padding: 14px 36px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .btn-main:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* OFFICIAL RECEIPT CONTAINER STYLING */
+    .receipt-container {
+      display: none;
+      width: 100%;
+      margin-top: 15px;
+      background-color: #ffffff;
+      border: 2px dashed var(--accent-color);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+
+    .receipt-title-area {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .receipt-title-area h2 {
+      color: var(--primary-color);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .receipt-title-area p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 2px;
+    }
+
+    .receipt-divider {
+      height: 1px;
+      background-color: var(--border-color);
+      margin: 15px 0 20px 0;
+    }
+
+    .receipt-details {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.98rem;
+    }
+
+    .receipt-row .label {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .receipt-row .value {
+      font-weight: 500;
+      color: var(--text-dark);
+      text-align: right;
+    }
+
+    .receipt-row.score-row {
+      margin-top: 10px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .receipt-row.score-row .label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .receipt-row.score-row .value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .receipt-banner-box {
+      margin-top: 22px;
+      background-color: var(--receipt-box-bg);
+      border: 1px solid #a4c2b3;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .receipt-banner-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .receipt-banner-desc {
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      max-width: 500px;
+      margin: 0 auto 16px auto;
+      line-height: 1.4;
+    }
+
+    .btn-download-receipt {
+      background-color: var(--receipt-btn-bg);
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-download-receipt:hover {
+      background-color: var(--receipt-btn-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Cambridge Grade 7 English</h1>
+      <p>Unit 6: My World in a Poem (Synonyms & Figurative Language)</p>
+      <div class="badge-container">
+        <span class="badge">Precise Synonyms</span>
+        <span class="badge">Simile & Metaphor</span>
+        <span class="badge">Enjambment</span>
+        <span class="badge">Poetic Imagery</span>
+      </div>
+    </header>
+
+    <div class="student-info">
+      <div class="info-grid">
+        <div class="input-group">
+          <label for="studentName">Student Full Name *</label>
+          <input type="text" id="studentName" placeholder="e.g. Alex Morgan" autocomplete="off">
+        </div>
+        <div class="input-group">
+          <label for="studentClass">Class / Section *</label>
+          <input type="text" id="studentClass" placeholder="e.g. Grade 7B" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise-list">
+      <div class="exercise-card" id="card-1">
+        <p>1. Which precise synonym best replaces <em>walked</em> to show a relaxed, confident stroll?
+          <select id="q1">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="sprinted">sprinted</option>
+            <option value="sauntered">sauntered</option>
+            <option value="marched">marched</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-1"></div>
+      </div>
+
+      <div class="exercise-card" id="card-2">
+        <p>2. "The classroom was a zoo during recess." This line is an example of a:
+          <select id="q2">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="simile">simile</option>
+            <option value="metaphor">metaphor</option>
+            <option value="personification">personification</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-2"></div>
+      </div>
+
+      <div class="exercise-card" id="card-3">
+        <p>3. Identify the option that uses a <strong>simile</strong>:
+          <select id="q3">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="Her smile was a ray of sunshine.">Her smile was a ray of sunshine.</option>
+            <option value="He ran like the wind through the alley.">He ran like the wind through the alley.</option>
+            <option value="The rain tapped softly on the window pane.">The rain tapped softly on the window pane.</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-3"></div>
+      </div>
+
+      <div class="exercise-card" id="card-4">
+        <p>4. What effect does <strong>enjambment</strong> (continuing a line without terminal punctuation) have in poetry?
+          <select id="q4">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="It creates a rigid, abrupt stopping point.">It creates a rigid, abrupt stopping point.</option>
+            <option value="It creates a sense of continuous motion and flow.">It creates a sense of continuous motion and flow.</option>
+            <option value="It forces every line to rhyme perfectly.">It forces every line to rhyme perfectly.</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-4"></div>
+      </div>
+
+      <div class="exercise-card" id="card-5">
+        <p>5. Choose the best pair of true <strong>synonyms</strong>:
+          <select id="q5">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="luminous / radiant">luminous / radiant</option>
+            <option value="ancient / modern">ancient / modern</option>
+            <option value="vivid / dull">vivid / dull</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-5"></div>
+      </div>
+
+      <div class="exercise-card" id="card-6">
+        <p>6. "The sharp, metallic bite of cold rain..." targets which human senses?
+          <select id="q6">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="Auditory (Hearing) only">Auditory (Hearing) only</option>
+            <option value="Tactile (Touch) & Gustatory (Taste)">Tactile (Touch) & Gustatory (Taste)</option>
+            <option value="Visual (Sight) only">Visual (Sight) only</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-6"></div>
+      </div>
+
+      <div class="exercise-card" id="card-7">
+        <p>7. A stanza with four lines rhyming ABAB is known as a:
+          <select id="q7">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="couplet">couplet</option>
+            <option value="quatrain">quatrain</option>
+            <option value="free verse">free verse</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-7"></div>
+      </div>
+
+      <div class="exercise-card" id="card-8">
+        <p>8. "Sirens screech, asphalt burns..." creates a tone that is:
+          <select id="q8">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="peaceful and reflective">peaceful and reflective</option>
+            <option value="intense and energetic">intense and energetic</option>
+            <option value="gloomy and tragic">gloomy and tragic</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-8"></div>
+      </div>
+
+      <div class="exercise-card" id="card-9">
+        <p>9. Replacing vague words with precise vocabulary helps a poet to:
+          <select id="q9">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="make the poem twice as long">make the poem twice as long</option>
+            <option value="convey vivid imagery and exact meaning">convey vivid imagery and exact meaning</option>
+            <option value="eliminate stanzas completely">eliminate stanzas completely</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-9"></div>
+      </div>
+
+      <div class="exercise-card" id="card-10">
+        <p>10. "The stars danced playfully in the night sky." Which poetic device is used?
+          <select id="q10">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="personification">personification</option>
+            <option value="hyperbole">hyperbole</option>
+            <option value="alliteration">alliteration</option>
+          </select>
+        </p>
+        <div class="feedback" id="fb-10"></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-main" onclick="checkAnswers()">Check Answers</button>
+
+      <div class="receipt-container" id="receipt">
+        <div class="receipt-title-area">
+          <h2>OFFICIAL HOMEWORK RECEIPT</h2>
+          <p>Assignment Submission Verification</p>
+        </div>
+        
+        <div class="receipt-divider"></div>
+
+        <div class="receipt-details">
+          <div class="receipt-row">
+            <span class="label">Student:</span>
+            <span class="value" id="rName">--</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Assignment:</span>
+            <span class="value">Unit 6 Digital Homework</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Completed On:</span>
+            <span class="value" id="rDate">--</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Verification Code:</span>
+            <span class="value" id="rCode">--</span>
+          </div>
+          
+          <div class="receipt-row score-row">
+            <span class="label">Final Score:</span>
+            <span class="value" id="rScore">0 / 10 (0%)</span>
+          </div>
+        </div>
+
+        <div class="receipt-banner-box">
+          <div class="receipt-banner-title">
+            📋 Homework Receipt Ready!
+          </div>
+          <div class="receipt-banner-desc">
+            Click the button below to download your receipt image, then attach the .png file to your Google Classroom assignment.
+          </div>
+          <button class="btn-download-receipt" onclick="downloadReceiptImage()">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+            Download Receipt Image
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const answerKey = {
+      q1: "sauntered",
+      q2: "metaphor",
+      q3: "He ran like the wind through the alley.",
+      q4: "It creates a sense of continuous motion and flow.",
+      q5: "luminous / radiant",
+      q6: "Tactile (Touch) & Gustatory (Taste)",
+      q7: "quatrain",
+      q8: "intense and energetic",
+      q9: "convey vivid imagery and exact meaning",
+      q10: "personification"
+    };
+
+    let currentReceiptData = null;
+
+    function checkAnswers() {
+      const nameInput = document.getElementById("studentName").value.trim();
+      const classInput = document.getElementById("studentClass").value.trim();
+      
+      if (!nameInput || !classInput) {
+        alert("Please enter both your Student Name and Class before submitting!");
+        document.getElementById("studentName").focus();
+        return;
+      }
+
+      let score = 0;
+      const totalQuestions = Object.keys(answerKey).length;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const selectElem = document.getElementById(`q${i}`);
+        const cardElem = document.getElementById(`card-${i}`);
+        const feedbackElem = document.getElementById(`fb-${i}`);
+
+        const userChoice = selectElem.value;
+        const correctAnswer = answerKey[`q${i}`];
+
+        cardElem.classList.remove("correct", "incorrect");
+        feedbackElem.classList.remove("correct-text", "incorrect-text");
+
+        if (userChoice === correctAnswer) {
+          score++;
+          cardElem.classList.add("correct");
+          feedbackElem.textContent = "✓ Correct!";
+          feedbackElem.classList.add("correct-text");
+        } else {
+          cardElem.classList.add("incorrect");
+          feedbackElem.textContent = `✗ Incorrect. Correct answer: ${correctAnswer}`;
+          feedbackElem.classList.add("incorrect-text");
+        }
+      }
+
+      const percentage = Math.round((score / totalQuestions) * 100);
+      const now = new Date();
+      const timestamp = now.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) + " at " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const verificationCode = "U6-" + Math.floor(100000 + Math.random() * 900000);
+
+      currentReceiptData = {
+        name: nameInput,
+        studentClass: classInput,
+        date: timestamp,
+        code: verificationCode,
+        score: `${score} / ${totalQuestions}`,
+        percent: `${percentage}%`
+      };
+
+      document.getElementById("rName").textContent = nameInput;
+      document.getElementById("rDate").textContent = timestamp;
+      document.getElementById("rCode").textContent = verificationCode;
+      document.getElementById("rScore").textContent = `${score} / ${totalQuestions} (${percentage}%)`;
+
+      const receiptElem = document.getElementById("receipt");
+      receiptElem.style.display = "block";
+      receiptElem.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadReceiptImage() {
+      if (!currentReceiptData) return;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 750;
+      canvas.height = 490;
+      const ctx = canvas.getContext("2d");
+
+      // Background Fill
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Outer Dashed Border Container
+      ctx.strokeStyle = "#5b8e7d";
+      ctx.lineWidth = 3;
+      ctx.setLineDash([8, 6]);
+      ctx.strokeRect(18, 18, canvas.width - 36, canvas.height - 36);
+      ctx.setLineDash([]); // reset to solid line
+
+      // Title & Subtitle Header
+      ctx.fillStyle = "#2e5a44";
+      ctx.font = "bold 24px 'Segoe UI', Arial, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("OFFICIAL HOMEWORK RECEIPT", canvas.width / 2, 58);
+
+      ctx.fillStyle = "#596560";
+      ctx.font = "14px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Assignment Submission Verification", canvas.width / 2, 82);
+
+      // Top Divider Line
+      ctx.strokeStyle = "#cfd8d3";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(45, 100);
+      ctx.lineTo(canvas.width - 45, 100);
+      ctx.stroke();
+
+      // Table Details Rows
+      const details = [
+        { label: "Student:", val: currentReceiptData.name },
+        { label: "Assignment:", val: "Unit 6 Digital Homework" },
+        { label: "Completed On:", val: currentReceiptData.date },
+        { label: "Verification Code:", val: currentReceiptData.code }
+      ];
+
+      let currentY = 140;
+      details.forEach((item) => {
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#2c3531";
+        ctx.font = "bold 16px 'Segoe UI', Arial, sans-serif";
+        ctx.fillText(item.label, 50, currentY);
+
+        ctx.textAlign = "right";
+        ctx.font = "500 16px 'Segoe UI', Arial, sans-serif";
+        ctx.fillText(item.val, canvas.width - 50, currentY);
+
+        currentY += 36;
+      });
+
+      // Score Divider Line
+      ctx.beginPath();
+      ctx.moveTo(45, currentY - 10);
+      ctx.lineTo(canvas.width - 45, currentY - 10);
+      ctx.stroke();
+
+      // Score Row
+      currentY += 22;
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#2e5a44";
+      ctx.font = "bold 20px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Final Score:", 50, currentY);
+
+      ctx.textAlign = "right";
+      ctx.fillText(`${currentReceiptData.score} (${currentReceiptData.percent})`, canvas.width - 50, currentY);
+
+      // Inner Banner Box (Matches Green Light Box)
+      currentY += 35;
+      ctx.fillStyle = "#e8f0eb";
+      ctx.fillRect(45, currentY, canvas.width - 90, 85);
+      
+      ctx.strokeStyle = "#a4c2b3";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(45, currentY, canvas.width - 90, 85);
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#2c3531";
+      ctx.font = "bold 16px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("📋 Homework Receipt Verified", canvas.width / 2, currentY + 36);
+
+      ctx.fillStyle = "#596560";
+      ctx.font = "13px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Official submission proof ready for Google Classroom attachment.", canvas.width / 2, currentY + 60);
+
+      // Automatic Browser File Download
+      const safeName = currentReceiptData.name.replace(/[^a-zA-Z0-9]/g, "_");
+      const fileName = `${safeName}_Grade7_Unit6_Receipt.png`;
+
+      if (canvas.toBlob) {
+        canvas.toBlob((blob) => {
+          const downloadLink = document.createElement("a");
+          downloadLink.href = URL.createObjectURL(blob);
+          downloadLink.download = fileName;
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          setTimeout(() => {
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(downloadLink.href);
+          }, 150);
+        }, "image/png");
+      } else {
+        const downloadLink = document.createElement("a");
+        downloadLink.href = canvas.toDataURL("image/png");
+        downloadLink.download = fileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      }
+    }
+  </script>
+
+</body>
+</html>
