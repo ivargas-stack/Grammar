@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Lesson & Practice: Pronouns Unit</title>
+    <style>
+        :root {
+            --primary: #00838f;
+            --primary-dark: #005662;
+            --accent: #e65100;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --correct: #2e7d32;
+            --incorrect: #c62828;
+            --text: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            margin: 0 0 5px 0;
+            font-size: 1.6rem;
+        }
+
+        .instructions {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Discussion / Study Screen Styles */
+        #discussion-screen {
+            display: block;
+        }
+
+        .concept-card {
+            background: #f9f9f9;
+            border-left: 5px solid var(--primary);
+            padding: 18px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .concept-title {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .concept-body {
+            font-size: 0.95rem;
+        }
+
+        .concept-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .concept-table th, .concept-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .concept-table th {
+            background-color: #e0f7fa;
+            color: var(--primary-dark);
+        }
+
+        .example-box {
+            background-color: #fff3e0;
+            border-left: 3px solid var(--accent);
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-bg {
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar-fill {
+            background-color: var(--primary);
+            height: 100%;
+            width: 6.66%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: #e0f7fa;
+            color: var(--primary-dark);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Question Cards */
+        #quizForm {
+            display: none;
+        }
+
+        .question-card {
+            display: none;
+            background: #f9f9f9;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            min-height: 220px;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .question-card.correct {
+            border-left-color: var(--correct);
+            background-color: #e8f5e9;
+        }
+
+        .question-card.incorrect {
+            border-left-color: var(--incorrect);
+            background-color: #ffebee;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            cursor: pointer;
+            font-weight: normal;
+            background: white;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        label:hover {
+            border-color: var(--primary);
+            background-color: #e0f7fa;
+        }
+
+        input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        /* Controls */
+        .nav-controls {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button.reset-btn {
+            background-color: #757575;
+        }
+
+        button.reset-btn:hover {
+            background-color: #424242;
+        }
+
+        button.start-btn {
+            background-color: var(--accent);
+            font-size: 1.1rem;
+            padding: 12px 28px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button.start-btn:hover {
+            background-color: #d84315;
+        }
+
+        .feedback-text {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+
+        .feedback-text.correct { color: var(--correct); }
+        .feedback-text.incorrect { color: var(--incorrect); }
+
+        /* Summary View */
+        #summary-screen {
+            display: none;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        #summary-screen h2 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .score-box {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 id="page-title">Concept Discussion: Pronouns</h1>
+        <p class="instructions" id="page-subtitle">Review the grammar rules below before starting the 15-item practice activity.</p>
+    </header>
+
+    <!-- Discussion / Concept Study Page -->
+    <div id="discussion-screen">
+        
+        <!-- 1. Demonstrative Pronouns -->
+        <div class="concept-card">
+            <div class="concept-title">1. Demonstrative Pronouns</div>
+            <div class="concept-body">
+                Demonstrative pronouns <strong>point out specific</strong> people, places, or things. They depend on physical or temporal distance (near vs. far) and quantity (singular vs. plural).
+                
+                <table class="concept-table">
+                    <tr>
+                        <th>Distance</th>
+                        <th>Singular</th>
+                        <th>Plural</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Near</strong> (close in space or time)</td>
+                        <td><strong>this</strong></td>
+                        <td><strong>these</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Far</strong> (distant in space or time)</td>
+                        <td><strong>that</strong></td>
+                        <td><strong>those</strong></td>
+                    </tr>
+                </table>
+
+                <div class="example-box">
+                    <strong>Examples:</strong><br>
+                    • <em>This</em> is the book I am reading right now.<br>
+                    • Look at <em>those</em> birds flying across the distant field.
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Indefinite Pronouns -->
+        <div class="concept-card">
+            <div class="concept-title">2. Indefinite Pronouns</div>
+            <div class="concept-body">
+                Indefinite pronouns refer to people, places, or things <strong>without specifying exactly who or what</strong> they are.
+
+                <table class="concept-table">
+                    <tr>
+                        <th>Category</th>
+                        <th>Pronouns</th>
+                    </tr>
+                    <tr>
+                        <td><strong>People</strong></td>
+                        <td>someone, somebody, anyone, anybody, no one, nobody, everyone, everybody</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Things</strong></td>
+                        <td>something, anything, nothing, everything</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Places</strong></td>
+                        <td>somewhere, anywhere, nowhere, everywhere</td>
+                    </tr>
+                </table>
+
+                <div class="example-box">
+                    <strong>Examples:</strong><br>
+                    • <em>Someone</em> left a notebook on the kitchen table.<br>
+                    • She searched <em>everywhere</em> for her lost pencil.
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Relative Pronouns -->
+        <div class="concept-card">
+            <div class="concept-title">3. Relative Pronouns</div>
+            <div class="concept-body">
+                Relative pronouns <strong>connect a clause or phrase to a noun or pronoun</strong>. They provide essential or extra information about the subject or object.
+
+                <table class="concept-table">
+                    <tr>
+                        <th>Pronoun</th>
+                        <th>Used for...</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td><strong>who / whom</strong></td>
+                        <td>People</td>
+                        <td>The teacher <em>who</em> taught us writing...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>which / that</strong></td>
+                        <td>Things / Animals</td>
+                        <td>The journal <em>which</em> was hidden...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>whose</strong></td>
+                        <td>Possession</td>
+                        <td>The girl <em>whose</em> book was found...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>where</strong></td>
+                        <td>Places</td>
+                        <td>The tree <em>where</em> she sits to write...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>when</strong></td>
+                        <td>Time</td>
+                        <td>The hour <em>when</em> the house grows quiet...</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <button type="button" class="start-btn" onclick="startQuiz()">Start 15-Item Practice Activity →</button>
+    </div>
+
+    <!-- Progress Tracker (Quiz Mode) -->
+    <div class="progress-container" id="progress-container">
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+        <div class="progress-text">
+            <span id="progress-count">Question 1 of 15</span>
+            <span id="category-name">Demonstrative Pronouns</span>
+        </div>
+    </div>
+
+    <!-- Quiz Form (1 Question / Page) -->
+    <form id="quizForm">
+        <!-- Part 1: Demonstrative Pronouns -->
+        <div class="question-card" id="q1-card" data-category="Demonstrative Pronouns">
+            <div class="category-tag">Demonstrative Pronouns</div>
+            <div class="question-text">1. Look at ________ birds soaring far away near the distant tree line.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q1" value="these"> A. these</label>
+                <label><input type="radio" name="q1" value="those"> B. those</label>
+                <label><input type="radio" name="q1" value="this"> C. this</label>
+            </div>
+            <span class="feedback-text" id="q1-fb"></span>
+        </div>
+
+        <div class="question-card" id="q2-card" data-category="Demonstrative Pronouns">
+            <div class="category-tag">Demonstrative Pronouns</div>
+            <div class="question-text">2. Clotee holds ________ secret journal tightly in her hands right now.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q2" value="this"> A. this</label>
+                <label><input type="radio" name="q2" value="those"> B. those</label>
+                <label><input type="radio" name="q2" value="these"> C. these</label>
+            </div>
+            <span class="feedback-text" id="q2-fb"></span>
+        </div>
+
+        <div class="question-card" id="q3-card" data-category="Demonstrative Pronouns">
+            <div class="category-tag">Demonstrative Pronouns</div>
+            <div class="question-text">3. Of all the daily chores on the estate, ________ is her favorite task.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q3" value="these"> A. these</label>
+                <label><input type="radio" name="q3" value="this"> B. this</label>
+                <label><input type="radio" name="q3" value="those"> C. those</label>
+            </div>
+            <span class="feedback-text" id="q3-fb"></span>
+        </div>
+
+        <div class="question-card" id="q4-card" data-category="Demonstrative Pronouns">
+            <div class="category-tag">Demonstrative Pronouns</div>
+            <div class="question-text">4. Are ________ the loose floorboards you were talking about over there?</div>
+            <div class="options-group">
+                <label><input type="radio" name="q4" value="that"> A. that</label>
+                <label><input type="radio" name="q4" value="this"> B. this</label>
+                <label><input type="radio" name="q4" value="those"> C. those</label>
+            </div>
+            <span class="feedback-text" id="q4-fb"></span>
+        </div>
+
+        <div class="question-card" id="q5-card" data-category="Demonstrative Pronouns">
+            <div class="category-tag">Demonstrative Pronouns</div>
+            <div class="question-text">5. ________ was the exact moment she learned how to spell her name.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q5" value="That"> A. That</label>
+                <label><input type="radio" name="q5" value="These"> B. These</label>
+                <label><input type="radio" name="q5" value="Those"> C. Those</label>
+            </div>
+            <span class="feedback-text" id="q5-fb"></span>
+        </div>
+
+        <!-- Part 2: Indefinite Pronouns -->
+        <div class="question-card" id="q6-card" data-category="Indefinite Pronouns">
+            <div class="category-tag">Indefinite Pronouns</div>
+            <div class="question-text">6. Clotee was terrified that ________ would catch her writing at night.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q6" value="someone"> A. someone</label>
+                <label><input type="radio" name="q6" value="everywhere"> B. everywhere</label>
+                <label><input type="radio" name="q6" value="nothing"> C. nothing</label>
+            </div>
+            <span class="feedback-text" id="q6-fb"></span>
+        </div>
+
+        <div class="question-card" id="q7-card" data-category="Indefinite Pronouns">
+            <div class="category-tag">Indefinite Pronouns</div>
+            <div class="question-text">7. The shed was completely silent, and ________ uttered a word.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q7" value="everything"> A. everything</label>
+                <label><input type="radio" name="q7" value="nobody"> B. nobody</label>
+                <label><input type="radio" name="q7" value="somewhere"> C. somewhere</label>
+            </div>
+            <span class="feedback-text" id="q7-fb"></span>
+        </div>
+
+        <div class="question-card" id="q8-card" data-category="Indefinite Pronouns">
+            <div class="category-tag">Indefinite Pronouns</div>
+            <div class="question-text">8. She searched ________ in the yard for a secure place to store her papers.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q8" value="everywhere"> A. everywhere</label>
+                <label><input type="radio" name="q8" value="anyone"> B. anyone</label>
+                <label><input type="radio" name="q8" value="no one"> C. no one</label>
+            </div>
+            <span class="feedback-text" id="q8-fb"></span>
+        </div>
+
+        <div class="question-card" id="q9-card" data-category="Indefinite Pronouns">
+            <div class="category-tag">Indefinite Pronouns</div>
+            <div class="question-text">9. Is there ________ who knows where the key to the box was hidden?</div>
+            <div class="options-group">
+                <label><input type="radio" name="q9" value="something"> A. something</label>
+                <label><input type="radio" name="q9" value="anywhere"> B. anywhere</label>
+                <label><input type="radio" name="q9" value="anyone"> C. anyone</label>
+            </div>
+            <span class="feedback-text" id="q9-fb"></span>
+        </div>
+
+        <div class="question-card" id="q10-card" data-category="Indefinite Pronouns">
+            <div class="category-tag">Indefinite Pronouns</div>
+            <div class="question-text">10. She was eager to absorb ________ she could learn from the literacy lessons.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q10" value="everything"> A. everything</label>
+                <label><input type="radio" name="q10" value="no one"> B. no one</label>
+                <label><input type="radio" name="q10" value="somewhere"> C. somewhere</label>
+            </div>
+            <span class="feedback-text" id="q10-fb"></span>
+        </div>
+
+        <!-- Part 3: Relative Pronouns -->
+        <div class="question-card" id="q11-card" data-category="Relative Pronouns">
+            <div class="category-tag">Relative Pronouns</div>
+            <div class="question-text">11. This is the quiet tree ________ Clotee sits to write her notes.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q11" value="who"> A. who</label>
+                <label><input type="radio" name="q11" value="where"> B. where</label>
+                <label><input type="radio" name="q11" value="which"> C. which</label>
+            </div>
+            <span class="feedback-text" id="q11-fb"></span>
+        </div>
+
+        <div class="question-card" id="q12-card" data-category="Relative Pronouns">
+            <div class="category-tag">Relative Pronouns</div>
+            <div class="question-text">12. Master Henley is the owner ________ controls the entire plantation.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q12" value="who"> A. who</label>
+                <label><input type="radio" name="q12" value="which"> B. which</label>
+                <label><input type="radio" name="q12" value="where"> C. where</label>
+            </div>
+            <span class="feedback-text" id="q12-fb"></span>
+        </div>
+
+        <div class="question-card" id="q13-card" data-category="Relative Pronouns">
+            <div class="category-tag">Relative Pronouns</div>
+            <div class="question-text">13. The old wooden box ________ held the photographs had lost its shine.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q13" value="whose"> A. whose</label>
+                <label><input type="radio" name="q13" value="which"> B. which</label>
+                <label><input type="radio" name="q13" value="who"> C. who</label>
+            </div>
+            <span class="feedback-text" id="q13-fb"></span>
+        </div>
+
+        <div class="question-card" id="q14-card" data-category="Relative Pronouns">
+            <div class="category-tag">Relative Pronouns</div>
+            <div class="question-text">14. She spoke to a friend ________ family lived in the nearby quarters.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q14" value="whose"> A. whose</label>
+                <label><input type="radio" name="q14" value="where"> B. where</label>
+                <label><input type="radio" name="q14" value="which"> C. which</label>
+            </div>
+            <span class="feedback-text" id="q14-fb"></span>
+        </div>
+
+        <div class="question-card" id="q15-card" data-category="Relative Pronouns">
+            <div class="category-tag">Relative Pronouns</div>
+            <div class="question-text">15. She remembered the moment ________ she finished reading her first book.</div>
+            <div class="options-group">
+                <label><input type="radio" name="q15" value="when"> A. when</label>
+                <label><input type="radio" name="q15" value="where"> B. where</label>
+                <label><input type="radio" name="q15" value="which"> C. which</label>
+            </div>
+            <span class="feedback-text" id="q15-fb"></span>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="nav-controls" id="nav-controls" style="display: none;">
+            <button type="button" id="prevBtn" onclick="changeQuestion(-1)" disabled>Previous</button>
+            <button type="button" id="conceptBtn" class="reset-btn" onclick="showConcept()">Review Concept</button>
+            <button type="button" id="nextBtn" onclick="changeQuestion(1)">Next</button>
+            <button type="button" id="submitBtn" onclick="checkAnswers()" style="display: none;">Submit Quiz</button>
+        </div>
+    </form>
+
+    <!-- Summary Screen -->
+    <div id="summary-screen">
+        <h2>Quiz Completed!</h2>
+        <p>You have completed all 15 practice items.</p>
+        <div class="score-box" id="final-score">0 / 15</div>
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
+            <button type="button" onclick="reviewQuiz()">Review Answers</button>
+            <button type="button" class="reset-btn" onclick="showConcept()">Study Concepts Again</button>
+            <button type="button" class="reset-btn" onclick="resetQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentIndex = 0;
+    const totalQuestions = 15;
+    const answerKey = {
+        q1: "those",
+        q2: "this",
+        q3: "this",
+        q4: "those",
+        q5: "That",
+        q6: "someone",
+        q7: "nobody",
+        q8: "everywhere",
+        q9: "anyone",
+        q10: "everything",
+        q11: "where",
+        q12: "who",
+        q13: "which",
+        q14: "whose",
+        q15: "when"
+    };
+
+    function startQuiz() {
+        document.getElementById('discussion-screen').style.display = 'none';
+        document.getElementById('quizForm').style.display = 'block';
+        document.getElementById('progress-container').style.display = 'block';
+        document.getElementById('nav-controls').style.display = 'flex';
+
+        document.getElementById('page-title').textContent = "Practice Activity: Pronouns";
+        document.getElementById('page-subtitle').textContent = "Select the correct demonstrative, relative, or indefinite pronoun.";
+
+        currentIndex = 0;
+        updateQuestionView();
+    }
+
+    function showConcept() {
+        document.getElementById('quizForm').style.display = 'none';
+        document.getElementById('progress-container').style.display = 'none';
+        document.getElementById('summary-screen').style.display = 'none';
+        document.getElementById('nav-controls').style.display = 'none';
+        document.getElementById('discussion-screen').style.display = 'block';
+
+        document.getElementById('page-title').textContent = "Concept Discussion: Pronouns";
+        document.getElementById('page-subtitle').textContent = "Review the grammar rules below before starting the 15-item practice activity.";
+    }
+
+    function updateQuestionView() {
+        const cards = document.querySelectorAll('.question-card');
+        cards.forEach((card, idx) => {
+            card.classList.toggle('active', idx === currentIndex);
+        });
+
+        const currentCard = cards[currentIndex];
+        const category = currentCard.getAttribute('data-category');
+        
+        document.getElementById('progress-bar').style.width = `${((currentIndex + 1) / totalQuestions) * 100}%`;
+        document.getElementById('progress-count').textContent = `Question ${currentIndex + 1} of ${totalQuestions}`;
+        document.getElementById('category-name').textContent = category;
+
+        document.getElementById('prevBtn').disabled = currentIndex === 0;
+        
+        if (currentIndex === totalQuestions - 1) {
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'inline-block';
+        } else {
+            document.getElementById('nextBtn').style.display = 'inline-block';
+            document.getElementById('submitBtn').style.display = 'none';
+        }
+    }
+
+    function changeQuestion(direction) {
+        if (currentIndex + direction >= 0 && currentIndex + direction < totalQuestions) {
+            currentIndex += direction;
+            updateQuestionView();
+        }
+    }
+
+    function checkAnswers() {
+        let score = 0;
+
+        for (let i = 1; i <= totalQuestions; i++) {
+            const qKey = "q" + i;
+            const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+            const card = document.getElementById(`${qKey}-card`);
+            const feedback = document.getElementById(`${qKey}-fb`);
+
+            card.classList.remove("correct", "incorrect");
+            feedback.className = "feedback-text";
+
+            if (selected) {
+                if (selected.value === answerKey[qKey]) {
+                    score++;
+                    card.classList.add("correct");
+                    feedback.textContent = "Correct!";
+                    feedback.classList.add("correct");
+                } else {
+                    card.classList.add("incorrect");
+                    feedback.textContent = `Incorrect (Correct answer: ${answerKey[qKey]})`;
+                    feedback.classList.add("incorrect");
+                }
+            } else {
+                card.classList.add("incorrect");
+                feedback.textContent = `Unanswered (Correct answer: ${answerKey[qKey]})`;
+                feedback.classList.add("incorrect");
+            }
+        }
+
+        document.getElementById('quizForm').style.display = 'none';
+        document.getElementById('progress-container').style.display = 'none';
+        document.getElementById('nav-controls').style.display = 'none';
+        document.getElementById('summary-screen').style.display = 'block';
+        document.getElementById('final-score').textContent = `${score} / ${totalQuestions}`;
+    }
+
+    function reviewQuiz() {
+        document.getElementById('summary-screen').style.display = 'none';
+        document.getElementById('quizForm').style.display = 'block';
+        document.getElementById('progress-container').style.display = 'block';
+        document.getElementById('nav-controls').style.display = 'flex';
+        
+        currentIndex = 0;
+        updateQuestionView();
+    }
+
+    function resetQuiz() {
+        document.getElementById("quizForm").reset();
+        const cards = document.querySelectorAll(".question-card");
+        const feedbacks = document.querySelectorAll(".feedback-text");
+        
+        cards.forEach(card => card.classList.remove("correct", "incorrect"));
+        feedbacks.forEach(fb => fb.textContent = "");
+
+        startQuiz();
+    }
+</script>
+
+</body>
+</html>
