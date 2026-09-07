@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 7 Grammar & Writing Reviewer - Final Exam</title>
+  <style>
+    :root {
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+      --primary: #4a7c59;
+      --primary-hover: #3b6346;
+      --accent: #688b58;
+      --text-main: #2c3e50;
+      --text-muted: #606f7b;
+      --border-color: #e2e8f0;
+      --correct-bg: #e6fffa;
+      --correct-border: #38b2ac;
+      --incorrect-bg: #fff5f5;
+      --incorrect-border: #e53e3e;
+      --highlight: #f0fdf4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 20px 0;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Single Row Tab Navigation */
+    .nav-tabs {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      background: var(--card-bg);
+      padding: 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      margin-bottom: 25px;
+      gap: 6px;
+      scrollbar-width: thin;
+    }
+
+    .tab-btn {
+      flex: 1 1 auto;
+      white-space: nowrap;
+      padding: 12px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .tab-btn:hover {
+      background-color: var(--bg-color);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Tab Content Panels */
+    .tab-content {
+      display: none;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin: 18px 0 10px 0;
+    }
+
+    p, li {
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    ul, ol {
+      padding-left: 20px;
+    }
+
+    .concept-box {
+      background-color: var(--highlight);
+      border-left: 4px solid var(--primary);
+      padding: 15px 20px;
+      margin: 15px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .example-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    .example-table th, .example-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .example-table th {
+      background-color: #f8faf8;
+      color: var(--primary);
+    }
+
+    /* Practice Test Styling */
+    .quiz-question {
+      margin-bottom: 22px;
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #fafbfc;
+      transition: all 0.2s ease;
+    }
+
+    .question-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: #fff;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.15s ease;
+    }
+
+    .option-label:hover {
+      background-color: #f0f4f1;
+    }
+
+    .option-label input {
+      margin-right: 10px;
+    }
+
+    .action-btn {
+      display: block;
+      width: 100%;
+      max-width: 250px;
+      margin: 30px auto 10px auto;
+      padding: 14px 20px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: background 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    #scoreBox {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      background-color: var(--highlight);
+      border: 2px solid var(--primary);
+    }
+
+    #scoreBox h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    /* Feedback styles */
+    .quiz-question.correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+    }
+
+    .quiz-question.incorrect {
+      background-color: var(--incorrect-bg);
+      border-color: var(--incorrect-border);
+    }
+
+    .feedback-text {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .correct .feedback-text {
+      display: block;
+      color: #234e52;
+    }
+
+    .incorrect .feedback-text {
+      display: block;
+      color: #9b2c2c;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Grade 7 Writing & Grammar Reviewer</h1>
+    <p>Comprehensive Study Guide & Practice Test | Final Examination Semester 1</p>
+  </header>
+
+  <nav class="nav-tabs">
+    <button class="tab-btn active" onclick="openTab(event, 'tab-passive')">I. Passive Tenses</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab-phrasal')">II. Phrasal Verbs</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab-prepositions')">III. Prepositions</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab-exclamations')">IV. Exclamations</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab-punctuations')">V. Punctuations</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab-practice')">Practice Test (20)</button>
+  </nav>
+
+  <div id="tab-passive" class="tab-content active">
+    <h2>Task I: Past Simple Passive & Past Perfect Passive</h2>
+    <p>Passive voice is used when the focus is on the <strong>action</strong> or the <strong>object receiving the action</strong>, rather than who performed it.</p>
+    
+    <div class="concept-box">
+      <h3>Formulas:</h3>
+      <ul>
+        <li><strong>Past Simple Passive:</strong> <code>Subject + was / were + Past Participle (V3)</code></li>
+        <li><strong>Past Perfect Passive:</strong> <code>Subject + had been + Past Participle (V3)</code></li>
+      </ul>
+    </div>
+
+    <h3>When to use which?</h3>
+    <table class="example-table">
+      <thead>
+        <tr>
+          <th>Tense</th>
+          <th>Usage</th>
+          <th>New Concept Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Past Simple Passive</strong></td>
+          <td>A completed action at a specific time in the past.</td>
+          <td>The lost keys <strong>were found</strong> under the couch yesterday.</td>
+        </tr>
+        <tr>
+          <td><strong>Past Perfect Passive</strong></td>
+          <td>An action completed <em>before another action or time</em> in the past (often with words like <i>before, by the time, after, once</i>).</td>
+          <td>By the time the guests arrived, all the food <strong>had been prepared</strong>.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Key Indicators:</h3>
+    <ul>
+      <li>Look for time signals like <i>before, by the end of, after, once</i>. These usually require <strong>Past Perfect Passive</strong> for the earlier event.</li>
+      <li>Simple past time expressions like <i>yesterday, last week, when I arrived</i> often trigger <strong>Past Simple Passive</strong>.</li>
+    </ul>
+  </div>
+
+  <div id="tab-phrasal" class="tab-content">
+    <h2>Task II: Phrasal Verbs</h2>
+    <p>A phrasal verb combines a main verb with a preposition or adverb to create a meaning different from the original word.</p>
+
+    <table class="example-table">
+      <thead>
+        <tr>
+          <th>Phrasal Verb</th>
+          <th>Meaning</th>
+          <th>New Concept Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Look away</strong></td>
+          <td>To turn your gaze in another direction.</td>
+          <td>She <strong>looked away</strong> when the frightening scene started in the movie.</td>
+        </tr>
+        <tr>
+          <td><strong>Let out</strong></td>
+          <td>To allow a person or animal to leave / release.</td>
+          <td>The teacher opened the class door and <strong>let</strong> the students <strong>out</strong> for recess.</td>
+        </tr>
+        <tr>
+          <td><strong>Wear out</strong></td>
+          <td>To use something until it becomes damaged or unusable.</td>
+          <td>After months of mountain hiking, my sports boots completely <strong>wore out</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>Turn out</strong></td>
+          <td>To end up or result in a specific way.</td>
+          <td>We expected rain during the picnic, but it <strong>turned out</strong> to be a sunlit day.</td>
+        </tr>
+        <tr>
+          <td><strong>Go away</strong></td>
+          <td>To leave a place or go on a trip.</td>
+          <td>Our neighbors have <strong>gone away</strong> to Canada for the summer break.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab-prepositions" class="tab-content">
+    <h2>Task III: Dependent Prepositions</h2>
+    <p>Certain nouns, adjectives, and verbs are paired naturally with specific prepositions.</p>
+
+    <div class="concept-box">
+      <h3>Key Combinations to Remember:</h3>
+      <ul>
+        <li><strong>Fondness + FOR:</strong> Expresses a strong liking or affection for something.</li>
+        <li><strong>Story + OF:</strong> Indicates the subject or narrative content.</li>
+        <li><strong>Aimed + AT:</strong> Directed toward a specific audience or target.</li>
+        <li><strong>Familiar + TO:</strong> Well-known or recognized by someone.</li>
+        <li><strong>Doubts + ABOUT:</strong> Feeling uncertain or having reservations regarding something.</li>
+      </ul>
+    </div>
+
+    <h3>New Context Examples:</h3>
+    <ul>
+      <li>He has always shown a distinct fondness <strong>for</strong> acoustic guitar music.</li>
+      <li>The documentary recounts the incredible story <strong>of</strong> two mountain climbers.</li>
+      <li>The primary campaign is directly aimed <strong>at</strong> university graduates.</li>
+      <li>The melody of this traditional folk song sounds very familiar <strong>to</strong> the local elders.</li>
+      <li>The chief engineer expressed serious doubts <strong>about</strong> the durability of the bridge.</li>
+    </ul>
+  </div>
+
+  <div id="tab-exclamations" class="tab-content">
+    <h2>Task IV: Exclamations with "What" & "How"</h2>
+    <p>Exclamations express strong emotion or emphasis. Pay careful attention to the structure!</p>
+
+    <div class="concept-box">
+      <h3>Structure Rules:</h3>
+      <p><strong>1. Using "WHAT":</strong> Used before a noun (with or without an adjective).</p>
+      <ul>
+        <li><code>What + a/an + (adjective) + Singular Countable Noun (+ Subject + Verb)!</code></li>
+        <li><code>What + (adjective) + Plural / Uncountable Noun (+ Subject + Verb)!</code></li>
+      </ul>
+      <p style="margin-top: 10px;"><strong>2. Using "HOW":</strong> Used directly before an adjective or adverb without a noun following it directly.</p>
+      <ul>
+        <li><code>How + Adjective/Adverb + Subject + Verb!</code></li>
+      </ul>
+    </div>
+
+    <h3>Transformation Examples:</h3>
+    <table class="example-table">
+      <thead>
+        <tr>
+          <th>Original Sentence</th>
+          <th>Exclamation Type</th>
+          <th>Exclamation Sentence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>This is an extraordinary garden.</td>
+          <td>WHAT</td>
+          <td><strong>What an extraordinary garden this is!</strong></td>
+        </tr>
+        <tr>
+          <td>These are incredible paintings.</td>
+          <td>WHAT</td>
+          <td><strong>What incredible paintings these are!</strong></td>
+        </tr>
+        <tr>
+          <td>That dog is so energetic.</td>
+          <td>HOW</td>
+          <td><strong>How energetic that dog is!</strong></td>
+        </tr>
+        <tr>
+          <td>The scenery looks so peaceful today.</td>
+          <td>HOW</td>
+          <td><strong>How peaceful the scenery looks today!</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tab-punctuations" class="tab-content">
+    <h2>Task V: Commas in Clauses & Introductory Phrases</h2>
+    <p>In literary texts and poetry, commas create necessary pauses and set off dependent clauses or introductory phrases from main clauses.</p>
+
+    <div class="concept-box">
+      <h3>Key Comma Rules:</h3>
+      <ol>
+        <li><strong>After introductory clauses/phrases:</strong> Place a comma after a dependent clause or participle phrase that comes before the main sentence.
+          <br><em>Example:</em> "When reading late at night, I always keep a lamp on."</li>
+        <li><strong>Prepositional time phrases:</strong> Separate time/condition clauses.
+          <br><em>Example:</em> "When after a long journey, we finally found rest."</li>
+      </ol>
+    </div>
+
+    <h3>Demonstration Sample:</h3>
+    <p><strong>Without Commas:</strong><br>
+    <em>"What a delight it is when reading books I discover a truth that I never knew."</em></p>
+    
+    <p><strong>With Commas:</strong><br>
+    <em>"What a delight it is<br>
+    When reading books,<br>
+    I discover a truth<br>
+    That yesterday, I never knew."</em></p>
+  </div>
+
+  <div id="tab-practice" class="tab-content">
+    <h2>Final Exam Practice Test (20 Questions)</h2>
+    <p style="margin-bottom: 20px;">Complete all questions and click <strong>"Check My Answers"</strong> at the bottom to view your score and detailed corrections.</p>
+
+    <div id="scoreBox">
+      <h3 id="scoreText">Your Score: - / 20</h3>
+      <p id="scoreDetails"></p>
+    </div>
+
+    <form id="quizForm">
+      <div class="quiz-question" id="qq1">
+        <div class="question-title">1. Before the main performance began, all stage props __________ (set up) by the crew.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q1" value="A"> A) were set up</label>
+          <label class="option-label"><input type="radio" name="q1" value="B"> B) had been set up</label>
+          <label class="option-label"><input type="radio" name="q1" value="C"> C) set up</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Had been set up - action happened before another past event).</div>
+      </div>
+
+      <div class="quiz-question" id="qq2">
+        <div class="question-title">2. Yesterday afternoon, the stolen bicycle __________ (find) near the park.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2" value="A"> A) was found</label>
+          <label class="option-label"><input type="radio" name="q2" value="B"> B) had been found</label>
+          <label class="option-label"><input type="radio" name="q2" value="C"> C) is found</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Was found - simple completed past action).</div>
+      </div>
+
+      <div class="quiz-question" id="qq3">
+        <div class="question-title">3. After the official contract ________ (sign), both managers shook hands.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q3" value="A"> A) was signed</label>
+          <label class="option-label"><input type="radio" name="q3" value="B"> B) had been signed</label>
+          <label class="option-label"><input type="radio" name="q3" value="C"> C) has been signed</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Had been signed - action happened prior to shaking hands).</div>
+      </div>
+
+      <div class="quiz-question" id="qq4">
+        <div class="question-title">4. By the end of the competition, top honors __________ (award) to the young inventors.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q4" value="A"> A) were awarded</label>
+          <label class="option-label"><input type="radio" name="q4" value="B"> B) had been awarded</label>
+          <label class="option-label"><input type="radio" name="q4" value="C"> C) are awarded</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Had been awarded - 'by the end of' triggers past perfect passive).</div>
+      </div>
+
+      <div class="quiz-question" id="qq5">
+        <div class="question-title">5. When the bright flash appeared, he __________ so his eyes wouldn't hurt.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q5" value="A"> A) looked away</label>
+          <label class="option-label"><input type="radio" name="q5" value="B"> B) wore out</label>
+          <label class="option-label"><input type="radio" name="q5" value="C"> C) turned out</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Looked away - turned gaze away).</div>
+      </div>
+
+      <div class="quiz-question" id="qq6">
+        <div class="question-title">6. The security officer opened the gate and __________ the puppy __________.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q6" value="A"> A) looked / away</label>
+          <label class="option-label"><input type="radio" name="q6" value="B"> B) let / out</label>
+          <label class="option-label"><input type="radio" name="q6" value="C"> C) wore / out</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Let / out - allowed to go outside).</div>
+      </div>
+
+      <div class="quiz-question" id="qq7">
+        <div class="question-title">7. After three years of constant use, my leather shoes completely __________.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7" value="A"> A) wore out</label>
+          <label class="option-label"><input type="radio" name="q7" value="B"> B) turned out</label>
+          <label class="option-label"><input type="radio" name="q7" value="C"> C) gone away</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Wore out - deteriorated/damaged through use).</div>
+      </div>
+
+      <div class="quiz-question" id="qq8">
+        <div class="question-title">8. Everyone expected difficulty, but the project __________ to be very easy.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q8" value="A"> A) looked away</label>
+          <label class="option-label"><input type="radio" name="q8" value="B"> B) turned out</label>
+          <label class="option-label"><input type="radio" name="q8" value="C"> C) wore out</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Turned out - resulted/ended up).</div>
+      </div>
+
+      <div class="quiz-question" id="qq9">
+        <div class="question-title">9. Mr. Davies is not in his office this week; he has __________ on business.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q9" value="A"> A) gone away</label>
+          <label class="option-label"><input type="radio" name="q9" value="B"> B) let out</label>
+          <label class="option-label"><input type="radio" name="q9" value="C"> C) turned out</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Gone away - departed/left).</div>
+      </div>
+
+      <div class="quiz-question" id="qq10">
+        <div class="question-title">10. My younger sister has a great fondness __________ outdoor adventures.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q10" value="A"> A) of</label>
+          <label class="option-label"><input type="radio" name="q10" value="B"> B) for</label>
+          <label class="option-label"><input type="radio" name="q10" value="C"> C) at</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Fondness FOR).</div>
+      </div>
+
+      <div class="quiz-question" id="qq11">
+        <div class="question-title">11. The biography tells the inspiring story __________ a famous scientist.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q11" value="A"> A) of</label>
+          <label class="option-label"><input type="radio" name="q11" value="B"> B) to</label>
+          <label class="option-label"><input type="radio" name="q11" value="C"> C) for</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Story OF).</div>
+      </div>
+
+      <div class="quiz-question" id="qq12">
+        <div class="question-title">12. The newly launched youth magazine is specifically aimed __________ teenagers.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q12" value="A"> A) to</label>
+          <label class="option-label"><input type="radio" name="q12" value="B"> B) at</label>
+          <label class="option-label"><input type="radio" name="q12" value="C"> C) for</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Aimed AT).</div>
+      </div>
+
+      <div class="quiz-question" id="qq13">
+        <div class="question-title">13. The illustration style looked remarkably familiar __________ the art students.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q13" value="A"> A) to</label>
+          <label class="option-label"><input type="radio" name="q13" value="B"> B) with</label>
+          <label class="option-label"><input type="radio" name="q13" value="C"> C) about</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Familiar TO).</div>
+      </div>
+
+      <div class="quiz-question" id="qq14">
+        <div class="question-title">14. The headmaster raised serious doubts __________ the feasibility of the plan.</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q14" value="A"> A) of</label>
+          <label class="option-label"><input type="radio" name="q14" value="B"> B) about</label>
+          <label class="option-label"><input type="radio" name="q14" value="C"> C) at</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Doubts ABOUT).</div>
+      </div>
+
+      <div class="quiz-question" id="qq15">
+        <div class="question-title">15. Transform to an exclamation with WHAT: "This is a wonderful piece of music."</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q15" value="A"> A) What a wonderful piece of music this is!</label>
+          <label class="option-label"><input type="radio" name="q15" value="B"> B) How wonderful piece of music this is!</label>
+          <label class="option-label"><input type="radio" name="q15" value="C"> C) What wonderful piece of music is this!</label>
+        </div>
+        <div class="feedback-text">Correct answer: A ("What a wonderful piece of music this is!").</div>
+      </div>
+
+      <div class="quiz-question" id="qq16">
+        <div class="question-title">16. Transform to an exclamation with HOW: "The sky is so clear tonight."</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q16" value="A"> A) What clear the sky is tonight!</label>
+          <label class="option-label"><input type="radio" name="q16" value="B"> B) How clear the sky is tonight!</label>
+          <label class="option-label"><input type="radio" name="q16" value="C"> C) How a clear sky it is tonight!</label>
+        </div>
+        <div class="feedback-text">Correct answer: B ("How clear the sky is tonight!").</div>
+      </div>
+
+      <div class="quiz-question" id="qq17">
+        <div class="question-title">17. Transform to an exclamation with WHAT: "These are creative suggestions."</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q17" value="A"> A) What creative suggestions these are!</label>
+          <label class="option-label"><input type="radio" name="q17" value="B"> B) What a creative suggestions these are!</label>
+          <label class="option-label"><input type="radio" name="q17" value="C"> C) How creative suggestions these are!</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Plural noun requires "What" without 'a/an').</div>
+      </div>
+
+      <div class="quiz-question" id="qq18">
+        <div class="question-title">18. Transform to an exclamation with HOW: "That athlete runs so fast."</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q18" value="A"> A) How fast that athlete runs!</label>
+          <label class="option-label"><input type="radio" name="q18" value="B"> B) What fast that athlete runs!</label>
+          <label class="option-label"><input type="radio" name="q18" value="C"> C) How fast runs that athlete!</label>
+        </div>
+        <div class="feedback-text">Correct answer: A ("How fast that athlete runs!").</div>
+      </div>
+
+      <div class="quiz-question" id="qq19">
+        <div class="question-title">19. Which sentence places the comma CORRECTLY after an introductory clause?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q19" value="A"> A) When opening the ancient book I found an old map.</label>
+          <label class="option-label"><input type="radio" name="q19" value="B"> B) When opening the ancient book, I found an old map.</label>
+          <label class="option-label"><input type="radio" name="q19" value="C"> C) When opening, the ancient book I found an old map.</label>
+        </div>
+        <div class="feedback-text">Correct answer: B (Comma separates introductory dependent phrase from main clause).</div>
+      </div>
+
+      <div class="quiz-question" id="qq20">
+        <div class="question-title">20. Which sentence has CORRECT punctuation placement?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q20" value="A"> A) After searching for an hour, the boy discovered his lost toy.</label>
+          <label class="option-label"><input type="radio" name="q20" value="B"> B) After searching, for an hour the boy discovered his lost toy.</label>
+          <label class="option-label"><input type="radio" name="q20" value="C"> C) After searching for an hour the boy discovered, his lost toy.</label>
+        </div>
+        <div class="feedback-text">Correct answer: A (Comma placed right after introductory prepositional phrase).</div>
+      </div>
+
+      <button type="button" class="action-btn" onclick="checkAnswers()">Check My Answers</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Tab switching logic
+  function openTab(evt, tabId) {
+    const contents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < contents.length; i++) {
+      contents[i].classList.remove("active");
+    }
+
+    const buttons = document.getElementsByClassName("tab-btn");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].classList.remove("active");
+    }
+
+    document.getElementById(tabId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+  }
+
+  // Answer Key mapping
+  const answers = {
+    q1: "B", q2: "A", q3: "B", q4: "B", q5: "A",
+    q6: "B", q7: "A", q8: "B", q9: "A", q10: "B",
+    q11: "A", q12: "B", q13: "A", q14: "B", q15: "A",
+    q16: "B", q17: "A", q18: "A", q19: "B", q20: "A"
+  };
+
+  // Check Quiz Answers logic
+  function checkAnswers() {
+    let score = 0;
+    const total = 20;
+
+    for (let i = 1; i <= total; i++) {
+      const qName = "q" + i;
+      const selected = document.querySelector(`input[name="${qName}"]:checked`);
+      const card = document.getElementById("qq" + i);
+
+      // Reset state
+      card.classList.remove("correct", "incorrect");
+
+      if (selected && selected.value === answers[qName]) {
+        score++;
+        card.classList.add("correct");
+      } else {
+        card.classList.add("incorrect");
+      }
+    }
+
+    // Display score summary
+    const scoreBox = document.getElementById("scoreBox");
+    const scoreText = document.getElementById("scoreText");
+    const scoreDetails = document.getElementById("scoreDetails");
+
+    scoreBox.style.display = "block";
+    scoreText.innerText = `Your Score: ${score} / ${total}`;
+
+    const percentage = (score / total) * 100;
+    if (percentage === 100) {
+      scoreDetails.innerText = "Excellent work! You got a perfect score!";
+    } else if (percentage >= 75) {
+      scoreDetails.innerText = "Great job! Review the red items below to fix your minor mistakes.";
+    } else {
+      scoreDetails.innerText = "Keep practicing! Re-read the concept tabs and try again.";
+    }
+
+    // Scroll smoothly to score box
+    scoreBox.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
