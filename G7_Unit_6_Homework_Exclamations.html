@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 7 English: Exclamations ("What" and "How")</title>
+  <style>
+    :root {
+      --bg-color: #eaf0ec;
+      --card-bg: #ffffff;
+      --primary-color: #2e5a44;
+      --primary-hover: #1f3d2e;
+      --accent-color: #5b8e7d;
+      --text-dark: #2c3531;
+      --text-muted: #596560;
+      --correct-bg: #e8f5e9;
+      --correct-border: #388e3c;
+      --correct-text: #1b5e20;
+      --incorrect-bg: #ffebee;
+      --incorrect-border: #d32f2f;
+      --incorrect-text: #b71c1c;
+      --border-color: #cfd8d3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      max-width: 760px;
+      width: 100%;
+      padding: 35px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(46, 90, 68, 0.08);
+    }
+
+    header {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    header h1 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .student-info {
+      background: linear-gradient(135deg, #eaf4ee 0%, #d5e6dc 100%);
+      border: 2px solid var(--accent-color);
+      padding: 20px 24px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 12px rgba(46, 90, 68, 0.06);
+    }
+
+    .name-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .name-wrapper label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-container svg {
+      position: absolute;
+      left: 14px;
+      width: 18px;
+      height: 18px;
+      fill: var(--accent-color);
+      pointer-events: none;
+    }
+
+    .student-info input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 2px solid #ffffff;
+      background-color: #ffffff;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .student-info input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(91, 142, 125, 0.25);
+      outline: none;
+    }
+
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .badge {
+      background-color: #d8e6df;
+      color: var(--primary-color);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .exercise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .exercise-card {
+      background-color: #f8faf9;
+      border: 1px solid var(--border-color);
+      padding: 16px 18px;
+      border-radius: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .exercise-card p {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .exercise-card.correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+    }
+
+    .exercise-card.incorrect {
+      background-color: var(--incorrect-bg);
+      border-color: var(--incorrect-border);
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding: 6px 32px 6px 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      color: var(--text-dark);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%235b8e7d' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 10px) center;
+      transition: all 0.22s ease;
+    }
+
+    select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(91, 142, 125, 0.2);
+    }
+
+    .feedback {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .feedback.correct-text {
+      color: var(--correct-text);
+      display: block;
+    }
+
+    .feedback.incorrect-text {
+      color: var(--incorrect-text);
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-main {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      padding: 14px 36px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .btn-main:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-main:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background-color: var(--accent-color);
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary-color);
+    }
+
+    .receipt-container {
+      display: none;
+      width: 100%;
+      margin-top: 10px;
+      background: #fafcfb;
+      border: 2px dashed var(--accent-color);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    .receipt-header {
+      text-align: center;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+    }
+
+    .receipt-header h2 {
+      color: var(--primary-color);
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .receipt-header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .receipt-row.total {
+      border-top: 1px solid var(--border-color);
+      padding-top: 10px;
+      margin-top: 15px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .download-alert {
+      margin-top: 15px;
+      background-color: #e3ebe6;
+      border: 1px solid var(--accent-color);
+      color: var(--primary-color);
+      text-align: center;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Grade 7 English Homework</h1>
+      <p>Exclamative Sentences: "What" vs. "How"</p>
+      <div class="badge-container">
+        <span class="badge">What (+ a/an) + Noun Phrase!</span>
+        <span class="badge">How + Adjective / Adverb!</span>
+      </div>
+    </header>
+
+    <div class="student-info">
+      <div class="name-wrapper">
+        <label for="studentName">Student Information</label>
+        <div class="input-container">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <input type="text" id="studentName" placeholder="Type your full name here..." autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise-list">
+
+      <div class="exercise-card" id="card-1">
+        <p>1. 
+          <select id="q1">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          breathtaking view from the mountain peak!
+        </p>
+        <div class="feedback" id="fb-1"></div>
+      </div>
+
+      <div class="exercise-card" id="card-2">
+        <p>2. 
+          <select id="q2">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          quickly time passed during our English lesson!
+        </p>
+        <div class="feedback" id="fb-2"></div>
+      </div>
+
+      <div class="exercise-card" id="card-3">
+        <p>3. 
+          <select id="q3">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          remarkable achievement for such a young scholar!
+        </p>
+        <div class="feedback" id="fb-3"></div>
+      </div>
+
+      <div class="exercise-card" id="card-4">
+        <p>4. 
+          <select id="q4">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          extraordinary story you shared yesterday!
+        </p>
+        <div class="feedback" id="fb-4"></div>
+      </div>
+
+      <div class="exercise-card" id="card-5">
+        <p>5. 
+          <select id="q5">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          delicious food they served at the school banquet!
+        </p>
+        <div class="feedback" id="fb-5"></div>
+      </div>
+
+      <div class="exercise-card" id="card-6">
+        <p>6. 
+          <select id="q6">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          cleverly the detective solved the mystery!
+        </p>
+        <div class="feedback" id="fb-6"></div>
+      </div>
+
+      <div class="exercise-card" id="card-7">
+        <p>7. 
+          <select id="q7">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          talented writers your classmates are!
+        </p>
+        <div class="feedback" id="fb-7"></div>
+      </div>
+
+      <div class="exercise-card" id="card-8">
+        <p>8. 
+          <select id="q8">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          graceful the dancers looked on stage!
+        </p>
+        <div class="feedback" id="fb-8"></div>
+      </div>
+
+      <div class="exercise-card" id="card-9">
+        <p>9. 
+          <select id="q9">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          unexpected turn of events occurred at the end!
+        </p>
+        <div class="feedback" id="fb-9"></div>
+      </div>
+
+      <div class="exercise-card" id="card-10">
+        <p>10. 
+          <select id="q10">
+            <option value="" disabled selected>-- Select --</option>
+            <option value="What a">What a</option>
+            <option value="What an">What an</option>
+            <option value="What">What</option>
+            <option value="How">How</option>
+          </select> 
+          difficult test questions those were!
+        </p>
+        <div class="feedback" id="fb-10"></div>
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button class="btn-main" onclick="checkAnswers()">Check Answers</button>
+
+      <div class="receipt-container" id="receipt">
+        <div class="receipt-header">
+          <h2>Official Homework Receipt</h2>
+          <p>Assignment Submission Verification</p>
+        </div>
+        <div class="receipt-row">
+          <span><strong>Student:</strong></span>
+          <span id="rName">--</span>
+        </div>
+        <div class="receipt-row">
+          <span><strong>Assignment:</strong></span>
+          <span>Exclamations: What & How</span>
+        </div>
+        <div class="receipt-row">
+          <span><strong>Completed On:</strong></span>
+          <span id="rDate">--</span>
+        </div>
+        <div class="receipt-row">
+          <span><strong>Verification Code:</strong></span>
+          <span id="rCode">--</span>
+        </div>
+        <div class="receipt-row total">
+          <span>Final Score:</span>
+          <span id="rScore">0 / 10 (0%)</span>
+        </div>
+
+        <div class="download-alert">
+          📋 <strong>Homework Receipt Ready!</strong><br>
+          Click the button below to download your receipt image, then attach the <code>.png</code> file to your Google Classroom assignment.
+          <br>
+          <button class="btn-secondary" onclick="downloadReceiptImage()">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+            Download Receipt Image
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const answerKey = {
+      q1: "What a",
+      q2: "How",
+      q3: "What a",
+      q4: "What an",
+      q5: "What",
+      q6: "How",
+      q7: "What",
+      q8: "How",
+      q9: "What an",
+      q10: "What"
+    };
+
+    let latestReceiptData = null;
+
+    function checkAnswers() {
+      const nameInput = document.getElementById("studentName").value.trim();
+      
+      if (!nameInput) {
+        alert("Please type your full name before checking your answers!");
+        document.getElementById("studentName").focus();
+        return;
+      }
+
+      let score = 0;
+      const totalQuestions = Object.keys(answerKey).length;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const selectElem = document.getElementById(`q${i}`);
+        const cardElem = document.getElementById(`card-${i}`);
+        const feedbackElem = document.getElementById(`fb-${i}`);
+
+        const userChoice = selectElem.value;
+        const correctAnswer = answerKey[`q${i}`];
+
+        cardElem.classList.remove("correct", "incorrect");
+        feedbackElem.classList.remove("correct-text", "incorrect-text");
+
+        if (userChoice === correctAnswer) {
+          score++;
+          cardElem.classList.add("correct");
+          feedbackElem.textContent = "✓ Correct!";
+          feedbackElem.classList.add("correct-text");
+        } else {
+          cardElem.classList.add("incorrect");
+          feedbackElem.textContent = `✗ Incorrect. Correct answer: "${correctAnswer}"`;
+          feedbackElem.classList.add("incorrect-text");
+        }
+      }
+
+      const percentage = Math.round((score / totalQuestions) * 100);
+      const now = new Date();
+      const timestamp = now.toLocaleDateString() + " at " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const randomVerificationCode = "EXCL-" + Math.floor(100000 + Math.random() * 900000);
+
+      latestReceiptData = {
+        name: nameInput,
+        date: timestamp,
+        code: randomVerificationCode,
+        score: `${score} / ${totalQuestions}`,
+        percentage: `${percentage}%`
+      };
+
+      document.getElementById("rName").textContent = nameInput;
+      document.getElementById("rDate").textContent = timestamp;
+      document.getElementById("rCode").textContent = randomVerificationCode;
+      document.getElementById("rScore").textContent = `${score} / ${totalQuestions} (${percentage}%)`;
+
+      const receiptElem = document.getElementById("receipt");
+      receiptElem.style.display = "block";
+      receiptElem.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadReceiptImage() {
+      if (!latestReceiptData) return;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 650;
+      canvas.height = 420;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#fafcfb";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = "#5b8e7d";
+      ctx.lineWidth = 6;
+      ctx.strokeRect(3, 3, canvas.width - 6, canvas.height - 6);
+
+      ctx.fillStyle = "#2e5a44";
+      ctx.fillRect(15, 15, canvas.width - 30, 75);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 20px 'Segoe UI', Arial, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("GRADE 7 ENGLISH HOMEWORK", canvas.width / 2, 48);
+
+      ctx.font = "13px 'Segoe UI', Arial, sans-serif";
+      ctx.fillStyle = "#d8e6df";
+      ctx.fillText("EXCLAMATIONS RECEIPT: WHAT & HOW", canvas.width / 2, 70);
+
+      ctx.textAlign = "left";
+      ctx.font = "bold 15px 'Segoe UI', Arial, sans-serif";
+      ctx.fillStyle = "#2c3531";
+
+      const startY = 125;
+      const lineGap = 35;
+
+      const items = [
+        { label: "Student Name:", val: latestReceiptData.name },
+        { label: "Assignment:", val: "Exclamations with 'What' & 'How'" },
+        { label: "Date Submitted:", val: latestReceiptData.date },
+        { label: "Verification Code:", val: latestReceiptData.code },
+      ];
+
+      items.forEach((item, idx) => {
+        const y = startY + (idx * lineGap);
+        ctx.fillStyle = "#596560";
+        ctx.font = "normal 14px 'Segoe UI', Arial, sans-serif";
+        ctx.fillText(item.label, 40, y);
+
+        ctx.fillStyle = "#2c3531";
+        ctx.font = "bold 15px 'Segoe UI', Arial, sans-serif";
+        ctx.fillText(item.val, 200, y);
+
+        ctx.strokeStyle = "#e2e8e4";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(40, y + 10);
+        ctx.lineTo(canvas.width - 40, y + 10);
+        ctx.stroke();
+      });
+
+      const scoreY = startY + (items.length * lineGap) + 10;
+      ctx.fillStyle = "#e8f5e9";
+      ctx.fillRect(35, scoreY, canvas.width - 70, 50);
+
+      ctx.strokeStyle = "#388e3c";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(35, scoreY, canvas.width - 70, 50);
+
+      ctx.fillStyle = "#1b5e20";
+      ctx.font = "bold 16px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("FINAL SCORE:", 50, scoreY + 31);
+
+      ctx.textAlign = "right";
+      ctx.font = "bold 20px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText(`${latestReceiptData.score} (${latestReceiptData.percentage})`, canvas.width - 50, scoreY + 32);
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#9ab0a5";
+      ctx.font = "italic 11px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Generated for Google Classroom Submission • Valid Digital Copy", canvas.width / 2, canvas.height - 18);
+
+      const safeName = latestReceiptData.name.replace(/[^a-zA-Z0-9]/g, "_");
+      const downloadLink = document.createElement("a");
+      downloadLink.download = `${safeName}_Exclamations_Homework_Receipt.png`;
+      downloadLink.href = canvas.toDataURL("image/png");
+      downloadLink.click();
+    }
+  </script>
+
+</body>
+</html>
