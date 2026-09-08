@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 8 Final Exam Reviewer</title>
+    <style>
+        :root {
+            --bg-color: #f0f4f3;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #4a5568;
+            --primary: #4a7c59;
+            --primary-light: #e8f0ec;
+            --accent: #3b6978;
+            --border: #cbd5e0;
+            --correct: #2f855a;
+            --incorrect: #c53030;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 5px 0;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background-color: var(--primary-light);
+            color: var(--text-main);
+            border: none;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: #d6e4dc;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .concept-card {
+            background-color: #fafbfc;
+            border-left: 4px solid var(--primary);
+            padding: 18px 22px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .concept-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .example-box {
+            background-color: #f7faf9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-top: 10px;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* Practice Test Styling */
+        .test-item {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .test-item p {
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        label {
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        label:hover {
+            background-color: #edf2f7;
+        }
+
+        select, input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            display: block;
+            margin: 25px auto 0 auto;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #3b6346;
+        }
+
+        .feedback {
+            margin-top: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .feedback.correct {
+            color: var(--correct);
+        }
+
+        .feedback.incorrect {
+            color: var(--incorrect);
+        }
+
+        .word-bank {
+            background-color: var(--primary-light);
+            border: 1px dashed var(--primary);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        #score-display {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Grade 8 Final Exam Reviewer</h1>
+        <p class="subtitle">Bangkok Bilingual School | Secondary Writing & Grammar</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'topic1')">I. Verb Forms</button>
+        <button class="tab-btn" onclick="openTab(event, 'topic2')">II. Past Tenses</button>
+        <button class="tab-btn" onclick="openTab(event, 'topic3')">III. Pronouns</button>
+        <button class="tab-btn" onclick="openTab(event, 'topic4')">IV. Connectives</button>
+        <button class="tab-btn" onclick="openTab(event, 'topic5')">V. Apostrophes</button>
+        <button class="tab-btn" onclick="openTab(event, 'practice')">Practice Test (20 Items)</button>
+    </div>
+
+    <!-- TAB 1: VERB FORMS -->
+    <div id="topic1" class="tab-content active">
+        <h2>Task I: Verb Forms (Present Simple vs. Present Perfect)</h2>
+        
+        <div class="concept-card">
+            <h3>1. Present Simple vs. Present Perfect Active</h3>
+            <p><strong>Present Simple:</strong> Expresses routines, general facts, permanent truths, or scheduled future events.</p>
+            <p><strong>Present Perfect:</strong> Connects past actions to the present moment. Used when an action happened at an unspecified time in the past, or started in the past and continues to the present (often with <em>for</em> or <em>since</em>).</p>
+            
+            <div class="example-box">
+                <p><span class="example-title">Example 1:</span> <em>The lead violinist <strong>practices</strong> every single afternoon.</em> (Routine / General truth &rarr; Present Simple)</p>
+                <p><span class="example-title">Example 2:</span> <em>The lead violinist <strong>has practiced</strong> for three hours today.</em> (Action started in the past and connects to now &rarr; Present Perfect)</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>2. Active vs. Passive Voice in Present Tenses</h3>
+            <p><strong>Present Simple Passive (is/are + Past Participle):</strong> Describes ongoing general states or routines done to the subject.</p>
+            <p><strong>Present Perfect Passive (has been / have been + Past Participle):</strong> Describes an action completed upon the subject with present relevance.</p>
+            
+            <div class="example-box">
+                <p><span class="example-title">Example 1:</span> <em>The gallery <strong>is filled</strong> with sunlight every morning.</em> (Regular state/fact &rarr; Present Simple Passive)</p>
+                <p><span class="example-title">Example 2:</span> <em>The gallery <strong>has been filled</strong> with new paintings for the upcoming exhibit.</em> (Recent action completed prior to now &rarr; Present Perfect Passive)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: PAST TENSE VERBS -->
+    <div id="topic2" class="tab-content">
+        <h2>Task II: Past Tense Sequence & Chronology</h2>
+        
+        <div class="concept-card">
+            <h3>Understanding Chronological Past Tenses</h3>
+            <p>When analyzing complex sentences with multiple past tenses, determine the order of events using these rules:</p>
+            <ul>
+                <li><strong>Past Perfect (had + V3):</strong> Represents the <em>earliest event</em> (Action 1) that occurred before another past event.</li>
+                <li><strong>Past Continuous (was/were + V-ing):</strong> Represents an ongoing background action (Action in progress).</li>
+                <li><strong>Past Simple (V2):</strong> Represents completed actions that happened sequentially or interrupted an action in progress.</li>
+            </ul>
+
+            <div class="example-box">
+                <p><span class="example-title">Example 1:</span> "By the time the guard arrived, the thief <strong>had already escaped</strong> through the window."</p>
+                <ul>
+                    <li>[ 1 - Earliest ] The thief escaped. (Past Perfect)</li>
+                    <li>[ 2 - Later ] The guard arrived. (Past Simple)</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <p><span class="example-title">Example 2:</span> "Liam <strong>was studying</strong> when the storm broke, but he <strong>had already completed</strong> his project hours earlier."</p>
+                <ul>
+                    <li>[ 1 - Earliest ] Liam completed his project. (Past Perfect)</li>
+                    <li>[ 2 - Background ] Liam was studying. (Past Continuous)</li>
+                    <li>[ 3 - Interruption ] The storm broke. (Past Simple)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: PRONOUNS -->
+    <div id="topic3" class="tab-content">
+        <h2>Task III: Relative, Demonstrative, and Indefinite Pronouns</h2>
+        
+        <div class="concept-card">
+            <h3>Key Pronoun Categories</h3>
+            <table style="width:100%; border-collapse: collapse; text-align: left;">
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <th style="padding: 8px;">Type</th>
+                    <th style="padding: 8px;">Words</th>
+                    <th style="padding: 8px;">Function</th>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 8px;"><strong>Indefinite</strong></td>
+                    <td style="padding: 8px;">everyone, anyone, nobody, someone</td>
+                    <td style="padding: 8px;">Refers to non-specific people or items.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 8px;"><strong>Relative</strong></td>
+                    <td style="padding: 8px;">whose, where, that, which</td>
+                    <td style="padding: 8px;">Connects clauses; <em>whose</em> = possession, <em>where</em> = place.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;"><strong>Demonstrative / Personal</strong></td>
+                    <td style="padding: 8px;">this, that, these, it</td>
+                    <td style="padding: 8px;">Points to specific singular/plural items or concepts.</td>
+                </tr>
+            </table>
+
+            <div class="example-box" style="margin-top:15px;">
+                <p><span class="example-title">Example 1:</span> <em>The writer <strong>whose</strong> manuscript won the award celebrated at home.</em> ('Whose' shows possessive relative relationship).</p>
+                <p><span class="example-title">Example 2:</span> <em>When <strong>everyone</strong> went home, Maya locked the room <strong>where</strong> the documents were kept.</em> ('Everyone' = indefinite; 'Where' = place).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: CONNECTIVES -->
+    <div id="topic4" class="tab-content">
+        <h2>Task IV: Time & Sequence Connectives</h2>
+        
+        <div class="concept-card">
+            <h3>Categories of Time Connectives</h3>
+            <p>Connectives establish smooth narrative transitions and show logical or chronological relationships between ideas.</p>
+            <ul>
+                <li><strong>Time Frame / Horizon:</strong> <em>By</em> (up to a point in time) vs. <em>At</em> (exact moment).</li>
+                <li><strong>Sequential Process:</strong> <em>First / Firstly</em> (initial stage) followed by <em>subsequently / consequently</em> (afterwards / as a result).</li>
+                <li><strong>Simultaneous Actions:</strong> <em>Meanwhile</em> (at the same time), <em>Whenever</em> (every time that).</li>
+                <li><strong>Duration / Resolution:</strong> <em>After / Following</em> (preposition/conjunction), <em>Eventually</em> (in the end).</li>
+            </ul>
+
+            <div class="example-box">
+                <p><span class="example-title">Example 1:</span> <em><strong>By</strong> the nineteenth century, steam power had transformed industry.</em> (Up to that historical period).</p>
+                <p><span class="example-title">Example 2:</span> <em><strong>Firstly</strong>, the apples are harvested; <strong>subsequently</strong>, they are crushed into juice.</em> (Step-by-step process).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: APOSTROPHES -->
+    <div id="topic5" class="tab-content">
+        <h2>Task V: Apostrophes (Possession vs. Contractions)</h2>
+        
+        <div class="concept-card">
+            <h3>1. Possessive Apostrophes</h3>
+            <ul>
+                <li><strong>Singular Nouns:</strong> Add <strong>'s</strong> (e.g., <em>the student's book</em> = 1 student).</li>
+                <li><strong>Plural Nouns ending in -s:</strong> Add only the apostrophe <strong>'</strong> after the s (e.g., <em>the students' books</em> = multiple students).</li>
+                <li><strong>Proper Names ending in -s:</strong> Add <strong>'s</strong> or just <strong>'</strong> (e.g., <em>Mrs. Smith's desk</em>).</li>
+            </ul>
+
+            <h3>2. Contractions vs. Possessive Pronouns</h3>
+            <ul>
+                <li><strong>It's:</strong> Short for <em>It is</em> or <em>It has</em> (Contraction).</li>
+                <li><strong>Its:</strong> Belonging to it (Possessive Pronoun - <strong>NO apostrophe!</strong>).</li>
+            </ul>
+
+            <div class="example-box">
+                <p><span class="example-title">Example 1:</span> <em><strong>It's</strong> obvious that the dog injured <strong>its</strong> paw.</em> (It's = It is | its = possessive).</p>
+                <p><span class="example-title">Example 2:</span> <em>The <strong>teachers'</strong> lounge contains Mr. <strong>Brown's</strong> supplies.</em> (Teachers' = multiple teachers | Brown's = singular proper name).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 6: PRACTICE TEST -->
+    <div id="topic6" class="tab-content">
+        <h2>20-Item Final Practice Test</h2>
+        <p><em>Note: All names and contexts below are unique practice examples created specifically for review.</em></p>
+
+        <form id="quiz-form">
+            <!-- TASK I -->
+            <h3>TASK I: Verb Forms (Items 1–4)</h3>
+            
+            <div class="test-item">
+                <p>1. The young pianist ________ the past three months practicing for the national competition.</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="incorrect"> spends</label>
+                    <label><input type="radio" name="q1" value="correct"> has spent</label>
+                </div>
+                <div class="feedback" id="f1"></div>
+            </div>
+
+            <div class="test-item">
+                <p>2. Her debut poetry collection ________ with vivid imagery and emotional depth.</p>
+                <div class="options">
+                    <label><input type="radio" name="q1_2" value="correct"> is filled</label>
+                    <label><input type="radio" name="q1_2" value="incorrect"> has been filled</label>
+                </div>
+                <div class="feedback" id="f1_2"></div>
+            </div>
+
+            <div class="test-item">
+                <p>3. The director ________ to premiere his documentary at the film festival next month.</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="incorrect"> decides</label>
+                    <label><input type="radio" name="q3" value="correct"> has decided</label>
+                </div>
+                <div class="feedback" id="f3"></div>
+            </div>
+
+            <div class="test-item">
+                <p>4. The new gallery exhibition certainly ________ visitors who appreciate modern art.</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="correct"> doesn't disappoint</label>
+                    <label><input type="radio" name="q4" value="incorrect"> hasn't disappointed</label>
+                </div>
+                <div class="feedback" id="f4"></div>
+            </div>
+
+            <!-- TASK II -->
+            <h3>TASK II: Past Tense Sequence (Items 5–8)</h3>
+            <p><em>Determine chronological order: Select which action happened EARLIEST (1st Event).</em></p>
+
+            <div class="test-item">
+                <p>5. "By the time the conductor arrived, Sarah had already tuned her cello."<br>Which event happened <strong>FIRST (Earliest)</strong>?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="correct"> Sarah tuned her cello.</label>
+                    <label><input type="radio" name="q5" value="incorrect"> The conductor arrived.</label>
+                </div>
+                <div class="feedback" id="f5"></div>
+            </div>
+
+            <div class="test-item">
+                <p>6. "Julian was sketching in his notebook when the bell rang, but he had already finished his drawing before class ended."<br>Which event happened <strong>FIRST (Earliest)</strong>?</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="correct"> Julian finished his drawing.</label>
+                    <label><input type="radio" name="q6" value="incorrect"> Julian was sketching in his notebook.</label>
+                    <label><input type="radio" name="q6" value="incorrect"> The bell rang.</label>
+                </div>
+                <div class="feedback" id="f6"></div>
+            </div>
+
+            <div class="test-item">
+                <p>7. "When the hikers reached the summit, the fog had already rolled in, so they set up camp."<br>Which event happened <strong>LAST (Latest)</strong>?</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="incorrect"> The fog rolled in.</label>
+                    <label><input type="radio" name="q7" value="incorrect"> The hikers reached the summit.</label>
+                    <label><input type="radio" name="q7" value="correct"> They set up camp.</label>
+                </div>
+                <div class="feedback" id="f7"></div>
+            </div>
+
+            <div class="test-item">
+                <p>8. "The lantern flickered out while Maya was reading because a gust of wind had blown through the gap."<br>Which event happened <strong>FIRST (Earliest)</strong>?</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="correct"> A gust of wind blew through the gap.</label>
+                    <label><input type="radio" name="q8" value="incorrect"> Maya was reading.</label>
+                    <label><input type="radio" name="q8" value="incorrect"> The lantern flickered out.</label>
+                </div>
+                <div class="feedback" id="f8"></div>
+            </div>
+
+            <!-- TASK III -->
+            <h3>TASK III: Pronouns (Items 9–12)</h3>
+            <div class="word-bank">
+                Word Bank: [ everyone | whose | it | these | that | this | anyone | where | nobody ]
+            </div>
+
+            <div class="test-item">
+                <p>9. When ________ had left the auditorium, Arthur retrieved his jacket.</p>
+                <select id="q9">
+                    <option value="">-- Select Pronoun --</option>
+                    <option value="everyone">everyone</option>
+                    <option value="anyone">anyone</option>
+                    <option value="nobody">nobody</option>
+                </select>
+                <div class="feedback" id="f9"></div>
+            </div>
+
+            <div class="test-item">
+                <p>10. He walked toward the wooden chest ________ lid was decorated with carved silver.</p>
+                <select id="q10">
+                    <option value="">-- Select Pronoun --</option>
+                    <option value="whose">whose</option>
+                    <option value="where">where</option>
+                    <option value="that">that</option>
+                </select>
+                <div class="feedback" id="f10"></div>
+            </div>
+
+            <div class="test-item">
+                <p>11. Inside were old photographs; ________ were the most valuable items he owned.</p>
+                <select id="q11">
+                    <option value="">-- Select Pronoun --</option>
+                    <option value="these">these</option>
+                    <option value="this">this</option>
+                    <option value="it">it</option>
+                </select>
+                <div class="feedback" id="f11"></div>
+            </div>
+
+            <div class="test-item">
+                <p>12. He quickly stored the box in a spot ________ no one would ever look.</p>
+                <select id="q12">
+                    <option value="">-- Select Pronoun --</option>
+                    <option value="where">where</option>
+                    <option value="that">that</option>
+                    <option value="whose">whose</option>
+                </select>
+                <div class="feedback" id="f12"></div>
+            </div>
+
+            <!-- TASK IV -->
+            <h3>TASK IV: Connectives (Items 13–16)</h3>
+
+            <div class="test-item">
+                <p>13. Select the correct combination: "<span style="text-decoration: underline;">[After / Following]</span> completing years of research, Dr. Vance <span style="text-decoration: underline;">[eventually / meanwhile]</span> discovered a cure."</p>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="correct"> After / eventually</label>
+                    <label><input type="radio" name="q13" value="incorrect"> Following / meanwhile</label>
+                </div>
+                <div class="feedback" id="f13"></div>
+            </div>
+
+            <div class="test-item">
+                <p>14. ________ the nineteenth century, steam engines were transforming transport.</p>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="correct"> By</label>
+                    <label><input type="radio" name="q14" value="incorrect"> At</label>
+                </div>
+                <div class="feedback" id="f14"></div>
+            </div>
+
+            <div class="test-item">
+                <p>15. ________ the fire alarm sounded, the students evacuated calmly.</p>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="correct"> Whenever</label>
+                    <label><input type="radio" name="q15" value="incorrect"> All the time</label>
+                </div>
+                <div class="feedback" id="f15"></div>
+            </div>
+
+            <div class="test-item">
+                <p>16. Firstly, the tea leaves are plucked; ________, they are fermented and dried.</p>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="correct"> subsequently</label>
+                    <label><input type="radio" name="q16" value="incorrect"> consequently</label>
+                </div>
+                <div class="feedback" id="f16"></div>
+            </div>
+
+            <!-- TASK V -->
+            <h3>TASK V: Apostrophe Errors (Items 17–20)</h3>
+            <p><em>Type the corrected word containing the proper apostrophe.</em></p>
+
+            <div class="test-item">
+                <p>17. Correct the apostrophe error in bold: "The <strong>students</strong> books were left in the library." (Multiple students)</p>
+                <input type="text" id="q17" placeholder="Type correction here...">
+                <div class="feedback" id="f17"></div>
+            </div>
+
+            <div class="test-item">
+                <p>18. Correct the apostrophe error in bold: "<strong>Its</strong> important to submit your paper on time."</p>
+                <input type="text" id="q18" placeholder="Type correction here...">
+                <div class="feedback" id="f18"></div>
+            </div>
+
+            <div class="test-item">
+                <p>19. Correct the apostrophe error in bold: "I found Mrs. <strong>Smiths</strong> coat in the hallway."</p>
+                <input type="text" id="q19" placeholder="Type correction here...">
+                <div class="feedback" id="f19"></div>
+            </div>
+
+            <div class="test-item">
+                <p>20. Correct the apostrophe error in bold: "The dog wagged <strong>it's</strong> tail happily."</p>
+                <input type="text" id="q20" placeholder="Type correction here...">
+                <div class="feedback" id="f20"></div>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="gradeQuiz()">Submit & Check Score</button>
+        </form>
+
+        <div id="score-display"></div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Ensure first tab displays correctly on load
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("topic1").style.display = "block";
+    });
+
+    function gradeQuiz() {
+        let score = 0;
+        const total = 20;
+
+        // Helper function for radio questions
+        function checkRadio(name, feedbackId) {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            const fb = document.getElementById(feedbackId);
+            fb.style.display = "block";
+            if (selected && selected.value === "correct") {
+                score++;
+                fb.className = "feedback correct";
+                fb.innerText = "✓ Correct!";
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = "✗ Incorrect. Review concept rules.";
+            }
+        }
+
+        // Helper function for select questions
+        function checkSelect(id, correctVal, feedbackId) {
+            const val = document.getElementById(id).value;
+            const fb = document.getElementById(feedbackId);
+            fb.style.display = "block";
+            if (val === correctVal) {
+                score++;
+                fb.className = "feedback correct";
+                fb.innerText = "✓ Correct!";
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = `✗ Incorrect. Correct answer: ${correctVal}`;
+            }
+        }
+
+        // Helper function for text questions
+        function checkText(id, acceptableArr, feedbackId) {
+            const val = document.getElementById(id).value.trim().toLowerCase();
+            const fb = document.getElementById(feedbackId);
+            fb.style.display = "block";
+            if (acceptableArr.includes(val)) {
+                score++;
+                fb.className = "feedback correct";
+                fb.innerText = "✓ Correct!";
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = `✗ Incorrect. Expected: ${acceptableArr[0]}`;
+            }
+        }
+
+        // Item Grading
+        checkRadio("q1", "f1");
+        checkRadio("q1_2", "f1_2");
+        checkRadio("q3", "f3");
+        checkRadio("q4", "f4");
+        checkRadio("q5", "f5");
+        checkRadio("q6", "f6");
+        checkRadio("q7", "f7");
+        checkRadio("q8", "f8");
+
+        checkSelect("q9", "everyone", "f9");
+        checkSelect("q10", "whose", "f10");
+        checkSelect("q11", "these", "f11");
+        checkSelect("q12", "where", "f12");
+
+        checkRadio("q13", "f13");
+        checkRadio("q14", "f14");
+        checkRadio("q15", "f15");
+        checkRadio("q16", "f16");
+
+        checkText("q17", ["students'", "students’"], "f17");
+        checkText("q18", ["it's", "it’s"], "f18");
+        checkText("q19", ["smith's", "smith’s"], "f19");
+        checkText("q20", ["its"], "f20");
+
+        // Display Score
+        const scoreDisplay = document.getElementById("score-display");
+        scoreDisplay.style.display = "block";
+        scoreDisplay.innerText = `Your Final Score: ${score} / ${total} (${Math.round((score/total)*100)}%)`;
+    }
+</script>
+
+</body>
+</html>
