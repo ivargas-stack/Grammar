@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 8 English Final Test Reviewer | Bangkok Bilingual School</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #4a6fa5;
+            --primary-dark: #37537e;
+            --secondary-color: #7d9d9c;
+            --accent-vocab: #e8a87c;
+            --accent-vocab-bg: #fff8f3;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e6ed;
+            --success-color: #588b76;
+            --error-color: #c94c4c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Tabs Styling */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            background-color: #e2e8f0;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: #cbd5e1;
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-btn.vocab-tab-btn.active {
+            background-color: var(--accent-vocab);
+        }
+
+        .tab-content {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Content Styling */
+        h2 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .concept-card {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem 1.25rem;
+            margin: 1rem 0 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .example-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            margin: 0.5rem 0 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .example-box strong {
+            color: var(--success-color);
+        }
+
+        .esl-tip {
+            background-color: #fefce8;
+            border-left: 4px solid #eab308;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* Vocabulary Highlight Styling */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .vocab-card {
+            background-color: var(--accent-vocab-bg);
+            border: 1px solid #fcd34d;
+            border-top: 4px solid var(--accent-vocab);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .vocab-word {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #b45309;
+            margin-bottom: 0.2rem;
+        }
+
+        .vocab-pos {
+            font-style: italic;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .vocab-def {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .vocab-ex {
+            font-size: 0.88rem;
+            color: #4b5563;
+            background: #ffffff;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent-vocab);
+        }
+
+        /* Practice Test Styling */
+        .quiz-item {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: white;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .feedback {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        #score-box {
+            display: none;
+            background-color: #e0f2fe;
+            border: 2px solid #0284c7;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        #score-box h3 {
+            margin: 0 0 0.5rem 0;
+            color: #0369a1;
+        }
+
+        /* Responsive Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #edf2f7;
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bangkok Bilingual School — Grade 8 Final Revision Guide</h1>
+        <p>Semester 1/2026 | Unit 6: Between the Lines (Grammar & Vocabulary Specialist)</p>
+    </header>
+
+    <div class="container">
+        <!-- Tabs Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'pronouns')">1. Pronouns Guide</button>
+            <button class="tab-btn vocab-tab-btn" onclick="openTab(event, 'vocabulary')">2. Vocabulary Highlight ⭐</button>
+            <button class="tab-btn" onclick="openTab(event, 'apostrophes')">3. Apostrophes Rules</button>
+            <button class="tab-btn" onclick="openTab(event, 'practice')">4. Interactive Practice Test 📝</button>
+        </div>
+
+        <!-- TAB 1: PRONOUNS -->
+        <div id="pronouns" class="tab-content active">
+            <h2>Understanding Pronouns</h2>
+            <p>A <strong>pronoun</strong> is a word that replaces a noun so we do not have to repeat the same word again and again.</p>
+
+            <div class="concept-card">
+                <h3>Type 1: Relative Pronouns</h3>
+                <p>These pronouns connect a noun to a clause that gives more information about it.</p>
+                <table>
+                    <tr>
+                        <th>Pronoun</th>
+                        <th>Used For</th>
+                        <th>Easy Example</th>
+                    </tr>
+                    <tr>
+                        <td><strong>who</strong></td>
+                        <td>People (Subject)</td>
+                        <td>The boy <strong>who</strong> smiled is my brother.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>whom</strong></td>
+                        <td>People (Object)</td>
+                        <td>The girl <strong>whom</strong> I met yesterday was helpful.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>whose</strong></td>
+                        <td>Possession / Ownership</td>
+                        <td>The teacher <strong>whose</strong> car was parked outside is here.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>which</strong></td>
+                        <td>Things / Animals</td>
+                        <td>The dog <strong>which</strong> barked all night is quiet now.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>where</strong></td>
+                        <td>Places</td>
+                        <td>This is the house <strong>where</strong> I was born.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>that</strong></td>
+                        <td>People, Things, Animals</td>
+                        <td>The book <strong>that</strong> you gave me was full of fun stories.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="concept-card">
+                <h3>Type 2: Demonstrative Pronouns</h3>
+                <p>These pronouns point directly to specific things near or far.</p>
+                <ul>
+                    <li><strong>This</strong> (Near, 1 item): <em>This</em> is my pencil in my hand.</li>
+                    <li><strong>That</strong> (Far, 1 item): <em>That</em> is a tall tree over there.</li>
+                    <li><strong>These</strong> (Near, 2+ items): <em>These</em> are my books on my desk.</li>
+                    <li><strong>Those</strong> (Far, 2+ items): <em>Those</em> are birds in the sky.</li>
+                </ul>
+            </div>
+
+            <div class="concept-card">
+                <h3>Type 3: Indefinite Pronouns</h3>
+                <p>These pronouns refer to people, things, or places in a general way, without saying exactly who or what they are.</p>
+                <ul>
+                    <li><strong>People:</strong> someone, anybody, nobody, everybody</li>
+                    <li><strong>Things:</strong> something, anything, nothing, everything</li>
+                </ul>
+                <div class="example-box">
+                    <strong>Easy Rule:</strong> Words starting with <em>no-</em> (nobody, nothing) mean 0. Words starting with <em>every-</em> mean all!
+                </div>
+            </div>
+
+            <div class="esl-tip">
+                💡 <strong>Teacher's Tip for ESL Learners:</strong> Look at the word right <em>before</em> the blank! If it is a person (e.g., <i>scientist, boy</i>), use <b>who</b> or <b>whose</b>. If it is a place (e.g., <i>village, house</i>), use <b>where</b>!
+            </div>
+        </div>
+
+        <!-- TAB 2: VOCABULARY HIGHLIGHT -->
+        <div id="vocabulary" class="tab-content">
+            <h2>Unit 6 Key Vocabulary Highlight ⭐</h2>
+            <p>Master these 12 target vocabulary words from Unit 6. Read the simple explanations and easy example sentences below.</p>
+
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-word">approach</div>
+                    <div class="vocab-pos">noun / verb</div>
+                    <div class="vocab-def">A way of doing something or moving closer.</div>
+                    <div class="vocab-ex">"We need a new <strong>approach</strong> to solve this math problem easily."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">vivid</div>
+                    <div class="vocab-pos">adjective</div>
+                    <div class="vocab-def">Very clear, bright, and easy to picture in your mind.</div>
+                    <div class="vocab-ex">"She had a <strong>vivid</strong> dream about colorful fish."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">defiant</div>
+                    <div class="vocab-pos">adjective</div>
+                    <div class="vocab-def">Refusing to obey someone or fighting against rules.</div>
+                    <div class="vocab-ex">"The <strong>defiant</strong> student refused to sit down."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">apostrophes</div>
+                    <div class="vocab-pos">noun (plural)</div>
+                    <div class="vocab-def">The punctuation mark (') used for ownership or short words.</div>
+                    <div class="vocab-ex">"Don't forget to put <strong>apostrophes</strong> in words like <i>can't</i>."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">imaginative</div>
+                    <div class="vocab-pos">adjective</div>
+                    <div class="vocab-def">Having or showing creative and exciting new ideas.</div>
+                    <div class="vocab-ex">"The writer created an <strong>imaginative</strong> world with flying cars."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">plantation</div>
+                    <div class="vocab-pos">noun</div>
+                    <div class="vocab-def">A very large farm used for growing crops like sugar, coffee, or tea.</div>
+                    <div class="vocab-ex">"Farmers worked hard on the tea <strong>plantation</strong>."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">demonstrative</div>
+                    <div class="vocab-pos">adjective</div>
+                    <div class="vocab-def">Showing feelings openly, or pointing out specific items.</div>
+                    <div class="vocab-ex">"Words like 'this' and 'that' are <strong>demonstrative</strong> words."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">briefly</div>
+                    <div class="vocab-pos">adverb</div>
+                    <div class="vocab-def">For a very short time; using only a few words.</div>
+                    <div class="vocab-ex">"The principal spoke <strong>briefly</strong> before letting us go home."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">to possess</div>
+                    <div class="vocab-pos">verb</div>
+                    <div class="vocab-def">To have or own something.</div>
+                    <div class="vocab-ex">"The museum hopes <strong>to possess</strong> rare gold coins."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">orchards</div>
+                    <div class="vocab-pos">noun (plural)</div>
+                    <div class="vocab-def">Fields of land where fruit trees are grown.</div>
+                    <div class="vocab-ex">"We picked fresh red apples in the fruit <strong>orchards</strong>."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">emphatic</div>
+                    <div class="vocab-pos">adjective</div>
+                    <div class="vocab-def">Done with strong feeling, emphasis, or clear voice.</div>
+                    <div class="vocab-ex">"He gave an <strong>emphatic</strong> 'NO!' when asked to lie."</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-word">immediacy</div>
+                    <div class="vocab-pos">noun</div>
+                    <div class="vocab-def">A feeling that something is happening right now and is urgent.</div>
+                    <div class="vocab-ex">"Live videos bring a sense of <strong>immediacy</strong> to news events."</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: APOSTROPHES -->
+        <div id="apostrophes" class="tab-content">
+            <h2>Punctuation: Mastering Apostrophes (')</h2>
+            <p>Apostrophes have two main jobs in Grade 8 English:</p>
+
+            <div class="concept-card">
+                <h3>Job 1: Contractions (Missing Letters)</h3>
+                <p>We use an apostrophe when we join two words together and remove one or more letters.</p>
+                <ul>
+                    <li>do + not = <strong>don't</strong> <em>(the apostrophe replaces 'o')</em></li>
+                    <li>she + is = <strong>she's</strong> <em>(the apostrophe replaces 'i')</em></li>
+                    <li>cannot = <strong>can't</strong> <em>(replaces 'no')</em></li>
+                    <li>should + not = <strong>shouldn't</strong></li>
+                </ul>
+            </div>
+
+            <div class="concept-card">
+                <h3>Job 2: Possession (Showing Ownership)</h3>
+                <p>We use an apostrophe to show that something belongs to a person, animal, or group.</p>
+                
+                <h4>Rule A: Singular Owner (1 Person/Thing) &rarr; Add <code>'s</code></h4>
+                <div class="example-box">
+                    • The tail of the dog &rarr; The <strong>dog's</strong> tail.<br>
+                    • The brother of Jack &rarr; <strong>Jack's</strong> brother.
+                </div>
+
+                <h4>Rule B: Regular Plural Owners (2+ People/Things ending in 's') &rarr; Add only <code>'</code></h4>
+                <div class="example-box">
+                    • The room for many teachers &rarr; The <strong>teachers'</strong> lounge.<br>
+                    • The house of my grandparents &rarr; My <strong>grandparents'</strong> house.
+                </div>
+
+                <h4>Rule C: Irregular Plural Owners (2+ People NOT ending in 's') &rarr; Add <code>'s</code></h4>
+                <div class="example-box">
+                    • The toys belonging to children &rarr; The <strong>children's</strong> toys.<br>
+                    • The bags belonging to women &rarr; The <strong>women's</strong> bags.
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: PRACTICE TEST -->
+        <div id="practice" class="tab-content">
+            <h2>Interactive Final Practice Test (20 Items)</h2>
+            <p>Select the correct answer from each dropdown list. Click <strong>"Submit Practice Test"</strong> at the bottom to check your total score!</p>
+
+            <div id="score-box">
+                <h3>Your Test Results</h3>
+                <p id="score-text"></p>
+            </div>
+
+            <form id="quiz-form">
+                <!-- Items 1-5: Pronoun Fill -->
+                <div class="quiz-item">
+                    <div class="quiz-question">1. The police found the driver ______ caused the accident on the highway.</div>
+                    <select id="q1">
+                        <option value="">-- Choose option --</option>
+                        <option value="who">who</option>
+                        <option value="which">which</option>
+                        <option value="where">where</option>
+                    </select>
+                    <div id="fb1" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">2. Is there ______ inside the classroom, or is it totally empty?</div>
+                    <select id="q2">
+                        <option value="">-- Choose option --</option>
+                        <option value="anybody">anybody</option>
+                        <option value="nothing">nothing</option>
+                        <option value="those">those</option>
+                    </select>
+                    <div id="fb2" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">3. We visited the museum ______ many famous ancient statues are displayed.</div>
+                    <select id="q3">
+                        <option value="">-- Choose option --</option>
+                        <option value="where">where</option>
+                        <option value="who">who</option>
+                        <option value="whose">whose</option>
+                    </select>
+                    <div id="fb3" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">4. Look at ______ dark clouds far away in the sky; it might rain soon.</div>
+                    <select id="q4">
+                        <option value="">-- Choose option --</option>
+                        <option value="those">those</option>
+                        <option value="this">this</option>
+                        <option value="something">something</option>
+                    </select>
+                    <div id="fb4" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">5. The smartphone ______ I purchased last week stopped working today.</div>
+                    <select id="q5">
+                        <option value="">-- Choose option --</option>
+                        <option value="which">which</option>
+                        <option value="who">who</option>
+                        <option value="where">where</option>
+                    </select>
+                    <div id="fb5" class="feedback"></div>
+                </div>
+
+                <!-- Items 6-9: Pronoun Types -->
+                <div class="quiz-item">
+                    <div class="quiz-question">6. Identify the type of pronoun in bold: "<strong>This</strong> is the best meal I have eaten in months."</div>
+                    <select id="q6">
+                        <option value="">-- Choose option --</option>
+                        <option value="demonstrative">demonstrative pronoun</option>
+                        <option value="relative">relative pronoun</option>
+                        <option value="indefinite">indefinite pronoun</option>
+                    </select>
+                    <div id="fb6" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">7. Identify the type of pronoun in bold: "Is there <strong>something</strong> tasty to eat in the kitchen?"</div>
+                    <select id="q7">
+                        <option value="">-- Choose option --</option>
+                        <option value="indefinite">indefinite pronoun</option>
+                        <option value="demonstrative">demonstrative pronoun</option>
+                        <option value="relative">relative pronoun</option>
+                    </select>
+                    <div id="fb7" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">8. Identify the type of pronoun in bold: "The student <strong>whose</strong> project won first prize felt proud."</div>
+                    <select id="q8">
+                        <option value="">-- Choose option --</option>
+                        <option value="relative">relative pronoun</option>
+                        <option value="indefinite">indefinite pronoun</option>
+                        <option value="demonstrative">demonstrative pronoun</option>
+                    </select>
+                    <div id="fb8" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">9. Identify the type of pronoun in bold: "<strong>Nobody</strong> knew how to solve the difficult math problem."</div>
+                    <select id="q9">
+                        <option value="">-- Choose option --</option>
+                        <option value="indefinite">indefinite pronoun</option>
+                        <option value="relative">relative pronoun</option>
+                        <option value="demonstrative">demonstrative pronoun</option>
+                    </select>
+                    <div id="fb9" class="feedback"></div>
+                </div>
+
+                <!-- Items 10-15: Vocabulary -->
+                <div class="quiz-item">
+                    <div class="quiz-question">10. The painter created a stunning landscape using ______ and energetic colors.</div>
+                    <select id="q10">
+                        <option value="">-- Choose option --</option>
+                        <option value="vivid">vivid</option>
+                        <option value="defiant">defiant</option>
+                        <option value="briefly">briefly</option>
+                    </select>
+                    <div id="fb10" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">11. They walked through endless fruit ______ that were full of ripe peaches and pears.</div>
+                    <select id="q11">
+                        <option value="">-- Choose option --</option>
+                        <option value="orchards">orchards</option>
+                        <option value="plantation">plantation</option>
+                        <option value="apostrophes">apostrophes</option>
+                    </select>
+                    <div id="fb11" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">12. Before starting the exam, the teacher spoke ______ to explain the rules.</div>
+                    <select id="q12">
+                        <option value="">-- Choose option --</option>
+                        <option value="briefly">briefly</option>
+                        <option value="emphatic">emphatic</option>
+                        <option value="imaginative">imaginative</option>
+                    </select>
+                    <div id="fb12" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">13. The soldier stood ______, refusing to yield to the enemy forces.</div>
+                    <select id="q13">
+                        <option value="">-- Choose option --</option>
+                        <option value="defiant">defiant</option>
+                        <option value="demonstrative">demonstrative</option>
+                        <option value="immediacy">immediacy</option>
+                    </select>
+                    <div id="fb13" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">14. The young student wrote an ______ story about magical creatures in space.</div>
+                    <select id="q14">
+                        <option value="">-- Choose option --</option>
+                        <option value="imaginative">imaginative</option>
+                        <option value="approach">approach</option>
+                        <option value="plantation">plantation</option>
+                    </select>
+                    <div id="fb14" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">15. Hundreds of agricultural laborers worked on the large sugarcane ______.</div>
+                    <select id="q15">
+                        <option value="">-- Choose option --</option>
+                        <option value="plantation">plantation</option>
+                        <option value="orchards">orchards</option>
+                        <option value="apostrophes">apostrophes</option>
+                    </select>
+                    <div id="fb15" class="feedback"></div>
+                </div>
+
+                <!-- Items 16-20: Apostrophes -->
+                <div class="quiz-item">
+                    <div class="quiz-question">16. Select the sentence with the CORRECT contraction apostrophe:</div>
+                    <select id="q16">
+                        <option value="">-- Choose option --</option>
+                        <option value="correct">She doesn't know where her shoes are.</option>
+                        <option value="w1">She does'nt know where her shoes are.</option>
+                        <option value="w2">She doesnt know where her shoes are.</option>
+                    </select>
+                    <div id="fb16" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">17. Which phrase shows correct possessive form for <u>ONE cat</u>?</div>
+                    <select id="q17">
+                        <option value="">-- Choose option --</option>
+                        <option value="correct">The cat's whiskers</option>
+                        <option value="w1">The cats' whiskers</option>
+                        <option value="w2">The cats whiskers</option>
+                    </select>
+                    <div id="fb17" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">18. Which phrase shows correct possessive form for <u>MANY students</u>?</div>
+                    <select id="q18">
+                        <option value="">-- Choose option --</option>
+                        <option value="correct">The students' uniforms</option>
+                        <option value="w1">The student's uniforms</option>
+                        <option value="w2">The students uniforms'</option>
+                    </select>
+                    <div id="fb18" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">19. Which phrase shows correct possessive form for <u>irregular plural (children)</u>?</div>
+                    <select id="q19">
+                        <option value="">-- Choose option --</option>
+                        <option value="correct">The children's playground</option>
+                        <option value="w1">The childrens' playground</option>
+                        <option value="w2">The childrens playground</option>
+                    </select>
+                    <div id="fb19" class="feedback"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-question">20. Choose the sentence with all apostrophes correctly added:</div>
+                    <select id="q20">
+                        <option value="">-- Choose option --</option>
+                        <option value="correct">That's Peter's bicycle parked outside.</option>
+                        <option value="w1">Thats Peters bicycle parked outside.</option>
+                        <option value="w2">That's Peters' bicycle parked outside.</option>
+                    </select>
+                    <div id="fb20" class="feedback"></div>
+                </div>
+
+                <button type="button" class="btn-submit" onclick="gradeQuiz()">Submit Practice Test</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switcher Function
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Quiz Grading Function
+        function gradeQuiz() {
+            var answers = {
+                q1: { ans: "who", exp: "'Who' is used for people (the driver)." },
+                q2: { ans: "anybody", exp: "'Anybody' refers to people in general questions/negatives." },
+                q3: { ans: "where", exp: "'Where' is used for places (the museum)." },
+                q4: { ans: "those", exp: "'Those' refers to plural items far away (dark clouds)." },
+                q5: { ans: "which", exp: "'Which' is used for non-human items/objects (the smartphone)." },
+                q6: { ans: "demonstrative", exp: "'This' points directly to a specific noun." },
+                q7: { ans: "indefinite", exp: "'Something' refers to an unspecified object." },
+                q8: { ans: "relative", exp: "'Whose' connects possessive information about a student." },
+                q9: { ans: "indefinite", exp: "'Nobody' refers generally to no person." },
+                q10: { ans: "vivid", exp: "'Vivid' means bright, intense, and clear." },
+                q11: { ans: "orchards", exp: "'Orchards' are areas planted with fruit trees." },
+                q12: { ans: "briefly", exp: "'Briefly' means speaking for a short duration." },
+                q13: { ans: "defiant", exp: "'Defiant' means boldly refusing to obey." },
+                q14: { ans: "imaginative", exp: "'Imaginative' means full of novel/creative ideas." },
+                q15: { ans: "plantation", exp: "'Plantation' refers to a massive agricultural estate." },
+                q16: { ans: "correct", exp: "'Doesn't' places the apostrophe where 'o' was dropped." },
+                q17: { ans: "correct", exp: "1 cat uses 'cat's'." },
+                q18: { ans: "correct", exp: "Plural noun ending in 's' takes an apostrophe after the 's' (students')." },
+                q19: { ans: "correct", exp: "Irregular plural 'children' takes 's." },
+                q20: { ans: "correct", exp: "That's = That is; Peter's = belonging to Peter." }
+            };
+
+            var score = 0;
+            var total = 20;
+
+            for (var i = 1; i <= total; i++) {
+                var qId = "q" + i;
+                var userVal = document.getElementById(qId).value;
+                var fbDiv = document.getElementById("fb" + i);
+                var qData = answers[qId];
+
+                if (userVal === qData.ans) {
+                    score++;
+                    fbDiv.className = "feedback correct";
+                    fbDiv.innerHTML = "✓ Correct! " + qData.exp;
+                } else {
+                    fbDiv.className = "feedback incorrect";
+                    fbDiv.innerHTML = "✗ Incorrect. " + qData.exp;
+                }
+            }
+
+            var scoreBox = document.getElementById("score-box");
+            var scoreText = document.getElementById("score-text");
+            scoreBox.style.display = "block";
+            scoreText.innerHTML = "You scored <strong>" + score + " / " + total + "</strong> (" + Math.round((score/total)*100) + "%). Review any incorrect answers above!";
+            scoreBox.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
