@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 8 Semester 1 English Grammar Practice Test</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-brand-500/20">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-900 text-base sm:text-lg leading-tight">Grade 8 English Practice Test</h1>
+                    <p class="text-xs text-slate-500 font-medium">Semester 1 Final Reviewer</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleCheatSheet()" class="px-3 py-1.5 text-xs sm:text-sm font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 rounded-lg transition-colors flex items-center space-x-1.5">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="hidden sm:inline">Grammar</span> Concept Guide
+                </button>
+                <div class="bg-slate-100 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 flex items-center space-x-1">
+                    <i class="fa-solid fa-star text-amber-500"></i>
+                    <span id="header-score">0 / 20</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full">
+
+        <!-- Welcome & Start Screen -->
+        <div id="start-screen" class="bg-white rounded-2xl p-6 sm:p-10 shadow-sm border border-slate-200 text-center space-y-6">
+            <div class="w-20 h-20 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center mx-auto text-3xl">
+                <i class="fa-solid fa-clipboard-question"></i>
+            </div>
+            <div class="max-w-xl mx-auto space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Semester 1 Final Exam Practice Test</h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Test your mastery across 20 targeted questions covering all essential Grade 8 Semester 1 grammar & writing concepts.
+                </p>
+            </div>
+
+            <!-- Topic Badges Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 text-xs font-semibold text-slate-600 max-w-2xl mx-auto pt-2">
+                <div class="bg-slate-100 p-2.5 rounded-xl flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-link text-brand-500"></i>
+                    <span>Gerunds & Infinitives</span>
+                </div>
+                <div class="bg-slate-100 p-2.5 rounded-xl flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-person-walking text-emerald-500"></i>
+                    <span>Phrasal Verbs & Particles</span>
+                </div>
+                <div class="bg-slate-100 p-2.5 rounded-xl flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-tags text-purple-500"></i>
+                    <span>Quantifiers as Pronouns</span>
+                </div>
+                <div class="bg-slate-100 p-2.5 rounded-xl flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-bullhorn text-amber-500"></i>
+                    <span>Adverbs & Adjectives</span>
+                </div>
+                <div class="bg-slate-100 p-2.5 rounded-xl flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-scale-balanced text-rose-500"></i>
+                    <span>As vs. Like</span>
+                </div>
+                <div class="bg-slate-100 p-2.5 rounded-xl flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-quote-left text-cyan-500"></i>
+                    <span>Punctuation & Structure</span>
+                </div>
+            </div>
+
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/30 transition-all transform hover:-translate-y-0.5 text-base">
+                    Start Practice Test <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden space-y-6">
+
+            <!-- Progress & Stats Bar -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="space-y-1 flex-1">
+                    <div class="flex justify-between text-xs font-bold text-slate-500">
+                        <span>QUESTION <span id="current-question-num">1</span> OF 20</span>
+                        <span id="progress-percent">5% Completed</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="bg-brand-600 h-full w-1/20 transition-all duration-300"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between sm:justify-end space-x-3 text-xs font-semibold">
+                    <span id="category-badge" class="px-2.5 py-1 rounded-md bg-brand-50 text-brand-700 border border-brand-100">
+                        Category
+                    </span>
+                    <button onclick="toggleGridModal()" class="text-slate-500 hover:text-slate-700 px-2.5 py-1 rounded-md border border-slate-200 bg-slate-50 transition-colors">
+                        <i class="fa-solid fa-th-large mr-1"></i> Question List
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+                <!-- Question Text -->
+                <div class="space-y-2">
+                    <h3 id="question-text" class="text-lg sm:text-xl font-bold text-slate-900 leading-snug">
+                        Question text goes here...
+                    </h3>
+                </div>
+
+                <!-- Answer Options -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Dynamic Answer Options -->
+                </div>
+
+                <!-- Rationale / Feedback Box -->
+                <div id="explanation-box" class="hidden p-4 sm:p-5 rounded-xl text-sm leading-relaxed border space-y-2">
+                    <div id="explanation-header" class="font-bold flex items-center space-x-2 text-base">
+                        <!-- Correct / Incorrect icon & text -->
+                    </div>
+                    <p id="explanation-text" class="text-slate-700">
+                        Detailed explanation of why the option is right or wrong...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom Action Navigation -->
+            <div class="flex items-center justify-between pt-2">
+                <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-sm">
+                    <i class="fa-solid fa-chevron-left mr-1.5"></i> Previous
+                </button>
+                
+                <button id="next-btn" onclick="nextQuestion()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-md transition-all text-sm flex items-center">
+                    <span>Next Question</span> <i class="fa-solid fa-chevron-right ml-1.5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden bg-white rounded-2xl p-6 sm:p-10 shadow-sm border border-slate-200 text-center space-y-8">
+            <div class="space-y-3">
+                <div id="score-badge" class="w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl">
+                    85%
+                </div>
+                <h2 id="results-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900">Great Job!</h2>
+                <p id="results-subtitle" class="text-slate-600 text-sm sm:text-base max-w-md mx-auto">
+                    You answered <span id="correct-count" class="font-bold text-slate-900">17</span> out of <span class="font-bold text-slate-900">20</span> questions correctly.
+                </p>
+            </div>
+
+            <!-- Breakdown by Category -->
+            <div class="space-y-3 text-left max-w-xl mx-auto">
+                <h4 class="font-bold text-slate-900 text-sm uppercase tracking-wider text-center">Performance Breakdown</h4>
+                <div id="category-breakdown" class="space-y-2">
+                    <!-- Dynamic Breakdown -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button onclick="restartQuiz()" class="w-full sm:w-auto px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-md transition-colors text-sm">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> Retake Practice Test
+                </button>
+                <button onclick="reviewAnswers()" class="w-full sm:w-auto px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors text-sm">
+                    <i class="fa-solid fa-magnifying-glass mr-2"></i> Review All Answers
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>Grade 8 Semester 1 English Grammar Reviewer &bull; Interactive Practice Test</p>
+    </footer>
+
+    <!-- Modal 1: Question Grid Navigation -->
+    <div id="grid-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="font-bold text-slate-900 text-base">Question Jump Grid</h3>
+                <button onclick="toggleGridModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="grid-container" class="grid grid-cols-5 gap-2.5 py-2">
+                <!-- Grid items generated dynamically -->
+            </div>
+            <p class="text-xs text-slate-500 text-center">Green = Answered | Gray = Unanswered</p>
+        </div>
+    </div>
+
+    <!-- Modal 2: Grammar Concept Cheat Sheet -->
+    <div id="cheatsheet-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between border-b pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-book-open text-brand-600"></i>
+                    <h3 class="font-bold text-slate-900 text-base">Grade 8 Semester 1 Grammar Guide</h3>
+                </div>
+                <button onclick="toggleCheatSheet()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="overflow-y-auto space-y-4 pr-2 text-xs sm:text-sm text-slate-600">
+                <div class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-brand-500 mr-2"></i>Gerunds vs. Infinitives</h4>
+                    <p>• <strong>Verb + Infinitive:</strong> <em>want, decide, refuse, hope</em> (e.g., <em>refused to turn</em>)</p>
+                    <p>• <strong>Verb + Gerund:</strong> <em>keep, stop, avoid, mind</em> (e.g., <em>kept talking</em>)</p>
+                    <p>• <strong>Sense Verbs:</strong> <em>saw/heard</em> + object + bare infinitive (entire action) OR gerund (action in progress).</p>
+                    <p>• <strong>Infinitive of Purpose:</strong> <em>to receive, to buy</em> (explains why an action is done).</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-emerald-500 mr-2"></i>Phrasal Verbs & Particles</h4>
+                    <p>Particles alter verb direction and flow: <em>up</em> (increase/upward/complete), <em>down</em> (decrease/downward), <em>on</em> (continue), <em>off</em> (leave/depart), <em>over</em> (across surface/avoid/transfer), <em>out</em> (extend).</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-purple-500 mr-2"></i>Quantifiers as Pronouns</h4>
+                    <p>Quantifiers (<em>some, any, many, a few, several, none</em>) stand alone as pronouns when the context noun is clear: <em>"I saw shoes. I'd like <strong>some</strong> too."</em></p>
+                </div>
+
+                <div class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-amber-500 mr-2"></i>Adverbs & Persuasive Adjectives</h4>
+                    <p>• <strong>Adverbs modify adjectives/verbs:</strong> <em>highly effective, post directly</em>.</p>
+                    <p>• <strong>Informative vs. Persuasive Adjectives:</strong> Informative = facts (<em>portable, digital</em>); Persuasive = appealing (<em>breathtaking, stunning</em>).</p>
+                    <p>• <strong>Direct Address & Imperatives:</strong> Engaging the reader using second-person pronouns ("your") and command verbs ("Unleash").</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-rose-500 mr-2"></i>As vs. Like</h4>
+                    <p>• <strong>Like:</strong> Preposition followed by a noun/pronoun (<em>moves like a hawk</em>).</p>
+                    <p>• <strong>As:</strong> Indicates a function/role (<em>used a stick as a lever</em>) or functions as a conjunction (<em>as the tide retreated</em>).</p>
+                </div>
+
+                <div class="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-cyan-500 mr-2"></i>Punctuation & Sentence Structure</h4>
+                    <p>• <strong>Commas vs. Dashes:</strong> Commas separate clauses; dashes (—) add emphasis, sudden pauses, or highlight key details.</p>
+                    <p>• <strong>Incomplete/Minor Sentences:</strong> Lack a standard subject+verb for dramatic effect or emotional impact (e.g., <em>"Bright, bright red."</em>).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const questions = [
+            // Gerunds & Infinitives (5 questions)
+            {
+                id: 1,
+                category: "Gerunds & Infinitives",
+                question: "In the sentence, <em>'She was excited about visiting the museum, but found it difficult to choose which exhibit to see first,'</em> what two verb patterns are highlighted by 'about visiting' and 'difficult to choose'?",
+                options: [
+                    "Preposition + gerund, followed by adjective + infinitive",
+                    "Verb + infinitive, followed by preposition + gerund",
+                    "Verb + gerund, followed by noun + infinitive",
+                    "Participle + infinitive, followed by adjective + gerund"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'About' is a preposition followed by the gerund 'visiting'. 'Difficult' is an adjective followed by the infinitive 'to choose'.",
+                    "Incorrect. 'About visiting' starts with a preposition ('about'), not a main verb.",
+                    "Incorrect. 'Difficult' is an adjective, not a noun.",
+                    "Incorrect. 'About' is a preposition and 'visiting' is a gerund, not a participle."
+                ]
+            },
+            {
+                id: 2,
+                category: "Gerunds & Infinitives",
+                question: "Analyze these two sentences:<br>1. <em>I heard the snow crunch beneath his boots.</em><br>2. <em>I saw them walking near the edge of the cliff.</em><br>Which statement correctly explains the difference in meaning created by the verb forms?",
+                options: [
+                    "Sentence 1 describes an action heard from start to finish, while Sentence 2 describes an action observed in progress.",
+                    "Sentence 1 describes a continuous action in progress, while Sentence 2 describes a completed event.",
+                    "Both sentences describe identical completed actions with no distinction in duration.",
+                    "Sentence 1 requires a full infinitive ('to crunch'), making it grammatically incomplete."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! Verbs of the senses (hear, see) take a bare infinitive ('crunch') for complete short actions, and a gerund ('walking') for ongoing actions in progress.",
+                    "Incorrect. The bare infinitive 'crunch' denotes the complete brief action, not continuous progress.",
+                    "Incorrect. Sensory verbs use gerunds specifically to highlight ongoing continuous progress.",
+                    "Incorrect. Bare infinitives without 'to' are standard after sensory verbs like 'hear'."
+                ]
+            },
+            {
+                id: 3,
+                category: "Gerunds & Infinitives",
+                question: "Select the correct sequence of verb forms to complete the sentence:<br><em>'Although he tried to stop _____ (look) at his watch, Marcus couldn't help _____ (feel) anxious and refused _____ (sit) down.'</em>",
+                options: [
+                    "looking; feeling; to sit",
+                    "to look; to feel; sitting",
+                    "looking; to feel; sitting",
+                    "to look; feeling; to sit"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Stop' takes a gerund (looking) when ceasing an activity; 'couldn't help' takes a gerund (feeling); 'refuse' requires an infinitive (to sit).",
+                    "Incorrect. 'Refuse' requires 'to sit', but 'couldn't help' takes a gerund ('feeling').",
+                    "Incorrect. 'Stop looking' means ceasing the action of looking; 'refuse' takes an infinitive.",
+                    "Incorrect. 'Stop to look' means pausing in order to look, which contradicts trying to cease looking."
+                ]
+            },
+            {
+                id: 4,
+                category: "Gerunds & Infinitives",
+                question: "In the sentence <em>'The students gathered near the school entrance to receive their exam instructions,'</em> what grammatical function does the underlined phrase <strong>'to receive'</strong> serve?",
+                options: [
+                    "Infinitive of purpose, explaining why the students gathered",
+                    "Direct object of the main verb 'gathered'",
+                    "Prepositional phrase modifying the noun 'entrance'",
+                    "Gerund phrase acting as a subject complement"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! An infinitive of purpose explains the reason or intention behind an action (why they gathered).",
+                    "Incorrect. 'Gathered' is intransitive here; 'to receive' states purpose, not a direct object.",
+                    "Incorrect. 'To receive' is an infinitive verb phrase, not a prepositional phrase.",
+                    "Incorrect. 'To receive' is an infinitive form, whereas gerunds end in -ing."
+                ]
+            },
+            {
+                id: 5,
+                category: "Gerunds & Infinitives",
+                question: "What is the key difference in meaning between <em>'He stopped to look at the shoes'</em> and <em>'He stopped looking at the shoes'</em>?",
+                options: [
+                    "'Stopped to look' means he paused an action in order to view the shoes; 'stopped looking' means he me ceased viewing them.",
+                    "'Stopped to look' means he gave up looking forever; 'stopped looking' means he paused briefly to look.",
+                    "Both sentences convey the exact same meaning of interrupting a walk.",
+                    "'Stopped looking' uses an infinitive of purpose, whereas 'stopped to look' uses a continuous gerund."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! Verb + infinitive after 'stop' shows purpose (pausing in order to do something), while Verb + gerund shows the termination of an ongoing action.",
+                    "Incorrect. 'Stopped to look' indicates pausing to initiate looking, not giving up forever.",
+                    "Incorrect. The verb pattern alters whether the action of looking is starting or stopping.",
+                    "Incorrect. 'Stopped looking' uses a gerund; 'stopped to look' uses an infinitive of purpose."
+                ]
+            },
+
+            // Phrasal Verbs & Particles (4 questions)
+            {
+                id: 6,
+                category: "Phrasal Verbs",
+                question: "Particles alter the meaning of phrasal verbs in narrative text. In <em>'The hiker slowed down near the ridge, pulled up his collar, and walked on despite the cold,'</em> what do the particles <strong>down</strong>, <strong>up</strong>, and <strong>on</strong> convey?",
+                options: [
+                    "Reduction in speed, upward movement, and continuation of an action",
+                    "Stopping completely, removing clothing, and turning around",
+                    "Physical downward movement, fastening tightly, and leaving the path",
+                    "Increase in speed, lifting an item, and pausing temporarily"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Slow down' = reduce speed; 'pull up' = raise upward; 'walk on' = continue walking forward.",
+                    "Incorrect. 'Walk on' means to continue proceeding, not to turn around.",
+                    "Incorrect. 'Slow down' means reducing speed, not physically descending.",
+                    "Incorrect. 'Slow down' means decreasing speed, not increasing it."
+                ]
+            },
+            {
+                id: 7,
+                category: "Phrasal Verbs",
+                question: "Choose the correct particles to complete the sentence:<br><em>'When the storm began, she stepped _____ the puddle, caught _____ with her group, and headed _____ the shelter.'</em>",
+                options: [
+                    "over; up; toward",
+                    "around; off; into",
+                    "across; on; forward",
+                    "through; away; to"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Stepped over' (avoided stepping in), 'caught up with' (reached the group), 'headed toward' (moved in direction of).",
+                    "Incorrect. 'Caught off' is not a valid phrasal verb phrase in this context.",
+                    "Incorrect. 'Caught on' means to understand something, not to reach someone walking ahead.",
+                    "Incorrect. 'Caught away' is grammatically incorrect for matching speed with a group."
+                ]
+            },
+            {
+                id: 8,
+                category: "Phrasal Verbs",
+                question: "Which sentence accurately uses descriptive phrasal verbs to show a character extending their arm and transferring an item to another person?",
+                options: [
+                    "Bronze reached out and handed over the shoes to the eager customer.",
+                    "Bronze walked off and lifted up the shoes to the eager customer.",
+                    "Bronze slowed down and pulled up the shoes to the eager customer.",
+                    "Bronze ran off and stepped over the shoes to the eager customer."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Reached out' describes extending an arm, and 'handed over' describes giving an item.",
+                    "Incorrect. 'Walked off' means leaving the scene, which contradicts handing an item.",
+                    "Incorrect. 'Pulled up' means pulling upward or stopping a vehicle.",
+                    "Incorrect. 'Ran off' means escaping or running away."
+                ]
+            },
+            {
+                id: 9,
+                category: "Phrasal Verbs",
+                question: "Complete the story sentence with the correct particle sequence:<br><em>'Before riding off, Chang pulled _____ his bike, hopped _____, and laid it _____ on the side of the trail.'</em>",
+                options: [
+                    "up; off; down",
+                    "on; away; over",
+                    "over; out; up",
+                    "down; on; off"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Pulled up' = stopped the vehicle; 'hopped off' = dismounted; 'laid down' = placed flat on the ground.",
+                    "Incorrect. 'Hopped away' does not mean dismounting a bike.",
+                    "Incorrect. 'Laid up' does not mean placing an object down on the ground.",
+                    "Incorrect. 'Hopped on' means mounting a bike, not getting off."
+                ]
+            },
+
+            // Quantifiers as Pronouns (3 questions)
+            {
+                id: 10,
+                category: "Quantifiers as Pronouns",
+                question: "Read the excerpt:<br><em>'Many tourists admired the handcrafted shoes. A few asked about the price, but only some bought them.'</em><br>Which group of words functions as <strong>quantifiers used as pronouns</strong>?",
+                options: [
+                    "Many, A few, some",
+                    "tourists, shoes, price",
+                    "admired, asked, bought",
+                    "handcrafted, only, them"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Many', 'A few', and 'some' represent quantities of people without repeating the noun 'tourists'.",
+                    "Incorrect. These are concrete nouns, not quantifiers.",
+                    "Incorrect. These are action verbs.",
+                    "Incorrect. 'Handcrafted' is an adjective, 'only' is an adverb, and 'them' is a personal pronoun."
+                ]
+            },
+            {
+                id: 11,
+                category: "Quantifiers as Pronouns",
+                question: "How can the sentence <em>'Mrs. Zhang offered some fresh apples to the guests, but none of the guests wanted any more apples'</em> be edited for cohesive pronoun use without repeating nouns?",
+                options: [
+                    "Mrs. Zhang offered some fresh apples to the guests, but none wanted any more.",
+                    "Mrs. Zhang offered apples to the guests, but no guests wanted more apples.",
+                    "Mrs. Zhang offered some to the guests, but nobody of them wanted apples.",
+                    "Mrs. Zhang offered some fresh apples, but none guests wanted any."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! Replacing 'none of the guests' with 'none' and 'any more apples' with 'any more' eliminates unnecessary noun repetition.",
+                    "Incorrect. This option repeats the nouns 'apples' and 'guests' twice.",
+                    "Incorrect. 'Nobody of them' is ungrammatical phrasing.",
+                    "Incorrect. 'None guests' is ungrammatical; 'none' functions as a pronoun, not an adjective directly before a noun."
+                ]
+            },
+            {
+                id: 12,
+                category: "Quantifiers as Pronouns",
+                question: "In which sentence does the word <strong>'some'</strong> function as a <strong>pronoun</strong> rather than a determiner?",
+                options: [
+                    "Several students brought laptops, but some preferred writing by hand.",
+                    "Some students brought their own notebooks to class today.",
+                    "She bought some apples at the local market yesterday.",
+                    "There are some steep hills along the northern trail."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! Here 'some' stands alone replacing 'some students'. In all other options, 'some' directly modifies a noun (determiner).",
+                    "Incorrect. 'Some' modifies 'students' directly as a determiner.",
+                    "Incorrect. 'Some' modifies 'apples' directly as a determiner.",
+                    "Incorrect. 'Some' modifies 'steep hills' directly as a determiner."
+                ]
+            },
+
+            // Adverbs & Adjectives (4 questions)
+            {
+                id: 13,
+                category: "Adverbs & Adjectives",
+                question: "In the ad copy <em>'This highly revolutionary device allows you to capture stunning photos effortlessly,'</em> which adverbs modify an adjective and a verb, respectively?",
+                options: [
+                    "'highly' modifies the adjective 'revolutionary'; 'effortlessly' modifies the verb 'capture'",
+                    "'revolutionary' modifies 'device'; 'stunning' modifies 'photos'",
+                    "'highly' modifies the verb 'allows'; 'effortlessly' modifies the noun 'photos'",
+                    "'effortlessly' modifies the adjective 'stunning'; 'highly' modifies 'capture'"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Highly' intensifies the adjective 'revolutionary', while 'effortlessly' modifies how the action 'capture' is performed.",
+                    "Incorrect. 'Revolutionary' and 'stunning' are adjectives, not modifying adverbs.",
+                    "Incorrect. 'Highly' modifies 'revolutionary', not 'allows'.",
+                    "Incorrect. 'Effortlessly' modifies the verb 'capture', not the adjective 'stunning'."
+                ]
+            },
+            {
+                id: 14,
+                category: "Adverbs & Adjectives",
+                question: "Advertisements combine informative adjectives (specifications) and persuasive adjectives (appealing words). Which set contains <strong>ONLY persuasive/appealing adjectives</strong>?",
+                options: [
+                    "breathtaking, unforgettable, revolutionary, stunning",
+                    "portable, digital, rechargeable, lightweight",
+                    "blue, square, wooden, seven-inch",
+                    "waterproof, standard, automatic, nine-volt"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Breathtaking', 'unforgettable', 'revolutionary', and 'stunning' create emotional appeal and positive desire.",
+                    "Incorrect. These are informative/factual adjectives detailing technical features.",
+                    "Incorrect. These are physical descriptive facts (color, shape, material, size).",
+                    "Incorrect. These are technical specifications informing the user of function."
+                ]
+            },
+            {
+                id: 15,
+                category: "Adverbs & Adjectives",
+                question: "Choose the adverb that forms the most natural academic and advertising collocation to complete the sentence:<br><em>'The new smartphone app was _____ anticipated by tech enthusiasts worldwide.'</em>",
+                options: [
+                    "eagerly",
+                    "completely",
+                    "directly",
+                    "safely"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Eagerly anticipated' is a standard adjective-adverb collocation expressing keen expectation.",
+                    "Incorrect. While 'completely' is an intensifying adverb, it does not naturally collocate with 'anticipated'.",
+                    "Incorrect. 'Directly anticipated' is unnatural in standard English.",
+                    "Incorrect. 'Safely anticipated' does not match the context of excitement and expectation."
+                ]
+            },
+            {
+                id: 16,
+                category: "Adverbs & Adjectives",
+                question: "Which promotional headline uses <strong>direct address</strong> and an <strong>imperative verb</strong> to engage the reader?",
+                options: [
+                    "Unleash your creativity with our revolutionary photo app!",
+                    "Creative people often enjoy trying out new photo apps.",
+                    "Photo editing apps have been downloaded millions of times.",
+                    "A new photo editing software was released last week."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Unleash' is an imperative command verb, and 'your' addresses the reader directly (second person).",
+                    "Incorrect. This is a third-person descriptive statement.",
+                    "Incorrect. This is a passive factual statement with no direct address.",
+                    "Incorrect. This is an informative news sentence without imperative verbs."
+                ]
+            },
+
+            // As vs. Like (2 questions)
+            {
+                id: 17,
+                category: "As vs. Like",
+                question: "Select the sentence that uses <strong>'as'</strong> and <strong>'like'</strong> correctly according to formal English grammar rules.",
+                options: [
+                    "He moves gracefully like a gymnast, but he works as a high school coach.",
+                    "He moves gracefully as a gymnast, but he works like a high school coach.",
+                    "He moves gracefully like a gymnast does, but he works like a high school coach.",
+                    "He moves gracefully as if a gymnast, but he works like a coach."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Like' is a preposition followed by a noun ('a gymnast') for similarity; 'as' indicates role/capacity ('works as a coach').",
+                    "Incorrect. 'As a gymnast' implies he literally is a gymnast, while 'works like a coach' incorrectly uses 'like' for a role.",
+                    "Incorrect. In formal English, 'as' is preferred over 'like' when followed by a full clause ('as a gymnast does').",
+                    "Incorrect. 'As if a gymnast' is ungrammatical phrasing."
+                ]
+            },
+            {
+                id: 18,
+                category: "As vs. Like",
+                question: "In the sentence <em>'As the tide retreated, Maya used a thick plank as a temporary bridge,'</em> what are the functions of the two instances of <strong>'as'</strong>?",
+                options: [
+                    "The first 'as' is a conjunction of time (while/when); the second 'as' indicates function or role.",
+                    "Both instances of 'as' are prepositions of comparison meaning 'similar to'.",
+                    "The first 'as' shows comparison; the second 'as' is an adverb of degree.",
+                    "The first 'as' is a preposition; the second 'as' is a relative pronoun."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! The first 'as' connects a temporal clause ('While the tide retreated'); the second 'as' specifies the role/function of the plank.",
+                    "Incorrect. Neither instance means 'similar to' in this sentence.",
+                    "Incorrect. The first 'as' indicates time, not comparison.",
+                    "Incorrect. Neither instance of 'as' functions as a relative pronoun."
+                ]
+            },
+
+            // Punctuation & Sentence Structure (2 questions)
+            {
+                id: 19,
+                category: "Punctuation & Structure",
+                question: "What is the primary stylistic difference between using a <strong>comma</strong> and using a <strong>dash (—)</strong> in narrative writing?",
+                options: [
+                    "Dashes draw emphatic attention to a dramatic thought or sudden pause, while commas smoothly separate clauses or items.",
+                    "Dashes are reserved exclusively for direct speech, while commas are used only for lists.",
+                    "Commas create high suspense, whereas dashes are strictly used for formal definitions.",
+                    "There is no difference; dashes and commas can always be interchanged without changing tone."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! Dashes highlight key details, dramatic shifts, or pauses with emphasis, whereas commas handle smooth structural separation.",
+                    "Incorrect. Quotation marks handle direct speech; dashes are not restricted to dialogue.",
+                    "Incorrect. Dashes (not commas) are used specifically to create abrupt pauses or emphasis.",
+                    "Incorrect. Replacing a comma with a dash significantly alters tone and emphasis."
+                ]
+            },
+            {
+                id: 20,
+                category: "Punctuation & Structure",
+                question: "Why does the author end the narrative extract with the incomplete sentence: <em>'Bright, bright red.'</em>?",
+                options: [
+                    "To emphasize the extreme cold and Bronze's selflessness with dramatic sensory impact.",
+                    "Because the author accidentally omitted the subject and verb from the sentence.",
+                    "To indicate to the reader that the main character's feet are actively bleeding.",
+                    "To show that Bronze regretted giving away his shoes to the stranger."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! Minor/incomplete sentences cut out standard subject-verb syntax to highlight vivid imagery, emotional impact, and thematic sacrifice.",
+                    "Incorrect. Incomplete sentences are intentional stylistic choices in literature, not grammar mistakes.",
+                    "Incorrect. The text explains his feet were washed clean by snow but frozen red by extreme cold.",
+                    "Incorrect. Bronze ran home smiling and without looking back, showing no regret."
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let reviewMode = false;
+
+        // Start Quiz
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+            renderQuestion();
+            updateGridModal();
+        }
+
+        // Render Current Question
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            
+            // Header stats & category
+            document.getElementById('current-question-num').innerText = currentQuestionIndex + 1;
+            document.getElementById('category-badge').innerText = q.category;
+            
+            const percent = Math.round(((currentQuestionIndex + 1) / questions.length) * 100);
+            document.getElementById('progress-percent').innerText = `${percent}% Completed`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+
+            // Question text
+            document.getElementById('question-text').innerHTML = q.question;
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const selectedOption = userAnswers[currentQuestionIndex];
+            const letters = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((optText, index) => {
+                const isSelected = selectedOption === index;
+                const isCorrect = index === q.correct;
+
+                let btnClasses = "w-full p-4 rounded-xl border text-left transition-all flex items-start space-x-3 cursor-pointer ";
+
+                if (selectedOption !== null) {
+                    // Answered state
+                    if (index === q.correct) {
+                        btnClasses += "bg-emerald-50 border-emerald-500 text-emerald-900 font-medium ";
+                    } else if (isSelected && !isCorrect) {
+                        btnClasses += "bg-rose-50 border-rose-500 text-rose-900 font-medium ";
+                    } else {
+                        btnClasses += "bg-slate-50 border-slate-200 text-slate-500 opacity-60 ";
+                    }
+                } else {
+                    // Default state
+                    btnClasses += "bg-white border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 text-slate-800 ";
+                }
+
+                const btn = document.createElement('button');
+                btn.className = btnClasses;
+                btn.disabled = selectedOption !== null;
+                btn.onclick = () => selectOption(index);
+
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 ${
+                        selectedOption !== null && index === q.correct ? 'bg-emerald-600 text-white' :
+                        selectedOption !== null && isSelected && !isCorrect ? 'bg-rose-600 text-white' :
+                        'bg-slate-100 text-slate-600 border border-slate-200'
+                    }">${letters[index]}</span>
+                    <span class="pt-0.5 text-sm sm:text-base leading-snug flex-grow">${optText}</span>
+                    ${selectedOption !== null && index === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 text-lg shrink-0 mt-1"></i>' : ''}
+                    ${selectedOption !== null && isSelected && !isCorrect ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-lg shrink-0 mt-1"></i>' : ''}
+                `;
+
+                container.appendChild(btn);
+            });
+
+            // Explanation box logic
+            const expBox = document.getElementById('explanation-box');
+            const expHeader = document.getElementById('explanation-header');
+            const expText = document.getElementById('explanation-text');
+
+            if (selectedOption !== null) {
+                expBox.classList.remove('hidden');
+                const isCorrect = selectedOption === q.correct;
+                
+                if (isCorrect) {
+                    expBox.className = "p-4 sm:p-5 rounded-xl text-sm leading-relaxed border space-y-2 bg-emerald-50/80 border-emerald-200 text-emerald-900";
+                    expHeader.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> <span>Correct!</span>`;
+                } else {
+                    expBox.className = "p-4 sm:p-5 rounded-xl text-sm leading-relaxed border space-y-2 bg-rose-50/80 border-rose-200 text-rose-900";
+                    expHeader.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> <span>Incorrect</span>`;
+                }
+                
+                expText.innerText = q.rationales[selectedOption];
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            // Navigation buttons
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+
+            const nextBtn = document.getElementById('next-btn');
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.innerHTML = `<span>Finish Test</span> <i class="fa-solid fa-flag-checkered ml-1.5"></i>`;
+            } else {
+                nextBtn.innerHTML = `<span>Next Question</span> <i class="fa-solid fa-chevron-right ml-1.5"></i>`;
+            }
+
+            updateHeaderScore();
+        }
+
+        // Option Selection Handler
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            renderQuestion();
+            updateGridModal();
+        }
+
+        // Navigation
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        // Update Score Counter in Navigation Header
+        function updateHeaderScore() {
+            const answeredCount = userAnswers.filter((ans, idx) => ans === questions[idx].correct).length;
+            document.getElementById('header-score').innerText = `${answeredCount} / ${questions.length}`;
+        }
+
+        // Finish Quiz & Show Results
+        function finishQuiz() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+
+            let correctCount = 0;
+            const categoryStats = {};
+
+            questions.forEach((q, idx) => {
+                if (!categoryStats[q.category]) {
+                    categoryStats[q.category] = { total: 0, correct: 0 };
+                }
+                categoryStats[q.category].total++;
+
+                if (userAnswers[idx] === q.correct) {
+                    correctCount++;
+                    categoryStats[q.category].correct++;
+                }
+            });
+
+            const scorePercent = Math.round((correctCount / questions.length) * 100);
+            
+            // Score Badge styling
+            const badge = document.getElementById('score-badge');
+            badge.innerText = `${scorePercent}%`;
+            if (scorePercent >= 80) {
+                badge.className = "w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl bg-emerald-500 shadow-emerald-500/30";
+                document.getElementById('results-title').innerText = "Outstanding Performance!";
+            } else if (scorePercent >= 60) {
+                badge.className = "w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl bg-amber-500 shadow-amber-500/30";
+                document.getElementById('results-title').innerText = "Good Job!";
+            } else {
+                badge.className = "w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl bg-rose-500 shadow-rose-500/30";
+                document.getElementById('results-title').innerText = "Keep Practicing!";
+            }
+
+            document.getElementById('correct-count').innerText = correctCount;
+
+            // Render Category Breakdown Bars
+            const breakdownContainer = document.getElementById('category-breakdown');
+            breakdownContainer.innerHTML = '';
+
+            for (const [cat, data] of Object.entries(categoryStats)) {
+                const catPercent = Math.round((data.correct / data.total) * 100);
+                const item = document.createElement('div');
+                item.className = "p-3 bg-slate-50 rounded-xl space-y-1.5 border border-slate-200 text-xs sm:text-sm";
+                item.innerHTML = `
+                    <div class="flex justify-between font-semibold text-slate-700">
+                        <span>${cat}</span>
+                        <span>${data.correct} / ${data.total} (${catPercent}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div class="h-full ${catPercent >= 75 ? 'bg-emerald-500' : catPercent >= 50 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${catPercent}%"></div>
+                    </div>
+                `;
+                breakdownContainer.appendChild(item);
+            }
+        }
+
+        // Restart Quiz
+        function restartQuiz() {
+            userAnswers = new Array(questions.length).fill(null);
+            currentQuestionIndex = 0;
+            reviewMode = false;
+            startQuiz();
+        }
+
+        // Review Answers
+        function reviewAnswers() {
+            currentQuestionIndex = 0;
+            reviewMode = true;
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // Grid Jump Modal Logic
+        function toggleGridModal() {
+            const modal = document.getElementById('grid-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function updateGridModal() {
+            const container = document.getElementById('grid-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                const isAnswered = userAnswers[idx] !== null;
+                const isCurrent = currentQuestionIndex === idx;
+
+                let classes = "w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center border transition-all ";
+
+                if (isCurrent) {
+                    classes += "border-brand-600 ring-2 ring-brand-500/30 ";
+                }
+
+                if (isAnswered) {
+                    classes += "bg-emerald-500 text-white border-emerald-600 ";
+                } else {
+                    classes += "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200 ";
+                }
+
+                btn.className = classes;
+                btn.innerText = idx + 1;
+                btn.onclick = () => {
+                    currentQuestionIndex = idx;
+                    renderQuestion();
+                    toggleGridModal();
+                };
+
+                container.appendChild(btn);
+            });
+        }
+
+        // Grammar Guide Modal Logic
+        function toggleCheatSheet() {
+            const modal = document.getElementById('cheatsheet-modal');
+            modal.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
