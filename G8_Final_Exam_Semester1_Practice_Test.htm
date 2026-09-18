@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 8 Semester 1 Final Practice Exam - Writing & Grammar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-brand-500/20">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-900 text-sm sm:text-base leading-tight">Bangkok Bilingual School</h1>
+                    <p class="text-xs text-slate-500 font-medium">Grade 8 Final Practice Exam (30 Items)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="toggleCheatSheet()" class="px-3 py-1.5 text-xs sm:text-sm font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 rounded-lg transition-colors flex items-center space-x-1.5">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="hidden sm:inline">Grammar Guide</span>
+                </button>
+                <div class="bg-slate-100 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 flex items-center space-x-1">
+                    <i class="fa-solid fa-star text-amber-500"></i>
+                    <span id="header-score">0 / 30</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full">
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="bg-white rounded-2xl p-6 sm:p-10 shadow-sm border border-slate-200 text-center space-y-6">
+            <div class="w-20 h-20 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center mx-auto text-3xl">
+                <i class="fa-solid fa-file-pen"></i>
+            </div>
+            <div class="max-w-xl mx-auto space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Grade 8 Writing & Grammar Practice Exam</h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    This 30-item mock exam directly mirrors the format and topics of your Semester 1 Final Examination (Verb Forms, Past Tense Timelines, Pronouns, Connectives, and Apostrophes).
+                </p>
+            </div>
+
+            <!-- Exam Task Badges -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs font-semibold text-slate-700 max-w-3xl mx-auto pt-2">
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center space-x-2.5 text-left">
+                    <div class="w-7 h-7 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 font-bold">I</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Task I: Verb Forms</div>
+                        <div class="text-slate-500 text-[11px]">Present Perfect & Active/Passive (5 items)</div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center space-x-2.5 text-left">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 font-bold">II</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Task II: Past Tense Timelines</div>
+                        <div class="text-slate-500 text-[11px]">Chronology & Order of Events (5 items)</div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center space-x-2.5 text-left">
+                    <div class="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0 font-bold">III</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Task III: Pronouns in Context</div>
+                        <div class="text-slate-500 text-[11px]">Relative, Indefinite & Demonstratives (10 items)</div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center space-x-2.5 text-left">
+                    <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 font-bold">IV</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Task IV: Connectives</div>
+                        <div class="text-slate-500 text-[11px]">Time, Sequence & Consequence (5 items)</div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center space-x-2.5 text-left sm:col-span-2 lg:col-span-1">
+                    <div class="w-7 h-7 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 font-bold">V</div>
+                    <div>
+                        <div class="font-bold text-slate-900">Task V: Apostrophe Correction</div>
+                        <div class="text-slate-500 text-[11px]">Possessives vs. Contractions (5 items)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/30 transition-all transform hover:-translate-y-0.5 text-base">
+                    Start 30-Item Practice Test <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden space-y-6">
+
+            <!-- Progress Bar & Question Jump Trigger -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="space-y-1 flex-1">
+                    <div class="flex justify-between text-xs font-bold text-slate-500">
+                        <span>QUESTION <span id="current-question-num">1</span> OF 30</span>
+                        <span id="progress-percent">3% Completed</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="bg-brand-600 h-full w-1/30 transition-all duration-300"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between sm:justify-end space-x-3 text-xs font-semibold">
+                    <span id="category-badge" class="px-2.5 py-1 rounded-md bg-brand-50 text-brand-700 border border-brand-100">
+                        Task I: Verb Forms
+                    </span>
+                    <button onclick="toggleGridModal()" class="text-slate-600 hover:text-slate-900 px-3 py-1 rounded-md border border-slate-200 bg-slate-50 transition-colors">
+                        <i class="fa-solid fa-th-large mr-1"></i> Jump Grid
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Question Card -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+                <!-- Question Context / Prompt -->
+                <div class="space-y-2">
+                    <div id="task-instruction" class="text-xs font-bold uppercase tracking-wider text-brand-600">
+                        Task Direction
+                    </div>
+                    <h3 id="question-text" class="text-lg sm:text-xl font-bold text-slate-900 leading-snug">
+                        Question text goes here...
+                    </h3>
+                </div>
+
+                <!-- Multiple Choice Options -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Options injected dynamically -->
+                </div>
+
+                <!-- Explanation Box -->
+                <div id="explanation-box" class="hidden p-4 sm:p-5 rounded-xl text-sm leading-relaxed border space-y-2">
+                    <div id="explanation-header" class="font-bold flex items-center space-x-2 text-base">
+                        <!-- Icon and title -->
+                    </div>
+                    <p id="explanation-text" class="text-slate-700">
+                        Explanation details...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation Bar -->
+            <div class="flex items-center justify-between pt-2">
+                <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-sm">
+                    <i class="fa-solid fa-chevron-left mr-1.5"></i> Previous
+                </button>
+                
+                <button id="next-btn" onclick="nextQuestion()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-md transition-all text-sm flex items-center">
+                    <span>Next Question</span> <i class="fa-solid fa-chevron-right ml-1.5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden bg-white rounded-2xl p-6 sm:p-10 shadow-sm border border-slate-200 text-center space-y-8">
+            <div class="space-y-3">
+                <div id="score-badge" class="w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl">
+                    0%
+                </div>
+                <h2 id="results-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900">Exam Results</h2>
+                <p id="results-subtitle" class="text-slate-600 text-sm sm:text-base max-w-md mx-auto">
+                    You answered <span id="correct-count" class="font-bold text-slate-900">0</span> out of <span class="font-bold text-slate-900">30</span> questions correctly.
+                </p>
+            </div>
+
+            <!-- Category Breakdown -->
+            <div class="space-y-3 text-left max-w-xl mx-auto">
+                <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-center">Score Breakdown by Task Section</h4>
+                <div id="category-breakdown" class="space-y-2.5">
+                    <!-- Dynamic Breakdown Bars -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button onclick="restartQuiz()" class="w-full sm:w-auto px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-md transition-colors text-sm">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> Retake Practice Exam
+                </button>
+                <button onclick="reviewAnswers()" class="w-full sm:w-auto px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors text-sm">
+                    <i class="fa-solid fa-magnifying-glass mr-2"></i> Review All 30 Answers
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>Bangkok Bilingual School &bull; Grade 8 Semester 1 Writing & Grammar Final Reviewer</p>
+    </footer>
+
+    <!-- Modal 1: 30-Item Jump Grid -->
+    <div id="grid-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="font-bold text-slate-900 text-base">Question Jump Grid (30 Items)</h3>
+                <button onclick="toggleGridModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="grid-container" class="grid grid-cols-6 gap-2 py-2">
+                <!-- Grid buttons generated dynamically -->
+            </div>
+            <div class="flex justify-center space-x-4 text-xs text-slate-500 pt-1">
+                <div class="flex items-center space-x-1">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                    <span>Answered</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <span class="w-3 h-3 rounded-full bg-slate-200 inline-block"></span>
+                    <span>Unanswered</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Grammar Concept Guide (Cheat Sheet) -->
+    <div id="cheatsheet-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between border-b pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-book-open text-brand-600"></i>
+                    <h3 class="font-bold text-slate-900 text-base">Semester 1 Grammar Reference Guide</h3>
+                </div>
+                <button onclick="toggleCheatSheet()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="overflow-y-auto space-y-4 pr-2 text-xs sm:text-sm text-slate-600">
+                
+                <div class="p-3.5 bg-slate-50 rounded-xl space-y-1.5 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-blue-500 mr-2"></i>Task I: Present Simple vs. Present Perfect</h4>
+                    <p>• <strong>Present Simple:</strong> Regular habits, routines, or general truths (e.g., <em>"The choir sings every morning."</em>).</p>
+                    <p>• <strong>Present Perfect:</strong> Actions completed over a timeframe up to now or recent achievements (e.g., <em>"The band has released three albums this year."</em>).</p>
+                    <p>• <strong>Present Perfect Passive:</strong> Subject receives an action over time (e.g., <em>"The hall has been filled with guests."</em>).</p>
+                </div>
+
+                <div class="p-3.5 bg-slate-50 rounded-xl space-y-1.5 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-emerald-500 mr-2"></i>Task II: Past Tense Chronology (Timelines)</h4>
+                    <p>• <strong>Past Perfect (had + V3):</strong> <em>Earliest Event (1)</em> — Happened BEFORE another past action.</p>
+                    <p>• <strong>Past Continuous (was/were + -ing):</strong> Action in progress in the past when interrupted.</p>
+                    <p>• <strong>Simple Past (V2):</strong> <em>Next / Latest Event (2 or 3)</em> — Completed single past action.</p>
+                    <p class="text-emerald-700 font-mono text-[11px] bg-emerald-50 p-1 rounded">Example: "By the time the alarm rang [2], she had already left [1]."</p>
+                </div>
+
+                <div class="p-3.5 bg-slate-50 rounded-xl space-y-1.5 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-purple-500 mr-2"></i>Task III: Pronouns in Narrative Context</h4>
+                    <p>• <strong>Relative Pronouns:</strong> <em>whose</em> (possession), <em>where</em> (place), <em>that/which</em> (things), <em>who</em> (people).</p>
+                    <p>• <strong>Indefinite Pronouns:</strong> <em>everyone, anyone, nobody, someone</em>.</p>
+                    <p>• <strong>Demonstratives:</strong> <em>this, that, these, those, it</em>.</p>
+                </div>
+
+                <div class="p-3.5 bg-slate-50 rounded-xl space-y-1.5 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-amber-500 mr-2"></i>Task IV: Connectives & Transitions</h4>
+                    <p>• <strong>Time & Sequence:</strong> <em>After / Following</em> (+ noun or gerund), <em>First / Firstly</em>, <em>subsequently</em>, <em>By the time / By [year]</em>, <em>Whenever</em>.</p>
+                    <p>• <strong>Simultaneous & Outcome:</strong> <em>Meanwhile</em> (at the same time), <em>Eventually</em> (in the end / after time).</p>
+                </div>
+
+                <div class="p-3.5 bg-slate-50 rounded-xl space-y-1.5 border border-slate-200">
+                    <h4 class="font-bold text-slate-900 flex items-center"><i class="fa-solid fa-check-circle text-rose-500 mr-2"></i>Task V: Apostrophe Rules (Possessives vs. Contractions)</h4>
+                    <p>• <strong>Singular Possessive:</strong> Add <em>'s</em> (e.g., <em>Mrs. Smith's notes</em>).</p>
+                    <p>• <strong>Plural Possessive ending in 's':</strong> Add apostrophe after 's' (e.g., <em>the students' books</em>).</p>
+                    <p>• <strong>Its vs. It's:</strong> <em>It's</em> = contraction of 'it is'. <em>Its</em> = possessive pronoun (no apostrophe!).</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 30 Fresh, Original Questions Aligned with BBS Grade 8 Semester 1 Final Exam Specifications
+        const questions = [
+            // TASK I: VERB FORMS (Questions 1 - 5)
+            {
+                id: 1,
+                task: "TASK I. VERB FORMS",
+                category: "Task I: Verb Forms",
+                instruction: "Circle the correct verb form for the sentence.",
+                question: "The world-renowned chef _____ several award-winning cookbooks over the past decade.",
+                options: [
+                    "has written",
+                    "writes",
+                    "was writing",
+                    "is writing"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Has written' (Present Perfect) describes an action that began in the past and continues up to the present period ('over the past decade').",
+                    "Incorrect. 'Writes' (Simple Present) expresses routine habits, not actions spanning the past decade up to now.",
+                    "Incorrect. 'Was writing' is Past Continuous and does not connect past accomplishments to the present.",
+                    "Incorrect. 'Is writing' describes an action happening right at this moment."
+                ]
+            },
+            {
+                id: 2,
+                task: "TASK I. VERB FORMS",
+                category: "Task I: Verb Forms",
+                instruction: "Circle the correct verb form for the sentence.",
+                question: "Our school choir _____ the national anthem at every morning assembly.",
+                options: [
+                    "has sung",
+                    "sings",
+                    "was singing",
+                    "is being sung"
+                ],
+                correct: 1,
+                rationales: [
+                    "Incorrect. Present Perfect is used for past achievements or ongoing timeframes, not routine schedules.",
+                    "Correct! 'Sings' (Simple Present) is correct because 'every morning assembly' indicates a regular routine action.",
+                    "Incorrect. Past Continuous describes a past action in progress.",
+                    "Incorrect. Active voice with the subject 'Our school choir' requires 'sings'."
+                ]
+            },
+            {
+                id: 3,
+                task: "TASK I. VERB FORMS",
+                category: "Task I: Verb Forms",
+                instruction: "Circle the correct verb form for the sentence.",
+                question: "The museum's grand exhibition hall _____ with rare historical artifacts since last month.",
+                options: [
+                    "is filled",
+                    "has been filled",
+                    "was filling",
+                    "filled"
+                ],
+                correct: 1,
+                rationales: [
+                    "Incorrect. 'Is filled' is Simple Present and does not account for the time preposition 'since last month'.",
+                    "Correct! 'Has been filled' (Present Perfect Passive) is required because 'since last month' specifies a state that started in the past and continues to the present.",
+                    "Incorrect. 'Was filling' is active continuous past tense.",
+                    "Incorrect. 'Filled' is past simple active, whereas the hall receives the action (passive voice)."
+                ]
+            },
+            {
+                id: 4,
+                task: "TASK I. VERB FORMS",
+                category: "Task I: Verb Forms",
+                instruction: "Circle the correct verb form for the sentence.",
+                question: "The theatre directors _____ to postpone tomorrow's opening performance due to technical repairs.",
+                options: [
+                    "decide",
+                    "have decided",
+                    "are decided",
+                    "were deciding"
+                ],
+                correct: 1,
+                rationales: [
+                    "Incorrect. 'Decide' suggests a general habit rather than a recent announcement.",
+                    "Correct! 'Have decided' (Present Perfect) is used for a recently completed decision that has an immediate effect on the present.",
+                    "Incorrect. 'Are decided' is an awkward passive construction.",
+                    "Incorrect. 'Were deciding' implies an incomplete past decision."
+                ]
+            },
+            {
+                id: 5,
+                task: "TASK I. VERB FORMS",
+                category: "Task I: Verb Forms",
+                instruction: "Circle the correct verb form for the sentence.",
+                question: "The author's exciting new mystery novel certainly _____ young readers looking for adventure.",
+                options: [
+                    "hasn't disappointed",
+                    "doesn't disappoint",
+                    "didn't disappointing",
+                    "isn't disappointed"
+                ],
+                correct: 1,
+                rationales: [
+                    "Incorrect. While grammatically possible, 'doesn't disappoint' best describes the timeless general quality of a published novel.",
+                    "Correct! 'Doesn't disappoint' (Simple Present) states a general truth/fact about the book's high quality.",
+                    "Incorrect. 'Didn't disappointing' is ungrammatical.",
+                    "Incorrect. 'Isn't disappointed' passive voice makes the novel the victim of disappointment."
+                ]
+            },
+
+            // TASK II: PAST TENSE VERBS & TIMELINES (Questions 6 - 10)
+            {
+                id: 6,
+                task: "TASK II. PAST TENSE VERBS",
+                category: "Task II: Past Tense Timelines",
+                instruction: "Analyze the chronological order of actions based on the past tenses used.",
+                question: "Sentence: <em>'By the time the alarm sounded, the security guard had already locked all the emergency exits.'</em><br><br>Which event happened <strong>FIRST (Earliest Event = 1)</strong>?",
+                options: [
+                    "The security guard locked the emergency exits.",
+                    "The alarm sounded.",
+                    "Both events occurred at the exact same instant.",
+                    "The guard unlocked the doors."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! The Past Perfect 'had already locked' specifies the earliest event (1) that occurred before the Simple Past event 'sounded' (2).",
+                    "Incorrect. The alarm sounding (Simple Past) happened second (2), after the doors were locked.",
+                    "Incorrect. Past Perfect indicates an action completed BEFORE another past action.",
+                    "Incorrect. Unlocking doors is not mentioned in the sentence."
+                ]
+            },
+            {
+                id: 7,
+                task: "TASK II. PAST TENSE VERBS",
+                category: "Task II: Past Tense Timelines",
+                instruction: "Analyze the chronological order of actions based on the past tenses used.",
+                question: "Sentence: <em>'Liam was searching for his notebook when he realized that he had left it inside the library.'</em><br><br>What is the correct chronological sequence of events from earliest (1) to latest (3)?",
+                options: [
+                    "[1] Left notebook in library &rarr; [2] Was searching for notebook &rarr; [3] Realized where it was",
+                    "[1] Realized where it was &rarr; [2] Was searching for notebook &rarr; [3] Left notebook in library",
+                    "[1] Was searching for notebook &rarr; [2] Left notebook in library &rarr; [3] Realized where it was",
+                    "[1] Left notebook in library &rarr; [2] Realized where it was &rarr; [3] Was searching for notebook"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! [1] 'had left' = Earliest event (Past Perfect); [2] 'was searching' = Action in progress in past (Past Continuous); [3] 'realized' = Interruption/moment of realization (Simple Past).",
+                    "Incorrect. Liam could not realize where the notebook was before leaving it.",
+                    "Incorrect. Leaving the notebook in the library happened first (Past Perfect).",
+                    "Incorrect. He was already searching before he realized where he left it."
+                ]
+            },
+            {
+                id: 8,
+                task: "TASK II. PAST TENSE VERBS",
+                category: "Task II: Past Tense Timelines",
+                instruction: "Analyze the chronological order of actions based on the past tenses used.",
+                question: "Sentence: <em>'Before the heavy rain started pouring, the groundskeeper had covered the playing field with tarps.'</em><br><br>Which action occurred <strong>LATEST in time (Event 2)</strong>?",
+                options: [
+                    "The heavy rain started pouring.",
+                    "The groundskeeper covered the field with tarps.",
+                    "The groundskeeper bought tarps.",
+                    "The rain stopped."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'The rain started pouring' (Simple Past) is the later event (2). The field was covered ('had covered' - Past Perfect) first (1).",
+                    "Incorrect. Covering the field happened earliest ('had covered').",
+                    "Incorrect. Buying tarps is not stated in the sentence timeline.",
+                    "Incorrect. Stopping rain is not mentioned in the sentence."
+                ]
+            },
+            {
+                id: 9,
+                task: "TASK II. PAST TENSE VERBS",
+                category: "Task II: Past Tense Timelines",
+                instruction: "Analyze the chronological order of actions based on the past tenses used.",
+                question: "Sentence: <em>'Maya was presenting her slides when the power went out, but the technician had already saved her presentation to the cloud.'</em><br><br>Which of the three actions was the <strong>EARLIEST (1)</strong>?",
+                options: [
+                    "The technician saved her presentation to the cloud.",
+                    "Maya was presenting her slides.",
+                    "The power went out.",
+                    "The presentation was deleted."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Had already saved' uses the Past Perfect tense, placing it as the earliest event (1) prior to the presentation and power outage.",
+                    "Incorrect. Presenting slides ('was presenting') was the ongoing background action (2).",
+                    "Incorrect. The power going out ('went out') was the sudden interrupting event (3).",
+                    "Incorrect. Deleting the presentation is contradicted by the statement."
+                ]
+            },
+            {
+                id: 10,
+                task: "TASK II. PAST TENSE VERBS",
+                category: "Task II: Past Tense Timelines",
+                instruction: "Analyze the chronological order of actions based on the past tenses used.",
+                question: "Sentence: <em>'The storm had knocked down several trees before the emergency rescue crew arrived on the scene.'</em><br><br>Determine the correct ordering: [1] Earliest, [2] Latest.",
+                options: [
+                    "[1] Trees were knocked down &rarr; [2] Rescue crew arrived",
+                    "[1] Rescue crew arrived &rarr; [2] Trees were knocked down",
+                    "Both happened at the exact same minute",
+                    "[1] Rescue crew cleared trees &rarr; [2] Storm started"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Had knocked down' (Past Perfect) = Earliest Event (1); 'arrived' (Simple Past) = Later Event (2).",
+                    "Incorrect. The rescue crew arrived AFTER the storm had already knocked down the trees.",
+                    "Incorrect. Past Perfect indicates the tree damage was already done prior to arrival.",
+                    "Incorrect. This reverses the logic of the sentence."
+                ]
+            },
+
+            // TASK III: PRONOUNS IN CONTEXT (Questions 11 - 20)
+            {
+                id: 11,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'When _____ had left the auditorium, the caretaker locked the main entrance doors.'</em>",
+                options: [
+                    "everyone",
+                    "whose",
+                    "where",
+                    "these"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Everyone' is an indefinite pronoun referring to all the people present in the auditorium.",
+                    "Incorrect. 'Whose' is a possessive relative pronoun.",
+                    "Incorrect. 'Where' is a relative pronoun referring to places.",
+                    "Incorrect. 'These' is a plural demonstrative pronoun requiring a noun or clear antecedent."
+                ]
+            },
+            {
+                id: 12,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'I searched for the old wooden desk, _____ top drawer contained the missing key.'</em>",
+                options: [
+                    "whose",
+                    "that",
+                    "where",
+                    "it"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Whose' is the relative pronoun indicating possession ('the top drawer of which').",
+                    "Incorrect. 'That' cannot directly show possession before a noun like 'top drawer'.",
+                    "Incorrect. 'Where' indicates location, not possession of a drawer.",
+                    "Incorrect. 'It' would create a comma splice run-on sentence."
+                ]
+            },
+            {
+                id: 13,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'The school science laboratory was the only place _____ we felt completely free to experiment.'</em>",
+                options: [
+                    "where",
+                    "whose",
+                    "anyone",
+                    "these"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Where' is the relative pronoun used to refer to a place ('the school science laboratory').",
+                    "Incorrect. 'Whose' expresses possession, not location.",
+                    "Incorrect. 'Anyone' is an indefinite pronoun for people.",
+                    "Incorrect. 'These' is a demonstrative pronoun."
+                ]
+            },
+            {
+                id: 14,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'I carefully opened the iron chest _____ my grandfather had hidden beneath the floorboards.'</em>",
+                options: [
+                    "that",
+                    "where",
+                    "whose",
+                    "nobody"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'That' is the relative pronoun introducing the relative clause modifying 'the iron chest'.",
+                    "Incorrect. 'Where' is used for places, not physical objects like a chest.",
+                    "Incorrect. 'Whose' shows possession.",
+                    "Incorrect. 'Nobody' is an indefinite pronoun."
+                ]
+            },
+            {
+                id: 15,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'_____ was the very moment I had been waiting for all afternoon.'</em>",
+                options: [
+                    "This",
+                    "Where",
+                    "Whose",
+                    "Anyone"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'This' is a singular demonstrative pronoun referring to the specific moment at hand.",
+                    "Incorrect. 'Where' is a relative adverb/pronoun of place.",
+                    "Incorrect. 'Whose' is possessive.",
+                    "Incorrect. 'Anyone' refers to unspecified people."
+                ]
+            },
+            {
+                id: 16,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'I glanced around the quiet courtyard, but _____ was in sight.'</em>",
+                options: [
+                    "nobody",
+                    "these",
+                    "whose",
+                    "where"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Nobody' is an indefinite pronoun meaning 'no person', fitting the quiet, empty context.",
+                    "Incorrect. 'These' is plural demonstrative.",
+                    "Incorrect. 'Whose' is possessive relative pronoun.",
+                    "Incorrect. 'Where' is relative pronoun of location."
+                ]
+            },
+            {
+                id: 17,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'Look at _____ beautiful paintings hanging on the gallery wall across from us.'</em>",
+                options: [
+                    "these",
+                    "where",
+                    "nobody",
+                    "it"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'These' is a plural demonstrative modifier pointing to plural objects ('paintings').",
+                    "Incorrect. 'Where' denotes location.",
+                    "Incorrect. 'Nobody' refers to people.",
+                    "Incorrect. 'It' is singular, but 'paintings' is plural."
+                ]
+            },
+            {
+                id: 18,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'Did _____ notice who left the library door open during the storm?'</em>",
+                options: [
+                    "anyone",
+                    "where",
+                    "whose",
+                    "these"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Anyone' is an indefinite pronoun used in questions to refer to any person.",
+                    "Incorrect. 'Where' refers to location.",
+                    "Incorrect. 'Whose' is possessive relative.",
+                    "Incorrect. 'These' is demonstrative."
+                ]
+            },
+            {
+                id: 19,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'The old oak tree stood near the fence _____ my father built last summer.'</em>",
+                options: [
+                    "that",
+                    "who",
+                    "nobody",
+                    "whose"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'That' is a relative pronoun referring to the inanimate object ('the fence').",
+                    "Incorrect. 'Who' is reserved for people, not fences.",
+                    "Incorrect. 'Nobody' is an indefinite pronoun.",
+                    "Incorrect. 'Whose' requires a possessive noun to follow immediately."
+                ]
+            },
+            {
+                id: 20,
+                task: "TASK III. PRONOUNS",
+                category: "Task III: Pronouns in Context",
+                instruction: "Choose the correct pronoun to complete the narrative extract.",
+                question: "Extract: <em>'The antique clock was sitting in the corner, and _____ pendulum ticked softly.'</em>",
+                options: [
+                    "its",
+                    "it's",
+                    "whose",
+                    "these"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Its' is the possessive pronoun referring to the clock ('the clock's pendulum').",
+                    "Incorrect. 'It's' is a contraction for 'it is', which would mean 'and it is pendulum ticked'.",
+                    "Incorrect. While 'whose' can refer to inanimate objects in formal writing, 'its' is the direct personal possessive pronoun here.",
+                    "Incorrect. 'These' is plural demonstrative."
+                ]
+            },
+
+            // TASK IV: CONNECTIVES (Questions 21 - 25)
+            {
+                id: 21,
+                task: "TASK IV. CONNECTIVES",
+                category: "Task IV: Connectives",
+                instruction: "Choose the correct connective to complete the sentence.",
+                question: "<em>'_____ completing her medical internship, Dr. Aris _____ opened her own private clinic.'</em>",
+                options: [
+                    "After; eventually",
+                    "Following; meanwhile",
+                    "By; whenever",
+                    "First; consequently"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'After' (+ gerund 'completing') sets up the timeframe, and 'eventually' shows the outcome achieved over time.",
+                    "Incorrect. 'Meanwhile' implies simultaneous action during her internship, contradicting opening a clinic after.",
+                    "Incorrect. 'By' requires a specific noun point in time, not a gerund clause.",
+                    "Incorrect. 'First' needs a secondary connective like 'secondly' or 'then'."
+                ]
+            },
+            {
+                id: 22,
+                task: "TASK IV. CONNECTIVES",
+                category: "Task IV: Connectives",
+                instruction: "Choose the correct connective to complete the sentence.",
+                question: "<em>'_____ the late nineteenth century, steamships were transporting trade goods across continents.'</em>",
+                options: [
+                    "By",
+                    "At",
+                    "All the time",
+                    "Whenever"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'By' is used with time periods ('By the late nineteenth century') to mean 'not later than' or 'up to that point in history'.",
+                    "Incorrect. 'At' is used for specific exact clock times (e.g., 'At 3 o'clock'), not entire century eras.",
+                    "Incorrect. 'All the time' requires a connecting clause.",
+                    "Incorrect. 'Whenever' introduces conditional repeated occurrences."
+                ]
+            },
+            {
+                id: 23,
+                task: "TASK IV. CONNECTIVES",
+                category: "Task IV: Connectives",
+                instruction: "Choose the correct connective to complete the sentence.",
+                question: "<em>'_____ the fire alarm sounds, students must immediately walk to the outdoor field.'</em>",
+                options: [
+                    "Whenever",
+                    "All the time",
+                    "Eventually",
+                    "Subsequently"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Whenever' means 'every time that' an event occurs, establishing a rule.",
+                    "Incorrect. 'All the time' implies continuous nonstop ringing.",
+                    "Incorrect. 'Eventually' means after a long delay.",
+                    "Incorrect. 'Subsequently' is an adverb meaning 'afterwards', not a clause conjunction."
+                ]
+            },
+            {
+                id: 24,
+                task: "TASK IV. CONNECTIVES",
+                category: "Task IV: Connectives",
+                instruction: "Choose the correct connective to complete the sentence.",
+                question: "<em>'_____, the tea leaves are carefully harvested; _____, they are dried in large bamboo trays.'</em>",
+                options: [
+                    "Firstly; subsequently",
+                    "First; meanwhile",
+                    "Eventually; consequently",
+                    "By; following"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Firstly' introduces the initial step of a process, and 'subsequently' introduces the next sequential step ('afterwards').",
+                    "Incorrect. 'Meanwhile' indicates actions happening simultaneously, whereas tea leaves must be harvested BEFORE drying.",
+                    "Incorrect. 'Eventually' implies a final conclusion rather than step 1.",
+                    "Incorrect. 'By' and 'following' are prepositions, not sequential discourse markers here."
+                ]
+            },
+            {
+                id: 25,
+                task: "TASK IV. CONNECTIVES",
+                category: "Task IV: Connectives",
+                instruction: "Choose the correct connective to complete the sentence.",
+                question: "<em>'Lucas was studying for his final exams. _____, his younger sister was playing video games in the living room.'</em>",
+                options: [
+                    "Meanwhile",
+                    "Eventually",
+                    "Consequently",
+                    "By"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Meanwhile' connects two separate events occurring at the exact same time.",
+                    "Incorrect. 'Eventually' indicates a outcome after a long period.",
+                    "Incorrect. 'Consequently' shows a cause-and-effect logical result.",
+                    "Incorrect. 'By' is a preposition requiring a noun complement."
+                ]
+            },
+
+            // TASK V: APOSTROPHE ERROR CORRECTION (Questions 26 - 30)
+            {
+                id: 26,
+                task: "TASK V. APOSTROPHE",
+                category: "Task V: Apostrophe Errors",
+                instruction: "Find and correct apostrophe errors in sentence structures.",
+                question: "Which sentence displays <strong>CORRECT</strong> apostrophe usage for plural possessive nouns?",
+                options: [
+                    "The students' projects were displayed on the hallway wall.",
+                    "The student's projects were displayed on the hallway wall for all ten classes.",
+                    "The students project's were displayed on the hallway wall.",
+                    "The students's projects were displayed on the hallway wall."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! Plural nouns ending in 's' (students) form the possessive by adding an apostrophe AFTER the 's' (students').",
+                    "Incorrect. 'Student's' is singular possessive ('one student'), which contradicts multiple projects across ten classes.",
+                    "Incorrect. 'Project's' places an unnecessary apostrophe on a regular plural noun.",
+                    "Incorrect. 'Students's' is ungrammatical for regular plural nouns ending in 's'."
+                ]
+            },
+            {
+                id: 27,
+                task: "TASK V. APOSTROPHE",
+                category: "Task V: Apostrophe Errors",
+                instruction: "Find and correct apostrophe errors in sentence structures.",
+                question: "Which sentence correctly distinguishes between <strong>it's</strong> (contraction) and <strong>its</strong> (possessive)?",
+                options: [
+                    "It's clear that the stray cat has injured its front paw.",
+                    "Its clear that the stray cat has injured it's front paw.",
+                    "It's clear that the stray cat has injured it's front paw.",
+                    "Its clear that the stray cat has injured its front paw."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'It's' = 'It is' (contraction for 'It is clear'), while 'its' = possessive pronoun belonging to the cat ('its front paw').",
+                    "Incorrect. 'Its' cannot start a sentence as 'It is', and 'it's' is incorrectly used as possessive.",
+                    "Incorrect. 'It's front paw' is incorrect because possessive 'its' never takes an apostrophe.",
+                    "Incorrect. 'Its clear' lacks the apostrophe needed for 'It is'."
+                ]
+            },
+            {
+                id: 28,
+                task: "TASK V. APOSTROPHE",
+                category: "Task V: Apostrophe Errors",
+                instruction: "Find and correct apostrophe errors in sentence structures.",
+                question: "Sentence to correct: <em>'I saw Mrs. Smiths notes on the desk, and she said that its crucial to finish early.'</em><br><br>What are the two correct apostrophe edits needed?",
+                options: [
+                    "Mrs. Smith's (possessive) AND it's (contraction for 'it is')",
+                    "Mrs. Smiths' (plural possessive) AND its (possessive)",
+                    "Mrs. Smith'es AND it's",
+                    "Mrs. Smiths AND it's"
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Mrs. Smith's' needs singular possessive ('s), and 'it's' needs a contraction apostrophe for 'it is crucial'.",
+                    "Incorrect. Mrs. Smith is one singular person, so 'Smiths'' is incorrect.",
+                    "Incorrect. 'Smith'es' is ungrammatical spelling.",
+                    "Incorrect. 'Mrs. Smiths' omits the required possessive apostrophe."
+                ]
+            },
+            {
+                id: 29,
+                task: "TASK V. APOSTROPHE",
+                category: "Task V: Apostrophe Errors",
+                instruction: "Find and correct apostrophe errors in sentence structures.",
+                question: "Identify the apostrophe error in this passage: <em>'The teachers lounge was renovated, but the principal's office remained unchanged.'</em>",
+                options: [
+                    "'teachers' should be written as 'teachers'' (plural possessive for all teachers)",
+                    "'principal's' should be written as 'principals'",
+                    "'teachers' should be written as 'teacher'es'",
+                    "There are no apostrophe errors in this sentence."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! The lounge belongs to all teachers (plural), so it requires a plural possessive apostrophe after the 's': 'teachers' lounge'.",
+                    "Incorrect. 'Principal's' is already correct as a singular possessive noun.",
+                    "Incorrect. 'Teacher'es' is ungrammatical.",
+                    "Incorrect. 'Teachers lounge' lacks the mandatory possessive apostrophe."
+                ]
+            },
+            {
+                id: 30,
+                task: "TASK V. APOSTROPHE",
+                category: "Task V: Apostrophe Errors",
+                instruction: "Find and correct apostrophe errors in sentence structures.",
+                question: "Which sentence correctly applies possessive apostrophe rules to irregular plural nouns (e.g. <em>children</em>) and regular plural nouns (e.g. <em>parents</em>)?",
+                options: [
+                    "The children's toys and the parents' keys were left on the table.",
+                    "The childrens' toys and the parent's keys were left on the table.",
+                    "The childrens toys' and the parents key's were left on the table.",
+                    "The children's toy's and the parents's keys were left on the table."
+                ],
+                correct: 0,
+                rationales: [
+                    "Correct! 'Children' is an irregular plural, so it adds ''s' (children's). 'Parents' is a regular plural ending in 's', so it adds an apostrophe after 's' (parents').",
+                    "Incorrect. Irregular plurals like 'children' take ''s', not 's''.",
+                    "Incorrect. Plural non-possessive nouns ('toys', 'keys') should not have apostrophes.",
+                    "Incorrect. Regular plurals ending in 's' take 'parents'', not 'parents's'."
+                ]
+            }
+        ];
+
+        // Global State Variables
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let reviewMode = false;
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            updateHeaderScore();
+        };
+
+        // Start Quiz Engine
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+            renderQuestion();
+            updateGridModal();
+        }
+
+        // Render Question Card
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            
+            // Header stats & progress tracking
+            document.getElementById('current-question-num').innerText = currentQuestionIndex + 1;
+            document.getElementById('category-badge').innerText = q.category;
+            document.getElementById('task-instruction').innerText = q.instruction;
+            
+            const percent = Math.round(((currentQuestionIndex + 1) / questions.length) * 100);
+            document.getElementById('progress-percent').innerText = `${percent}% Completed`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+
+            // Question prompt
+            document.getElementById('question-text').innerHTML = q.question;
+
+            // Option buttons setup
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const selectedOption = userAnswers[currentQuestionIndex];
+            const letters = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((optText, index) => {
+                const isSelected = selectedOption === index;
+                const isCorrect = index === q.correct;
+
+                let btnClasses = "w-full p-4 rounded-xl border text-left transition-all flex items-start space-x-3 cursor-pointer ";
+
+                if (selectedOption !== null) {
+                    // Answered State
+                    if (index === q.correct) {
+                        btnClasses += "bg-emerald-50 border-emerald-500 text-emerald-900 font-medium ";
+                    } else if (isSelected && !isCorrect) {
+                        btnClasses += "bg-rose-50 border-rose-500 text-rose-900 font-medium ";
+                    } else {
+                        btnClasses += "bg-slate-50 border-slate-200 text-slate-500 opacity-60 ";
+                    }
+                } else {
+                    // Unanswered Hover State
+                    btnClasses += "bg-white border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 text-slate-800 ";
+                }
+
+                const btn = document.createElement('button');
+                btn.className = btnClasses;
+                btn.disabled = selectedOption !== null;
+                btn.onclick = () => selectOption(index);
+
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 ${
+                        selectedOption !== null && index === q.correct ? 'bg-emerald-600 text-white' :
+                        selectedOption !== null && isSelected && !isCorrect ? 'bg-rose-600 text-white' :
+                        'bg-slate-100 text-slate-600 border border-slate-200'
+                    }">${letters[index]}</span>
+                    <span class="pt-0.5 text-sm sm:text-base leading-snug flex-grow">${optText}</span>
+                    ${selectedOption !== null && index === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 text-lg shrink-0 mt-1"></i>' : ''}
+                    ${selectedOption !== null && isSelected && !isCorrect ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-lg shrink-0 mt-1"></i>' : ''}
+                `;
+
+                container.appendChild(btn);
+            });
+
+            // Feedback Explanation Box
+            const expBox = document.getElementById('explanation-box');
+            const expHeader = document.getElementById('explanation-header');
+            const expText = document.getElementById('explanation-text');
+
+            if (selectedOption !== null) {
+                expBox.classList.remove('hidden');
+                const isCorrect = selectedOption === q.correct;
+                
+                if (isCorrect) {
+                    expBox.className = "p-4 sm:p-5 rounded-xl text-sm leading-relaxed border space-y-2 bg-emerald-50/90 border-emerald-200 text-emerald-950";
+                    expHeader.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> <span>Correct Answer!</span>`;
+                } else {
+                    expBox.className = "p-4 sm:p-5 rounded-xl text-sm leading-relaxed border space-y-2 bg-rose-50/90 border-rose-200 text-rose-950";
+                    expHeader.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> <span>Incorrect Answer</span>`;
+                }
+                
+                expText.innerText = q.rationales[selectedOption];
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            // Navigation Button Controls
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+
+            const nextBtn = document.getElementById('next-btn');
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.innerHTML = `<span>Finish Test</span> <i class="fa-solid fa-flag-checkered ml-1.5"></i>`;
+            } else {
+                nextBtn.innerHTML = `<span>Next Question</span> <i class="fa-solid fa-chevron-right ml-1.5"></i>`;
+            }
+
+            updateHeaderScore();
+        }
+
+        // Handle Option Selection
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            renderQuestion();
+            updateGridModal();
+        }
+
+        // Navigation Handlers
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        // Update Nav Score Badge
+        function updateHeaderScore() {
+            const answeredCount = userAnswers.filter((ans, idx) => ans === questions[idx].correct).length;
+            document.getElementById('header-score').innerText = `${answeredCount} / ${questions.length}`;
+        }
+
+        // Finish Test & Display Comprehensive Breakdown
+        function finishQuiz() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+
+            let correctCount = 0;
+            const categoryStats = {};
+
+            questions.forEach((q, idx) => {
+                if (!categoryStats[q.category]) {
+                    categoryStats[q.category] = { total: 0, correct: 0 };
+                }
+                categoryStats[q.category].total++;
+
+                if (userAnswers[idx] === q.correct) {
+                    correctCount++;
+                    categoryStats[q.category].correct++;
+                }
+            });
+
+            const scorePercent = Math.round((correctCount / questions.length) * 100);
+            
+            // Score Badge styling
+            const badge = document.getElementById('score-badge');
+            badge.innerText = `${scorePercent}%`;
+            if (scorePercent >= 80) {
+                badge.className = "w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl bg-emerald-500 shadow-emerald-500/30";
+                document.getElementById('results-title').innerText = "Outstanding Performance!";
+            } else if (scorePercent >= 60) {
+                badge.className = "w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl bg-amber-500 shadow-amber-500/30";
+                document.getElementById('results-title').innerText = "Good Job!";
+            } else {
+                badge.className = "w-24 h-24 rounded-full flex items-center justify-center mx-auto text-3xl font-black text-white shadow-xl bg-rose-500 shadow-rose-500/30";
+                document.getElementById('results-title').innerText = "Keep Practicing!";
+            }
+
+            document.getElementById('correct-count').innerText = correctCount;
+
+            // Render Task Breakdown Progress Bars
+            const breakdownContainer = document.getElementById('category-breakdown');
+            breakdownContainer.innerHTML = '';
+
+            for (const [cat, data] of Object.entries(categoryStats)) {
+                const catPercent = Math.round((data.correct / data.total) * 100);
+                const item = document.createElement('div');
+                item.className = "p-3 bg-slate-50 rounded-xl space-y-1.5 border border-slate-200 text-xs sm:text-sm";
+                item.innerHTML = `
+                    <div class="flex justify-between font-semibold text-slate-700">
+                        <span>${cat}</span>
+                        <span>${data.correct} / ${data.total} (${catPercent}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div class="h-full ${catPercent >= 80 ? 'bg-emerald-500' : catPercent >= 60 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${catPercent}%"></div>
+                    </div>
+                `;
+                breakdownContainer.appendChild(item);
+            }
+        }
+
+        // Restart Quiz Reset
+        function restartQuiz() {
+            userAnswers = new Array(questions.length).fill(null);
+            currentQuestionIndex = 0;
+            reviewMode = false;
+            startQuiz();
+        }
+
+        // Enter Review Mode
+        function reviewAnswers() {
+            currentQuestionIndex = 0;
+            reviewMode = true;
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // Jump Grid Modal Functions
+        function toggleGridModal() {
+            const modal = document.getElementById('grid-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function updateGridModal() {
+            const container = document.getElementById('grid-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                const isAnswered = userAnswers[idx] !== null;
+                const isCurrent = currentQuestionIndex === idx;
+
+                let classes = "w-9 h-9 rounded-xl font-bold text-xs flex items-center justify-center border transition-all ";
+
+                if (isCurrent) {
+                    classes += "ring-2 ring-brand-500 border-brand-600 font-extrabold ";
+                }
+
+                if (isAnswered) {
+                    classes += "bg-emerald-500 text-white border-emerald-600 ";
+                } else {
+                    classes += "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200 ";
+                }
+
+                btn.className = classes;
+                btn.innerText = idx + 1;
+                btn.onclick = () => {
+                    currentQuestionIndex = idx;
+                    renderQuestion();
+                    toggleGridModal();
+                };
+
+                container.appendChild(btn);
+            });
+        }
+
+        // Concept Cheat Sheet Modal Toggle
+        function toggleCheatSheet() {
+            const modal = document.getElementById('cheatsheet-modal');
+            modal.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
