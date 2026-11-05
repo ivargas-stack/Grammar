@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Stage 9: Unit 7 Playwriting Guide & Script Builder</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cambridge: {
+                            navy: '#0f172a',
+                            blue: '#1e3a8a',
+                            teal: '#0d9488',
+                            tealLight: '#14b8a6',
+                            gold: '#d97706',
+                            slate: '#475569',
+                            bg: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        script: ['Courier Prime', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and smooth transitions */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .step-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        /* Script Paper Style */
+        .script-paper {
+            background-color: #ffffff;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-cambridge-bg text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- TOP HEADER -->
+    <header class="bg-cambridge-navy text-white shadow-lg border-b-4 border-cambridge-teal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl bg-cambridge-teal flex items-center justify-center text-white text-2xl font-bold shadow-md">
+                        <i class="fa-solid fa-masks-theater"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-teal-300">
+                            <span>Cambridge Learner's Book 9</span>
+                            <span>•</span>
+                            <span>Unit 7: More Than a Play</span>
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Interactive Playwriting Guide & Builder</h1>
+                    </div>
+                </div>
+                <!-- Learning Intentions Badge -->
+                <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-lg p-3 text-xs max-w-md">
+                    <div class="flex items-center space-x-2 text-amber-400 font-bold mb-1">
+                        <i class="fa-solid fa-bullseye"></i>
+                        <span>WALT & WILF Focus:</span>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed">
+                        Create symbolic characters, sustain dramatic script conventions, apply 1st/2nd/3rd conditionals, use environmental collocations, and write a 350–400 word scene.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP PROGRESS BAR -->
+            <div class="mt-6 pt-4 border-t border-slate-700">
+                <div class="flex items-center justify-between text-xs font-medium text-slate-400 mb-2">
+                    <span id="progressText">Step 1 of 6: Choose Conflict & Prompt</span>
+                    <span id="progressPercent" class="text-cambridge-teal font-bold">16% Completed</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                    <div id="progressBar" class="bg-gradient-to-r from-cambridge-teal to-teal-400 h-2.5 rounded-full transition-all duration-500" style="width: 16.66%;"></div>
+                </div>
+
+                <!-- STEP BUTTONS NAVIGATION -->
+                <div class="grid grid-cols-6 gap-2 mt-4 text-center">
+                    <button onclick="goToStep(1)" id="stepBtn-1" class="step-btn py-2 px-1 rounded-lg text-xs font-semibold transition-all border border-cambridge-teal bg-cambridge-teal text-white">
+                        1. Prompt
+                    </button>
+                    <button onclick="goToStep(2)" id="stepBtn-2" class="step-btn py-2 px-1 rounded-lg text-xs font-semibold transition-all border border-slate-700 bg-slate-800 text-slate-400 hover:bg-slate-700">
+                        2. Characters
+                    </button>
+                    <button onclick="goToStep(3)" id="stepBtn-3" class="step-btn py-2 px-1 rounded-lg text-xs font-semibold transition-all border border-slate-700 bg-slate-800 text-slate-400 hover:bg-slate-700">
+                        3. Rules
+                    </button>
+                    <button onclick="goToStep(4)" id="stepBtn-4" class="step-btn py-2 px-1 rounded-lg text-xs font-semibold transition-all border border-slate-700 bg-slate-800 text-slate-400 hover:bg-slate-700">
+                        4. Toolkit
+                    </button>
+                    <button onclick="goToStep(5)" id="stepBtn-5" class="step-btn py-2 px-1 rounded-lg text-xs font-semibold transition-all border border-slate-700 bg-slate-800 text-slate-400 hover:bg-slate-700">
+                        5. Script Builder
+                    </button>
+                    <button onclick="goToStep(6)" id="stepBtn-6" class="step-btn py-2 px-1 rounded-lg text-xs font-semibold transition-all border border-slate-700 bg-slate-800 text-slate-400 hover:bg-slate-700">
+                        6. Assessment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- STEP 1: SELECT PROMPT & CONFLICT -->
+        <div id="step-1" class="step-content">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+                <div class="max-w-3xl mb-6">
+                    <span class="bg-teal-50 text-cambridge-teal border border-teal-200 px-3 py-1 rounded-full text-xs font-bold uppercase">Step 1 of 6</span>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-2">Choose Your Play Prompt & Environmental Theme</h2>
+                    <p class="text-slate-600 mt-1">Select one of the Cambridge Unit 7 scenarios below. This will set up your characters, stakes, and conflict background.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Option A -->
+                    <div onclick="selectPrompt('A')" id="card-prompt-A" class="prompt-card border-2 border-slate-200 rounded-xl p-6 cursor-pointer hover:border-cambridge-teal transition-all bg-white relative">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-faucet-drip"></i>
+                            </div>
+                            <span class="badge text-xs px-2.5 py-1 rounded-full font-semibold bg-slate-100 text-slate-600">Option A</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">The Village Well</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Resource Conflict & Access Rights</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            A traditional rural community relies on a single freshwater well. A wealthy commercial landowner claims sole ownership, threatening to shut off access to build a private resort.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                            <span><i class="fa-solid fa-users text-teal-600 mr-1"></i> Villagers vs. Landowner</span>
+                            <span class="font-bold text-cambridge-teal">Select Scenario <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Option B -->
+                    <div onclick="selectPrompt('B')" id="card-prompt-B" class="prompt-card border-2 border-slate-200 rounded-xl p-6 cursor-pointer hover:border-cambridge-teal transition-all bg-white relative">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-tree"></i>
+                            </div>
+                            <span class="badge text-xs px-2.5 py-1 rounded-full font-semibold bg-slate-100 text-slate-600">Option B</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">The Encroaching Hunters</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Wildlife Conservation & Sanctuary Protection</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Sanctuary animals (represented by symbolic figures like Forest Guardian) confront armed poachers entering a protected reserve during a drought.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                            <span><i class="fa-solid fa-paw text-emerald-600 mr-1"></i> Animals vs. Hunters</span>
+                            <span class="font-bold text-cambridge-teal">Select Scenario <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Option C -->
+                    <div onclick="selectPrompt('C')" id="card-prompt-C" class="prompt-card border-2 border-slate-200 rounded-xl p-6 cursor-pointer hover:border-cambridge-teal transition-all bg-white relative">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-tractor"></i>
+                            </div>
+                            <span class="badge text-xs px-2.5 py-1 rounded-full font-semibold bg-slate-100 text-slate-600">Option C</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">Deforestation & Palm Oil</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Habitats vs. Industrial Expansion</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            An ancient Orangutan family stands directly in front of heavy bulldozer operators who are clearing ancient rainforest trees for commercial palm plantations.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                            <span><i class="fa-solid fa-leaf text-amber-600 mr-1"></i> Orangutans vs. Bulldozers</span>
+                            <span class="font-bold text-cambridge-teal">Select Scenario <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Option D -->
+                    <div onclick="selectPrompt('D')" id="card-prompt-D" class="prompt-card border-2 border-slate-200 rounded-xl p-6 cursor-pointer hover:border-cambridge-teal transition-all bg-white relative">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-pen-nib"></i>
+                            </div>
+                            <span class="badge text-xs px-2.5 py-1 rounded-full font-semibold bg-slate-100 text-slate-600">Option D</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">Custom Environmental Topic</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Create Your Own Dramatic Conflict</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Design your own customized conflict (e.g., Ocean Plastic Pollution, Air Smog in Cities, River Contamination).
+                        </p>
+                        <div class="mt-4">
+                            <input type="text" id="customPromptInput" placeholder="Enter custom topic name..." class="w-full text-xs p-2 border border-slate-300 rounded focus:outline-none focus:border-cambridge-teal" onclick="event.stopPropagation(); selectPrompt('D');">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="goToStep(2)" class="bg-cambridge-teal hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-md transition-all flex items-center space-x-2">
+                        <span>Continue to Character Planner</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: CHARACTER & SYMBOLIC ROLE PLANNER -->
+        <div id="step-2" class="step-content hidden">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+                <div class="max-w-3xl mb-6">
+                    <span class="bg-teal-50 text-cambridge-teal border border-teal-200 px-3 py-1 rounded-full text-xs font-bold uppercase">Step 2 of 6</span>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-2">Character & Voice Contrast Planner</h2>
+                    <p class="text-slate-600 mt-1">In Cambridge Unit 7, characters often represent **symbolic concepts** (e.g., Greed, Pollution, Future Child, Forest Keeper). Establish distinct voice styles!</p>
+                </div>
+
+                <!-- Info Box -->
+                <div class="mb-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl text-amber-900 text-sm">
+                    <div class="flex items-center font-bold mb-1">
+                        <i class="fa-solid fa-lightbulb text-amber-600 mr-2"></i> Cambridge Stylistic Contrast Rule:
+                    </div>
+                    <p>
+                        Give <strong>Antagonists/Villains</strong> short, forceful exclamations (<em>"Move!", "Silence!", "Money talks!"</em>) and give <strong>Protective Figures</strong> extended, reflective conditional arguments (<em>"If you destroy these trees, the whole ecosystem will collapse."</em>).
+                    </p>
+                </div>
+
+                <!-- Character List -->
+                <div id="characterListContainer" class="space-y-4 mb-6">
+                    <!-- Dynamic Character Cards populated via JavaScript -->
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-slate-200">
+                    <button onclick="addCharacterInput()" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-5 rounded-xl text-sm border border-slate-300 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-plus text-cambridge-teal"></i>
+                        <span>Add Another Character</span>
+                    </button>
+                    <div class="flex space-x-3 w-full sm:w-auto justify-end">
+                        <button onclick="goToStep(1)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl transition-all">Back</button>
+                        <button onclick="goToStep(3)" class="bg-cambridge-teal hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-md transition-all flex items-center space-x-2">
+                            <span>View Script Rules</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: DRAMATIC CONVENTIONS GUIDE -->
+        <div id="step-3" class="step-content hidden">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+                <div class="max-w-3xl mb-6">
+                    <span class="bg-teal-50 text-cambridge-teal border border-teal-200 px-3 py-1 rounded-full text-xs font-bold uppercase">Step 3 of 6</span>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-2">Dramatic Conventions & Layout Checklist</h2>
+                    <p class="text-slate-600 mt-1">Play scripts follow specific structural rules. Study these key conventions before writing.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Rule 1 -->
+                    <div class="p-5 rounded-xl border border-slate-200 bg-slate-50">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">1</div>
+                            <h3 class="font-bold text-slate-900">Speaker Names on Left</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-3">Write character names in <strong>CAPITAL LETTERS</strong> on the left side followed by a colon. Never indent or start with speech marks.</p>
+                        <div class="bg-slate-900 text-teal-400 font-script text-xs p-3 rounded-lg">
+                            MONEY:<br>
+                            &nbsp;&nbsp;Stand back! This forest belongs to me.
+                        </div>
+                    </div>
+
+                    <!-- Rule 2 -->
+                    <div class="p-5 rounded-xl border border-slate-200 bg-slate-50">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">2</div>
+                            <h3 class="font-bold text-slate-900">NO Quotation Marks</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-3">Unlike fiction stories, play scripts <strong>NEVER</strong> use quotation marks ("...") around spoken dialogue!</p>
+                        <div class="bg-slate-900 text-red-400 font-script text-xs p-3 rounded-lg">
+                            <span class="line-through text-slate-500">CHILD: "We will protect our land!"</span><br>
+                            <span class="text-emerald-400">CHILD: We will protect our land!</span>
+                        </div>
+                    </div>
+
+                    <!-- Rule 3 -->
+                    <div class="p-5 rounded-xl border border-slate-200 bg-slate-50">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">3</div>
+                            <h3 class="font-bold text-slate-900">Stage Directions in Brackets</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-3">Describe actions, gestures, and tone of voice using <em>brackets and italics</em>.</p>
+                        <div class="bg-slate-900 text-amber-300 font-script text-xs p-3 rounded-lg">
+                            SMOKE: <em>(coughing violently, pointing towards the trees)</em> We are moving in!
+                        </div>
+                    </div>
+
+                    <!-- Rule 4 -->
+                    <div class="p-5 rounded-xl border border-slate-200 bg-slate-50">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm">4</div>
+                            <h3 class="font-bold text-slate-900">Scene Setup Description</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-3">Begin your scene with italicized descriptions of stage placement, backdrop lighting, and sound effects.</p>
+                        <div class="bg-slate-900 text-slate-300 font-script text-xs p-3 rounded-lg">
+                            <em>Lights up on stage. A dense ancient canopy covers the background. Soft birdsong fades as heavy machinery rumbles.</em>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="goToStep(2)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl transition-all">Back</button>
+                    <button onclick="goToStep(4)" class="bg-cambridge-teal hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-md transition-all flex items-center space-x-2">
+                        <span>Open Language Toolkit</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4: GRAMMAR & LANGUAGE TOOLKIT -->
+        <div id="step-4" class="step-content hidden">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+                <div class="max-w-3xl mb-6">
+                    <span class="bg-teal-50 text-cambridge-teal border border-teal-200 px-3 py-1 rounded-full text-xs font-bold uppercase">Step 4 of 6</span>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-2">Cambridge Stage 9 Language Toolkit</h2>
+                    <p class="text-slate-600 mt-1">Integrate compulsory Stage 9 grammar features: Conditional Structures & Environment Collocations.</p>
+                </div>
+
+                <!-- Conditionals Interactive Explorer -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center">
+                        <i class="fa-solid fa-code-branch text-cambridge-teal mr-2"></i>
+                        1. Target Conditional Structures
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- 1st Conditional -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 hover:border-teal-400 transition-all">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700 uppercase">1st Conditional</span>
+                            <h4 class="font-bold text-sm text-slate-900 mt-2">Real Cause & Effect</h4>
+                            <p class="text-xs text-slate-500 my-1">If + Present Simple, Will + Verb</p>
+                            <p class="text-xs text-slate-700 italic bg-white p-2 rounded border border-slate-200 mt-2">
+                                "If you chop down these trees, the ecosystem will collapse."
+                            </p>
+                        </div>
+
+                        <!-- 2nd Conditional -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 hover:border-teal-400 transition-all">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 uppercase">2nd Conditional</span>
+                            <h4 class="font-bold text-sm text-slate-900 mt-2">Hypothetical Scenario</h4>
+                            <p class="text-xs text-slate-500 my-1">If + Past Simple, Would + Verb</p>
+                            <p class="text-xs text-slate-700 italic bg-white p-2 rounded border border-slate-200 mt-2">
+                                "If you had any compassion, you would not contaminate our river."
+                            </p>
+                        </div>
+
+                        <!-- 3rd Conditional -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 hover:border-teal-400 transition-all">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-700 uppercase">3rd Conditional</span>
+                            <h4 class="font-bold text-sm text-slate-900 mt-2">Past Regret & Consequence</h4>
+                            <p class="text-xs text-slate-500 my-1">If + Past Perfect, Would Have + Past Participle</p>
+                            <p class="text-xs text-slate-700 italic bg-white p-2 rounded border border-slate-200 mt-2">
+                                "If we had protected this forest last year, these animals wouldn't have suffered."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Environment Collocations Bank -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+                        <i class="fa-solid fa-seedling text-emerald-600 mr-2"></i>
+                        2. Key Environmental Collocations Bank
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Click any collocation tag to quickly copy it to your clip clipboard or reference list!</p>
+                    <div class="flex flex-wrap gap-2" id="collocationsBank">
+                        <button onclick="copyToClipboard('deplete natural resources')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> deplete natural resources
+                        </button>
+                        <button onclick="copyToClipboard('contaminate soil')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> contaminate soil
+                        </button>
+                        <button onclick="copyToClipboard('chop down forests')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> chop down forests
+                        </button>
+                        <button onclick="copyToClipboard('burn fossil fuels')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> burn fossil fuels
+                        </button>
+                        <button onclick="copyToClipboard('protect the environment')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> protect the environment
+                        </button>
+                        <button onclick="copyToClipboard('pollute the air')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> pollute the air
+                        </button>
+                        <button onclick="copyToClipboard('destroy the ecosystem')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> destroy the ecosystem
+                        </button>
+                        <button onclick="copyToClipboard('recycle waste')" class="colloc-tag text-xs bg-slate-100 hover:bg-cambridge-teal hover:text-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-lg transition-all font-medium">
+                            <i class="fa-solid fa-copy text-xs opacity-60 mr-1"></i> recycle waste
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between items-center pt-4 border-t border-slate-200">
+                    <button onclick="goToStep(3)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-xl transition-all">Back</button>
+                    <button onclick="goToStep(5)" class="bg-cambridge-teal hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-xl shadow-md transition-all flex items-center space-x-2">
+                        <span>Open Live Script Builder</span>
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5: INTERACTIVE PLAY BUILDER & LIVE EDITOR -->
+        <div id="step-5" class="step-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- Left Control Panel: Editor Controls & Helpers -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-cambridge-teal mr-2"></i> Quick Inserters & Tools
+                        </h3>
+
+                        <!-- Character Inserter Buttons -->
+                        <div class="mb-4">
+                            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Insert Speaker Tag:</label>
+                            <div id="quickCharacterBtns" class="flex flex-wrap gap-1.5">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Stage Directions Helper -->
+                        <div class="mb-4">
+                            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Insert Stage Direction Snippet:</label>
+                            <div class="grid grid-cols-2 gap-1.5 text-xs">
+                                <button onclick="insertTextAtCursor('(firmly, stepping forward)')" class="bg-slate-100 hover:bg-slate-200 p-2 rounded text-left truncate text-slate-700 border border-slate-200">(firmly, stepping forward)</button>
+                                <button onclick="insertTextAtCursor('(recoiling in anger)')" class="bg-slate-100 hover:bg-slate-200 p-2 rounded text-left truncate text-slate-700 border border-slate-200">(recoiling in anger)</button>
+                                <button onclick="insertTextAtCursor('(pointing dramatically)')" class="bg-slate-100 hover:bg-slate-200 p-2 rounded text-left truncate text-slate-700 border border-slate-200">(pointing dramatically)</button>
+                                <button onclick="insertTextAtCursor('(speaking in a low, trembling voice)')" class="bg-slate-100 hover:bg-slate-200 p-2 rounded text-left truncate text-slate-700 border border-slate-200">(low, trembling voice)</button>
+                            </div>
+                        </div>
+
+                        <!-- Conditionals Quick Inserter -->
+                        <div class="mb-4">
+                            <label class="block text-xs font-semibold text-slate-500 mb-1.5">Insert Conditional Starter:</label>
+                            <div class="space-y-1.5 text-xs">
+                                <button onclick="insertTextAtCursor('If you chop down these trees, ')" class="w-full text-left bg-blue-50 hover:bg-blue-100 text-blue-800 p-2 rounded border border-blue-200 font-medium">
+                                    + 1st Conditional: "If you chop down..."
+                                </button>
+                                <button onclick="insertTextAtCursor('If we had more time, we would ')" class="w-full text-left bg-emerald-50 hover:bg-emerald-100 text-emerald-800 p-2 rounded border border-emerald-200 font-medium">
+                                    + 2nd Conditional: "If we had more time..."
+                                </button>
+                                <button onclick="insertTextAtCursor('If you had protected the soil, it wouldn\'t have ')" class="w-full text-left bg-purple-50 hover:bg-purple-100 text-purple-800 p-2 rounded border border-purple-200 font-medium">
+                                    + 3rd Conditional: "If you had protected..."
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Template Starter -->
+                        <div class="pt-3 border-t border-slate-200 flex space-x-2">
+                            <button onclick="loadStarterTemplate()" class="w-1/2 bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-3 rounded-lg text-xs transition-all flex items-center justify-center space-x-1">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>Load Template</span>
+                            </button>
+                            <button onclick="autoFixFormatting()" class="w-1/2 bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-3 rounded-lg text-xs transition-all flex items-center justify-center space-x-1">
+                                <i class="fa-solid fa-wrench"></i>
+                                <span>Fix Layout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Control Panel: Main Script Editor & Preview -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                        <!-- Header with Word Counter -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200">
+                            <div>
+                                <h3 class="font-bold text-slate-900">Scene Script Editor</h3>
+                                <p class="text-xs text-slate-500">Target Length: <strong class="text-slate-800">350–400 words</strong></p>
+                            </div>
+
+                            <!-- Live Word Counter Badge -->
+                            <div id="wordCountBadge" class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl border bg-amber-50 border-amber-300 text-amber-800 text-xs font-bold">
+                                <i class="fa-solid fa-calculator"></i>
+                                <span>Words: <span id="currentWordCount">0</span> / 350–400</span>
+                            </div>
+                        </div>
+
+                        <!-- Textarea Editor -->
+                        <div class="mt-4">
+                            <textarea id="scriptTextarea" oninput="updateScriptPreview()" rows="16" placeholder="Type or build your play scene here...
+
+Example format:
+Title: The Battle for the Well
+Setting: Lights up on stage. A dusty village square surrounding an ancient dry well...
+
+VILLAGER: (stepping forward) Stand back! If you take our water, our children will suffer!
+LANDOWNER: (laughing callously) Money talks! Move aside!" class="w-full p-4 font-script text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:bg-white focus:border-cambridge-teal leading-relaxed"></textarea>
+                        </div>
+
+                        <!-- Editor Footer -->
+                        <div class="mt-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+                            <div class="text-xs text-slate-500 flex items-center space-x-2">
+                                <span id="conditionalStatusBadge" class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold border">Conditionals: 0 Detected</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="goToStep(4)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-5 rounded-xl text-sm transition-all">Back</button>
+                                <button onclick="goToStep(6)" class="bg-cambridge-teal hover:bg-teal-700 text-white font-bold py-2.5 px-6 rounded-xl text-sm shadow-md transition-all flex items-center space-x-2">
+                                    <span>Go to Assessment</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- STEP 6: ASSESSMENT & EXPORT -->
+        <div id="step-6" class="step-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- Left Column: Self-Assessment Checklist -->
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <span class="bg-teal-50 text-cambridge-teal border border-teal-200 px-3 py-1 rounded-full text-xs font-bold uppercase">Step 6 of 6</span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-2 mb-1">Cambridge Success Checklist</h2>
+                    <p class="text-xs text-slate-500 mb-4">Self-assess your play scene against Stage 9 criteria before submitting or printing.</p>
+
+                    <div class="space-y-3 text-xs" id="checklistContainer">
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all">
+                            <input type="checkbox" id="check-1" onchange="updateChecklistProgress()" class="mt-0.5 rounded text-cambridge-teal focus:ring-cambridge-teal w-4 h-4">
+                            <div>
+                                <strong class="text-slate-900 block font-semibold">Symbolic Characters Created</strong>
+                                <span class="text-slate-500">Includes opposing characters representing symbolic concepts (e.g., Greed vs. Future Child).</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all">
+                            <input type="checkbox" id="check-2" onchange="updateChecklistProgress()" class="mt-0.5 rounded text-cambridge-teal focus:ring-cambridge-teal w-4 h-4">
+                            <div>
+                                <strong class="text-slate-900 block font-semibold">Correct Script Conventions</strong>
+                                <span class="text-slate-500">Speaker names in bold/caps on left, NO quotation marks around dialogue, stage directions in brackets/italics.</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all">
+                            <input type="checkbox" id="check-3" onchange="updateChecklistProgress()" class="mt-0.5 rounded text-cambridge-teal focus:ring-cambridge-teal w-4 h-4">
+                            <div>
+                                <strong class="text-slate-900 block font-semibold">Conditional Structures Included</strong>
+                                <span class="text-slate-500">At least 2–3 conditional sentences (1st, 2nd, or 3rd conditionals) are used effectively.</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all">
+                            <input type="checkbox" id="check-4" onchange="updateChecklistProgress()" class="mt-0.5 rounded text-cambridge-teal focus:ring-cambridge-teal w-4 h-4">
+                            <div>
+                                <strong class="text-slate-900 block font-semibold">Environmental Collocations</strong>
+                                <span class="text-slate-500">Accurate verb-noun collocations (e.g., <em>deplete resources, contaminate soil</em>) incorporated.</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all">
+                            <input type="checkbox" id="check-5" onchange="updateChecklistProgress()" class="mt-0.5 rounded text-cambridge-teal focus:ring-cambridge-teal w-4 h-4">
+                            <div>
+                                <strong class="text-slate-900 block font-semibold">Stylistic & Vocal Contrast</strong>
+                                <span class="text-slate-500">Short exclamations (!) for villains vs. reflective conditional logic for protective figures.</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all">
+                            <input type="checkbox" id="check-6" onchange="updateChecklistProgress()" class="mt-0.5 rounded text-cambridge-teal focus:ring-cambridge-teal w-4 h-4">
+                            <div>
+                                <strong class="text-slate-900 block font-semibold">Target Word Count (350–400 Words)</strong>
+                                <span class="text-slate-500">Scene length meets Stage 9 independent writing requirement.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Right Column: Final Formatted Script Preview & Actions -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900">Final Formatted Script</h3>
+                                <p class="text-xs text-slate-500">Ready for class performance or teacher submission</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="copyFormattedScript()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 px-4 rounded-xl text-xs transition-all flex items-center space-x-1.5 border border-slate-300">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Copy Text</span>
+                                </button>
+                                <button onclick="downloadScriptFile()" class="bg-cambridge-teal hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-xl text-xs shadow transition-all flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-download"></i>
+                                    <span>Download .TXT</span>
+                                </button>
+                                <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded-xl text-xs shadow transition-all flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-print"></i>
+                                    <span>Print</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Rendered Script Paper -->
+                        <div class="mt-6 p-6 script-paper border border-slate-300 rounded-xl min-h-[400px] text-slate-900 font-script text-sm leading-relaxed overflow-y-auto max-h-[500px]" id="finalScriptRender">
+                            <!-- Populated via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center">
+            <p>© Cambridge Lower Secondary English & Grammar Specialist • Stage 9 (Grade 8)</p>
+            <p class="mt-2 sm:mt-0 text-slate-500">Unit 7: Dramatic Structure & Environmental Themes</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // GLOBAL STATE MANAGEMENT
+        let currentStep = 1;
+        let selectedPromptKey = 'A';
+        let characters = [
+            { name: 'VILLAGER', role: 'Protective Hero', style: 'Extended Conditionals' },
+            { name: 'LANDOWNER', role: 'Symbolic Antagonist', style: 'Short Exclamations' }
+        ];
+
+        // PROMPT DATA TEMPLATES
+        const PROMPTS_DATA = {
+            'A': {
+                title: "The Village Well",
+                setting: "Lights up on stage. A dusty, cracked village square in front of an ancient stone water well. Bright, harsh sunlight creates deep shadows.",
+                defaultChars: [
+                    { name: 'VILLAGER', role: 'Community Representative', style: 'Reflective Conditionals' },
+                    { name: 'LANDOWNER', role: 'Symbolic Wealth / Greed', style: 'Short Exclamations' }
+                ],
+                starterScript: `TITLE: The Village Well
+SETTING: Lights up on stage. A dusty, cracked village square in front of an ancient stone water well. Bright, harsh sunlight creates deep shadows. Enter LANDOWNER in a sharp suit, accompanied by two security officers. VILLAGER stands firmly in front of the well holding a wooden bucket.
+
+LANDOWNER: (pointing aggressively) Move aside! This well sits on my land now!
+
+VILLAGER: (stepping forward firmly) Oh no you don't. This well has sustained our community for three generations.
+
+LANDOWNER: (laughing callously) Money talks! If you want water, you will buy it at my price!
+
+VILLAGER: If you deplete our natural resources, our entire community will perish! If you had any respect for humanity, you wouldn't contaminate our soil and take what belongs to nature.
+
+LANDOWNER: (shouting) Silence! We are building a luxury resort here. Your village does not matter.
+
+VILLAGER: (appealing to the crowd) Look around you! If we had protected our water rights last year, you wouldn't have invaded our home today!`
+            },
+            'B': {
+                title: "The Encroaching Hunters",
+                setting: "Lights up on stage. Deep inside a protected forest sanctuary. Thick foliage covers the stage. The sound of distant gunshots makes the birds scatter.",
+                defaultChars: [
+                    { name: 'FOREST_GUARDIAN', role: 'Protective Animal Leader', style: 'Reflective Conditionals' },
+                    { name: 'HUNTER', role: 'Symbolic Exploitation', style: 'Short Exclamations' }
+                ],
+                starterScript: `TITLE: The Encroaching Hunters
+SETTING: Lights up on stage. Deep inside a protected forest sanctuary. Thick foliage covers the stage. The sound of distant gunshots makes the birds scatter. Enter HUNTER holding a rifle. Suddenly, FOREST_GUARDIAN steps out from behind an ancient banyan tree.
+
+HUNTER: (surprised, raising rifle) Out of my way!
+
+FOREST_GUARDIAN: (calmly, raising a wooden staff) You shall not enter this sanctuary.
+
+HUNTER: (snarling) I am here for fur and trophies! Move, creature!
+
+FOREST_GUARDIAN: If you hunt in these protected lands, you will destroy the fragile ecosystem. If you had listened to the warnings of the elders, you would not have brought violence into our home.
+
+HUNTER: (impatiently) Enough talk! Money drives the world!
+
+FOREST_GUARDIAN: (looking up at the canopy) If we do not protect the environment now, future generations will inherit nothing but barren dust.`
+            },
+            'C': {
+                title: "Deforestation & Palm Oil",
+                setting: "Lights up on stage. A misty rainforest canopy on the island of Borneo. Smoke drifts across the stage as distant bulldozers roar.",
+                defaultChars: [
+                    { name: 'ORANGUTAN', role: 'Rainforest Inhabitant', style: 'Reflective Conditionals' },
+                    { name: 'BULLDOZER_OPERATOR', role: 'Industrial Expansion', style: 'Short Exclamations' }
+                ],
+                starterScript: `TITLE: Deforestation & Palm Oil
+SETTING: Lights up on stage. A misty rainforest canopy on the island of Borneo. Smoke drifts across the stage as distant bulldozers roar. Enter BULLDOZER_OPERATOR in a yellow hard hat. ORANGUTAN steps onto a fallen log, blocking the path.
+
+BULLDOZER_OPERATOR: (waving arms frantically) Hey! Clear the path! We have a schedule!
+
+ORANGUTAN: (speaking slowly and sorrowfully) Stop your engines. This rainforest is our only home.
+
+BULLDOZER_OPERATOR: (pointing forward) We are clearing this land for palm plantations! Move!
+
+ORANGUTAN: If you chop down these forests, you will pollute the air and wipe out thousands of species. If you had seen the beauty of this land before the machines arrived, you would not burn it down so recklessly.
+
+BULLDOZER_OPERATOR: (shrugs coldly) Progress requires sacrifice!
+
+ORANGUTAN: (extending hand) If humanity had chosen sustainable living years ago, we wouldn't have faced this destruction today.`
+            },
+            'D': {
+                title: "Custom Environmental Topic",
+                setting: "Lights up on stage. [Describe your custom setting here]...",
+                defaultChars: [
+                    { name: 'PROTECTOR', role: 'Hero', style: 'Reflective Conditionals' },
+                    { name: 'DESTROYER', role: 'Antagonist', style: 'Short Exclamations' }
+                ],
+                starterScript: `TITLE: Custom Conflict
+SETTING: Lights up on stage. Describe the environmental conflict setting here.
+
+DESTROYER: (shouting) Move out of the way!
+
+PROTECTOR: (firmly) We will stand our ground. If you pollute the air, our children will suffer.`
+            }
+        };
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderCharacterInputs();
+            selectPrompt('A');
+        };
+
+        // STEP NAVIGATION
+        function goToStep(stepNum) {
+            // Hide all steps
+            for (let i = 1; i <= 6; i++) {
+                const el = document.getElementById(`step-${i}`);
+                if (el) el.classList.add('hidden');
+                
+                const btn = document.getElementById(`stepBtn-${i}`);
+                if (btn) {
+                    btn.classList.remove('bg-cambridge-teal', 'text-white', 'border-cambridge-teal');
+                    btn.classList.add('bg-slate-800', 'text-slate-400', 'border-slate-700');
+                }
+            }
+
+            // Show active step
+            currentStep = stepNum;
+            const activeEl = document.getElementById(`step-${stepNum}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+
+            const activeBtn = document.getElementById(`stepBtn-${stepNum}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-800', 'text-slate-400', 'border-slate-700');
+                activeBtn.classList.add('bg-cambridge-teal', 'text-white', 'border-cambridge-teal');
+            }
+
+            // Update Progress Bar
+            const percent = Math.round((stepNum / 6) * 100);
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            document.getElementById('progressPercent').innerText = `${percent}% Completed`;
+            
+            const stepTitles = [
+                "Select Conflict & Prompt",
+                "Character & Voice Planner",
+                "Dramatic Conventions Guide",
+                "Language & Grammar Toolkit",
+                "Interactive Script Builder",
+                "Cambridge Assessment & Export"
+            ];
+            document.getElementById('progressText').innerText = `Step ${stepNum} of 6: ${stepTitles[stepNum - 1]}`;
+
+            // Trigger specific step logic
+            if (stepNum === 5) {
+                renderQuickCharacterButtons();
+                updateScriptPreview();
+            } else if (stepNum === 6) {
+                renderFinalScript();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // STEP 1: PROMPT SELECTION
+        function selectPrompt(key) {
+            selectedPromptKey = key;
+            
+            // Highlight card
+            document.querySelectorAll('.prompt-card').forEach(card => {
+                card.classList.remove('border-cambridge-teal', 'bg-teal-50/20', 'shadow-md');
+                card.classList.add('border-slate-200');
+            });
+
+            const selectedCard = document.getElementById(`card-prompt-${key}`);
+            if (selectedCard) {
+                selectedCard.classList.remove('border-slate-200');
+                selectedCard.classList.add('border-cambridge-teal', 'bg-teal-50/20', 'shadow-md');
+            }
+
+            // Update default characters
+            if (PROMPTS_DATA[key]) {
+                characters = JSON.parse(JSON.stringify(PROMPTS_DATA[key].defaultChars));
+                renderCharacterInputs();
+            }
+        }
+
+        // STEP 2: CHARACTER PLANNER
+        function renderCharacterInputs() {
+            const container = document.getElementById('characterListContainer');
+            container.innerHTML = '';
+
+            characters.forEach((char, index) => {
+                const card = document.createElement('div');
+                card.className = "p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4";
+                card.innerHTML = `
+                    <div class="flex-grow grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 mb-1">Speaker Name (CAPS):</label>
+                            <input type="text" value="${char.name}" onchange="updateCharacter(${index}, 'name', this.value)" class="w-full text-xs font-bold p-2 border border-slate-300 rounded focus:outline-none focus:border-cambridge-teal uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 mb-1">Symbolic Role / Concept:</label>
+                            <input type="text" value="${char.role}" onchange="updateCharacter(${index}, 'role', this.value)" class="w-full text-xs p-2 border border-slate-300 rounded focus:outline-none focus:border-cambridge-teal">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 mb-1">Vocal Style Contrast:</label>
+                            <select onchange="updateCharacter(${index}, 'style', this.value)" class="w-full text-xs p-2 border border-slate-300 rounded focus:outline-none focus:border-cambridge-teal">
+                                <option value="Reflective Conditionals" ${char.style.includes('Conditional') ? 'selected' : ''}>Extended Conditionals (Hero)</option>
+                                <option value="Short Exclamations" ${char.style.includes('Exclamation') ? 'selected' : ''}>Short Exclamations (!) (Villain)</option>
+                            </select>
+                        </div>
+                    </div>
+                    ${characters.length > 2 ? `
+                        <button onclick="removeCharacter(${index})" class="text-red-500 hover:text-red-700 p-2 text-xs font-bold">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    ` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function updateCharacter(index, field, value) {
+            characters[index][field] = value;
+            if (field === 'name') characters[index].name = value.toUpperCase().replace(/\s+/g, '_');
+        }
+
+        function addCharacterInput() {
+            characters.push({ name: `CHARACTER_${characters.length + 1}`, role: 'Symbolic Role', style: 'Reflective Conditionals' });
+            renderCharacterInputs();
+        }
+
+        function removeCharacter(index) {
+            if (characters.length > 2) {
+                characters.splice(index, 1);
+                renderCharacterInputs();
+            }
+        }
+
+        // STEP 4: TOOLKIT UTILS
+        function copyToClipboard(text) {
+            // Fallback execCommand for iFrame security
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            alert(`Copied collocation: "${text}" to clipboard!`);
+        }
+
+        // STEP 5: SCRIPT BUILDER & EDITOR
+        function renderQuickCharacterButtons() {
+            const container = document.getElementById('quickCharacterBtns');
+            container.innerHTML = '';
+
+            characters.forEach(char => {
+                const btn = document.createElement('button');
+                btn.className = "bg-cambridge-navy hover:bg-slate-800 text-white font-bold px-3 py-1.5 rounded-lg text-xs font-script border border-slate-700 transition-all";
+                btn.innerText = `${char.name}:`;
+                btn.onclick = () => insertTextAtCursor(`\n\n${char.name}: `);
+                container.appendChild(btn);
+            });
+        }
+
+        function insertTextAtCursor(text) {
+            const textarea = document.getElementById('scriptTextarea');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+
+            textarea.value = textarea.value.substring(0, start) + text + textarea.value.substring(end);
+            textarea.selectionStart = textarea.selectionEnd = start + text.length;
+            textarea.focus();
+            updateScriptPreview();
+        }
+
+        function loadStarterTemplate() {
+            const data = PROMPTS_DATA[selectedPromptKey] || PROMPTS_DATA['A'];
+            document.getElementById('scriptTextarea').value = data.starterScript;
+            updateScriptPreview();
+        }
+
+        function autoFixFormatting() {
+            let text = document.getElementById('scriptTextarea').value;
+            
+            // Remove quotation marks around speech after character names
+            text = text.replace(/^([A-Z_]+:\s*)"([^"]+)"$/gm, '$1$2');
+            
+            // Ensure character names are uppercase
+            text = text.replace(/^([a-z_]+:)/gm, (match) => match.toUpperCase());
+
+            document.getElementById('scriptTextarea').value = text;
+            updateScriptPreview();
+        }
+
+        function updateScriptPreview() {
+            const text = document.getElementById('scriptTextarea').value;
+
+            // Calculate Word Count
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            document.getElementById('currentWordCount').innerText = words;
+
+            const badge = document.getElementById('wordCountBadge');
+            if (words >= 350 && words <= 400) {
+                badge.className = "inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl border bg-emerald-100 border-emerald-400 text-emerald-800 text-xs font-bold";
+            } else if (words < 350) {
+                badge.className = "inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl border bg-amber-50 border-amber-300 text-amber-800 text-xs font-bold";
+            } else {
+                badge.className = "inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl border bg-orange-100 border-orange-400 text-orange-800 text-xs font-bold";
+            }
+
+            // Count Conditionals detected (if/would/will/had)
+            const conditionalMatches = (text.match(/\bif\b/gi) || []).length;
+            document.getElementById('conditionalStatusBadge').innerText = `Conditionals: ${conditionalMatches} Detected`;
+        }
+
+        // STEP 6: RENDER FINAL FORMATTED SCRIPT
+        function renderFinalScript() {
+            const rawText = document.getElementById('scriptTextarea').value;
+            const container = document.getElementById('finalScriptRender');
+
+            if (!rawText.trim()) {
+                container.innerHTML = `<p class="text-slate-400 italic">No script content written yet. Go back to Step 5 to write your scene!</p>`;
+                return;
+            }
+
+            // Format raw text into proper dramatic layout
+            const lines = rawText.split('\n');
+            let formattedHtml = '';
+
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                if (!trimmed) {
+                    formattedHtml += `<br>`;
+                    return;
+                }
+
+                if (trimmed.startsWith('TITLE:') || trimmed.startsWith('SETTING:')) {
+                    formattedHtml += `<p class="font-bold text-cambridge-navy mb-2"><em>${escapeHtml(trimmed)}</em></p>`;
+                } else if (/^[A-Z0-9_\s]+:/.test(trimmed)) {
+                    // Character line
+                    const parts = trimmed.split(':');
+                    const speaker = parts[0];
+                    const dialogue = parts.slice(1).join(':');
+
+                    // Highlight stage directions in brackets inside dialogue
+                    const formattedDialogue = escapeHtml(dialogue).replace(/\(([^)]+)\)/g, '<em class="text-amber-800">($1)</em>');
+
+                    formattedHtml += `<div class="mb-2"><strong class="text-cambridge-blue uppercase font-bold">${escapeHtml(speaker)}:</strong><span>${formattedDialogue}</span></div>`;
+                } else if (trimmed.startsWith('(') && trimmed.endsWith(')')) {
+                    // Full line stage direction
+                    formattedHtml += `<p class="italic text-slate-600 my-1 pl-4">${escapeHtml(trimmed)}</p>`;
+                } else {
+                    formattedHtml += `<p class="mb-1">${escapeHtml(trimmed)}</p>`;
+                }
+            });
+
+            container.innerHTML = formattedHtml;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function updateChecklistProgress() {
+            const total = 6;
+            let checked = 0;
+            for (let i = 1; i <= total; i++) {
+                if (document.getElementById(`check-${i}`).checked) checked++;
+            }
+        }
+
+        function copyFormattedScript() {
+            const rawText = document.getElementById('scriptTextarea').value;
+            copyToClipboard(rawText);
+        }
+
+        function downloadScriptFile() {
+            const text = document.getElementById('scriptTextarea').value;
+            const element = document.createElement('a');
+            const file = new Blob([text], {type: 'text/plain'});
+            element.href = URL.createObjectURL(file);
+            element.download = "Cambridge_Stage9_Play_Script.txt";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+    </script>
+</body>
+</html>
