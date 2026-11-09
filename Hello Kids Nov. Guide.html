@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nurturing Empathy - Grade 8 Magazine Writing Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, .font-heading {
+      font-family: 'Outfit', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .chip-selected {
+      background-color: #0d9488 !important;
+      color: #ffffff !important;
+      border-color: #0f766e !important;
+      box-shadow: 0 2px 4px rgba(13, 148, 136, 0.2);
+    }
+    .scenario-selected {
+      border-color: #0d9488 !important;
+      background-color: #f0fdf4 !important;
+      ring: 2px solid #0d9488;
+    }
+    .metaphor-selected {
+      border-color: #059669 !important;
+      background-color: #ecfdf5 !important;
+      box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.1);
+    }
+    .toast-animate {
+      animation: fadeInOut 3s forwards;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(20px); }
+      15% { opacity: 1; transform: translateY(0); }
+      85% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Header Banner -->
+  <header class="bg-gradient-to-r from-teal-800 via-teal-700 to-emerald-800 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-teal-900/60 text-teal-200 text-xs font-semibold px-3 py-1 rounded-full border border-teal-500/30 mb-2">
+            <span>BBS Hello Kids #44</span>
+            <span>•</span>
+            <span>Grade 8 Quarterly Magazine Article</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Nurturing Empathy in a Shared Garden</h1>
+          <p class="text-teal-100 text-sm sm:text-base mt-1 max-w-2xl">
+            The Role of Compassion in Community • Differentiated Draft Generator
+          </p>
+        </div>
+        
+        <!-- Target Goal Badge -->
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3.5 text-center sm:text-right shrink-0">
+          <div class="text-xs uppercase tracking-wider text-teal-200 font-semibold">Article Target</div>
+          <div class="text-lg font-bold text-white mt-0.5">300 – 400 Words</div>
+          <div class="text-xs text-teal-100">4 Distinct Paragraphs</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Left Column: Interactive Wizard Steps (7 cols) -->
+    <div class="lg:col-span-7 flex flex-col gap-6">
+      
+      <!-- Wizard Navigation Tabs -->
+      <nav class="bg-white rounded-2xl p-2 shadow-sm border border-slate-200 flex flex-wrap gap-1 sm:gap-2">
+        <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 bg-teal-600 text-white shadow-sm">
+          <span class="w-5 h-5 rounded-full bg-white/20 text-xs flex items-center justify-center">1</span>
+          <span>Foundation</span>
+        </button>
+        <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-100">
+          <span class="w-5 h-5 rounded-full bg-slate-200 text-xs flex items-center justify-center text-slate-700">2</span>
+          <span>My Story</span>
+        </button>
+        <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-100">
+          <span class="w-5 h-5 rounded-full bg-slate-200 text-xs flex items-center justify-center text-slate-700">3</span>
+          <span>Growth</span>
+        </button>
+        <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn flex-1 min-w-[110px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-100">
+          <span class="w-5 h-5 rounded-full bg-slate-200 text-xs flex items-center justify-center text-slate-700">4</span>
+          <span>Metaphor</span>
+        </button>
+      </nav>
+
+      <!-- STEP 1: Foundation of Empathy (Paragraph 1) -->
+      <div id="tab-1" class="tab-content bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-600 bg-teal-50 px-2.5 py-1 rounded-md">Paragraph 1 Focus</span>
+            <span class="text-xs text-slate-400">Introduction & Why Empathy Matters</span>
+          </div>
+          <h2 class="text-xl font-bold text-slate-800 mt-2">Why is empathy essential for a thriving community?</h2>
+          <p class="text-sm text-slate-600 mt-1">Select the core principles that explain why empathy creates an environment where everyone can achieve their potential.</p>
+        </div>
+
+        <!-- 6 Core Principles Selection -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">1. Select Core Principles to Include (Click to toggle):</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="p1-chips">
+            <button onclick="toggleChip(this, 'p1', 'psychological-safety')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🛡️</span>
+              <div>
+                <div class="font-bold text-slate-800">Psychological Safety & Trust</div>
+                <div class="text-[11px] text-slate-500">Creates an atmosphere where peers feel safe to learn and fail without judgment.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p1', 'breaking-misunderstandings')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🔍</span>
+              <div>
+                <div class="font-bold text-slate-800">Breaking Down Misunderstandings</div>
+                <div class="text-[11px] text-slate-500">Helps us look beyond surface behavior to understand hidden struggles.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p1', 'empowering-voices')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🗣️</span>
+              <div>
+                <div class="font-bold text-slate-800">Empowering Quiet Voices</div>
+                <div class="text-[11px] text-slate-500">Ensures reserved or hesitant classmates are heard and valued.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p1', 'belonging-equity')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🌈</span>
+              <div>
+                <div class="font-bold text-slate-800">Fostering Belonging & Equity</div>
+                <div class="text-[11px] text-slate-500">Bridges social gaps so no student feels isolated or left behind.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p1', 'conflict-resolution')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🕊️</span>
+              <div>
+                <div class="font-bold text-slate-800">Turning Conflict into Connection</div>
+                <div class="text-[11px] text-slate-500">Replaces defensive arguments with patient, constructive dialogue.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p1', 'mutual-resilience')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🪵</span>
+              <div>
+                <div class="font-bold text-slate-800">Mutual Resilience in Tough Times</div>
+                <div class="text-[11px] text-slate-500">Strengthens collective courage when facing academic or personal challenges.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Sentence Starters -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">2. Interactive Sentence Starters (Click to insert):</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <button onclick="appendStarter('p1-text', 'In any vibrant community, empathy is essential because it allows every individual to feel valued and understood.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              ✨ "In any vibrant community, empathy is..."
+            </button>
+            <button onclick="appendStarter('p1-text', 'When we look beyond our own immediate reactions, we begin to see the hidden challenges others are carrying.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              ✨ "When we look beyond our own immediate..."
+            </button>
+            <button onclick="appendStarter('p1-text', 'Empathy serves as the essential soil for creating an atmosphere where everyone can safely grow.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              ✨ "Empathy serves as the essential soil for..."
+            </button>
+            <button onclick="appendStarter('p1-text', 'Creating a space where everyone can succeed requires actively listening to perspectives different from our own.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              ✨ "Creating a space where everyone can succeed..."
+            </button>
+            <button onclick="appendStarter('p1-text', 'Without genuine understanding, a group risks leaving quiet or struggling members isolated on the margins.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              ✨ "Without genuine understanding, a group..."
+            </button>
+            <button onclick="appendStarter('p1-text', 'Empathy is far more than passive understanding; it is the active commitment to walk alongside others.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              ✨ "Empathy is far more than passive..."
+            </button>
+          </div>
+        </div>
+
+        <!-- Text Input for Paragraph 1 -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="p1-text" class="text-xs font-bold uppercase tracking-wider text-slate-700">Paragraph 1 Draft / Notes:</label>
+            <span class="text-xs text-slate-400" id="p1-word-count">0 words</span>
+          </div>
+          <textarea id="p1-text" oninput="updateCounts()" rows="4" placeholder="Express why empathy is essential for everyone to thrive in school and community..." class="w-full p-3.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition custom-scrollbar"></textarea>
+        </div>
+
+        <div class="flex justify-end pt-2">
+          <button onclick="switchTab(2)" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-sm font-semibold shadow-sm transition flex items-center gap-2">
+            Next: Personal Story ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Personal Perspective Shift (Paragraph 2) -->
+      <div id="tab-2" class="tab-content bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6 hidden">
+        <div class="border-b border-slate-100 pb-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-600 bg-teal-50 px-2.5 py-1 rounded-md">Paragraph 2 Focus</span>
+            <span class="text-xs text-slate-400">Personal Perspective Shift (No Names)</span>
+          </div>
+          <h2 class="text-xl font-bold text-slate-800 mt-2">Describe a moment that changed your perspective</h2>
+          <p class="text-sm text-slate-600 mt-1">Select one of the 8 realistic school scenarios below to serve as your inspiration, or customize your own experience using neutral terms.</p>
+        </div>
+
+        <!-- 8 Diverse Scenarios Selector -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">1. Pick an Inspirational Scenario (Click to select):</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="scenario-container">
+            <button onclick="selectScenario('sports', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">⚽ 1. Sports Mistake under Pressure</div>
+              <div class="text-[11px] text-slate-500 mt-1">A teammate made a costly error during a high-stakes match while struggling with intense self-doubt.</div>
+            </button>
+            <button onclick="selectScenario('project', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">💻 2. Group Project Non-Contributor</div>
+              <div class="text-[11px] text-slate-500 mt-1">A group partner missed project deadlines because they were overwhelmed by personal stress.</div>
+            </button>
+            <button onclick="selectScenario('lunch', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">🍱 3. Solitary Lunch & Social Anxiety</div>
+              <div class="text-[11px] text-slate-500 mt-1">A quiet classmate sat alone repeatedly, feeling intimidated by established social circles.</div>
+            </button>
+            <button onclick="selectScenario('speaking', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">🎤 4. Stage Fright during Presentation</div>
+              <div class="text-[11px] text-slate-500 mt-1">A peer froze during a speech, paralyzed by stage fright until given silent encouragement.</div>
+            </button>
+            <button onclick="selectScenario('frustration', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">⚡ 5. Sudden Frustration or Snapping</div>
+              <div class="text-[11px] text-slate-500 mt-1">A classmate reacted angrily during group work, masking their underlying feeling of being excluded.</div>
+            </button>
+            <button onclick="selectScenario('culture', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">🌍 6. New Student Hesitation</div>
+              <div class="text-[11px] text-slate-500 mt-1">A new student stayed silent in class discussions due to adjusting to a unfamiliar environment.</div>
+            </button>
+            <button onclick="selectScenario('struggling', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">📚 7. Unmotivated / Falling Behind</div>
+              <div class="text-[11px] text-slate-500 mt-1">A peer seemed disengaged in academic tasks because they felt ashamed to ask for help.</div>
+            </button>
+            <button onclick="selectScenario('creative', this)" class="scenario-card p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-teal-700">🎨 8. Unconventional Creative Approach</div>
+              <div class="text-[11px] text-slate-500 mt-1">A partner proposed an unusual idea that seemed strange until their unique vision was explained.</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Custom Details Builder -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <div class="text-xs font-bold text-slate-700 uppercase tracking-wider">Quick Details Builder (Strictly No Names)</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">Who was involved? (Neutral):</label>
+              <input type="text" id="p2-who" placeholder="e.g., a classmate, a teammate, a group partner" class="w-full p-2 border border-slate-300 rounded-lg text-xs outline-none focus:border-teal-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">What was the initial challenge?</label>
+              <input type="text" id="p2-situation" placeholder="e.g., missed the decisive play, froze during a speech" class="w-full p-2 border border-slate-300 rounded-lg text-xs outline-none focus:border-teal-500">
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">What was your perspective shift?</label>
+            <input type="text" id="p2-shift" placeholder="e.g., I realized they were carrying immense self-doubt and pressure" class="w-full p-2 border border-slate-300 rounded-lg text-xs outline-none focus:border-teal-500">
+          </div>
+          <button onclick="buildP2Story()" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold transition">
+            ⚡ Populate Story into Text Box below
+          </button>
+        </div>
+
+        <!-- Interactive Story Sentence Starters -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">2. Story Sentence Starters (Click to insert):</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <button onclick="appendStarter('p2-text', 'I distinctly remember a situation where a classmate was struggling under immense pressure.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              📖 "I distinctly remember a situation where..."
+            </button>
+            <button onclick="appendStarter('p2-text', 'At first glance, it appeared that they were simply disengaged, but there was a deeper story.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              📖 "At first glance, it appeared that..."
+            </button>
+            <button onclick="appendStarter('p2-text', 'However, once I took a moment to see things from their perspective, my frustration turned into understanding.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              📖 "However, once I took a moment to see..."
+            </button>
+            <button onclick="appendStarter('p2-text', 'This realization reshaped my action because I understood that criticism would only make things worse.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              📖 "This realization reshaped my action because..."
+            </button>
+            <button onclick="appendStarter('p2-text', 'Instead of judging quickly, I decided to offer a steady word of encouragement.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              📖 "Instead of judging quickly, I decided to..."
+            </button>
+            <button onclick="appendStarter('p2-text', 'Stepping into their shoes allowed me to recognize how much courage it takes to ask for help.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              📖 "Stepping into their shoes allowed me..."
+            </button>
+          </div>
+        </div>
+
+        <!-- Text Box Paragraph 2 -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="p2-text" class="text-xs font-bold uppercase tracking-wider text-slate-700">Paragraph 2 Story Draft:</label>
+            <span class="text-xs text-slate-400" id="p2-word-count">0 words</span>
+          </div>
+          <textarea id="p2-text" oninput="updateCounts()" rows="4" placeholder="Describe the situation, your perspective shift, and how your actions changed as a result..." class="w-full p-3.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition custom-scrollbar"></textarea>
+        </div>
+
+        <div class="flex justify-between pt-2">
+          <button onclick="switchTab(1)" class="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-xl text-sm font-semibold transition">
+            🧠 Back
+          </button>
+          <button onclick="switchTab(3)" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-sm font-semibold shadow-sm transition flex items-center gap-2">
+            Next: Personal Growth ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Mutual Growth (Paragraph 3) -->
+      <div id="tab-3" class="tab-content bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6 hidden">
+        <div class="border-b border-slate-100 pb-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-600 bg-teal-50 px-2.5 py-1 rounded-md">Paragraph 3 Focus</span>
+            <span class="text-xs text-slate-400">Mutual Growth & Unlocking Potential</span>
+          </div>
+          <h2 class="text-xl font-bold text-slate-800 mt-2">How helping others contributes to your own growth?</h2>
+          <p class="text-sm text-slate-600 mt-1">Select the key lessons and character traits you developed while supporting another person's potential.</p>
+        </div>
+
+        <!-- 6 Takeaways Selection -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">1. Select Key Growth Takeaways (Click to toggle):</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="p3-chips">
+            <button onclick="toggleChip(this, 'p3', 'unlocking-potential')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🗝️</span>
+              <div>
+                <div class="font-bold text-slate-800">Unlocking Hidden Potential</div>
+                <div class="text-[11px] text-slate-500">Witnessing a peer regain confidence empowered me to believe in collective talent.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p3', 'humility-judgment')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🌱</span>
+              <div>
+                <div class="font-bold text-slate-800">Developing Humility & Less Judgment</div>
+                <div class="text-[11px] text-slate-500">Taught me to replace quick assumptions with patience and active listening.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p3', 'leadership-support')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">👑</span>
+              <div>
+                <div class="font-bold text-slate-800">Leadership through Encouragement</div>
+                <div class="text-[11px] text-slate-500">Realized true leadership is not about dominating, but lifting others up.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p3', 'emotional-resilience')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">💪</span>
+              <div>
+                <div class="font-bold text-slate-800">Cultivating Emotional Resilience</div>
+                <div class="text-[11px] text-slate-500">Managing challenging emotions gracefully improved my own maturity under stress.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p3', 'shared-vulnerability')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🤝</span>
+              <div>
+                <div class="font-bold text-slate-800">Discovering Shared Vulnerabilities</div>
+                <div class="text-[11px] text-slate-500">Recognized that everyone carries unseen worries, making us more human together.</div>
+              </div>
+            </button>
+            <button onclick="toggleChip(this, 'p3', 'longterm-trust')" class="chip p-3 rounded-xl border border-slate-200 text-left text-xs font-medium text-slate-700 hover:bg-slate-50 transition flex items-start gap-2.5">
+              <span class="text-base">🏗️</span>
+              <div>
+                <div class="font-bold text-slate-800">Building Long-term Mutual Trust</div>
+                <div class="text-[11px] text-slate-500">Formed enduring bonds of trust that spill over into team projects and friendships.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sentence Starters for Paragraph 3 -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">2. Sentence Starters for Mutual Growth (Click to insert):</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <button onclick="appendStarter('p3-text', 'Supporting a classmate through a tough challenge revealed to me that true strength is shared.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌱 "Supporting a classmate through a tough..."
+            </button>
+            <button onclick="appendStarter('p3-text', 'I used to believe success was an individual pursuit, but I now see that we thrive together.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌱 "I used to believe success was an..."
+            </button>
+            <button onclick="appendStarter('p3-text', 'By helping someone else unlock their potential, I developed greater patience and leadership skills.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌱 "By helping someone else unlock their..."
+            </button>
+            <button onclick="appendStarter('p3-text', 'Lifting others up actually strengthens my own capacity for emotional maturity and empathy.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌱 "Lifting others up actually strengthens..."
+            </button>
+            <button onclick="appendStarter('p3-text', 'The personal growth I experienced came from realizing that everyone carries unseen abilities.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌱 "The personal growth I experienced came..."
+            </button>
+            <button onclick="appendStarter('p3-text', 'Supporting another person to achieve their potential invariably sparks a parallel growth within ourselves.')" class="text-left p-2.5 bg-slate-50 hover:bg-teal-50 hover:border-teal-300 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌱 "Supporting another person to achieve..."
+            </button>
+          </div>
+        </div>
+
+        <!-- Paragraph 3 Input -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="p3-text" class="text-xs font-bold uppercase tracking-wider text-slate-700">Paragraph 3 Draft / Notes:</label>
+            <span class="text-xs text-slate-400" id="p3-word-count">0 words</span>
+          </div>
+          <textarea id="p3-text" oninput="updateCounts()" rows="4" placeholder="Explain how helping this peer improved your own character, patience, and leadership..." class="w-full p-3.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition custom-scrollbar"></textarea>
+        </div>
+
+        <div class="flex justify-between pt-2">
+          <button onclick="switchTab(2)" class="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-xl text-sm font-semibold transition">
+            🧠 Back
+          </button>
+          <button onclick="switchTab(4)" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-sm font-semibold shadow-sm transition flex items-center gap-2">
+            Next: Garden Metaphor ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Garden Metaphor & Conclusion (Paragraph 4) -->
+      <div id="tab-4" class="tab-content bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6 hidden">
+        <div class="border-b border-slate-100 pb-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-600 bg-teal-50 px-2.5 py-1 rounded-md">Paragraph 4 Focus</span>
+            <span class="text-xs text-slate-400">Garden Metaphor & Conclusion</span>
+          </div>
+          <h2 class="text-xl font-bold text-slate-800 mt-2">Synthesize with the Shared Garden Metaphor</h2>
+          <p class="text-sm text-slate-600 mt-1">Select your preferred garden metaphor and action pledge to conclude your quarterly article with impact.</p>
+        </div>
+
+        <!-- 4 Garden Metaphor Options -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">1. Pick Your Central Garden Metaphor:</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="metaphor-container">
+            <button onclick="selectMetaphor('soil', this)" class="metaphor-card p-3 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-emerald-700">🪴 1. Diverse Soil & Unique Needs</div>
+              <div class="text-[11px] text-slate-500 mt-1">Every flower requires different sunlight and soil; people thrive when given individual care and understanding.</div>
+            </button>
+            <button onclick="selectMetaphor('weeding', this)" class="metaphor-card p-3 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-emerald-700">🌿 2. Weeding Out Quick Judgment</div>
+              <div class="text-[11px] text-slate-500 mt-1">Empathy means uprooting the weeds of rumor and harsh assumptions to let positive relationships bloom.</div>
+            </button>
+            <button onclick="selectMetaphor('roots', this)" class="metaphor-card p-3 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-emerald-700">🌳 3. Interconnected Roots in Storms</div>
+              <div class="text-[11px] text-slate-500 mt-1">Trees withstand harsh storms because their underground roots are interwoven; compassion creates collective strength.</div>
+            </button>
+            <button onclick="selectMetaphor('harvest', this)" class="metaphor-card p-3 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 text-left transition group">
+              <div class="font-bold text-xs text-slate-800 group-hover:text-emerald-700">🌻 4. Harvest of Shared Success</div>
+              <div class="text-[11px] text-slate-500 mt-1">Tending to each plant's potential yields a rich, vibrant harvest where the whole community prospers together.</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Concluding Action Pledges -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">2. Sentence Starters & Call to Action Pledges (Click to insert):</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <button onclick="appendStarter('p4-text', 'Just as a shared garden requires diverse care for every plant, our community needs compassion tailored to each person.')" class="text-left p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌿 "Just as a shared garden requires..."
+            </button>
+            <button onclick="appendStarter('p4-text', 'When we cultivate compassion in our daily lives, our entire environment transforms into a flourishing garden.')" class="text-left p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌿 "When we cultivate compassion in our..."
+            </button>
+            <button onclick="appendStarter('p4-text', 'Moving forward, I promise to nurture my community by practicing active listening and rejecting quick judgment.')" class="text-left p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🤝 "Moving forward, I promise to nurture..."
+            </button>
+            <button onclick="appendStarter('p4-text', 'True empathy is not just passive feeling, but active support that empowers our peers to blossom.')" class="text-left p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              ✨ "True empathy is not just passive..."
+            </button>
+            <button onclick="appendStarter('p4-text', 'Ultimately, when we help others flourish, we all reap the harvest of a united, resilient community.')" class="text-left p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🌻 "Ultimately, when we help others..."
+            </button>
+            <button onclick="appendStarter('p4-text', 'By replacing quick criticism with quiet encouragement, we become dedicated guardians of compassion in our shared garden.')" class="text-left p-2.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl text-xs text-slate-700 transition">
+              🛡️ "By replacing quick criticism with..."
+            </button>
+          </div>
+        </div>
+
+        <!-- Paragraph 4 Input -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="p4-text" class="text-xs font-bold uppercase tracking-wider text-slate-700">Paragraph 4 Conclusion Draft:</label>
+            <span class="text-xs text-slate-400" id="p4-word-count">0 words</span>
+          </div>
+          <textarea id="p4-text" oninput="updateCounts()" rows="4" placeholder="Synthesize your article using your chosen garden metaphor and leave your readers with an inspiring call to action..." class="w-full p-3.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition custom-scrollbar"></textarea>
+        </div>
+
+        <!-- Generate Full Synthesis Button -->
+        <div class="pt-2 flex flex-col sm:flex-row gap-3">
+          <button onclick="switchTab(3)" class="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-xl text-sm font-semibold transition">
+            🧠 Back
+          </button>
+          <button onclick="generateFullDraft()" class="flex-1 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+            <span>✨ Synthesize & Polish Full 4-Paragraph Article</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Live Draft Preview, Inspector & Word Counter (5 cols) -->
+    <div class="lg:col-span-5 flex flex-col gap-6">
+      
+      <!-- Word Count & Requirements Tracker Card -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <span>📊 Article Requirements Tracker</span>
+          </h3>
+          <span id="word-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+            0 / 300-400 words
+          </span>
+        </div>
+
+        <!-- Dynamic Progress Bar -->
+        <div>
+          <div class="flex justify-between text-xs text-slate-500 mb-1 font-medium">
+            <span>0 words</span>
+            <span>Target: 300 - 400 words</span>
+          </div>
+          <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200 relative">
+            <div class="absolute left-[75%] w-[25%] h-full bg-emerald-100 border-x border-emerald-300 z-0" title="Target Zone (300-400 words)"></div>
+            <div id="word-progress-bar" class="h-full bg-teal-500 transition-all duration-300 z-10 relative" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Requirements Checklist -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <div id="check-p1" class="flex items-center gap-1.5 text-xs text-slate-400">
+            <span class="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px]">✓</span>
+            <span>Para 1: Foundation</span>
+          </div>
+          <div id="check-p2" class="flex items-center gap-1.5 text-xs text-slate-400">
+            <span class="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px]">✓</span>
+            <span>Para 2: Story (No Names)</span>
+          </div>
+          <div id="check-p3" class="flex items-center gap-1.5 text-xs text-slate-400">
+            <span class="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px]">✓</span>
+            <span>Para 3: Mutual Growth</span>
+          </div>
+          <div id="check-p4" class="flex items-center gap-1.5 text-xs text-slate-400">
+            <span class="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px]">✓</span>
+            <span>Para 4: Garden Metaphor</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Synthesized Live Preview / Editor Card -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col flex-1 overflow-hidden min-h-[440px]">
+        <!-- Card Header -->
+        <div class="bg-slate-50 border-b border-slate-200 px-5 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <h3 class="font-bold text-slate-800 text-sm">Compiled Article Draft</h3>
+          </div>
+          <button onclick="autoSample()" class="text-xs text-teal-700 hover:text-teal-800 font-semibold underline">
+            ⚡ Load Sample Article
+          </button>
+        </div>
+
+        <!-- Text Display / Editable Area -->
+        <div class="p-5 flex-1 flex flex-col bg-slate-50/50">
+          <div class="mb-2 text-xs font-bold text-slate-400 uppercase tracking-wider flex justify-between items-center">
+            <span>Headline & Content</span>
+            <span class="text-[11px] normal-case text-slate-400">(Editable below)</span>
+          </div>
+          
+          <input type="text" id="article-title" value="Nurturing Empathy in a Shared Garden: The Role of Compassion in Community" class="w-full font-heading font-bold text-base text-slate-800 border-b border-slate-200 pb-2 mb-3 bg-transparent outline-none focus:border-teal-500">
+
+          <textarea id="full-draft" oninput="onFullDraftEdit()" rows="14" placeholder="Your complete synthesized 4-paragraph article will appear here as you select your options or click 'Synthesize'..." class="w-full flex-1 p-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 leading-relaxed outline-none focus:ring-2 focus:ring-teal-500 custom-scrollbar resize-none"></textarea>
+        </div>
+
+        <!-- Card Footer Actions -->
+        <div class="bg-slate-100 border-t border-slate-200 px-5 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div class="text-xs text-slate-500 font-medium">
+            Total: <span id="total-word-count" class="font-bold text-slate-800">0</span> words
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="copyDraft()" class="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
+              📋 Copy Text
+            </button>
+            <button onclick="downloadDraft()" class="px-3.5 py-1.5 bg-teal-700 hover:bg-teal-800 text-white rounded-lg text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
+              ⬇️ Download .txt
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Notification Toast Container -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white text-xs font-medium px-4 py-3 rounded-xl shadow-xl hidden z-50 flex items-center gap-2">
+    <span id="toast-message">Action successful!</span>
+  </div>
+
+  <!-- JavaScript Dynamic Engine -->
+  <script>
+    // State management
+    const selectedChips = {
+      p1: new Set(),
+      p3: new Set()
+    };
+
+    let selectedScenarioKey = 'sports';
+    let selectedMetaphorKey = 'soil';
+
+    // 8 Expanded Scenarios (Strictly NO character names)
+    const scenarioPresets = {
+      sports: {
+        who: "a teammate",
+        situation: "missing a decisive play during our championship game",
+        shift: "instead of joining the team's initial frustration, I recognized how much pressure and hidden self-doubt they felt",
+        text: "During a critical school sports tournament, a teammate made a costly error right before the final whistle. Initially, frustration washed over the team, and I felt tempted to express disappointment as well. However, when I looked over and saw them sitting alone on the bench with their head down, my perspective shifted completely. I stepped into their position and remembered how crushing it feels to let down a team under intense pressure. Rather than offering criticism, I walked over, offered a supportive fist-bump, and reminded them of the key plays that brought us to the finals. That small act of understanding helped diffuse the tension and restored their confidence."
+      },
+      project: {
+        who: "a group project partner",
+        situation: "falling significantly behind on their assigned section",
+        shift: "I learned they were balancing heavy personal responsibilities at home after school",
+        text: "While collaborating on an important group project, a group partner failed to submit their assigned research on time, which initially caused frustration among us. Rather than reacting with hasty judgment, I decided to speak with them privately to understand what was going wrong. They revealed that they were carrying heavy personal responsibilities at home every evening while their parents worked late shifts. Recognizing their reality completely altered my behavior. We restructured our assignment timeline, redistributed some tasks evenly, and set up brief study sessions during free periods so they didn't have to carry the burden alone."
+      },
+      lunch: {
+        who: "a quiet classmate",
+        situation: "sitting isolated at lunch day after day",
+        shift: "I realized how intimidating it feels to navigate established social groups in a busy cafeteria",
+        text: "During lunch break, I noticed a quiet classmate sitting by themselves in the corner of the cafeteria for several days in a row. At first, my friends and I were caught up in our own routines and paid little attention. But when I paused to imagine how overwhelming it can be to enter a room full of established social circles without a familiar face, my view transformed. I walked over, invited them to sit at our table, and introduced them to the group. Seeing their relief reinforced how much a simple gesture of inclusion can brighten someone's entire day."
+      },
+      speaking: {
+        who: "a peer",
+        situation: "freezing with severe stage fright during a presentation",
+        shift: "I recalled how paralyzing public speaking felt when I first stood in front of an audience",
+        text: "During a class presentation, a peer suddenly froze mid-sentence, paralyzed by severe stage fright as an uncomfortable silence filled the room. As a few quiet giggles started to break out, I put myself in their shoes and remembered how terrifying public speaking felt when I first attempted it. Wanting to relieve their anxiety, I sat up, gave them an encouraging smile, and nodded attentively from the front row. Noticing that warm support gave them the reassurance they needed to take a deep breath, regain their composure, and successfully complete their presentation."
+      },
+      frustration: {
+        who: "a classmate",
+        situation: "snapping with frustration during a group activity",
+        shift: "I realized their angry outburst was actually a defense mechanism for feeling left out",
+        text: "During a fast-paced group workshop, a classmate suddenly reacted with sharp frustration and pushed their materials aside. While the initial reaction of the group was to respond with annoyance, I took a moment to reflect on why they were upset. I realized their anger was not out of malice, but was actually a defensive response to feeling left out of key decision-making. Changing my approach, I paused the group discussion, asked for their input on the next step, and actively integrated their ideas. Their mood immediately softened, turning a potential conflict into productive teamwork."
+      },
+      culture: {
+        who: "a new student",
+        situation: "staying hesitant and silent during classroom discussions",
+        shift: "I recognized how daunting it is to speak up in an unfamiliar academic environment",
+        text: "When a new student joined our class, they remained completely silent during group discussions, hesitating whenever asked to share their thoughts. Instead of assuming they were disinterested, I stepped into their shoes and considered how daunting it feels to speak in front of unfamiliar peers in a new environment. During our next activity, I partnered with them, asked open-ended questions about their perspective, and gave them ample time to articulate their ideas without rushing. Feeling respected and valued, they gradually opened up and shared insightful contributions with the group."
+      },
+      struggling: {
+        who: "a friend",
+        situation: "falling behind in coursework because they were afraid to ask for help",
+        shift: "I realized they were hiding their confusion out of fear of looking incompetent",
+        text: "A peer in my study group began falling behind in challenging coursework, often brushing it off with jokes. Initially, it seemed like a lack of motivation, but after observing more closely, I realized they were actually struggling deeply and felt embarrassed to ask for help. Understanding their fear of being judged changed how I responded. Instead of pointing out their mistakes, I suggested we review the material together as a team effort. Working side by side normalized asking questions, allowing them to gain academic confidence without feeling self-conscious."
+      },
+      creative: {
+        who: "a project partner",
+        situation: "proposing an unusual creative idea that differed from standard methods",
+        shift: "I realized that different thinking styles bring unique richness to our work",
+        text: "While brainstorming for a creative project, a project partner proposed an unconventional approach that initially seemed strange and impractical to the rest of the group. Rather than immediately dismissing their idea, I took a step back and tried to understand their creative vision. I asked them to walk us through their thought process, which revealed a unique perspective that none of us had considered. Embracing their approach not only elevated the quality of our project, but also taught me that valuing diverse ways of thinking leads to far superior outcomes."
+      }
+    };
+
+    // 4 Metaphor Presets
+    const metaphorPresets = {
+      soil: "Our school community functions remarkably like a shared garden, where diverse soil conditions and unique care are required for every plant to flourish. Just as no two flowers bloom under identical conditions, students require individual empathy, patience, and encouragement to reach their full potential. When we nurture our environment with compassion, we ensure that every individual has the deep roots needed to blossom.",
+      weeding: "A healthy community is like a well-tended garden where we must actively pull out the weeds of quick judgment, gossip, and indifference. By replacing harsh assumptions with genuine understanding, we clear space for positive relationships to take root. Cultivating empathy daily allows our shared school garden to remain a safe, vibrant sanctuary for all.",
+      roots: "Much like a forest of trees whose underground roots interlock to withstand powerful storms, a community grows stronger when its members are connected by mutual compassion. When one of us faces a trial, the supportive roots of empathy hold us steady. By lifting each other up during difficult moments, we build collective resilience that helps our entire community weather any adversity.",
+      harvest: "Tending to a shared garden demands patience, but the result is a bountiful harvest where every plant thrives together. When we invest time in understanding one another's perspectives, we reap a rich harvest of trust, collaboration, and mutual growth. By choosing empathy today, Grade 8 students sow seeds of kindness that will continue to yield positive fruit for years to come."
+    };
+
+    // Tab Switching Logic
+    function switchTab(tabIndex) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-teal-600', 'text-white', 'shadow-sm');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+        btn.querySelector('span:first-child').classList.remove('bg-white/20', 'text-white');
+        btn.querySelector('span:first-child').classList.add('bg-slate-200', 'text-slate-700');
+      });
+
+      const activeTab = document.getElementById(`tab-${tabIndex}`);
+      const activeBtn = document.getElementById(`tab-btn-${tabIndex}`);
+
+      if (activeTab) activeTab.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.add('bg-teal-600', 'text-white', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+        const badge = activeBtn.querySelector('span:first-child');
+        badge.classList.add('bg-white/20', 'text-white');
+        badge.classList.remove('bg-slate-200', 'text-slate-700');
+      }
+    }
+
+    // Toggle Chip Selection
+    function toggleChip(button, para, value) {
+      if (selectedChips[para].has(value)) {
+        selectedChips[para].delete(value);
+        button.classList.remove('chip-selected');
+      } else {
+        selectedChips[para].add(value);
+        button.classList.add('chip-selected');
+      }
+    }
+
+    // Append Sentence Starter to Textarea
+    function appendStarter(textareaId, starterText) {
+      const textarea = document.getElementById(textareaId);
+      if (!textarea) return;
+
+      if (textarea.value.trim() === '') {
+        textarea.value = starterText;
+      } else {
+        textarea.value = textarea.value.trim() + ' ' + starterText;
+      }
+      updateCounts();
+      showToast('Sentence starter added!');
+    }
+
+    // Select Scenario Card
+    function selectScenario(type, elem) {
+      selectedScenarioKey = type;
+      const cards = document.querySelectorAll('.scenario-card');
+      cards.forEach(c => c.classList.remove('scenario-selected'));
+      if (elem) elem.classList.add('scenario-selected');
+
+      const data = scenarioPresets[type];
+      if (!data) return;
+
+      document.getElementById('p2-who').value = data.who;
+      document.getElementById('p2-situation').value = data.situation;
+      document.getElementById('p2-shift').value = data.shift;
+      document.getElementById('p2-text').value = data.text;
+
+      updateCounts();
+      showToast(`Scenario #${type} selected!`);
+    }
+
+    // Select Metaphor Card
+    function selectMetaphor(type, elem) {
+      selectedMetaphorKey = type;
+      const cards = document.querySelectorAll('.metaphor-card');
+      cards.forEach(c => c.classList.remove('metaphor-selected'));
+      if (elem) elem.classList.add('metaphor-selected');
+
+      const text = metaphorPresets[type];
+      if (text) {
+        document.getElementById('p4-text').value = text;
+      }
+      updateCounts();
+      showToast('Garden Metaphor updated!');
+    }
+
+    // Build P2 Story manually from custom inputs
+    function buildP2Story() {
+      const who = document.getElementById('p2-who').value.trim() || 'a classmate';
+      const situation = document.getElementById('p2-situation').value.trim() || 'was struggling during an activity';
+      const shift = document.getElementById('p2-shift').value.trim() || 'I realized how much pressure they were carrying';
+
+      const generatedStory = `A moment when understanding another person's perspective changed my actions occurred when ${who} was ${situation}. Initially, I was unsure how to react, but when ${shift}, my entire outlook transformed. Instead of making a hasty assumption, I stepped forward to offer genuine encouragement and practical support. Taking time to view the situation through their eyes changed my immediate response and helped resolve the challenge with kindness.`;
+
+      document.getElementById('p2-text').value = generatedStory;
+      updateCounts();
+      showToast('Custom story template inserted!');
+    }
+
+    // Dynamic Synthesis Engine
+    function generateFullDraft() {
+      let p1 = document.getElementById('p1-text').value.trim();
+      let p2 = document.getElementById('p2-text').value.trim();
+      let p3 = document.getElementById('p3-text').value.trim();
+      let p4 = document.getElementById('p4-text').value.trim();
+
+      // Dynamic Assembly for P1 if blank
+      if (!p1) {
+        p1 = "Empathy is essential for creating an environment where everyone can thrive because it forms the cornerstone of trust, safety, and mutual respect within a community. In any school setting, individuals cannot reach their highest potential when they feel vulnerable to judgment or misunderstanding. By actively choosing compassion, we break down interpersonal barriers, empower quiet voices, and ensure that every peer feels genuinely valued. Ultimately, an empathetic community transforms everyday interactions into opportunities for shared encouragement.";
+      }
+
+      // Dynamic Assembly for P2 if blank
+      if (!p2) {
+        const currentData = scenarioPresets[selectedScenarioKey] || scenarioPresets.sports;
+        p2 = currentData.text;
+      }
+
+      // Dynamic Assembly for P3 if blank
+      if (!p3) {
+        p3 = "Helping others achieve their potential contributes directly to our own personal growth in profound ways. When we take the time to support a peer through a difficult moment, we cultivate essential life skills such as patience, active listening, and constructive leadership. Witnessing another person gain confidence reminds us that true success is not a solitary victory, but a collective achievement. Lifting others up expands our emotional maturity, deepens our self-awareness, and reinforces the value of mutual trust.";
+      }
+
+      // Dynamic Assembly for P4 if blank
+      if (!p4) {
+        p4 = metaphorPresets[selectedMetaphorKey] || metaphorPresets.soil;
+      }
+
+      // Combine paragraphs into full text
+      const fullText = `${p1}\n\n${p2}\n\n${p3}\n\n${p4}`;
+      document.getElementById('full-draft').value = fullText;
+
+      updateCounts();
+      showToast('✨ Article draft synthesized successfully!');
+    }
+
+    // Live Word Count Calculator
+    function countWords(text) {
+      if (!text || text.trim() === '') return 0;
+      return text.trim().split(/\s+/).filter(Boolean).length;
+    }
+
+    // Update Counts and UI Status
+    function updateCounts() {
+      const p1Text = document.getElementById('p1-text').value;
+      const p2Text = document.getElementById('p2-text').value;
+      const p3Text = document.getElementById('p3-text').value;
+      const p4Text = document.getElementById('p4-text').value;
+
+      const p1Words = countWords(p1Text);
+      const p2Words = countWords(p2Text);
+      const p3Words = countWords(p3Text);
+      const p4Words = countWords(p4Text);
+
+      document.getElementById('p1-word-count').innerText = `${p1Words} words`;
+      document.getElementById('p2-word-count').innerText = `${p2Words} words`;
+      document.getElementById('p3-word-count').innerText = `${p3Words} words`;
+      document.getElementById('p4-word-count').innerText = `${p4Words} words`;
+
+      // Full draft count
+      const fullDraftText = document.getElementById('full-draft').value;
+      const totalWords = countWords(fullDraftText);
+
+      document.getElementById('total-word-count').innerText = totalWords;
+
+      // Checklist Status
+      updateChecklistItem('check-p1', p1Words >= 30 || p1Text.length > 50);
+      updateChecklistItem('check-p2', p2Words >= 40 || p2Text.length > 50);
+      updateChecklistItem('check-p3', p3Words >= 30 || p3Text.length > 50);
+      updateChecklistItem('check-p4', p4Words >= 30 || p4Text.length > 50);
+
+      // Progress Bar & Badge
+      const progressBar = document.getElementById('word-progress-bar');
+      const wordBadge = document.getElementById('word-badge');
+
+      const percentage = Math.min(100, Math.round((totalWords / 400) * 100));
+      progressBar.style.width = `${percentage}%`;
+
+      if (totalWords === 0) {
+        wordBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600';
+        wordBadge.innerText = '0 / 300-400 words';
+      } else if (totalWords < 300) {
+        wordBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800';
+        wordBadge.innerText = `${totalWords} / 300-400 words (Keep writing!)`;
+      } else if (totalWords >= 300 && totalWords <= 400) {
+        wordBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
+        wordBadge.innerText = `🎯 ${totalWords} words (Target Reached!)`;
+      } else {
+        wordBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800';
+        wordBadge.innerText = `📖 ${totalWords} words (Detailed Draft)`;
+      }
+    }
+
+    function updateChecklistItem(id, isDone) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (isDone) {
+        el.className = 'flex items-center gap-1.5 text-xs text-emerald-600 font-semibold';
+        el.querySelector('span:first-child').className = 'w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold';
+      } else {
+        el.className = 'flex items-center gap-1.5 text-xs text-slate-400';
+        el.querySelector('span:first-child').className = 'w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px]';
+      }
+    }
+
+    function onFullDraftEdit() {
+      updateCounts();
+    }
+
+    // Auto Sample Essay
+    function autoSample() {
+      document.getElementById('p1-text').value = "Empathy is essential for creating an environment where everyone can thrive because it serves as the foundation of trust, psychological safety, and mutual respect. In any school community, students cannot perform at their best when they fear judgment or isolation. Empathy empowers us to look beyond surface actions, breaking down misunderstandings and ensuring that even the most reserved voices are heard. When compassion shapes our daily interactions, our school transforms into a safe space where everyone feels encouraged to contribute their unique strengths.";
+
+      const scenarioCards = document.querySelectorAll('.scenario-card');
+      if (scenarioCards.length > 3) selectScenario('speaking', scenarioCards[3]);
+
+      document.getElementById('p3-text').value = "Helping others achieve their potential contributes directly to our own personal growth in meaningful ways. Supporting a peer through a moment of vulnerability teaches us humility, patience, and active listening. It shifts our perspective away from self-centered competition toward collective strength, demonstrating that true leadership lies in encouraging others. By assisting a classmate to regain their confidence, we develop emotional resilience and build bonds of mutual trust that enrich our entire school experience.";
+
+      const metaphorCards = document.querySelectorAll('.metaphor-card');
+      if (metaphorCards.length > 0) selectMetaphor('soil', metaphorCards[0]);
+
+      generateFullDraft();
+      showToast('Loaded complete Grade 8 sample article!');
+    }
+
+    // Copy to Clipboard
+    function copyDraft() {
+      const title = document.getElementById('article-title').value;
+      const body = document.getElementById('full-draft').value;
+      const fullText = `${title}\n\n${body}`;
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = fullText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast('📋 Article copied to clipboard!');
+      } catch (err) {
+        showToast('Error copying text.');
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // Download TXT File
+    function downloadDraft() {
+      const title = document.getElementById('article-title').value;
+      const body = document.getElementById('full-draft').value;
+      const fullContent = `${title}\n${'='.repeat(title.length)}\n\n${body}`;
+
+      const blob = new Blob([fullContent], { type: 'text/plain;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Grade8_Empathy_Article_Draft.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('⬇️ Article downloaded as .txt!');
+    }
+
+    // Toast Notification System
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.innerText = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('toast-animate');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('toast-animate');
+      }, 3000);
+    }
+
+    // Initialize on load
+    window.onload = function() {
+      const scenarioCards = document.querySelectorAll('.scenario-card');
+      if (scenarioCards.length > 0) scenarioCards[0].classList.add('scenario-selected');
+      const metaphorCards = document.querySelectorAll('.metaphor-card');
+      if (metaphorCards.length > 0) metaphorCards[0].classList.add('metaphor-selected');
+      updateCounts();
+    };
+  </script>
+</body>
+</html>
