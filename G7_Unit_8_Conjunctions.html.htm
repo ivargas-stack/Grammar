@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 8 Grammar Presentation: Conjunctions</title>
+    <title>Unit 8 Grammar Presentation: Conjunctions (Discovery Approach)</title>
     <style>
         /* Calm Color Palette */
         :root {
@@ -13,11 +13,12 @@
             --bg-color: #eef2f0; /* Very pale mint/grey background */
             --slide-bg: #ffffff;
             --text-color: #444444;
+            --discussion-color: #e67e22; /* Warm orange for discussion prompts */
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 18px; /* Increased base font size */
+            font-size: 26px; /* Significantly increased base font size for large classrooms */
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -28,9 +29,9 @@
         }
         
         .presentation-container {
-            width: 90%;
-            max-width: 1000px;
-            height: 90vh;
+            width: 95%;
+            max-width: 1600px; /* Widened to accommodate larger text */
+            height: 92vh;
             background: var(--slide-bg);
             border-radius: 16px;
             box-shadow: 0 12px 35px rgba(74, 107, 93, 0.15);
@@ -42,7 +43,7 @@
         
         .slide {
             flex-grow: 1;
-            padding: 40px 60px;
+            padding: 40px 70px;
             display: none;
             overflow-y: auto;
             animation: fadeIn 0.5s ease-in-out;
@@ -59,61 +60,55 @@
         
         h1 {
             color: var(--primary-color);
-            border-bottom: 3px solid var(--secondary-color);
+            border-bottom: 4px solid var(--secondary-color);
             padding-bottom: 10px;
             text-align: center;
             margin-top: 0;
-            font-size: 2.2em;
+            font-size: 2.4em;
         }
         
-        h2 { color: var(--secondary-color); margin-top: 0; font-size: 1.8em; }
-        h3 { color: var(--primary-color); margin-top: 0; font-size: 1.4em; }
-        p { font-size: 1.2em; line-height: 1.7; }
+        h2 { color: var(--secondary-color); margin-top: 0; font-size: 2em; }
+        h3 { color: var(--primary-color); margin-top: 0; font-size: 1.5em; }
+        p, ol, ul { font-size: 1.25em; line-height: 1.6; }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 1.1em;
+            margin: 25px 0;
+            font-size: 1.25em;
         }
         th, td {
-            padding: 15px;
-            border: 1px solid #e0e5e2;
+            padding: 20px;
+            border: 2px solid #e0e5e2;
             text-align: left;
             vertical-align: top;
         }
-        th { background-color: #f4f7f6; color: var(--primary-color); width: 20%; }
-        td:nth-child(2) { width: 35%; }
-        td:nth-child(3) { width: 45%; }
+        th { background-color: #f4f7f6; color: var(--primary-color); }
         
         .box {
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            transition: transform 0.2s;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
         }
-        .box:hover { transform: translateX(5px); }
-        .box-info { background-color: #f0f4f8; border-left: 5px solid var(--secondary-color); }
-        .box-rule { background-color: #fdf8ef; border-left: 5px solid var(--accent-color); }
+        .box-info { background-color: #f0f4f8; border-left: 8px solid var(--secondary-color); }
+        .box-discussion { 
+            background-color: #fffaf0; 
+            border-left: 8px solid var(--discussion-color); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
         
         .highlight { font-weight: bold; color: #c07c41; }
-        .term { 
-            font-weight: bold; 
-            color: var(--secondary-color);
-            cursor: help;
-            border-bottom: 1px dashed var(--secondary-color);
-        }
-        .term:hover { color: var(--primary-color); }
+        .term { font-weight: bold; color: var(--secondary-color); }
         
         /* Interactive Student Input Elements */
         .student-input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 2px solid #e0e5e2;
-            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 3px solid #e0e5e2;
+            border-radius: 8px;
             font-family: inherit;
-            font-size: 1.1em;
+            font-size: 1.2em;
             resize: vertical;
             box-sizing: border-box;
             background-color: #fcfdfc;
@@ -121,20 +116,21 @@
         }
         .student-input:focus {
             outline: none;
-            border-color: var(--secondary-color);
+            border-color: var(--discussion-color);
             background-color: #ffffff;
         }
         
         .reveal-btn {
             background-color: var(--bg-color);
             color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            padding: 6px 12px;
-            border-radius: 5px;
+            border: 3px solid var(--primary-color);
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1em;
+            font-size: 1.2em;
             transition: all 0.3s;
+            margin-top: 15px;
         }
         .reveal-btn:hover {
             background-color: var(--primary-color);
@@ -142,283 +138,218 @@
         }
         .hidden-content {
             display: none;
-            margin-top: 15px;
-            padding: 12px;
+            margin-top: 20px;
+            padding: 20px;
             background-color: #eef2f0;
-            border-radius: 5px;
-            border-left: 4px solid var(--primary-color);
-            animation: fadeIn 0.4s;
-            font-size: 1.1em;
-        }
-
-        /* Quiz Styles */
-        .quiz-option {
-            display: block;
-            width: 100%;
-            text-align: left;
-            background: #f4f7f6;
-            border: 2px solid #e0e5e2;
-            padding: 15px;
-            margin-bottom: 10px;
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: all 0.2s;
+            border-left: 6px solid var(--primary-color);
+            animation: fadeIn 0.4s;
+            font-size: 1.25em;
         }
-        .quiz-option:hover { border-color: var(--secondary-color); background: #f0f4f8; }
-        .quiz-correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
-        .quiz-wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
         
         /* Navigation Controls */
         .controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 60px;
+            padding: 25px 70px;
             background: #f9fbfb;
-            border-top: 1px solid #e0e5e2;
+            border-top: 2px solid #e0e5e2;
         }
         .nav-btn {
             background-color: var(--secondary-color);
             color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.2em;
-            border-radius: 25px;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border-radius: 35px;
             cursor: pointer;
             transition: background 0.3s, transform 0.1s;
         }
         .nav-btn:hover { background-color: #55778a; transform: scale(1.05); }
         .nav-btn:disabled { background-color: #ccd5d1; cursor: not-allowed; transform: none; }
-        .progress { color: #889991; font-weight: bold; font-size: 1.2em; }
+        .progress { color: #889991; font-weight: bold; font-size: 1.3em; }
     </style>
 </head>
 <body>
 
 <div class="presentation-container">
 
-    <!-- Slide 1: Intro -->
+    <!-- Slide 1: The Hook / Comparison -->
     <div class="slide active" id="slide-1">
         <h1>Unit 8: Summing You Up</h1>
-        <h2 style="text-align: center; color: #889991;">Grammar Focus: Conjunctions of Addition and Purpose</h2>
+        <h2 style="text-align: center; color: #889991;">Grammar Discovery: Creating Better Summaries</h2>
         
-        <div class="box box-info">
-            <h3>The Goal of a Summary</h3>
-            <p>When writing a summary, your primary objective is to be <strong>concise</strong>. You must pack maximum information into minimal words without losing the original meaning.</p>
-            <p>Instead of writing choppy, repetitive sentences, expert writers use specific tools:</p>
-            <ul style="font-size: 1.2em; line-height: 1.7;">
-                <li><span class="term" title="Links related facts together">Conjunctions of Addition:</span> To link related facts together and remove repeated subjects or verbs.</li>
-                <li><span class="term" title="Explains the goal or reason behind an action">Conjunctions of Purpose:</span> To clearly explain <em>why</em> an action occurred in a single, flowing clause.</li>
-            </ul>
+        <p>Before we look at any grammar rules, let's look at how two different students wrote a summary of a school event.</p>
+        
+        <table style="table-layout: fixed;">
+            <tr>
+                <th style="width: 50%; text-align: center;">Student A's Draft</th>
+                <th style="width: 50%; text-align: center;">Student B's Draft</th>
+            </tr>
+            <tr>
+                <td style="background-color: #fdf2e9; padding: 25px;">
+                    The school raised money. They bought new computers. They wanted students to learn coding. They wanted to improve IT skills.
+                </td>
+                <td style="background-color: #e8f8f5; padding: 25px;">
+                    The school raised money <strong>and</strong> bought new computers <strong>so that</strong> students could learn coding <strong>as well as</strong> improve their IT skills.
+                </td>
+            </tr>
+        </table>
+
+        <div class="box box-discussion">
+            <h3 style="color: var(--discussion-color);">🗣️ Turn and Talk</h3>
+            <p>Discuss with your partner for 2 minutes:</p>
+            <ol>
+                <li>Which summary is easier to read and why?</li>
+                <li>Exactly how many words did Student B save? How did they do it?</li>
+            </ol>
+            <textarea class="student-input" rows="2" placeholder="Jot down your group's thoughts here..."></textarea>
         </div>
     </div>
 
-    <!-- Slide 2: Detailed Concept of Conjunctions -->
+    <!-- Slide 2: Discovering the Categories -->
     <div class="slide" id="slide-2">
-        <h2>What Exactly is a Conjunction?</h2>
-        <p>A conjunction is a connecting word. In English grammar, conjunctions are specialized words used to link other words, phrases, or full independent clauses together to form complex, flowing sentences.</p>
-        
-        <p>In Grade 7, we categorize these connectors by what they achieve in your writing:</p>
-        <ul style="font-size: 1.2em; line-height: 1.7;">
-            <li><strong>Addition:</strong> Shows the reader that you are adding more evidence or details that are equal in importance to what you just said.</li>
-            <li><strong>Purpose:</strong> Answers the hidden <em>"Why?"</em> in the reader's mind by linking an action to its intended goal.</li>
-        </ul>
+        <h2>Sorting the Connectors</h2>
+        <p>Student B used <strong>conjunctions</strong> to combine ideas and remove repeated words. In Unit 8, we divide these conjunctions into two jobs: <strong>Addition</strong> (adding facts) and <strong>Purpose</strong> (explaining why).</p>
 
-        <table style="margin-top: 15px;">
-            <tr>
-                <th style="width: 50%;">Without Conjunctions (Choppy)</th>
-                <th style="width: 50%;">With Conjunctions (Flowing)</th>
-            </tr>
-            <tr>
-                <td>The school raised money. They bought new computers. They wanted students to learn coding.</td>
-                <td>The school raised money <span class="highlight">and</span> bought new computers <span class="highlight">so that</span> students could learn coding.</td>
-            </tr>
-        </table>
+        <div class="box box-discussion">
+            <h3 style="color: var(--discussion-color);">🔍 Group Challenge: Categorize the Words</h3>
+            <p>Look at the list of conjunctions below. With your partner, decide which ones belong in the "Addition" group and which belong in the "Purpose" group.</p>
+            <p style="text-align: center; font-size: 1.4em; font-weight: bold; background: white; padding: 15px; border-radius: 8px;">
+                in order to &nbsp; | &nbsp; both...and &nbsp; | &nbsp; so that &nbsp; | &nbsp; not only...but also &nbsp; | &nbsp; as well as &nbsp; | &nbsp; in order that
+            </p>
+        </div>
+
+        <button class="reveal-btn" onclick="toggleReveal('rev1')">Reveal the Answers</button>
+        
+        <div id="rev1" class="hidden-content">
+            <table style="margin-top: 15px;">
+                <tr>
+                    <th style="background-color: #e8f4f8;">➕ Conjunctions of Addition</th>
+                    <th style="background-color: #f9ebea;">🎯 Conjunctions of Purpose</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>and</li>
+                            <li>both ... and</li>
+                            <li>not only ... but also</li>
+                            <li>as well as</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>so that</li>
+                            <li>in order that</li>
+                            <li>in order to</li>
+                            <li>so as to</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <!-- Slide 3: Addition 1 -->
+    <!-- Slide 3: Deducing the Verb Rules (Addition) -->
     <div class="slide" id="slide-3">
-        <h2>Part 1: Conjunctions of Addition (Basics)</h2>
-        <p>Conjunctions of addition link related ideas. They signal to the reader: <em>"Here is more information on the same topic."</em></p>
+        <h2>Investigating the Rules: Addition</h2>
+        <p>Let's look closely at how professional writers use these addition conjunctions. There are hidden grammar patterns you need to find.</p>
 
-        <table>
-            <tr>
-                <th>Conjunction</th>
-                <th>Detailed Explanation</th>
-                <th>Your Turn: Type a sentence, then check the model!</th>
-            </tr>
-            <tr>
-                <td><strong>and</strong></td>
-                <td>The most basic connector. It joins words, phrases, or full clauses.<br><br><em>Punctuation Tip:</em> Only use a comma if it joins two complete sentences.</td>
-                <td>
-                    <textarea class="student-input" rows="3" placeholder="Write a summary sentence using 'and'..."></textarea>
-                    <button class="reveal-btn" onclick="toggleReveal('rev1')">Show Teacher Model</button>
-                    <div id="rev1" class="hidden-content">The library offers digital archives <span class="highlight">and</span> hosts weekly reading clubs.</div>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>both ... and</strong></td>
-                <td>A paired conjunction. It strongly emphasizes that two facts are equally true or important.</td>
-                <td>
-                    <textarea class="student-input" rows="3" placeholder="Write a summary sentence using 'both...and'..."></textarea>
-                    <button class="reveal-btn" onclick="toggleReveal('rev2')">Show Teacher Model</button>
-                    <div id="rev2" class="hidden-content">Solar panels <span class="highlight">both</span> lower electricity bills <span class="highlight">and</span> reduce carbon emissions.</div>
-                </td>
-            </tr>
-        </table>
+        <div class="box box-discussion">
+            <h3 style="color: var(--discussion-color);">🕵️ Find the Pattern</h3>
+            <p><strong>Example 1:</strong> She <span class="highlight">not only</span> <u>studied</u> math <span class="highlight">but also</span> <u>practiced</u> piano.</p>
+            <p><strong>Example 2:</strong> The new train <span class="highlight">both</span> <u>cuts</u> travel time <span class="highlight">and</span> <u>reduces</u> traffic.</p>
+            <p><em>Question A: Look at the underlined verbs. What do you notice about the verbs on BOTH sides of the conjunctions?</em></p>
+            <hr style="border: 0; border-top: 2px solid #ddd; margin: 20px 0;">
+            <p><strong>Example 3:</strong> <span class="highlight">As well as</span> <u>practicing</u> daily, the team ate healthy food.</p>
+            <p><em>Question B: What happens to the verb immediately after "as well as"?</em></p>
+            <textarea class="student-input" rows="2" placeholder="Type the rules your group discovered..."></textarea>
+        </div>
+
+        <button class="reveal-btn" onclick="toggleReveal('rev2')">Check the Official Rules</button>
+        <div id="rev2" class="hidden-content box-info">
+            <p><strong>Rule A (The Balance Rule):</strong> For paired conjunctions (<em>not only... but also</em>, <em>both... and</em>), the verbs on both sides must match in tense and form (parallelism).</p>
+            <p><strong>Rule B (The -ing Rule):</strong> The verb immediately following <em>as well as</em> must be in the <strong>-ing</strong> form (gerund).</p>
+        </div>
     </div>
 
-    <!-- Slide 4: Addition 2 & Verb Rules -->
+    <!-- Slide 4: Deducing the Verb Rules (Purpose) -->
     <div class="slide" id="slide-4">
-        <h2>Part 1: Advanced Addition & Verb Form Rules</h2>
-        
-        <table>
-            <tr>
-                <th>Conjunction</th>
-                <th>Detailed Explanation</th>
-                <th>Your Turn: Type a sentence, then check the model!</th>
-            </tr>
-            <tr>
-                <td><strong>not only ... but also</strong></td>
-                <td>Builds momentum by adding a second, often more impressive, point.</td>
-                <td>
-                    <textarea class="student-input" rows="3" placeholder="Write a summary sentence using 'not only...but also'..."></textarea>
-                    <button class="reveal-btn" onclick="toggleReveal('rev3')">Show Teacher Model</button>
-                    <div id="rev3" class="hidden-content">Volunteering <span class="highlight">not only</span> helps charities <span class="highlight">but also</span> builds teamwork skills.</div>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>as well as</strong></td>
-                <td>Connects two actions or facts, usually keeping the focus on the main subject.</td>
-                <td>
-                    <textarea class="student-input" rows="3" placeholder="Write a summary sentence using 'as well as'..."></textarea>
-                    <button class="reveal-btn" onclick="toggleReveal('rev4')">Show Teacher Model</button>
-                    <div id="rev4" class="hidden-content"><span class="highlight">As well as</span> plant<strong>ing</strong> trees, they cleared the riverbank.</div>
-                </td>
-            </tr>
-        </table>
+        <h2>Investigating the Rules: Purpose</h2>
+        <p>Now let's look at conjunctions of purpose. These explain <em>why</em> an action was done.</p>
 
-        <div class="box box-rule">
-            <h3>Verb Form Rule: Parallelism & Addition</h3>
-            <p>Choosing the right verb form is critical when adding information:</p>
-            <ul style="font-size: 1.1em; line-height: 1.6;">
-                <li><strong>The Balance Rule (Parallelism):</strong> For paired conjunctions (<em>not only... but also</em>, <em>both... and</em>), the verbs on both sides must match in tense and form.<br>
-                ✔️ She not only <em>studied</em> math but also <em>practiced</em> piano.<br>
-                ❌ She not only <em>studied</em> math but also <em>was a piano player</em>.</li>
-                <li><strong>The "-ing" Rule for <em>As well as</em>:</strong> When connecting verbs with "as well as", the verb immediately following it must be in the <strong>-ing</strong> form (gerund).<br>
-                ✔️ <em>As well as</em> <strong>practicing</strong> daily, the team ate healthy food.</li>
-            </ul>
+        <div class="box box-discussion">
+            <h3 style="color: var(--discussion-color);">🕵️ Find the Pattern</h3>
+            <p><strong>Example 1:</strong> Rangers tagged the turtles <span class="highlight">so that</span> scientists <strong>could</strong> <u>track</u> them.</p>
+            <p><strong>Example 2:</strong> The school extended breaks <span class="highlight">in order that</span> students <strong>might</strong> <u>join</u> clubs.</p>
+            <hr style="border: 0; border-top: 2px solid #ddd; margin: 20px 0;">
+            <p><strong>Example 3:</strong> Athletes train at high altitudes <span class="highlight">in order to</span> <u>improve</u> their stamina.</p>
+            <p><strong>Example 4:</strong> We left early <span class="highlight">so as to</span> <u>avoid</u> the traffic.</p>
+            
+            <p><em>Question: Discuss with your partner. Why do Examples 1 & 2 use words like "could" and "might", while Examples 3 & 4 do not?</em></p>
+            <textarea class="student-input" rows="2" placeholder="Type the rules your group discovered..."></textarea>
+        </div>
+
+        <button class="reveal-btn" onclick="toggleReveal('rev3')">Check the Official Rules</button>
+        <div id="rev3" class="hidden-content box-info">
+            <p><strong>The Modal Rule:</strong> Use a <strong>modal verb</strong> (can, could, will, would, might) + base verb after <em>so that</em> and <em>in order that</em>.</p>
+            <p><strong>The Base Verb Rule:</strong> Use a <strong>base verb</strong> directly after <em>in order to</em> and <em>so as to</em>.</p>
         </div>
     </div>
 
-    <!-- Slide 5: Purpose 1 -->
+    <!-- Slide 5: Peer Editing Practice -->
     <div class="slide" id="slide-5">
-        <h2>Part 2: Conjunctions of Purpose (Using Modals)</h2>
-        <p>Purpose conjunctions explain the <strong>goal or reason</strong> behind an action.</p>
+        <h2>Be the Teacher: Peer Editing</h2>
+        <p>Other students have tried to write summary sentences, but they made mistakes with the rules we just discovered.</p>
 
-        <table>
-            <tr>
-                <th>Conjunction</th>
-                <th>Grammar Requirement</th>
-                <th>Your Turn: Type a sentence, then check the model!</th>
-            </tr>
-            <tr>
-                <td><strong>so that</strong></td>
-                <td>Must be followed by a subject + a <strong>modal verb</strong> (can, could, will, would, may, might).</td>
-                <td>
-                    <textarea class="student-input" rows="3" placeholder="Write a summary sentence using 'so that'..."></textarea>
-                    <button class="reveal-btn" onclick="toggleReveal('rev5')">Show Teacher Model</button>
-                    <div id="rev5" class="hidden-content">Rangers tagged the turtles <span class="highlight">so that</span> scientists <strong>could</strong> track them.</div>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>in order that</strong></td>
-                <td>A highly formal version of <em>so that</em>. Also requires a subject + a <strong>modal verb</strong>.</td>
-                <td>
-                    <textarea class="student-input" rows="3" placeholder="Write a summary sentence using 'in order that'..."></textarea>
-                    <button class="reveal-btn" onclick="toggleReveal('rev6')">Show Teacher Model</button>
-                    <div id="rev6" class="hidden-content">The school extended breaks <span class="highlight">in order that</span> students <strong>might</strong> join clubs.</div>
-                </td>
-            </tr>
-        </table>
+        <div class="box box-discussion">
+            <h3 style="color: var(--discussion-color);">✍️ Spot and Fix the Errors</h3>
+            <p>Work with your group to find the grammar mistake in each sentence. Rewrite the corrected sentence in the box below.</p>
+            <ol>
+                <li>The team not only practiced daily but also were eating healthy food.</li>
+                <li>As well as finish his homework, he cleaned his room.</li>
+                <li>They saved their allowance in order to they could buy new bicycles.</li>
+            </ol>
+            <textarea class="student-input" rows="4" placeholder="Type your corrected sentences here..."></textarea>
+        </div>
+
+        <button class="reveal-btn" onclick="toggleReveal('rev4')">Show Corrected Sentences</button>
+        <div id="rev4" class="hidden-content" style="border-left-color: #28a745; background-color: #d4edda;">
+            <p>1. The team not only <strong>practiced</strong> daily but also <strong>ate</strong> healthy food. <em>(Balance Rule)</em></p>
+            <p>2. As well as <strong>finishing</strong> his homework, he cleaned his room. <em>(-ing Rule)</em></p>
+            <p>3. They saved their allowance in order to <strong>buy</strong> new bicycles. <em>(OR: ...so that they could buy...)</em></p>
+        </div>
     </div>
 
-    <!-- Slide 6: Purpose 2 & Verb Rules -->
+    <!-- Slide 6: The Ultimate Compression Challenge -->
     <div class="slide" id="slide-6">
-        <h2>Part 2: Purpose Conjunctions (Using Base Verbs)</h2>
+        <h2>The Summary Compression Challenge</h2>
+        <p>Let's put everything together. Remember, a good summary is concise. Let's see which group can write the most efficient sentence.</p>
         
-        <table>
-            <tr>
-                <th>Conjunction</th>
-                <th>Grammar Requirement</th>
-                <th>Your Turn: Type a sentence, then check the model!</th>
-            </tr>
-            <tr>
-                <td><strong>in order to</strong> <br> <em>or</em> <br> <strong>so as to</strong></td>
-                <td>Must be followed directly by a <strong>base verb</strong>. Used when the subject of both actions is the same person/thing.</td>
-                <td>
-                    <textarea class="student-input" rows="3" placeholder="Write a summary sentence using 'in order to'..."></textarea>
-                    <button class="reveal-btn" onclick="toggleReveal('rev7')">Show Teacher Model</button>
-                    <div id="rev7" class="hidden-content">Athletes train at high altitudes <span class="highlight">in order to</span> <strong>improve</strong> their stamina.</div>
-                </td>
-            </tr>
-        </table>
-
-        <div class="box box-rule">
-            <h3>Verb Form Rule: Modals vs. Base Verbs for Purpose</h3>
-            <p>Never mix up your purpose verb forms! Remember this quick checklist:</p>
-            <ul style="font-size: 1.1em; line-height: 1.6;">
-                <li>Use a <strong>Modal Verb</strong> (can, could, will, would) after <em>so that</em> and <em>in order that</em>. <br> (e.g., ...so that they <strong>could win</strong>.)</li>
-                <li>Use a <strong>Base Verb</strong> (infinitive) after <em>in order to</em> and <em>so as to</em>. <br> (e.g., ...in order to <strong>win</strong>.)</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Slide 7: Conclusion (Interactive) -->
-    <div class="slide" id="slide-7">
-        <h2>Summary Compression: Interactive Before & After</h2>
-        <p>Can you guess how to compress this wordy draft into a single sentence? Type your attempt, then click to reveal the concise summary.</p>
-        
-        <div class="box box-rule" style="background-color: #f0f4f8; border-left-color: var(--secondary-color);">
-            <h3>Wordy Draft (35 words)</h3>
-            <p>The city built cycle lanes. They also planted trees along the avenue. They did this because they wanted commuters to travel safely. They also wanted to improve air quality.</p>
+        <div class="box box-discussion">
+            <h3 style="color: var(--discussion-color);">⏱️ Group Task</h3>
+            <p><strong>Wordy Draft (35 words):</strong><br>
+            The city built cycle lanes. They also planted trees along the avenue. They did this because they wanted commuters to travel safely. They also wanted to improve air quality.</p>
+            
+            <p><strong>Your Goal:</strong> Combine this into <strong>one</strong> flowing sentence using at least one conjunction of addition AND one conjunction of purpose. Make sure your verb rules are correct!</p>
+            
+            <textarea class="student-input" rows="3" placeholder="Co-write your group's master sentence here..."></textarea>
         </div>
         
-        <textarea class="student-input" rows="4" placeholder="Type your compressed summary here using addition and purpose conjunctions..."></textarea>
-        
-        <div style="text-align: center; margin: 20px 0;">
-            <button class="nav-btn" onclick="toggleReveal('magicReveal')">Transform to Teacher Model!</button>
+        <div style="text-align: center; margin: 25px 0;">
+            <button class="nav-btn" onclick="toggleReveal('magicReveal')">Compare with the Teacher's Model</button>
         </div>
 
-        <div id="magicReveal" class="hidden-content box-info" style="font-size: 1.3em; text-align: center; border-left-color: #28a745; background-color: #d4edda;">
+        <div id="magicReveal" class="hidden-content box-info" style="font-size: 1.4em; text-align: center; border-left-color: #28a745; background-color: #d4edda;">
             <p>The city <span class="highlight">not only</span> built cycle lanes <span class="highlight">but also</span> planted trees along the avenue <span class="highlight">so that</span> commuters could travel safely and breathe cleaner air. <em>(23 words)</em></p>
         </div>
-    </div>
-
-    <!-- Slide 8: Interactive Quiz -->
-    <div class="slide" id="slide-8">
-        <h2>Quick Knowledge Check!</h2>
-        <p>Which sentence uses the conjunctions and <strong>verb forms</strong> correctly following the Balance Rule and Modal Rule?</p>
-        
-        <div id="quiz-container">
-            <button class="quiz-option" onclick="checkAnswer(this, false)">
-                A) The team not only practiced daily but also were eating healthy food in order that win the tournament.
-            </button>
-            <button class="quiz-option" onclick="checkAnswer(this, true)">
-                B) As well as practicing daily, the team ate healthy food so that they could win the tournament.
-            </button>
-            <button class="quiz-option" onclick="checkAnswer(this, false)">
-                C) The team both practiced daily and ate healthy food so that they can winning the tournament.
-            </button>
-        </div>
-        
-        <div id="quiz-feedback" class="hidden-content"></div>
     </div>
 
     <!-- Controls -->
     <div class="controls">
         <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)" disabled>Previous</button>
-        <span class="progress" id="progressText">Slide 1 of 8</span>
+        <span class="progress" id="progressText">Slide 1 of 6</span>
         <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">Next</button>
     </div>
 
@@ -426,7 +357,7 @@
 
 <script>
     let currentSlide = 1;
-    const totalSlides = 8;
+    const totalSlides = 6;
 
     function changeSlide(direction) {
         document.getElementById('slide-' + currentSlide).classList.remove('active');
@@ -445,30 +376,6 @@
             element.style.display = "none";
         } else {
             element.style.display = "block";
-        }
-    }
-
-    function checkAnswer(element, isCorrect) {
-        const options = document.querySelectorAll('.quiz-option');
-        options.forEach(opt => {
-            opt.classList.remove('quiz-correct', 'quiz-wrong');
-        });
-
-        const feedback = document.getElementById('quiz-feedback');
-        feedback.style.display = "block";
-
-        if (isCorrect) {
-            element.classList.add('quiz-correct');
-            feedback.innerHTML = "<strong>Correct!</strong> 'As well as' is correctly followed by an -ing verb (practicing), and 'so that' is correctly followed by a modal (could).";
-            feedback.style.borderLeftColor = "#28a745";
-            feedback.style.backgroundColor = "#d4edda";
-            feedback.style.color = "#155724";
-        } else {
-            element.classList.add('quiz-wrong');
-            feedback.innerHTML = "<strong>Not quite!</strong> Check your verb forms. 'in order that' needs a modal verb, not a base verb. 'both...and' must be balanced. Try again!";
-            feedback.style.borderLeftColor = "#dc3545";
-            feedback.style.backgroundColor = "#f8d7da";
-            feedback.style.color = "#721c24";
         }
     }
 </script>
